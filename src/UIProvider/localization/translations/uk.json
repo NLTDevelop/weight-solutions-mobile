@@ -1,3 +1,80 @@
 {
-    "common": {}
+    "common": {
+        "email": "Email",
+        "emailPlaceholder": "Введіть еmail",
+        "password": "Пароль",
+        "passwordPlaceholder": "Введіть пароль"
+    },
+    "authorization": {
+        "title": "Авторизація",
+        "subtitle": "Введіть свій email та пароль, щоб увійти в систему.",
+        "forgotPassword": "Забули пароль?",
+        "signIn": "Увійти"
+    },
+    "companies": {
+        "title": "Мої компанії",
+        "empty": "Компаній не знайдено",
+        "createButton": "Створити компанію"
+    },
+    "company": {
+        "detailsTitle": "Деталі компанії",
+        "titleFallback": "Компанія",
+        "contact": "Контакт",
+        "description": "Опис",
+        "status": "Статус",
+        "contactFallback": "Контакт не вказано",
+        "descriptionFallback": "Опис не вказано"
+    },
+    "users": {
+        "companyUsersTitle": "Користувачі компанії",
+        "emptyCompanyUsers": "У цій компанії ще немає користувачів",
+        "addUser": "Додати користувача",
+        "createTitle": "Створення користувача",
+        "createButton": "Створити користувача",
+        "detailsTitle": "Деталі користувача",
+        "editTitle": "Редагування користувача",
+        "editButton": "Редагувати",
+        "saveButton": "Зберегти",
+        "titleFallback": "Користувач",
+        "name": "Ім'я",
+        "username": "Логін",
+        "email": "Email",
+        "password": "Пароль",
+        "passwordOptional": "Новий пароль",
+        "description": "Опис",
+        "role": "Роль",
+        "status": "Статус",
+        "company": "Компанія",
+        "validation": {
+            "nameRequired": "Вкажіть ім'я",
+            "usernameRequired": "Вкажіть логін",
+            "emailRequired": "Вкажіть email",
+            "passwordRequired": "Вкажіть пароль",
+            "descriptionRequired": "Вкажіть опис"
+        }
+    },
+    "profile": {
+        "title": "Профіль",
+        "personalDataTitle": "Особисті дані",
+        "linkedObjectsTitle": "Прив'язані об'єкти",
+        "logoutTitle": "Вийти з облікового запису",
+        "deleteAccountTitle": "Видалити акаунт",
+        "logoutModalTitle": "Вийти з облікового запису",
+        "logoutModalDescription": "Ви впевнені, що хочете вийти з облікового запису?",
+        "logoutConfirm": "Вийти",
+        "deleteModalTitle": "Видалити обліковий запис",
+        "deleteModalDescription": "Ви впевнені, що хочете видалити обліковий запис?",
+        "deleteConfirm": "Видалити",
+        "cancel": "Скасувати",
+        "personalName": "Ім'я",
+        "personalRole": "Роль",
+        "personalEmail": "Email",
+        "personalUsername": "Логін",
+        "personalCompany": "Компанія",
+        "linkedObjectsEmpty": "Прив'язані об'єкти відсутні"
+    },
+    "tabs": {
+        "home": "Головна",
+        "profile": "Профіль"
+    }
 }

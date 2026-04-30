@@ -2,7 +2,7 @@
 // import NetInfo from '@react-native-community/netinfo';
 // import { IRequester } from './IRequester/IRequester';
 // import { IResponse } from './IRequester/IResponse';
-// import { localization } from '../../UIProvider/localization/Localization';
+// import { localization } from '@/UIProvider/localization/Localization';
 // // import { CacheService } from '../cache/CacheService';
 
 // export class OfflineRequester {

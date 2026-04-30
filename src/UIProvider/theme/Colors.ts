@@ -3,15 +3,15 @@ import { IColors } from './IColors';
 // TODO: цвета редактируются исключительно посогласованию
 export const COLORS: { dark: IColors } = {
     dark: {
-        background: '#131728',
+        background: '#FBFDFF',
         background_light: '#8C8F9A',
         background_strong: '#191F35',
         background_secondary: '#435A5F',
         background_dark: "#000000",
 
-        card: '#272D42',
-        card_secondary: '#363B4E',
-        card_middle: '#384656',
+        card: '#FFFFFF',
+        card_secondary: '#FFFFFF',
+        card_middle: '#FFFFFF',
 
         notification: '',
 
@@ -21,11 +21,11 @@ export const COLORS: { dark: IColors } = {
 
         shadow: '#06080D',
 
-        text: '#161613',
-        text_strong: '#FCFCFC',
-        text_middle: '#C5C7CD',
-        text_light: '#8C8F9A',
-        text_secondary: '#72726F',
+        text: '#14181F',
+        text_strong: '#14181F',
+        text_middle: '#14181F',
+        text_light: '#14181F',
+        text_secondary: '#14181F',
         text_inverted: '#FFFFFF',
         text_primary: '#8E68FF',
         text_error: '#FF4E2E',
@@ -39,7 +39,7 @@ export const COLORS: { dark: IColors } = {
         icon_primary: '#8E68FF',
         icon_error: '#FF4E2E',
 
-        primary: '#8E68FF',
+        primary: '#FAB500',
         primary_secondary: '#AFF5DE',
         primary_secondary_dark: '#66BDA1',
         error: '#FF4E2E',

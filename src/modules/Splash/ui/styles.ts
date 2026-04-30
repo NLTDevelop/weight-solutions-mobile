@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { IColors } from '@/UIProvider/theme/IColors';
+import { scaleVertical } from '@/utils';
 
 export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
@@ -14,6 +15,10 @@ export const getStyles = (colors: IColors) => {
             justifyContent: 'center',
             alignItems: 'center',
         },
+        image:{
+            width: scaleVertical(263),
+            height: scaleVertical(89),
+        }
     });
     return styles;
 };

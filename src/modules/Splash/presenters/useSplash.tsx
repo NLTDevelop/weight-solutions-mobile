@@ -1,26 +1,18 @@
-// import { useNavigation } from '@react-navigation/native';
-// import { StackNavigationProp } from '@react-navigation/stack';
-// import { useEffect } from 'react';
-// import { userModel } from '../../../entities/users/UserModel';
-// import { userService } from '../../../entities/users/UserService';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { userModel } from '@/entities/User/UserModel';
+import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
 
 export const useSplash = () => {
-    // const navigation = useNavigation<StackNavigationProp<any>>();
+    const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
-
-    // useEffect(() => {
-    //     if (userModel.token) {
-    //         userService.getUserData();
-    //     }
-    // }, []);
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         if (userModel.token) {
-    //             navigation.reset({ index: 0, routes: [{ name: 'TabNavigator', params: { screen: 'Home' } }] });
-    //         } else {
-    //             navigation.reset({ index: 0, routes: [{ name: 'CompanyAuthorization' }] });
-    //         }
-    //     }, 1000);
-    // }, [navigation]);
+    useEffect(() => {
+        setTimeout(() => {
+            if (userModel.user) {
+                navigation.reset({ index: 0, routes: [{ name: 'TabNavigator', params: { screen: 'HomeView' } }] });
+            } else {
+                navigation.reset({ index: 0, routes: [{ name: 'AuthorizationView' }] });
+            }
+        }, 1000);
+    }, [navigation]);
 };
