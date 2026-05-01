@@ -3,6 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useUiContext } from '@/UIProvider'; 
 import { HomeView } from '@/modules/Home/ui';
 import { ProfileView } from '@/modules/Profile/Profile';
+import { ProductsView } from '@/modules/Products/Products';
+import { WeighingsView } from '@/modules/Weighing/Weighings/ui';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,6 +29,8 @@ export const TabNavigator = observer(() => {
             detachInactiveScreens={false}
         >
             <Tab.Screen name="HomeView" component={HomeView} options={{ tabBarLabel: t('tabs.home') }} />
+            <Tab.Screen name="WeighingsView" component={WeighingsView} options={{ tabBarLabel: t('tabs.products') }} />
+            <Tab.Screen name="ProductsView" component={ProductsView} options={{ tabBarLabel: t('tabs.products') }} />
             <Tab.Screen name="ProfileView" component={ProfileView} options={{ tabBarLabel: t('tabs.profile') }} />
 
             {/* 

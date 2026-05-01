@@ -70,7 +70,7 @@ export const getStyle = (colors: IColors) => {
         body_m_bold: {
             fontSize: scaleFontSize(12),
             lineHeight: scaleLineHeight(14),
-            fontWeight: '600',
+            fontWeight: '500',
             fontFamily: 'Roboto-Bold',
             color: colors.text_middle,
         },

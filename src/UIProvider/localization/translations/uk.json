@@ -22,8 +22,78 @@
         "contact": "Контакт",
         "description": "Опис",
         "status": "Статус",
+        "owner": "Власник",
         "contactFallback": "Контакт не вказано",
         "descriptionFallback": "Опис не вказано"
+    },
+    "weighings": {
+        "title": "Зважування",
+        "empty": "Записи зважування не знайдено",
+        "createTitle": "Створення зважування",
+        "createButton": "Створити зважування",
+        "detailsTitle": "Деталі зважування",
+        "editTitle": "Редагування зважування",
+        "editButton": "Редагувати",
+        "saveButton": "Зберегти",
+        "titleFallback": "Зважування",
+        "productLabel": "Сировина",
+        "selectedProductLabel": "Обрано",
+        "noProducts": "Немає активних продуктів для вибору",
+        "productFallback": "Продукт не вказано",
+        "recordNumberLabel": "Номер запису",
+        "firstWeightDateTimeLabel": "Дата і час першого зважування",
+        "secondWeightDateTimeLabel": "Дата і час другого зважування",
+        "carNumberLabel": "Номер авто",
+        "cargoTypeLabel": "Тип вантажу / сировина",
+        "scalePointLabel": "Пункт зважування",
+        "grossWeightLabel": "Вага брутто",
+        "tareWeightLabel": "Вага тари",
+        "netWeightLabel": "Вага нетто",
+        "statusLabel": "Статус",
+        "commentLabel": "Коментар",
+        "suspiciousLabel": "Підозрілий запис",
+        "statuses": {
+            "completed": "Завершено",
+            "suspicious": "Підозріло"
+        },
+        "suspiciousValues": {
+            "yes": "Так",
+            "no": "Ні"
+        },
+        "fallbacks": {
+            "unavailable": "Недоступно в API",
+            "descriptionUnavailable": "Опис не вказано"
+        },
+        "validation": {
+            "productRequired": "Оберіть продукт",
+            "carNumberRequired": "Вкажіть номер авто",
+            "grossWeightRequired": "Вкажіть вагу брутто",
+            "tareWeightRequired": "Вкажіть вагу тари",
+            "scalePointRequired": "Вкажіть пункт зважування"
+        }
+    },
+    "products": {
+        "title": "Продукти",
+        "empty": "Продукти не знайдено",
+        "createTitle": "Створення продукту",
+        "createButton": "Створити продукт",
+        "detailsTitle": "Деталі продукту",
+        "editTitle": "Редагування продукту",
+        "editButton": "Редагувати",
+        "saveButton": "Зберегти",
+        "titleFallback": "Продукт",
+        "nameLabel": "Назва",
+        "descriptionLabel": "Опис",
+        "statusLabel": "Статус",
+        "descriptionFallback": "Опис не вказано",
+        "statuses": {
+            "active": "Активний",
+            "inactive": "Неактивний",
+            "archive": "Архів"
+        },
+        "validation": {
+            "nameRequired": "Вкажіть назву"
+        }
     },
     "users": {
         "companyUsersTitle": "Користувачі компанії",
@@ -75,6 +145,7 @@
     },
     "tabs": {
         "home": "Головна",
+        "products": "Продукти",
         "profile": "Профіль"
     }
 }

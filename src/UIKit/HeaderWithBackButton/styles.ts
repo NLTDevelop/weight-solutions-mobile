@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { IColors } from '@/UIProvider/theme/IColors';
+import { scaleFontSize, scaleLineHeight } from '@/utils';
 
 export const getStyle = (colors: IColors, backDisabled?: boolean) => {
     const styles = StyleSheet.create({
@@ -23,9 +24,9 @@ export const getStyle = (colors: IColors, backDisabled?: boolean) => {
             alignItems: backDisabled ? 'center' : 'flex-start',
         },
         title: {
-            fontSize: 16,
-            lineHeight: 24,
-            fontWeight: '700',
+            fontSize: scaleFontSize(18),
+            lineHeight: scaleLineHeight(22),
+            fontWeight: '500',
             fontFamily: 'Roboto-Regular',
             color: colors.text,
         },

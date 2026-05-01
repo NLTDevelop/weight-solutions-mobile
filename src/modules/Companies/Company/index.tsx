@@ -12,6 +12,7 @@ import { InfoRow } from './components/InfoRow';
 import { useCompany } from './presenters/useCompany';
 import { ICompanyUserCard } from './types/ICompanyUserCard';
 import { getStyles } from './styles';
+import { NLTRow } from '@/UIKit/NLTRow';
 
 export const CompanyView = observer(() => {
     const { colors, t } = useUiContext();
@@ -49,6 +50,7 @@ export const CompanyView = observer(() => {
                 : <View style={styles.content}>
                     <View style={styles.card}>
                         <Text style={styles.title}>{company?.name || t('company.titleFallback')}</Text>
+                        <NLTRow label={t('company.owner')} value={company?.contact || ''} />
                         <FlatList
                             data={infoRows}
                             renderItem={renderItem}
