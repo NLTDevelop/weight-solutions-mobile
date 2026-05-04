@@ -40,6 +40,12 @@ class CompanyModel implements ICompanyModel {
     public appened(companies: ICompany[]) {
         this.companies = [...this.companies, ...companies];
     }
+
+    public clear() {
+        this.companies = [];
+        this.company = null;
+        this.meta = null;
+    }
 }
 
 export const companyModel = new CompanyModel();

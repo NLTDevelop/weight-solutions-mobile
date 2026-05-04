@@ -1,76 +1,72 @@
 import { useUiContext } from '@/UIProvider';
+import { Typography } from '@/UIKit/Typography';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { FlatList, ListRenderItem, View, Text } from 'react-native';
-import { ProfileConfirmationModal } from './components/ProfileConfirmationModal';
+import { Image, View } from 'react-native';
 import { ProfileMenuItem } from './components/ProfileMenuItem';
 import { useProfile } from './presenters/useProfile';
 import { getStyles } from './styles';
-import { IProfileMenuItem } from '../types/IProfileMenuItem';
+import { NLTCard } from '@/UIKit/NLTCard';
+import { BellIcon } from '@/assets/icons/BellIcon';
+import { LogoutIcon } from '@/assets/icons/LogoutIcon';
+import { TrashIcon } from '@/assets/icons/TrashIcon';
+import { UserIcon } from '@/assets/icons/UserIcon';
+import { NLTModal } from '@/UIKit/NLTModal';
+import { userModel } from '@/entities/User/UserModel';
+
+const logo = require('@/assets/images/logo.png');
 
 export const ProfileView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const {
-        userName,
-        roleText,
-        mainMenuItems,
-        accountMenuItems,
-        confirmationTitle,
-        confirmationDescription,
-        confirmationButtonText,
-        confirmationType,
-        isConfirmationVisible,
-        onCloseModal,
-        onConfirmAction,
-    } = useProfile();
-
-    const keyExtractor = (item: IProfileMenuItem) => item.id;
-
-    const renderItem: ListRenderItem<IProfileMenuItem> = ({ item }) => {
-        return <ProfileMenuItem item={{ ...item, title: t(item.title), subtitle: item.subtitle ? t(item.subtitle) : undefined }} />;
-    };
-
-    const ItemSeparatorComponent = () => {
-        return <View style={styles.separator} />;
-    };
+    const { isExitModalVisible, isDeleteModalVisible, onLogout, onCloseModal, onDeleteAccount, onGoToPersonalData, onOpenLogoutModal,
+        onToggleNotifications, onOpenDeleteModal, } = useProfile();
 
     return (
-        <ScreenContainer edges={['top', 'bottom']} contentContainerStyle={styles.container} headerComponent={<HeaderWithBackButton backDisabled title={t('profile.title')} containerStyle={styles.header} />}>
-            <View style={styles.summaryCard}>
-                <Text style={styles.name}>{userName}</Text>
-                <Text style={styles.role}>{roleText}</Text>
+        <ScreenContainer edges={['top']} headerComponent={<HeaderWithBackButton backDisabled title={t('profile.title')} />}>
+            <View style={styles.content}>
+                <NLTCard>
+                    <Typography variant='h2' text={userModel.user?.name} />
+                    <Typography variant='body_m' text={t(`profile.roles.${userModel.user?.role}`)} style={styles.role} />
+                </NLTCard>
+                <NLTCard >
+                    <Typography variant='h3' text={t('profile.settingsTitle')} style={styles.name} />
+                    <View style={styles.itemSeparator} />
+                    <ProfileMenuItem icon={<UserIcon />} title={t('profile.personalDataTitle')} onPress={onGoToPersonalData} />
+                    <View style={styles.itemSeparator} />
+                    <ProfileMenuItem icon={<BellIcon />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} />
+                    <View style={styles.itemSeparator} />
+                    <ProfileMenuItem icon={<LogoutIcon />} title={t('profile.logoutTitle')} onPress={onOpenLogoutModal} />
+                    <View style={styles.itemSeparator} />
+                    <ProfileMenuItem icon={<TrashIcon />} title={t('profile.deleteAccountTitle')} onPress={onOpenDeleteModal} />
+                </NLTCard>
             </View>
 
-            <FlatList
-                data={mainMenuItems}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-                scrollEnabled={false}
-                contentContainerStyle={styles.listContent}
-                ItemSeparatorComponent={ItemSeparatorComponent}
-            />
+            <View style={styles.footer}>
+                <Image source={logo} style={styles.logo} resizeMode='contain' />
+                <Typography variant='body_s' text={t('profile.developedBy')} style={styles.footerText} />
+            </View>
 
-            <FlatList
-                data={accountMenuItems}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-                scrollEnabled={false}
-                contentContainerStyle={styles.listContent}
-                ItemSeparatorComponent={ItemSeparatorComponent}
-            />
-
-            <ProfileConfirmationModal
-                isVisible={isConfirmationVisible}
-                title={t(confirmationTitle)}
-                description={t(confirmationDescription)}
-                confirmText={t(confirmationButtonText)}
+            <NLTModal
+                isVisible={isExitModalVisible}
+                title={t('profile.logoutModalTitle')}
+                description={t('profile.logoutModalDescription')}
+                confirmText={t('profile.logoutConfirm')}
                 cancelText={t('profile.cancel')}
-                onConfirm={onConfirmAction}
+                onConfirm={onLogout}
                 onCancel={onCloseModal}
-                isDestructive={confirmationType === 'delete'}
+            />
+            <NLTModal
+                isVisible={isDeleteModalVisible}
+                title={t('profile.deleteModalTitle')}
+                description={t('profile.deleteModalDescription')}
+                confirmText={t('profile.deleteConfirm')}
+                cancelText={t('profile.cancel')}
+                onConfirm={onDeleteAccount}
+                onCancel={onCloseModal}
+                isDestructive={true}
             />
         </ScreenContainer>
     );

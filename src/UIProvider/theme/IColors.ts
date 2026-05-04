@@ -27,8 +27,6 @@ export type IColors = {
     text_inverted: string;
     text_primary: string;
     text_error: string;
-    text_card: string;
-    text_counter: string;
 
     icon: string;
     icon_strong: string;
@@ -45,28 +43,6 @@ export type IColors = {
     success: string;
     info: string;
     error_strong: string;
-    // ------------------------------------
-    pyro: string;
-    lime: string; //done
-    blue_100: string; //done
-    light_blue_100: string;
-    violet_100: string; //done
-    orange_100: string; //done
-    tertiary_12: string; //done
-    yellow_100: string; //done
-    yellow_25: string; //done
-    mint_12: string; //done
-
-    birthdayGradient: string[];
-    profileGradient: string[];
-
-    accent_primary: string,      
-    accent_secondary: string,    
-    neutral_900: string,         
-    neutral_600: string,         
-    teal_primary: string,        
-    teal_dark: string,
-    dark_cyan: string,
 };
 
 export type FontStyle = {

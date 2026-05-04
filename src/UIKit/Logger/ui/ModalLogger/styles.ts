@@ -19,7 +19,7 @@ export const getStyles = (colors: IColors) => {
             width: '100%',
             backgroundColor: colors.card,
             paddingRight: scaleHorizontal(20),
-            shadowColor: colors.border_strong,
+            shadowColor: colors.border,
             shadowOffset: {
                 width: 0,
                 height: scaleVertical(2),

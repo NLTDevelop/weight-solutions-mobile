@@ -125,7 +125,9 @@
     },
     "profile": {
         "title": "Профіль",
+        "settingsTitle": "Налаштування:",
         "personalDataTitle": "Особисті дані",
+        "notificationsTitle": "Нотифікації",
         "linkedObjectsTitle": "Прив'язані об'єкти",
         "logoutTitle": "Вийти з облікового запису",
         "deleteAccountTitle": "Видалити акаунт",
@@ -141,7 +143,14 @@
         "personalEmail": "Email",
         "personalUsername": "Логін",
         "personalCompany": "Компанія",
-        "linkedObjectsEmpty": "Прив'язані об'єкти відсутні"
+        "linkedObjectsEmpty": "Прив'язані об'єкти відсутні",
+        "developedBy": "Розроблено - One Platform",
+        "roles": {
+            "superadmin": "Суперадміністратор",
+            "admin": "Адміністратор",
+            "user": "Користувач",
+            "unknown": "Не вказано"
+        }
     },
     "tabs": {
         "home": "Головна",

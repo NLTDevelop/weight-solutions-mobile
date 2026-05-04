@@ -1,25 +1,36 @@
-import { Chevron } from '@/assets/icons/ChevronIcon';
-import { IProfileMenuItem } from '@/modules/Profile/types/IProfileMenuItem';
 import { useUiContext } from '@/UIProvider';
-import { useMemo } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import React, { useMemo } from 'react';
+import { TouchableOpacity, View } from 'react-native';
+import { Typography } from '@/UIKit/Typography';
 import { getStyles } from './styles';
+import { Chevron } from '@/assets/icons/ChevronIcon';
 
 interface IProps {
-    item: IProfileMenuItem;
+    title: string;
+    icon: React.ReactNode;
+    onPress: () => void;
+    trailingType?: 'toggle';
 }
 
-export const ProfileMenuItem = ({ item }: IProps) => {
+export const ProfileMenuItem = ({ title, icon, onPress, trailingType }: IProps) => {
     const { colors } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
 
     return (
-        <TouchableOpacity style={styles.container} onPress={item.onPress}>
-            <View style={styles.content}>
-                <Text style={[styles.title, item.isDestructive ? styles.destructiveTitle : undefined]}>{item.title}</Text>
-                {item.subtitle ? <Text style={styles.subtitle}>{item.subtitle}</Text> : null}
+        <TouchableOpacity style={styles.container} onPress={onPress}>
+            <View style={styles.leftContent}>
+                <View style={styles.iconContainer}>
+                    {icon}
+                </View>
+                <View style={styles.content}>
+                    <Typography variant='body_m' text={title} />
+                </View>
             </View>
-            <Chevron color={item.isDestructive ? colors.error : colors.icon_middle} position="RIGHT" />
+            {trailingType === 'toggle'
+                ? <View style={[styles.toggleTrack]}>
+                    <View style={[styles.toggleKnob]} />
+                </View>
+                : <Chevron position="RIGHT" color={colors.icon_strong} />}
         </TouchableOpacity>
     );
 };

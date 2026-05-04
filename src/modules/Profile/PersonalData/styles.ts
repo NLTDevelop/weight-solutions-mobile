@@ -15,25 +15,26 @@ export const getStyles = (colors: IColors) => {
             paddingBottom: scaleVertical(16),
         },
         card: {
-            paddingHorizontal: scaleHorizontal(20),
-            paddingVertical: scaleVertical(20),
+            paddingHorizontal: scaleHorizontal(12),
+            paddingVertical: scaleVertical(12),
             borderRadius: scaleHorizontal(16),
             backgroundColor: colors.card,
             borderWidth: scaleHorizontal(1),
             borderColor: colors.border,
-            gap: scaleVertical(20),
+            gap: scaleVertical(12),
         },
         title: {
             color: colors.text_strong,
-            fontSize: scaleFontSize(20),
-            lineHeight: scaleLineHeight(26),
-            fontFamily: 'Roboto-Bold',
+            fontSize: scaleFontSize(16),
+            lineHeight: scaleLineHeight(19),
+            fontFamily: 'Roboto-Regular',
         },
         listContent: {
-            gap: scaleVertical(16),
+            gap: scaleVertical(8),
         },
         separator: {
-            height: scaleVertical(16),
+            height: scaleVertical(1),
+            backgroundColor: colors.border,
         },
     });
 

@@ -1,10 +1,11 @@
 import { useUiContext } from '@/UIProvider';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
-import { InfoRow } from '@/modules/Users/ui/User/components/InfoRow';
+import { Typography } from '@/UIKit/Typography';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { FlatList, ListRenderItem, Text, View } from 'react-native';
+import { FlatList, ListRenderItem, View } from 'react-native';
+import { PersonalDataRow } from './components/PersonalDataRow';
 import { usePersonalData } from './presenters/usePersonalData';
 import { getStyles } from './styles';
 
@@ -16,7 +17,8 @@ export const PersonalDataView = observer(() => {
     const keyExtractor = (item: { id: string }) => item.id;
 
     const renderItem: ListRenderItem<{ id: string; label: string; value: string }> = ({ item }) => {
-        return <InfoRow label={t(item.label)} value={item.value} />;
+        const value = item.value.startsWith('profile.roles.') ? t(item.value) : item.value;
+        return <PersonalDataRow label={t(item.label)} value={value} />;
     };
 
     const ItemSeparatorComponent = () => {
@@ -26,7 +28,7 @@ export const PersonalDataView = observer(() => {
     return (
         <ScreenContainer edges={['top', 'bottom']} contentContainerStyle={styles.container} headerComponent={<HeaderWithBackButton title={t('profile.personalDataTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}>
             <View style={styles.card}>
-                <Text style={styles.title}>{t('profile.personalDataTitle')}</Text>
+                <Typography variant='h5' text={t('profile.personalDataTitle')} style={styles.title} />
                 <FlatList
                     data={rows}
                     renderItem={renderItem}

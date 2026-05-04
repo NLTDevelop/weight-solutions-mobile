@@ -16,7 +16,7 @@ interface IProps {
     isDestructive?: boolean;
 }
 
-export const ProfileConfirmationModal = ({ isVisible, title, description, confirmText, cancelText, onConfirm, onCancel, isDestructive }: IProps) => {
+export const NLTModal = ({ isVisible, title, description, confirmText, cancelText, onConfirm, onCancel, isDestructive }: IProps) => {
     const { colors } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
 

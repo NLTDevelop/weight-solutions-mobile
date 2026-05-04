@@ -6,18 +6,17 @@ import { toastService } from '@/libs/toast/toastService';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
-import { useProfileUi } from './useProfileUi';
 
 export const useProfile = () => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [confirmationType, setConfirmationType] = useState<'logout' | 'delete' | null>(null);
+    const [_isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
+
+    const isExitModalVisible = confirmationType === 'logout';
+    const isDeleteModalVisible = confirmationType === 'delete';
 
     const onGoToPersonalData = () => {
         navigation.navigate('PersonalDataView');
-    };
-
-    const onGoToLinkedObjects = () => {
-        navigation.navigate('LinkedObjectsView');
     };
 
     const onOpenLogoutModal = () => {
@@ -28,26 +27,23 @@ export const useProfile = () => {
         setConfirmationType('delete');
     };
 
+    const onToggleNotifications = () => {
+        setIsNotificationsEnabled(previousValue => !previousValue);
+    };
+
     const onCloseModal = () => {
         setConfirmationType(null);
     };
 
-    const onResetSession = () => {
+    const onLogout = () => {
+        onCloseModal();
         userModel.clear();
         usersModel.clear();
-        companyModel.company = null;
-        companyModel.companies = [];
-        companyModel.meta = null;
+        companyModel.clear();
         navigation.reset({ index: 0, routes: [{ name: 'AuthorizationView' }] });
     };
 
-    const onConfirmAction = async () => {
-        if (confirmationType === 'logout') {
-            onCloseModal();
-            onResetSession();
-            return;
-        }
-
+    const onDeleteAccount = async () => {
         const currentUserId = userModel.user?.id;
 
         if (!currentUserId) {
@@ -58,30 +54,23 @@ export const useProfile = () => {
 
         const response = await usersService.delete(currentUserId);
         onCloseModal();
-
         if (response.isError) {
             toastService.showError('Delete failed', response.message || 'Please try again');
             return;
         }
-
-        onResetSession();
+        onLogout();
     };
 
-    const profileUi = useProfileUi({
-        userName: userModel.user?.name || '-',
-        roleText: userModel.user?.role || '-',
-        onGoToPersonalData,
-        onGoToLinkedObjects,
-        onOpenLogoutModal,
-        onOpenDeleteModal,
-        confirmationType,
-    });
-
     return {
-        isConfirmationVisible: confirmationType !== null,
-        confirmationType,
+        isExitModalVisible,
+        isDeleteModalVisible,
+        isNotificationsEnabled,
+        onLogout,
         onCloseModal,
-        onConfirmAction,
-        ...profileUi,
+        onDeleteAccount,
+        onGoToPersonalData,
+        onOpenLogoutModal,
+        onToggleNotifications,
+        onOpenDeleteModal,
     };
 };
