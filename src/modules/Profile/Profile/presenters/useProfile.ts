@@ -10,7 +10,7 @@ import { useState } from 'react';
 export const useProfile = () => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [confirmationType, setConfirmationType] = useState<'logout' | 'delete' | null>(null);
-    const [_isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
+    const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
 
     const isExitModalVisible = confirmationType === 'logout';
     const isDeleteModalVisible = confirmationType === 'delete';
