@@ -95,6 +95,8 @@ Rules:
 
 Component responsibility is rendering only.
 
+Do not use custom or inline colors. All colors must be imported from `useUiContext`
+
 A component must:
 - receive prepared data
 - receive prepared handlers
@@ -175,6 +177,7 @@ UI rules for this project:
 - use `Typography` from `./src/UIKit/Typography` instead of raw `Text` when possible
 - do not add custom styles to `Typography` if variant props already solve the task
 - use `NLTEmptyListView` or `EmptyListView` for empty states according to the local screen pattern
+- use `NLTTextInput` for text inputs instead of standard component
 
 ## 9. Localization rules
 

@@ -23,7 +23,7 @@ export class MobXRepository<T> implements IRepository<T> {
 
     @action save = (data: T | null): void => {
         this._data = data;
-        this.persist(data);
+        !!this.storageKey && this.persist(data);
     };
 
     private load = () => {

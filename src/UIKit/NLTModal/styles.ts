@@ -9,14 +9,14 @@ export const getStyles = (colors: IColors) => {
             justifyContent: 'center',
             alignItems: 'center',
             paddingHorizontal: scaleHorizontal(20),
-            backgroundColor: '#00000066',
+            backgroundColor: colors.background_dark,
         },
         card: {
             width: '100%',
             paddingHorizontal: scaleHorizontal(16),
             paddingVertical: scaleVertical(16),
             borderRadius: scaleHorizontal(20),
-            backgroundColor: colors.background,
+            backgroundColor: colors.card,
             gap: scaleVertical(14),
         },
         header: {
@@ -68,7 +68,7 @@ export const getStyles = (colors: IColors) => {
         cancelButton: {
             minHeight: scaleVertical(44),
             borderRadius: scaleHorizontal(12),
-            backgroundColor: colors.background,
+            backgroundColor: colors.card,
             borderWidth: scaleHorizontal(1),
             borderColor: colors.border,
         },

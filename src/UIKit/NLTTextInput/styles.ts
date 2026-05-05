@@ -2,53 +2,62 @@ import { StyleSheet } from "react-native";
 import { scaleFontSize, scaleHorizontal, scaleVertical } from "@/utils";
 import { IColors } from "@/UIProvider/theme/IColors";
 
-export const getStyles = (colors: IColors, isFocused: boolean) => (
-    StyleSheet.create({
+export const getStyles = (colors: IColors, isFocused: boolean, isError: boolean, shape: 'pill' | 'rounded', hasBottomOffset: boolean) => {
+    const styles = StyleSheet.create({
         container: {
-            marginBottom: scaleVertical(16),
+            marginBottom: hasBottomOffset ? scaleVertical(16) : 0,
         },
         labelContainer: {
             flexDirection: 'row',
             marginBottom: scaleVertical(4),
         },
         label: {
-            color: colors.text_middle,
+            color: isError ? colors.text_error : colors.text_middle,
+        },
+        mandatoryMark: {
+            color: isError ? colors.text_error : colors.primary,
         },
         inputContainer: {
             minHeight: scaleVertical(44),
             paddingVertical: 0,
             alignItems: 'center',
             paddingHorizontal: scaleHorizontal(12),
-            borderWidth: 1,
-            borderColor: isFocused ? colors.icon_strong : colors.card,
-            backgroundColor: colors.card,
-            borderRadius: 8,
+            borderWidth: scaleHorizontal(1),
+            borderColor: isError ? colors.error : isFocused ? colors.icon_strong : colors.border,
+            backgroundColor: isError ? colors.card_secondary : colors.card,
+            borderRadius: shape === 'pill' ? scaleHorizontal(999) : scaleHorizontal(50),
             flexDirection: 'row',
         },
         input: {
             flex: 1,
             minHeight: scaleVertical(44),
-            fontFamily: 'Manrope-Medium',
+            fontFamily: 'Roboto-Regular',
             fontSize: scaleFontSize(14),
             includeFontPadding: false,
             paddingVertical: 0,
             color: colors.text_strong,
         },
-        inputMultiline:{
+        inputMultiline: {
             textAlignVertical: 'top',
             paddingVertical: scaleVertical(8),
         },
         iconContainer: {
             justifyContent: 'center',
             alignItems: 'center',
-            height: scaleVertical(36),
-            width: scaleHorizontal(36),
+            height: scaleVertical(24),
+            width: scaleHorizontal(24),
+            marginLeft: scaleHorizontal(8),
         },
         inputError: {
-            borderColor: colors.text_error,
+            borderColor: colors.error,
+            backgroundColor: colors.card_secondary,
         },
         errorText: {
             color: colors.text_error,
-            marginTop: 4,
+            marginTop: scaleVertical(4),
+            fontSize: scaleFontSize(10),
         },
-    }));
+    });
+
+    return styles;
+};

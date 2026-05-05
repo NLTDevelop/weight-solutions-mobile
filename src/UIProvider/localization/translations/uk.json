@@ -9,7 +9,35 @@
         "title": "Авторизація",
         "subtitle": "Введіть свій email та пароль, щоб увійти в систему.",
         "forgotPassword": "Забули пароль?",
-        "signIn": "Увійти"
+        "signIn": "Увійти",
+        "invalidCredentials": "Невірний email або пароль"
+    },
+    "restorePassword": {
+        "email": {
+            "title": "Відновлення паролю",
+            "subtitle": "Введіть свій email, щоб отримати посилання для скидання паролю.",
+            "button": "Надіслати код",
+            "error": "Невірний email"
+        },
+        "code": {
+            "title": "Відновлення паролю",
+            "subtitle": "Введіть код, який ми надіслали на ваш email.",
+            "label": "Введіть код",
+            "button": "Далі",
+            "error": "Введіть 6-значний код"
+        },
+        "password": {
+            "title": "Новий пароль",
+            "subtitle": "Створіть новий пароль, щоб увійти в систему.",
+            "newPasswordLabel": "Новий пароль",
+            "confirmPasswordLabel": "Підтвердіть пароль",
+            "button": "Зберегти пароль",
+            "helperTitle": "Новий пароль має містити:",
+            "ruleMinLength": "Мінімум 6 символів",
+            "ruleDigit": "Щонайменше 1 цифра",
+            "ruleSpecialCharacter": "1 спецсимвол",
+            "error": "Паролі не співпадають."
+        }
     },
     "companies": {
         "title": "Мої компанії",
