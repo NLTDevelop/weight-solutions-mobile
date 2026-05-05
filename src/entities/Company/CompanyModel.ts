@@ -37,7 +37,7 @@ class CompanyModel implements ICompanyModel {
         this.metaRepository.save(meta);
     }
 
-    public appened(companies: ICompany[]) {
+    public append(companies: ICompany[]) {
         this.companies = [...this.companies, ...companies];
     }
 

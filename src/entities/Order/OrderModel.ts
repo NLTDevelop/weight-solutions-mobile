@@ -37,8 +37,14 @@ class OrderModel implements IOrderModel {
         this.metaRepository.save(meta);
     }
 
-    public appened(orders: IOrder[]) {
+    public append(orders: IOrder[]) {
         this.orders = [...this.orders, ...orders];
+    }
+
+    public clean() {
+        this.meta = null;
+        this.current = null;
+        this.orders = [];
     }
 }
 
