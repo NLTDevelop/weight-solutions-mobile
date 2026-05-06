@@ -1,7 +1,7 @@
 import { useUiContext } from '@/UIProvider';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
-import { Loader } from '@/UIKit/loader';
+import { Loader } from '@/UIKit/Loader';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { InfoRow } from '@/modules/Users/ui/User/components/InfoRow';
 import { observer } from 'mobx-react';
