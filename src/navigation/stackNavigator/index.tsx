@@ -1,4 +1,5 @@
 import { AuthorizationView } from '@/modules/Authorization/Authorization';
+import { RestorePasswordView } from '@/modules/Authorization/RestorePassword';
 import { CompaniesView } from '@/modules/Companies/Companies';
 import { CompanyView } from '@/modules/Companies/Company';
 import { CreateCompanyView } from '@/modules/Companies/CreateCompany';
@@ -25,6 +26,7 @@ export const MainStackNavigator = observer(() => {
         <Stack.Navigator initialRouteName="SplashView" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="SplashView" component={SplashView} />
             <Stack.Screen name="AuthorizationView" component={AuthorizationView} />
+            <Stack.Screen name="RestorePasswordView" component={RestorePasswordView} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="CompaniesView" component={CompaniesView} />
             <Stack.Screen name="CompanyView" component={CompanyView} />

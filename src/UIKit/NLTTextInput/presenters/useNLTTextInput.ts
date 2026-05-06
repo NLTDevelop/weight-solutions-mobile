@@ -21,5 +21,9 @@ export const useNLTTextInput = (props: IProps) => {
         onBlur?.(e);
     };
 
-    return { isFocused, isPasswordVisible, setPasswordVisible, handleFocus, handleBlur, inputRef };
+    const onTogglePasswordVisibility = () => {
+        setPasswordVisible(previousValue => !previousValue);
+    };
+
+    return { isFocused, isPasswordVisible, handleFocus, handleBlur, onTogglePasswordVisibility, inputRef };
 };

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { IColors } from '@/UIProvider/theme/IColors';
  
-export const getStyle = (_colors: IColors) => {
+export const getStyle = (colors: IColors) => {
     return StyleSheet.create({
         container: {
             position: 'absolute',
@@ -9,7 +9,7 @@ export const getStyle = (_colors: IColors) => {
             height: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'rgba(0,0,0,0.2)',
+            backgroundColor: colors.background_dark,
         },
     });
 }

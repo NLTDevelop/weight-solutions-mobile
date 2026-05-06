@@ -37,9 +37,16 @@ class ProductModel implements IProductModel {
         this.metaRepository.save(meta);
     }
 
-    public appened(products: IProduct[]) {
+    public append(products: IProduct[]) {
         this.products = [...this.products, ...products];
     }
+
+    public clear() {
+        this.meta = null;
+        this.current = null;
+        this.products = [];
+    }
+
 }
 
 export const productModel = new ProductModel();

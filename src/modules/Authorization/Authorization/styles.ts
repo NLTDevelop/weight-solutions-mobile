@@ -5,62 +5,55 @@ import { StyleSheet } from 'react-native';
 export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
         container: {
-            flex: 1,
-            justifyContent: 'center',
-            paddingHorizontal: scaleHorizontal(20),
-            paddingVertical: scaleVertical(24),
+            flexGrow: 1,
             backgroundColor: colors.background,
         },
-        card: {
+        content: {
+            flex: 1,
+            alignItems: 'center',
+            paddingHorizontal: scaleHorizontal(16),
+            paddingTop: scaleVertical(32),
+            paddingBottom: scaleVertical(24),
+        },
+        formContainer: {
             width: '100%',
-            paddingHorizontal: scaleHorizontal(20),
-            paddingVertical: scaleVertical(24),
-            shadowRadius: scaleHorizontal(20),
-            elevation: scaleVertical(8),
             gap: scaleVertical(24),
         },
-        image: {
-            width: scaleVertical(145),
+        logo: {
+            width: scaleHorizontal(146),
             height: scaleVertical(45),
         },
-        header: {
+        titleContainer: {
             gap: scaleVertical(8),
-        },
-        badge: {
-            alignSelf: 'flex-start',
-            paddingHorizontal: scaleHorizontal(12),
-            paddingVertical: scaleVertical(6),
-            borderRadius: scaleHorizontal(999),
-            backgroundColor: colors.tertiary_12,
-        },
-        badgeText: {
-            color: colors.primary,
-            fontSize: scaleFontSize(12),
-            lineHeight: scaleLineHeight(16),
-            fontFamily: 'Roboto-Medium',
         },
         title: {
-            color: colors.text_strong,
-            fontSize: scaleFontSize(28),
-            lineHeight: scaleLineHeight(34),
+            color: colors.text_main,
+            fontSize: scaleFontSize(20),
+            lineHeight: scaleLineHeight(24),
             fontFamily: 'Roboto-Bold',
+            fontWeight: '600',
         },
         subtitle: {
-            color: colors.text_middle,
-            fontSize: scaleFontSize(15),
-            lineHeight: scaleLineHeight(22),
+            color: colors.text_main,
+            fontSize: scaleFontSize(14),
+            lineHeight: scaleLineHeight(16.8),
             fontFamily: 'Roboto-Regular',
         },
-        form: {
-            gap: scaleVertical(16),
-        },
-        field: {
+        inputsContainer: {
             gap: scaleVertical(8),
         },
-        label: {
-            color: colors.text_strong,
-            fontSize: scaleFontSize(14),
-            lineHeight: scaleLineHeight(20),
+        forgotPasswordButton: {
+            minWidth: 0,
+            minHeight: scaleVertical(32),
+            alignSelf: 'flex-end',
+            justifyContent: 'center',
+            paddingHorizontal: scaleHorizontal(12),
+            borderRadius: scaleHorizontal(999),
+        },
+        forgotPasswordText: {
+            color: colors.text_main,
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14.4),
             fontFamily: 'Roboto-Medium',
         },
         input: {
@@ -70,8 +63,8 @@ export const getStyles = (colors: IColors) => {
             borderRadius: scaleHorizontal(14),
             borderWidth: scaleHorizontal(1),
             borderColor: colors.border,
-            backgroundColor: colors.background_strong,
-            color: colors.text_strong,
+            backgroundColor: colors.background,
+            color: colors.text_main,
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(20),
             fontFamily: 'Roboto-Regular',
@@ -80,7 +73,7 @@ export const getStyles = (colors: IColors) => {
             borderColor: colors.semantic_error,
         },
         helperText: {
-            color: colors.text_middle,
+            color: colors.text_main,
             fontSize: scaleFontSize(12),
             lineHeight: scaleLineHeight(16),
             fontFamily: 'Roboto-Regular',
@@ -92,13 +85,29 @@ export const getStyles = (colors: IColors) => {
             fontFamily: 'Roboto-Regular',
         },
         button: {
-            minHeight: scaleVertical(52),
-            borderRadius: scaleHorizontal(100),
+            minHeight: scaleVertical(48),
+            borderRadius: scaleHorizontal(999),
+            backgroundColor: colors.accent,
+            shadowColor: colors.shadow,
+            shadowOpacity: 0.08,
+            shadowOffset: { width: 0, height: scaleVertical(2) },
+            shadowRadius: scaleHorizontal(4),
+            elevation: scaleVertical(2),
         },
         buttonText: {
             fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Bold',
+            lineHeight: scaleLineHeight(19.2),
+            fontFamily: 'Roboto-Medium',
+            fontWeight: '500',
+            color: colors.text_main,
+        },
+        buttonDisabled: {
+            opacity: 1,
+        },
+        illustration: {
+            width: scaleHorizontal(444),
+            height: scaleVertical(296),
+            marginTop: scaleVertical(32),
         },
     });
 

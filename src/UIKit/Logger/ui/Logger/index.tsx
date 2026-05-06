@@ -18,7 +18,7 @@ export const Logger = observer(() => {
     return (
         <>
             <TouchableOpacity style={styles.button} onPress={onOpen}>
-                <LoggerIcon color={'gray'} />
+                <LoggerIcon color={colors.icon_light} />
             </TouchableOpacity>
             <ModalLogger />
         </>
