@@ -36,26 +36,26 @@ export const ProfileView = observer(() => {
                 <NLTCard >
                     <Typography variant='h3' text={t('profile.settingsTitle')} style={styles.name} />
                     <View style={styles.itemSeparator} />
-                    <ProfileMenuItem icon={<UserIcon />} title={t('profile.personalDataTitle')} onPress={onGoToPersonalData} />
+                    <ProfileMenuItem icon={<UserIcon color={colors.icon_strong} />} title={t('profile.personalDataTitle')} onPress={onGoToPersonalData} />
                     <View style={styles.itemSeparator} />
-                    <ProfileMenuItem icon={<BellIcon />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} trailingType={'toggle'} toggleValue={isNotificationsEnabled} onToggle={onToggleNotifications} />
+                    <ProfileMenuItem icon={<BellIcon color={colors.icon_strong} />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} trailingType={'toggle'} toggleValue={isNotificationsEnabled} onToggle={onToggleNotifications} />
                     <View style={styles.itemSeparator} />
                     {isSuperadmin ? <ProfileMenuItem icon={<EditIcon color={colors.icon_strong} />} title={t('profile.contactSettingsTitle')} onPress={onGoToContactInformation} /> : null}
                     <View style={styles.itemSeparator} />
-                    <ProfileMenuItem icon={<LogoutIcon />} title={t('profile.logoutTitle')} onPress={onOpenLogoutModal} />
+                    <ProfileMenuItem icon={<LogoutIcon color={colors.icon_strong} />} title={t('profile.logoutTitle')} onPress={onOpenLogoutModal} />
                     <View style={styles.itemSeparator} />
                     <ProfileMenuItem icon={<TrashIcon />} title={t('profile.deleteAccountTitle')} onPress={onOpenDeleteModal} />
                 </NLTCard>
 
                 <NLTCard containerStyle={styles.footerCard}>
-                <View style={styles.footer}>
-                <OnePlatformIcon />
-                <View>
-                    <Typography variant='body_s' text={t('profile.developedBy')} style={styles.footerText} />
-                    <Typography variant='body_l_bold' text={t('profile.onePlatform')} style={[styles.footerText, { color: colors.text }]} />
-                </View>
-            </View>
-            </NLTCard>
+                    <View style={styles.footer}>
+                        <OnePlatformIcon />
+                        <View>
+                            <Typography variant='body_s' text={t('profile.developedBy')} style={styles.footerText} />
+                            <Typography variant='body_l_bold' text={t('profile.onePlatform')} style={[styles.footerText, { color: colors.text }]} />
+                        </View>
+                    </View>
+                </NLTCard>
             </View>
 
             <NLTModal

@@ -7,10 +7,11 @@ interface IProps {
     color?: string;
 }
 
-export const EditIcon: FC<IProps> = ({ width = 24, height = 24, color = '#14181F' }) => {
+export const EditIcon: FC<IProps> = ({ width = 24, height = 24, color }) => {
     return (
         <Svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
             <Path
+                strokeWidth={1.6}
                 color={color}
                 stroke="#14181F"
                 strokeLinecap="round"
