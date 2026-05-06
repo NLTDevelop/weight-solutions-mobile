@@ -10,8 +10,13 @@ export const usePersonalData = () => {
         navigation.goBack();
     };
 
+    const onPressEdit = () => {
+        navigation.navigate('EditPersonalDataView');
+    };
+
     return {
         rows,
         onPressBack,
+        onPressEdit,
     };
 };

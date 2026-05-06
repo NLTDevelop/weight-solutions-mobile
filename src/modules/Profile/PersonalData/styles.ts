@@ -36,6 +36,18 @@ export const getStyles = (colors: IColors) => {
             height: scaleVertical(1),
             backgroundColor: colors.border,
         },
+        editButton: {
+            minWidth: scaleHorizontal(74),
+            height: scaleVertical(32),
+            justifyContent: 'center',
+            alignItems: 'flex-end',
+        },
+        editButtonText: {
+            color: colors.text,
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
+            fontFamily: 'Roboto-Bold',
+        },
     });
 
     return styles;

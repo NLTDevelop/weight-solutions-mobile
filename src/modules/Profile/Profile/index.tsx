@@ -13,6 +13,7 @@ import { BellIcon } from '@/assets/icons/BellIcon';
 import { LogoutIcon } from '@/assets/icons/LogoutIcon';
 import { TrashIcon } from '@/assets/icons/TrashIcon';
 import { UserIcon } from '@/assets/icons/UserIcon';
+import { EditIcon } from '@/assets/icons/EditIcon';
 import { NLTModal } from '@/UIKit/NLTModal';
 import { userModel } from '@/entities/User/UserModel';
 
@@ -21,8 +22,9 @@ const logo = require('@/assets/images/logo.png');
 export const ProfileView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { isExitModalVisible, isDeleteModalVisible, onLogout, onCloseModal, onDeleteAccount, onGoToPersonalData, onOpenLogoutModal,
+    const { isExitModalVisible, isDeleteModalVisible, onLogout, onCloseModal, onDeleteAccount, onGoToPersonalData, onGoToContactInformation, onOpenLogoutModal,
         onToggleNotifications, onOpenDeleteModal, } = useProfile();
+    const isSuperadmin = userModel.user?.role === 'superadmin';
 
     return (
         <ScreenContainer edges={['top']} headerComponent={<HeaderWithBackButton backDisabled title={t('profile.title')} />}>
@@ -37,6 +39,8 @@ export const ProfileView = observer(() => {
                     <ProfileMenuItem icon={<UserIcon />} title={t('profile.personalDataTitle')} onPress={onGoToPersonalData} />
                     <View style={styles.itemSeparator} />
                     <ProfileMenuItem icon={<BellIcon />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} />
+                    <View style={styles.itemSeparator} />
+                    {isSuperadmin ? <ProfileMenuItem icon={<EditIcon color={colors.icon_strong} />} title={t('profile.contactSettingsTitle')} onPress={onGoToContactInformation} /> : null}
                     <View style={styles.itemSeparator} />
                     <ProfileMenuItem icon={<LogoutIcon />} title={t('profile.logoutTitle')} onPress={onOpenLogoutModal} />
                     <View style={styles.itemSeparator} />

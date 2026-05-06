@@ -1,11 +1,11 @@
 import React, { FC, useMemo, memo } from 'react';
-import { Text, ActivityIndicator, View, ViewStyle, TouchableOpacity, TextStyle } from 'react-native';
+import { Text, ActivityIndicator, View, ViewStyle, TouchableOpacity, TextStyle, StyleProp } from 'react-native';
 import { useUiContext } from '@/UIProvider';
 import { getStyle } from './styles';
 
 interface IProps {
-    containerStyle?: ViewStyle;
-    textStyle?: TextStyle;
+    containerStyle?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
     disabled?: boolean;
     text: string;
     onPress: () => void;
@@ -19,21 +19,8 @@ export const NLTButton: FC<IProps> = memo(({ text, onPress, disabled, RightAcces
     const { colors } = useUiContext();
     const styles = useMemo(() => getStyle(colors), [colors]);
 
-    // const { textStyle, buttonStyle } = useMemo(() => {
-    //     if (disabled) {
-    //         return { textStyle: styles.disabledButtonText, buttonStyle: styles.disabledButton };
-    //     } else if (type === 'secondary') {
-    //         return { textStyle: styles.secondaryText, buttonStyle: styles.secondaryButton };
-    //     }
-    //     return { textStyle: styles.mainText, buttonStyle: styles.mainButton };
-    // }, [disabled, type]);
-
     return (
-        <TouchableOpacity
-            disabled={disabled}
-            style={[styles.container, containerStyle]}
-            onPress={onPress}
-        >
+        <TouchableOpacity disabled={disabled} style={[styles.container, containerStyle]} onPress={onPress}        >
             {LeftAccessory}
             <Text numberOfLines={1} style={[styles.text, textStyle]}>{text}</Text>
             {RightAccessory}

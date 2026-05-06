@@ -2,6 +2,7 @@ import { useUiContext } from '@/UIProvider';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { EmptyListView } from '@/UIKit/NLTEmptyListView';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
+import { userModel } from '@/entities/User/UserModel';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
 import { FlatList, ListRenderItem, View } from 'react-native';
@@ -15,6 +16,7 @@ export const CompaniesView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const { companyCards, isLoading, onPressCreateCompany, onRefresh } = useCompanies();
+    const shouldShowCreateButton = userModel.user?.role !== 'superadmin';
 
     const keyExtractor = (item: ICompanyCardItem) => String(item.id);
 
@@ -38,7 +40,7 @@ export const CompaniesView = observer(() => {
                 onRefresh={onRefresh}
                 refreshing={isLoading}
             />
-            <NLTButton text="Create company" onPress={onPressCreateCompany} />
+            {shouldShowCreateButton ? <NLTButton text={t('companies.createButton')} onPress={onPressCreateCompany} /> : null}
         </ScreenContainer>
     );
 });

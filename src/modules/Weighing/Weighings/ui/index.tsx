@@ -3,6 +3,7 @@ import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { EmptyListView } from '@/UIKit/NLTEmptyListView';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
+import { userModel } from '@/entities/User/UserModel';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
 import { FlatList, ListRenderItem, View } from 'react-native';
@@ -15,6 +16,7 @@ export const WeighingsView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const { weighingCards, isLoading, onRefresh, onPressCreateWeighing } = useWeighings();
+    const shouldShowCreateButton = userModel.user?.role !== 'user';
 
     const keyExtractor = (item: IWeighingCardItem) => String(item.id);
 
@@ -42,7 +44,7 @@ export const WeighingsView = observer(() => {
                 style={styles.list}
                 contentContainerStyle={styles.contentContainerStyle}
             />
-            <NLTButton text={t('weighings.createButton')} onPress={onPressCreateWeighing} />
+            {shouldShowCreateButton ? <NLTButton text={t('weighings.createButton')} onPress={onPressCreateWeighing} /> : null}
         </ScreenContainer>
     );
 });
