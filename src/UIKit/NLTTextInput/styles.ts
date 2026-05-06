@@ -12,7 +12,7 @@ export const getStyles = (colors: IColors, isFocused: boolean) => (
             marginBottom: scaleVertical(4),
         },
         label: {
-            color: colors.text_middle,
+            color: colors.text_main,
         },
         inputContainer: {
             minHeight: scaleVertical(44),
@@ -20,8 +20,8 @@ export const getStyles = (colors: IColors, isFocused: boolean) => (
             alignItems: 'center',
             paddingHorizontal: scaleHorizontal(12),
             borderWidth: 1,
-            borderColor: isFocused ? colors.icon_strong : colors.card,
-            backgroundColor: colors.card,
+            borderColor: isFocused ? colors.border : colors.border,
+            backgroundColor: colors.white,
             borderRadius: 8,
             flexDirection: 'row',
         },
@@ -32,7 +32,7 @@ export const getStyles = (colors: IColors, isFocused: boolean) => (
             fontSize: scaleFontSize(14),
             includeFontPadding: false,
             paddingVertical: 0,
-            color: colors.text_strong,
+            color: colors.text_main,
         },
         inputMultiline:{
             textAlignVertical: 'top',
@@ -45,10 +45,11 @@ export const getStyles = (colors: IColors, isFocused: boolean) => (
             width: scaleHorizontal(36),
         },
         inputError: {
-            borderColor: colors.text_error,
+            backgroundColor: colors.semantic_error_background,
+            borderColor: colors.semantic_error,
         },
         errorText: {
-            color: colors.text_error,
+            color: colors.semantic_error,
             marginTop: 4,
         },
     }));

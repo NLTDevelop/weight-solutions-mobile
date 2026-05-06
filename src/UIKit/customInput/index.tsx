@@ -11,5 +11,5 @@ export const CustomInput: FC<IProps> = memo((props) => {
     const { colors } = useUiContext();
     const styles = useMemo(() => getStyle(colors), [colors]);
 
-    return <TextInput placeholderTextColor={colors.inactiveText} {...props} style={[styles.input, props.style]} />
+    return <TextInput placeholderTextColor={colors.text_additional} {...props} style={[styles.input, props.style]} />
 });

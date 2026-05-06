@@ -42,7 +42,7 @@ export const AuthorizationView = observer(() => {
                         onChangeText={onChangeUsername}
                         onBlur={onBlurUsername}
                         placeholder="Enter username"
-                        placeholderTextColor={colors.text_light}
+                        placeholderTextColor={colors.text_additional}
                         autoCapitalize="none"
                         autoCorrect={false}
                         keyboardType="default"
@@ -53,7 +53,7 @@ export const AuthorizationView = observer(() => {
                         onChangeText={onChangePassword}
                         onBlur={onBlurPassword}
                         placeholder={t('common.passwordPlaceholder')}
-                        placeholderTextColor={colors.text_light}
+                        placeholderTextColor={colors.text_additional}
                         autoCapitalize="none"
                         autoCorrect={false}
                         secureTextEntry

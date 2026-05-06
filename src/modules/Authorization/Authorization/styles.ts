@@ -77,7 +77,7 @@ export const getStyles = (colors: IColors) => {
             fontFamily: 'Roboto-Regular',
         },
         inputError: {
-            borderColor: colors.error,
+            borderColor: colors.semantic_error,
         },
         helperText: {
             color: colors.text_middle,
@@ -86,14 +86,14 @@ export const getStyles = (colors: IColors) => {
             fontFamily: 'Roboto-Regular',
         },
         errorText: {
-            color: colors.error,
+            color: colors.semantic_error,
             fontSize: scaleFontSize(12),
             lineHeight: scaleLineHeight(16),
             fontFamily: 'Roboto-Regular',
         },
         button: {
             minHeight: scaleVertical(52),
-            borderRadius: scaleHorizontal(14),
+            borderRadius: scaleHorizontal(100),
         },
         buttonText: {
             fontSize: scaleFontSize(16),

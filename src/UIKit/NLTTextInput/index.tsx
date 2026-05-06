@@ -1,6 +1,5 @@
 import { memo, useMemo } from 'react';
 import { TextInput, View, Text, ViewStyle, TextInputProps, TextStyle } from 'react-native';
-// import { Eye, EyeOff } from 'lucide-react-native';
 import { useUiContext } from '../../UIProvider';
 import { Typography } from '../../UIKit/Typography';
 import { getStyles } from './styles';
@@ -36,7 +35,7 @@ export const NLTTextInput = memo(({ label, error, RightAccessory, LeftAccessory,
                     ref={inputRef}
                     {...props}
                     style={[styles.input, props.multiline && styles.inputMultiline, props.style]}
-                    placeholderTextColor={colors.text_light + 'CC'}
+                    placeholderTextColor={colors.text_additional}
                     secureTextEntry={secureTextEntry && isPasswordVisible}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
