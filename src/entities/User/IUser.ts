@@ -1,4 +1,5 @@
 import type { ICompany } from '@/entities/Company/ICompany';
+import type { IContactInformation } from '@/entities/ContactInformation/IContactInformation';
 
 export interface IUser {
     id: number;
@@ -9,4 +10,5 @@ export interface IUser {
     status: 'active' | 'inactive';
     description: string | null;
     company?: ICompany;
+    contact?: IContactInformation | null;
 }

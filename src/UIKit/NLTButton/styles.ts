@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { IColors } from '@/UIProvider/theme/IColors';
-import { scaleFontSize, scaleLineHeight, scaleVertical } from '@/utils';
+import { scaleFontSize, scaleHorizontal, scaleLineHeight, scaleVertical } from '@/utils';
 
 export const getStyle = (colors: IColors) => {
     const styles = StyleSheet.create({
@@ -9,9 +9,11 @@ export const getStyle = (colors: IColors) => {
             borderRadius: 10,
             elevation: 4,
             minHeight: scaleVertical(48),
+            gap: scaleHorizontal(6),
             justifyContent: 'center',
             alignItems: 'center',
             paddingHorizontal: 8,
+            flexDirection: 'row',
         },
         disabledButton: {
             // opacity: 0.7,

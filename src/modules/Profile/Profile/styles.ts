@@ -50,7 +50,9 @@ export const getStyles = (colors: IColors) => {
             alignItems: 'center',
             justifyContent: 'center',
             gap: scaleHorizontal(12),
-            paddingVertical: scaleVertical(12),
+        },
+        footerCard: {
+            paddingVertical: scaleVertical(8),
         },
         logo: {
             width: scaleHorizontal(32),

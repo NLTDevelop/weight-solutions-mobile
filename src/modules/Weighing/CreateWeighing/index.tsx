@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { EmptyListView } from '@/UIKit/NLTEmptyListView';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
@@ -73,7 +73,7 @@ export const CreateWeighingView = observer(() => {
                 <NLTTextInput label={t('weighings.grossWeightLabel')} value={weightBefore} onChangeText={onChangeWeightBefore} error={weightBeforeErrorText ? t(weightBeforeErrorText) : ''} keyboardType='numeric' />
                 <NLTTextInput label={t('weighings.tareWeightLabel')} value={weightAfter} onChangeText={onChangeWeightAfter} error={weightAfterErrorText ? t(weightAfterErrorText) : ''} keyboardType='numeric' />
                 <NLTTextInput label={t('weighings.scalePointLabel')} value={scalePoint} onChangeText={onChangeScalePoint} error={scalePointErrorText ? t(scalePointErrorText) : ''} />
-                <Button text={t('weighings.createButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
+                <NLTButton text={t('weighings.createButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
             </View>
         </ScreenContainer>
     );

@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { Loader } from '@/UIKit/Loader';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
@@ -44,7 +44,7 @@ export const UserView = observer(() => {
                             contentContainerStyle={styles.listContent}
                             ItemSeparatorComponent={ItemSeparatorComponent}
                         />
-                        <Button text={t('users.editButton')} onPress={onPressEdit} containerStyle={styles.button} textStyle={styles.buttonText} />
+                        <NLTButton text={t('users.editButton')} onPress={onPressEdit} containerStyle={styles.button} textStyle={styles.buttonText} />
                     </View>
                 </View>}
         </ScreenContainer>

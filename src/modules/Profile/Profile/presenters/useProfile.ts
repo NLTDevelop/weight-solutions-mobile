@@ -1,4 +1,5 @@
 import { companyModel } from '@/entities/Company/CompanyModel';
+import { contactInformationModel } from '@/entities/ContactInformation/ContactInformationModel';
 import { userModel } from '@/entities/User/UserModel';
 import { usersModel } from '@/entities/Users/UsersModel';
 import { usersService } from '@/entities/Users/UsersService';
@@ -17,6 +18,10 @@ export const useProfile = () => {
 
     const onGoToPersonalData = () => {
         navigation.navigate('PersonalDataView');
+    };
+
+    const onGoToContactInformation = () => {
+        navigation.navigate('ContactInformationView');
     };
 
     const onOpenLogoutModal = () => {
@@ -40,6 +45,7 @@ export const useProfile = () => {
         userModel.clear();
         usersModel.clear();
         companyModel.clear();
+        contactInformationModel.clear();
         navigation.reset({ index: 0, routes: [{ name: 'AuthorizationView' }] });
     };
 
@@ -69,6 +75,7 @@ export const useProfile = () => {
         onCloseModal,
         onDeleteAccount,
         onGoToPersonalData,
+        onGoToContactInformation,
         onOpenLogoutModal,
         onToggleNotifications,
         onOpenDeleteModal,
