@@ -1,7 +1,7 @@
 import { useUiContext } from '@/UIProvider';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
-import { Loader } from '@/UIKit/Loader';
+import { Loader } from '@/UIKit/Loader2';
 import { NLTRow } from '@/UIKit/NLTRow';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { Typography } from '@/UIKit/Typography';
