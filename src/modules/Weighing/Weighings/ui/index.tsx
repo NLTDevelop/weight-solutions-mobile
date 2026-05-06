@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { EmptyListView } from '@/UIKit/NLTEmptyListView';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
@@ -42,7 +42,7 @@ export const WeighingsView = observer(() => {
                 style={styles.list}
                 contentContainerStyle={styles.contentContainerStyle}
             />
-            <Button text={t('weighings.createButton')} onPress={onPressCreateWeighing} />
+            <NLTButton text={t('weighings.createButton')} onPress={onPressCreateWeighing} />
         </ScreenContainer>
     );
 });

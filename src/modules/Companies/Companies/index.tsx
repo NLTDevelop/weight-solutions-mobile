@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { EmptyListView } from '@/UIKit/NLTEmptyListView';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { observer } from 'mobx-react';
@@ -38,7 +38,7 @@ export const CompaniesView = observer(() => {
                 onRefresh={onRefresh}
                 refreshing={isLoading}
             />
-            <Button text="Create company" onPress={onPressCreateCompany} />
+            <NLTButton text="Create company" onPress={onPressCreateCompany} />
         </ScreenContainer>
     );
 });

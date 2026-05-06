@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { Typography } from '@/UIKit/Typography';
 import { useMemo } from 'react';
 import { Modal, TouchableOpacity, View } from 'react-native';
@@ -31,8 +31,8 @@ export const ProfileConfirmationModal = ({ isVisible, title, description, confir
                         </TouchableOpacity>
                     </View>
                     <Typography variant='body_m' text={description} style={styles.description} />
-                    <Button text={confirmText} onPress={onConfirm} containerStyle={isDestructive ? styles.destructiveConfirmButton : styles.confirmButton} textStyle={styles.confirmText} />
-                    <Button text={cancelText} onPress={onCancel} containerStyle={styles.cancelButton} textStyle={styles.cancelText} />
+                    <NLTButton text={confirmText} onPress={onConfirm} containerStyle={isDestructive ? styles.destructiveConfirmButton : styles.confirmButton} textStyle={styles.confirmText} />
+                    <NLTButton text={cancelText} onPress={onCancel} containerStyle={styles.cancelButton} textStyle={styles.cancelText} />
                 </View>
             </View>
         </Modal>

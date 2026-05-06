@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { Loader } from '@/UIKit/loader';
 import { EmptyListView } from '@/UIKit/NLTEmptyListView';
@@ -61,7 +61,7 @@ export const CompanyView = observer(() => {
                         />
                         <View style={styles.usersHeader}>
                             <Text style={styles.usersTitle}>{t('users.companyUsersTitle')}</Text>
-                            <Button text={t('users.addUser')} onPress={onGoToCreateUser} containerStyle={styles.addUserButton} textStyle={styles.addUserButtonText} />
+                            <NLTButton text={t('users.addUser')} onPress={onGoToCreateUser} containerStyle={styles.addUserButton} textStyle={styles.addUserButtonText} />
                         </View>
                         <FlatList
                             data={userCards}

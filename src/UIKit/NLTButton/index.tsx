@@ -15,7 +15,7 @@ interface IProps {
     inProgress?: boolean;
 }
 
-export const Button: FC<IProps> = memo(({ text, onPress, disabled, RightAccessory, LeftAccessory, containerStyle, textStyle, inProgress }) => {
+export const NLTButton: FC<IProps> = memo(({ text, onPress, disabled, RightAccessory, LeftAccessory, containerStyle, textStyle, inProgress }) => {
     const { colors } = useUiContext();
     const styles = useMemo(() => getStyle(colors), [colors]);
 
