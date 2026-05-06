@@ -36,7 +36,7 @@ export const RestorePasswordView = observer(() => {
             <View style={styles.content}>
                 <TouchableOpacity style={styles.headerButton} onPress={onPressBack}>
                     <ArrowIcon color={colors.icon_strong} />
-                    <Typography variant='body_m_bold' text='Назад' style={styles.headerButtonText} />
+                    <Typography variant='body_m_bold' text={t('common.back')} style={styles.headerButtonText} />
                 </TouchableOpacity>
 
                 <View style={styles.formContainer}>

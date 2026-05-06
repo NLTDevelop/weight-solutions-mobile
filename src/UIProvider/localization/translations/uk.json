@@ -4,6 +4,7 @@
         "emailPlaceholder": "Введіть еmail",
         "password": "Пароль",
         "passwordPlaceholder": "Введіть пароль",
+        "back": "Назад"
         "save": "Зберегти"
     },
     "authorization": {
