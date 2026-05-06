@@ -4,7 +4,7 @@ import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { Image, View } from 'react-native';
+import { View } from 'react-native';
 import { ProfileMenuItem } from './components/ProfileMenuItem';
 import { useProfile } from './presenters/useProfile';
 import { getStyles } from './styles';
@@ -16,13 +16,13 @@ import { UserIcon } from '@/assets/icons/UserIcon';
 import { EditIcon } from '@/assets/icons/EditIcon';
 import { NLTModal } from '@/UIKit/NLTModal';
 import { userModel } from '@/entities/User/UserModel';
+import { OnePlatformIcon } from '@/assets/icons/OnePlatformIcon';
 
-const logo = require('@/assets/images/logo.png');
 
 export const ProfileView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { isExitModalVisible, isDeleteModalVisible, onLogout, onCloseModal, onDeleteAccount, onGoToPersonalData, onGoToContactInformation, onOpenLogoutModal,
+    const { isExitModalVisible, isDeleteModalVisible, isNotificationsEnabled, onLogout, onCloseModal, onDeleteAccount, onGoToPersonalData, onGoToContactInformation, onOpenLogoutModal,
         onToggleNotifications, onOpenDeleteModal, } = useProfile();
     const isSuperadmin = userModel.user?.role === 'superadmin';
 
@@ -38,7 +38,7 @@ export const ProfileView = observer(() => {
                     <View style={styles.itemSeparator} />
                     <ProfileMenuItem icon={<UserIcon />} title={t('profile.personalDataTitle')} onPress={onGoToPersonalData} />
                     <View style={styles.itemSeparator} />
-                    <ProfileMenuItem icon={<BellIcon />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} />
+                    <ProfileMenuItem icon={<BellIcon />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} trailingType={'toggle'} toggleValue={isNotificationsEnabled} onToggle={onToggleNotifications} />
                     <View style={styles.itemSeparator} />
                     {isSuperadmin ? <ProfileMenuItem icon={<EditIcon color={colors.icon_strong} />} title={t('profile.contactSettingsTitle')} onPress={onGoToContactInformation} /> : null}
                     <View style={styles.itemSeparator} />
@@ -46,11 +46,16 @@ export const ProfileView = observer(() => {
                     <View style={styles.itemSeparator} />
                     <ProfileMenuItem icon={<TrashIcon />} title={t('profile.deleteAccountTitle')} onPress={onOpenDeleteModal} />
                 </NLTCard>
-            </View>
 
-            <View style={styles.footer}>
-                <Image source={logo} style={styles.logo} resizeMode='contain' />
-                <Typography variant='body_s' text={t('profile.developedBy')} style={styles.footerText} />
+                <NLTCard containerStyle={styles.footerCard}>
+                <View style={styles.footer}>
+                <OnePlatformIcon />
+                <View>
+                    <Typography variant='body_s' text={t('profile.developedBy')} style={styles.footerText} />
+                    <Typography variant='body_l_bold' text={t('profile.onePlatform')} style={[styles.footerText, { color: colors.text }]} />
+                </View>
+            </View>
+            </NLTCard>
             </View>
 
             <NLTModal

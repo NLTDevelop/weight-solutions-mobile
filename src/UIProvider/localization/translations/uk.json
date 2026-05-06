@@ -197,7 +197,8 @@
         "contactViberPlaceholder": "Посилання Viber",
         "contactTikTokPlaceholder": "Посилання TikTok",
         "contactYouTubePlaceholder": "Посилання YouTube",
-        "developedBy": "Розроблено - One Platform",
+        "developedBy": "Розроблено - ",
+        "onePlatform": "One Platform",
         "roles": {
             "superadmin": "Суперадміністратор",
             "admin": "Адміністратор",
