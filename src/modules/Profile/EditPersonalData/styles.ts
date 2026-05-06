@@ -15,6 +15,7 @@ export const getStyles = (colors: IColors) => {
             paddingBottom: scaleVertical(16),
         },
         form: {
+            marginTop: scaleVertical(16),
             gap: scaleVertical(8),
         },
         button: {

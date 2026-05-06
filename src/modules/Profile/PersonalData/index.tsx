@@ -2,13 +2,13 @@ import { useUiContext } from '@/UIProvider';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { TextButton } from '@/UIKit/textButton';
-import { Typography } from '@/UIKit/Typography';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
 import { FlatList, ListRenderItem, View } from 'react-native';
 import { PersonalDataRow } from './components/PersonalDataRow';
 import { usePersonalData } from './presenters/usePersonalData';
 import { getStyles } from './styles';
+import { NLTCard } from '@/UIKit/NLTCard';
 
 export const PersonalDataView = observer(() => {
     const { colors, t } = useUiContext();
@@ -28,17 +28,14 @@ export const PersonalDataView = observer(() => {
 
     return (
         <ScreenContainer
-            edges={['top', 'bottom']}
             contentContainerStyle={styles.container}
             headerComponent={<HeaderWithBackButton
                 title={t('profile.personalDataTitle')}
                 onPressBack={onPressBack}
-                containerStyle={styles.header}
-                rightComponent={<TextButton text={t('profile.editTitle')} onPress={onPressEdit} textStyles={styles.editButtonText} containerStyle={styles.editButton} />}
+                rightComponent={<TextButton text={t('profile.editTitle')} onPress={onPressEdit} textStyles={styles.editButtonText} />}
             />}
         >
-            <View style={styles.card}>
-                <Typography variant='h5' text={t('profile.personalDataTitle')} style={styles.title} />
+            <NLTCard containerStyle={styles.card}>
                 <FlatList
                     data={rows}
                     renderItem={renderItem}
@@ -47,7 +44,7 @@ export const PersonalDataView = observer(() => {
                     contentContainerStyle={styles.listContent}
                     ItemSeparatorComponent={ItemSeparatorComponent}
                 />
-            </View>
+            </NLTCard>
         </ScreenContainer>
     );
 });

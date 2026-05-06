@@ -35,7 +35,7 @@ export const EditPersonalDataView = observer(() => {
             isKeyboardAvoiding
             scrollEnabled
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('profile.editPersonalDataTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={t('profile.editPersonalDataTitle')} onPressBack={onPressBack} />}
         >
             <View style={styles.form}>
                 <NLTTextInput label={t('users.name')} value={name} onChangeText={setName} />
