@@ -3,7 +3,8 @@
         "email": "Email",
         "emailPlaceholder": "Введіть еmail",
         "password": "Пароль",
-        "passwordPlaceholder": "Введіть пароль"
+        "passwordPlaceholder": "Введіть пароль",
+        "back": "Назад"
     },
     "authorization": {
         "title": "Авторизація",
