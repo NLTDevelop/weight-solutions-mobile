@@ -8,35 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		0C80B921A6F3F58F76C31292 /* libPods-weightSolutions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-weightSolutions.a */; };
+		0E51058E7737450291B0855A /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F23FD7721AF496B851DCD29 /* Inter-ExtraBold.ttf */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		3A62936DB1884AF6832A20E2 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F69E0F4E8DB471FA906273C /* Inter-Regular.ttf */; };
+		549BDB2607724AE3A5DE4174 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3692938688B34003A916E31D /* Inter-Bold.ttf */; };
+		5DF33CD31DBD473B9596E378 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A4EA968F3CC4CFBAFB1CFBF /* Inter-Medium.ttf */; };
+		6F91C4CFB5BF4787A45D7E3A /* Inter-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAECEA3BEDE439DACB4B72B /* Inter-Thin.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D50DFFC025F2782B93E92C3E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
-		5DF33CD31DBD473B9596E378 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A4EA968F3CC4CFBAFB1CFBF /* Inter-Medium.ttf */; };
-		6F91C4CFB5BF4787A45D7E3A /* Inter-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAECEA3BEDE439DACB4B72B /* Inter-Thin.ttf */; };
-		549BDB2607724AE3A5DE4174 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3692938688B34003A916E31D /* Inter-Bold.ttf */; };
-		3A62936DB1884AF6832A20E2 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F69E0F4E8DB471FA906273C /* Inter-Regular.ttf */; };
-		0E51058E7737450291B0855A /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F23FD7721AF496B851DCD29 /* Inter-ExtraBold.ttf */; };
 		FB86F2F301904C48A1CACDD7 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72180B6FF1544C3BA25E435C /* Inter-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A4EA968F3CC4CFBAFB1CFBF /* Inter-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.ttf"; path = "../assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* weightSolutions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weightSolutions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = weightSolutions/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = weightSolutions/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = weightSolutions/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		3692938688B34003A916E31D /* Inter-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.ttf"; path = "../assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-weightSolutions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weightSolutions.debug.xcconfig"; path = "Target Support Files/Pods-weightSolutions/Pods-weightSolutions.debug.xcconfig"; sourceTree = "<group>"; };
+		3BAECEA3BEDE439DACB4B72B /* Inter-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Thin.ttf"; path = "../assets/fonts/Inter-Thin.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-weightSolutions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weightSolutions.release.xcconfig"; path = "Target Support Files/Pods-weightSolutions/Pods-weightSolutions.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-weightSolutions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-weightSolutions.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F23FD7721AF496B851DCD29 /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraBold.ttf"; path = "../assets/fonts/Inter-ExtraBold.ttf"; sourceTree = "<group>"; };
+		72180B6FF1544C3BA25E435C /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = weightSolutions/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = weightSolutions/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9F69E0F4E8DB471FA906273C /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		0A4EA968F3CC4CFBAFB1CFBF /* Inter-Medium.ttf */ = {isa = PBXFileReference; name = "Inter-Medium.ttf"; path = "../assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3BAECEA3BEDE439DACB4B72B /* Inter-Thin.ttf */ = {isa = PBXFileReference; name = "Inter-Thin.ttf"; path = "../assets/fonts/Inter-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3692938688B34003A916E31D /* Inter-Bold.ttf */ = {isa = PBXFileReference; name = "Inter-Bold.ttf"; path = "../assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		9F69E0F4E8DB471FA906273C /* Inter-Regular.ttf */ = {isa = PBXFileReference; name = "Inter-Regular.ttf"; path = "../assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6F23FD7721AF496B851DCD29 /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Inter-ExtraBold.ttf"; path = "../assets/fonts/Inter-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		72180B6FF1544C3BA25E435C /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; name = "Inter-SemiBold.ttf"; path = "../assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +70,20 @@
 				5DCACB8F33CDC322A6C60F78 /* libPods-weightSolutions.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		75D43D908D844B919F129429 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0A4EA968F3CC4CFBAFB1CFBF /* Inter-Medium.ttf */,
+				3BAECEA3BEDE439DACB4B72B /* Inter-Thin.ttf */,
+				3692938688B34003A916E31D /* Inter-Bold.ttf */,
+				9F69E0F4E8DB471FA906273C /* Inter-Regular.ttf */,
+				6F23FD7721AF496B851DCD29 /* Inter-ExtraBold.ttf */,
+				72180B6FF1544C3BA25E435C /* Inter-SemiBold.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -110,20 +124,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		75D43D908D844B919F129429 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				0A4EA968F3CC4CFBAFB1CFBF /* Inter-Medium.ttf */,
-				3BAECEA3BEDE439DACB4B72B /* Inter-Thin.ttf */,
-				3692938688B34003A916E31D /* Inter-Bold.ttf */,
-				9F69E0F4E8DB471FA906273C /* Inter-Regular.ttf */,
-				6F23FD7721AF496B851DCD29 /* Inter-ExtraBold.ttf */,
-				72180B6FF1544C3BA25E435C /* Inter-SemiBold.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
