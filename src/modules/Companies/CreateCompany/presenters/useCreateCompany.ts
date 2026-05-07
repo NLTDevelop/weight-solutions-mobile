@@ -1,35 +1,49 @@
 import { companyService } from '@/entities/Company/CompanyService';
+import { useUiContext } from '@/UIProvider';
 import { toastService } from '@/libs/toast/toastService';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { useCreateCompanyUi } from './useCreateCompanyUi';
 
+const DESCRIPTION_MAX_LENGTH = 250;
+
 export const useCreateCompany = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [name, setName] = useState('');
-    const [contact, setContact] = useState('');
+    const [address, setAddress] = useState('');
+    const [owner, setOwner] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
     const [description, setDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { nameErrorText, contactErrorText, isSubmitDisabled } = useCreateCompanyUi({
-        name,
-        contact,
-        isSubmitted,
-        isLoading,
-    });
+    const { nameErrorText, ownerErrorText, isSubmitDisabled } = useCreateCompanyUi({ name, owner, isSubmitted, isLoading, t, });
 
     const onChangeName = (value: string) => {
         setName(value);
     };
 
-    const onChangeContact = (value: string) => {
-        setContact(value);
+    const onChangeEmail = (value: string) => {
+        setEmail(value);
+    };
+
+    const onChangeAddress = (value: string) => {
+        setAddress(value);
+    };
+
+    const onChangeOwner = (value: string) => {
+        setOwner(value);
+    };
+
+    const onChangePhone = (value: string) => {
+        setPhone(value);
     };
 
     const onChangeDescription = (value: string) => {
-        setDescription(value);
+        setDescription(value.slice(0, DESCRIPTION_MAX_LENGTH));
     };
 
     const onPressBack = () => {
@@ -45,33 +59,46 @@ export const useCreateCompany = () => {
 
         setIsLoading(true);
 
+        const trimmedDescription = description.trim();
+
         const response = await companyService.create({
             name: name.trim(),
-            contact: contact.trim(),
-            description: description.trim() || null,
+            contact: owner.trim(),
+            phone: phone.trim(),
+            address: address.trim(),
+            email: email.trim(),
+            description: address.trim() || trimmedDescription,
         });
 
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('Company creation failed', response.message || 'Please try again');
+            toastService.showError(t('companies.createFailedTitle'), response.message || 'Please try again');
             return;
         }
-
-        toastService.showSuccess('Company created', response.data.data.name);
+        companyService.list({ limit: 20, offset: 0, status: 'active' });
+        toastService.showSuccess(t('companies.createSuccessTitle'), response.data.data.name);
         navigation.replace('CompanyView', { companyId: response.data.data.id });
     };
 
     return {
         name,
-        contact,
+        address,
+        owner,
+        phone,
+        email,
         description,
         isLoading,
         isSubmitDisabled,
         nameErrorText,
-        contactErrorText,
+        ownerErrorText,
+        descriptionLength: description.length,
+        descriptionMaxLength: DESCRIPTION_MAX_LENGTH,
+        onChangeEmail,
         onChangeName,
-        onChangeContact,
+        onChangeAddress,
+        onChangeOwner,
+        onChangePhone,
         onChangeDescription,
         onPressBack,
         onSubmit,

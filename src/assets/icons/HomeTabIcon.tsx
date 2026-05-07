@@ -7,7 +7,7 @@ interface IProps {
     color: string;
 }
 
-export const HomeTabIcon: FC<IProps> = ({ width = 24, height = 24, color }) => {
+export const HomeTabIcon: FC<IProps> = ({ width = 32, height = 32, color }) => {
     return (
         <Svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
             <Path

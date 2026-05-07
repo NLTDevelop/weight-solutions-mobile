@@ -5,78 +5,95 @@ import { StyleSheet } from 'react-native';
 export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
         container: {
-            flexGrow: 1,
+            flex: 1,
             backgroundColor: colors.background,
-            paddingHorizontal: scaleHorizontal(20),
-            paddingBottom: scaleVertical(24),
+            marginTop: scaleVertical(16),
         },
         header: {
-            paddingHorizontal: scaleHorizontal(20),
-            paddingBottom: scaleVertical(16),
+            paddingHorizontal: scaleHorizontal(16),
+            paddingBottom: scaleVertical(12),
         },
-        card: {
+        headerRightSpacer: {
+            width: scaleHorizontal(50),
+            height: scaleVertical(50),
+        },
+        content: {
             flex: 1,
-            justifyContent: 'center',
+            paddingHorizontal: scaleHorizontal(16),
         },
         form: {
-            paddingHorizontal: scaleHorizontal(20),
-            paddingVertical: scaleVertical(20),
-            borderRadius: scaleHorizontal(20),
-            backgroundColor: colors.card,
-            borderWidth: scaleHorizontal(1),
-            borderColor: colors.border,
-            gap: scaleVertical(16),
-        },
-        field: {
             gap: scaleVertical(8),
         },
-        label: {
-            color: colors.text_strong,
-            fontSize: scaleFontSize(14),
-            lineHeight: scaleLineHeight(20),
+        field: {
+            gap: scaleVertical(4),
+        },
+        labelStyle: {
+            color: colors.icon_strong,
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
             fontFamily: 'Roboto-Medium',
         },
-        input: {
-            minHeight: scaleVertical(52),
-            paddingHorizontal: scaleHorizontal(16),
-            paddingVertical: scaleVertical(14),
-            borderRadius: scaleHorizontal(14),
-            borderWidth: scaleHorizontal(1),
+        inputContainer: {
+            marginBottom: 0,
+        },
+        pillInputInner: {
+            minHeight: scaleVertical(44),
+            backgroundColor: colors.card,
             borderColor: colors.border,
-            backgroundColor: colors.background_strong,
-            color: colors.text_strong,
-            fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Regular',
+            borderRadius: scaleHorizontal(999),
+        },
+        multilineInputInner: {
+            minHeight: scaleVertical(64),
+            alignItems: 'flex-start',
+            paddingTop: scaleVertical(12),
+            paddingBottom: scaleVertical(12),
+            backgroundColor: colors.card,
+            borderColor: colors.border,
+            borderRadius: scaleHorizontal(8),
         },
         multilineInput: {
-            minHeight: scaleVertical(112),
+            minHeight: scaleVertical(40),
             textAlignVertical: 'top',
         },
-        inputError: {
-            borderColor: colors.error,
+        counterText: {
+            color: colors.text_light,
+            fontSize: scaleFontSize(10),
+            lineHeight: scaleLineHeight(12),
+            fontFamily: 'Roboto-Medium',
+            textAlign: 'right',
         },
-        helperText: {
-            color: colors.text_middle,
-            fontSize: scaleFontSize(12),
-            lineHeight: scaleLineHeight(16),
-            fontFamily: 'Roboto-Regular',
-        },
-        errorText: {
-            color: colors.error,
-            fontSize: scaleFontSize(12),
-            lineHeight: scaleLineHeight(16),
-            fontFamily: 'Roboto-Regular',
+        footer: {
+            paddingHorizontal: scaleHorizontal(16),
+            paddingTop: scaleVertical(8),
+            paddingBottom: scaleVertical(8),
+            backgroundColor: colors.background,
         },
         button: {
-            minHeight: scaleVertical(52),
-            borderRadius: scaleHorizontal(14),
-            marginTop: scaleVertical(8),
+            minHeight: scaleVertical(48),
+            borderRadius: scaleHorizontal(999),
+            backgroundColor: colors.primary,
+            shadowColor: '#000000',
+            shadowOpacity: 0.08,
+            shadowRadius: 4,
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            elevation: 4,
         },
         buttonText: {
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Bold',
+            fontFamily: 'Roboto-Medium',
+            color: colors.icon_strong,
+        },
+        buttonDisabled: {
+            backgroundColor: '#A1A3A5',
+            shadowOpacity: 0,
+            elevation: 0,
+        },
+        buttonTextDisabled: {
+            color: colors.card,
         },
     });
 
