@@ -1,4 +1,6 @@
 {
+      "networkError": "Помилка мережі. Перевірте підключення.",
+    "reconnectNetwork": "Підключення до мережі",
     "common": {
         "email": "Email",
         "emailPlaceholder": "Введіть еmail",
