@@ -96,16 +96,6 @@ export const useEditUser = () => {
 
         setIsLoading(true);
 
-        // const response = await usersService.update(userId, {
-        //     name: name.trim(),
-        //     username: username.trim(),
-        //     email: email.trim(),
-        //     description: description.trim(),
-        //     company_id: companyId,
-        //     active: usersModel.current?.status === 'active',
-        //     password: password.trim() ? password.trim() : null,
-        // });
-
         const body: Partial<UserUpdateDto> = {
                     name: name.trim(),
                     username: username.trim(),
