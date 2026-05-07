@@ -5,7 +5,9 @@
         "email": "Email",
         "emailPlaceholder": "Введіть еmail",
         "password": "Пароль",
-        "passwordPlaceholder": "Введіть пароль"
+        "passwordPlaceholder": "Введіть пароль",
+        "back": "Назад",
+        "save": "Зберегти"
     },
     "authorization": {
         "title": "Авторизація",
@@ -42,9 +44,16 @@
         }
     },
     "companies": {
-        "title": "Мої компанії",
+        "title": "Підприємство",
         "empty": "Компаній не знайдено",
-        "createButton": "Створити компанію"
+        "createButton": "Додати підприємство",
+        "searchPlaceholder": "Пошук",
+        "addressLabel": "Адреса:",
+        "ownerLabel": "Власник:",
+        "phoneLabel": "Номер телефону:",
+        "addressFallback": "Адресу не вказано",
+        "ownerFallback": "Власника не вказано",
+        "phoneFallback": "Телефон не вказано"
     },
     "company": {
         "detailsTitle": "Деталі компанії",
@@ -61,6 +70,7 @@
         "empty": "Записи зважування не знайдено",
         "createTitle": "Створення зважування",
         "createButton": "Створити зважування",
+        "startButton": "Почати зважування",
         "detailsTitle": "Деталі зважування",
         "editTitle": "Редагування зважування",
         "editButton": "Редагувати",
@@ -157,8 +167,13 @@
         "title": "Профіль",
         "settingsTitle": "Налаштування:",
         "personalDataTitle": "Особисті дані",
+        "editPersonalDataTitle": "Редагування профілю",
+        "editTitle": "Редагувати",
         "notificationsTitle": "Нотифікації",
         "linkedObjectsTitle": "Прив'язані об'єкти",
+        "contactInformationTitle": "Контактна інформація",
+        "contactSettingsTitle": "Контактна інформація",
+        "contactInformationEditTitle": "Редагування контактів",
         "logoutTitle": "Вийти з облікового запису",
         "deleteAccountTitle": "Видалити акаунт",
         "logoutModalTitle": "Вийти з облікового запису",
@@ -170,11 +185,30 @@
         "cancel": "Скасувати",
         "personalName": "Ім'я",
         "personalRole": "Роль",
+        "personalPhone": "Номер телефону",
         "personalEmail": "Email",
         "personalUsername": "Логін",
         "personalCompany": "Компанія",
         "linkedObjectsEmpty": "Прив'язані об'єкти відсутні",
-        "developedBy": "Розроблено - One Platform",
+        "contactInformationEmpty": "Контактна інформація відсутня",
+        "contactPhone": "Номери телефону:",
+        "contactPhoneSingle": "Номер телефону",
+        "contactPhoneSecondary": "Додатковий Номер телефону",
+        "contactPhonePlaceholder": "Введіть номер телефону",
+        "contactTelegram": "Telegram:",
+        "contactInstagram": "Instagram:",
+        "contactFacebook": "Facebook:",
+        "contactViber": "Viber:",
+        "contactTikTok": "TikTok:",
+        "contactYouTube": "YouTube:",
+        "contactTelegramPlaceholder": "Посилання Telegram",
+        "contactInstagramPlaceholder": "Посилання Instagram",
+        "contactFacebookPlaceholder": "Посилання Facebook",
+        "contactViberPlaceholder": "Посилання Viber",
+        "contactTikTokPlaceholder": "Посилання TikTok",
+        "contactYouTubePlaceholder": "Посилання YouTube",
+        "developedBy": "Розроблено - ",
+        "onePlatform": "One Platform",
         "roles": {
             "superadmin": "Суперадміністратор",
             "admin": "Адміністратор",
@@ -184,6 +218,7 @@
     },
     "tabs": {
         "home": "Головна",
+        "weighings": "Зважування",
         "products": "Продукти",
         "profile": "Профіль"
     }

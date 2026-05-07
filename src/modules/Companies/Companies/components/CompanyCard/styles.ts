@@ -5,51 +5,50 @@ import { StyleSheet } from 'react-native';
 export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
         container: {
-            paddingHorizontal: scaleHorizontal(16),
-            paddingVertical: scaleVertical(16),
-            borderRadius: scaleHorizontal(16),
-            backgroundColor: colors.card,
-            borderWidth: scaleHorizontal(1),
-            borderColor: colors.border,
-            gap: scaleVertical(8),
+            marginBottom: scaleVertical(16),
         },
         header: {
             flexDirection: 'row',
-            justifyContent: 'space-between',
             alignItems: 'center',
-            gap: scaleHorizontal(12),
+            gap: scaleHorizontal(8),
+            marginBottom: scaleVertical(16),
+        },
+        iconWrapper: {
+            width: scaleHorizontal(32),
+            height: scaleVertical(32),
+            borderRadius: scaleHorizontal(16),
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: colors.primary,
         },
         title: {
             flex: 1,
             color: colors.text_strong,
-            fontSize: scaleFontSize(18),
-            lineHeight: scaleLineHeight(24),
+            fontSize: scaleFontSize(16),
+            lineHeight: scaleLineHeight(19),
             fontFamily: 'Roboto-Bold',
         },
-        badge: {
-            paddingHorizontal: scaleHorizontal(10),
-            paddingVertical: scaleVertical(4),
-            borderRadius: scaleHorizontal(999),
-            backgroundColor: colors.tertiary_12,
+        content: {
+            gap: scaleVertical(8),
         },
-        badgeText: {
-            color: colors.primary,
-            fontSize: scaleFontSize(12),
-            lineHeight: scaleLineHeight(16),
-            fontFamily: 'Roboto-Medium',
-            textTransform: 'capitalize',
+        infoSection: {
+            gap: scaleVertical(2),
         },
-        subtitle: {
+        label: {
             color: colors.text_middle,
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
+            fontFamily: 'Roboto-Regular',
+        },
+        value: {
+            color: colors.text_strong,
             fontSize: scaleFontSize(14),
-            lineHeight: scaleLineHeight(20),
+            lineHeight: scaleLineHeight(17),
             fontFamily: 'Roboto-Medium',
         },
-        description: {
-            color: colors.text_light,
-            fontSize: scaleFontSize(14),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Regular',
+        separator: {
+            height: StyleSheet.hairlineWidth,
+            backgroundColor: colors.border,
         },
     });
 

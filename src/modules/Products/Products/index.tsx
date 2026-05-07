@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { EmptyListView } from '@/UIKit/NLTEmptyListView';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
@@ -39,7 +39,7 @@ export const ProductsView = observer(() => {
                 style={styles.list}
                 contentContainerStyle={styles.contentContainerStyle}
             />
-            <Button text={t('products.createButton')} onPress={onPressCreateProduct} />
+            <NLTButton text={t('products.createButton')} onPress={onPressCreateProduct} />
         </ScreenContainer>
     );
 });

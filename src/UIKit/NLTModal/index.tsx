@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { Button } from '@/UIKit/NLTButton';
 import { Typography } from '@/UIKit/Typography';
 import { useMemo } from 'react';
 import { Modal, TouchableOpacity, View } from 'react-native';

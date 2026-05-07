@@ -25,7 +25,7 @@ export const getStyles = (colors: IColors, isFocused: boolean, isError: boolean,
             borderWidth: scaleHorizontal(1),
             borderColor: isError ? colors.error : isFocused ? colors.icon_strong : colors.border,
             backgroundColor: isError ? colors.card_secondary : colors.card,
-            borderRadius: shape === 'pill' ? scaleHorizontal(999) : scaleHorizontal(50),
+            borderRadius:  scaleHorizontal(22),
             flexDirection: 'row',
         },
         input: {
@@ -40,6 +40,7 @@ export const getStyles = (colors: IColors, isFocused: boolean, isError: boolean,
         inputMultiline: {
             textAlignVertical: 'top',
             paddingVertical: scaleVertical(8),
+            minHeight: scaleVertical(80),
         },
         iconContainer: {
             justifyContent: 'center',

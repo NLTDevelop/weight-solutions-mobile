@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { Typography } from '@/UIKit/Typography';
@@ -29,7 +29,7 @@ export const AuthorizationView = observer(() => {
     } = useAuthorization();
 
     return (
-        <ScreenContainer edges={['top', 'bottom']} isKeyboardAvoiding scrollEnabled contentContainerStyle={styles.container}>
+        <ScreenContainer isKeyboardAvoiding scrollEnabled>
             <View style={styles.content}>
                 <View style={styles.formContainer}>
                     <Image source={logo} style={styles.logo} resizeMode="contain" />
@@ -71,7 +71,7 @@ export const AuthorizationView = observer(() => {
                         </TouchableOpacity>
                     </View>
 
-                    <Button
+                    <NLTButton
                         text={t('authorization.signIn')}
                         onPress={onSubmit}
                         disabled={isSubmitDisabled}

@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
@@ -50,7 +50,7 @@ export const EditProductView = observer(() => {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <Button text={t('products.saveButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
+                <NLTButton text={t('products.saveButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
             </View>
         </ScreenContainer>
     );

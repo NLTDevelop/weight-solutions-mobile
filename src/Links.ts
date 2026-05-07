@@ -8,6 +8,8 @@ export interface ILinks {
     productDetails: (productId: number) => string;
     users: string;
     userDetails: (userId: number) => string;
+    userContact: string;
+    userContactSave: string;
 }
 
 class Links {
@@ -19,6 +21,8 @@ class Links {
         orders: `${this._domain}/orders`,
         products: `${this._domain}/products`,
         users: `${this._domain}/users`,
+        userContact: `${this._domain}/user/contact`,
+        userContactSave: `${this._domain}/user/contact/save`,
     };
 
     public get signIn() { return this._links.signIn; }
@@ -30,6 +34,8 @@ class Links {
     public productDetails = (productId: number) => `${this._links.products}/${productId}`;
     public get users() { return this._links.users; }
     public userDetails = (userId: number) => `${this._links.users}/${userId}`;
+    public get userContact() { return this._links.userContact; }
+    public get userContactSave() { return this._links.userContactSave; }
 
 }
 

@@ -17,6 +17,7 @@ Use UIKit instead writing new component
 
 Use keyExtractor for FlatList in functions renderItem and keyExtractor
 Add pull to refresh in FlatList
+If FlatList uses pagination need props `onEndReached` to fetch next page
 
 # Localization
 

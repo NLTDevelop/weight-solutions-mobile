@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { observer } from 'mobx-react';
@@ -72,7 +72,7 @@ export const CreateCompanyView = observer(() => {
                         />
                     </View>
 
-                    <Button
+                    <NLTButton
                         text="Create company"
                         onPress={onSubmit}
                         disabled={isSubmitDisabled}

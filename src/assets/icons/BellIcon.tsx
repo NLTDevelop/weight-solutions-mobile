@@ -14,7 +14,7 @@ export const BellIcon: FC<IProps> = ({ width = 24, height = 24, color }) => {
     return (
         <Svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
             <Path
-                strokeWidth={2}
+                strokeWidth={1.6}
                 stroke={color || colors.icon_middle}
                 strokeLinecap="round"
                 strokeLinejoin="round"
