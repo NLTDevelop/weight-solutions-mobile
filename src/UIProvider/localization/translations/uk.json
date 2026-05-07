@@ -42,9 +42,16 @@
         }
     },
     "companies": {
-        "title": "Мої компанії",
+        "title": "Підприємство",
         "empty": "Компаній не знайдено",
-        "createButton": "Створити компанію"
+        "createButton": "Додати підприємство",
+        "searchPlaceholder": "Пошук",
+        "addressLabel": "Адреса:",
+        "ownerLabel": "Власник:",
+        "phoneLabel": "Номер телефону:",
+        "addressFallback": "Адресу не вказано",
+        "ownerFallback": "Власника не вказано",
+        "phoneFallback": "Телефон не вказано"
     },
     "company": {
         "detailsTitle": "Деталі компанії",

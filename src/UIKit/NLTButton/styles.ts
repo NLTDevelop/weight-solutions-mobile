@@ -6,7 +6,7 @@ export const getStyle = (colors: IColors) => {
     const styles = StyleSheet.create({
         container: {
             backgroundColor: colors.primary,
-            borderRadius: 10,
+            borderRadius: scaleHorizontal(32),
             elevation: 4,
             minHeight: scaleVertical(48),
             gap: scaleHorizontal(6),

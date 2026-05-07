@@ -34,6 +34,7 @@ class UserService {
 
     update = async (userId: number, body: UserUpdateDto): Promise<IResponse<{ data: IUser }>> => {
         try {
+            
             const response = await this.requester.request({
                 url: this.links.userDetails(userId),
                 method: 'PUT',

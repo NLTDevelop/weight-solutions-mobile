@@ -1,5 +1,5 @@
 import { IColors } from '@/UIProvider/theme/IColors';
-import { scaleFontSize, scaleHorizontal, scaleLineHeight, scaleVertical } from '@/utils';
+import { scaleFontSize, scaleHorizontal, scaleLineHeight, scaleVertical, size } from '@/utils';
 import { StyleSheet } from 'react-native';
 
 export const getStyles = (colors: IColors) => {
@@ -10,41 +10,41 @@ export const getStyles = (colors: IColors) => {
         },
         listContent: {
             flexGrow: 1,
-            paddingHorizontal: scaleHorizontal(20),
-            paddingTop: scaleVertical(20),
-            paddingBottom: scaleVertical(24),
+            paddingHorizontal: scaleHorizontal(16),
+            paddingTop: scaleVertical(4),
+            paddingBottom: scaleVertical(72),
         },
         header: {
-            gap: scaleVertical(16),
-            marginBottom: scaleVertical(20),
+            gap: scaleVertical(12),
+            marginBottom: scaleVertical(16),
+            marginHorizontal: scaleHorizontal(16),
         },
-        headerTextContainer: {
-            gap: scaleVertical(6),
+        searchInputContainer: {
+            marginBottom: 0,
         },
-        title: {
-            color: colors.text_strong,
-            fontSize: scaleFontSize(28),
-            lineHeight: scaleLineHeight(34),
-            fontFamily: 'Roboto-Bold',
+        searchInputInner: {
+            backgroundColor: colors.card,
+            borderColor: colors.border,
         },
-        subtitle: {
-            color: colors.text_middle,
-            fontSize: scaleFontSize(15),
-            lineHeight: scaleLineHeight(22),
-            fontFamily: 'Roboto-Regular',
+        searchIcon: {
+            marginRight: scaleHorizontal(8),
         },
         createButton: {
-            minHeight: scaleVertical(48),
-            borderRadius: scaleHorizontal(14),
+            position: 'absolute',
+            bottom: scaleVertical(8),
+            alignSelf: 'baseline',
+            width: size.width - scaleHorizontal(32),
+            marginHorizontal: scaleHorizontal(16),
         },
         createButtonText: {
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Bold',
+            fontFamily: 'Roboto-Medium',
+            color: colors.icon_strong,
         },
         itemSeparator: {
-            height: scaleVertical(12),
-        },
+            height: scaleVertical(16),
+        }, 
     });
 
     return styles;
