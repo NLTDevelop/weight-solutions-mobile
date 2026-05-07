@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useEditUserUi } from './useEditUserUi';
 import { usersModel } from '@/entities/Users/UsersModel';
 import { usersService } from '@/entities/Users/UsersService';
+import { UserUpdateDto } from '@/entities/Users/dto/user-update.dto';
 
 interface IRouteParams {
     companyId: number;
@@ -95,15 +96,29 @@ export const useEditUser = () => {
 
         setIsLoading(true);
 
-        const response = await usersService.update(userId, {
-            name: name.trim(),
-            username: username.trim(),
-            email: email.trim(),
-            description: description.trim(),
-            company_id: companyId,
-            active: usersModel.current?.status === 'active',
-            password: password.trim() ? password.trim() : null,
-        });
+        // const response = await usersService.update(userId, {
+        //     name: name.trim(),
+        //     username: username.trim(),
+        //     email: email.trim(),
+        //     description: description.trim(),
+        //     company_id: companyId,
+        //     active: usersModel.current?.status === 'active',
+        //     password: password.trim() ? password.trim() : null,
+        // });
+
+        const body: Partial<UserUpdateDto> = {
+                    name: name.trim(),
+                    username: username.trim(),
+                    email: email.trim(),
+                    description: description.trim(),
+                    company_id: companyId,
+                    active: usersModel.current?.status === 'active',
+                };
+        
+                setIsLoading(true);
+                const response = await usersService.update(userId, password.trim() ? {
+                    ...body
+                } : body);
 
         setIsLoading(false);
 
