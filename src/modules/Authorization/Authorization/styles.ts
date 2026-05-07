@@ -4,16 +4,11 @@ import { StyleSheet } from 'react-native';
 
 export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
-        container: {
-            flexGrow: 1,
-            backgroundColor: colors.background,
-        },
         content: {
             flex: 1,
             alignItems: 'center',
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(32),
-            paddingBottom: scaleVertical(24),
         },
         formContainer: {
             width: '100%',

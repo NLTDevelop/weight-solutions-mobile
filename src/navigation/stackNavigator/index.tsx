@@ -6,6 +6,9 @@ import { CreateCompanyView } from '@/modules/Companies/CreateCompany';
 import { CreateProductView } from '@/modules/Products/CreateProduct';
 import { EditProductView } from '@/modules/Products/EditProduct';
 import { ProductView } from '@/modules/Products/Product';
+import { ContactInformationView } from '@/modules/Profile/ContactInformation';
+import { EditContactInformationView } from '@/modules/Profile/EditContactInformation';
+import { EditPersonalDataView } from '@/modules/Profile/EditPersonalData';
 import { LinkedObjectsView } from '@/modules/Profile/LinkedObjects';
 import { PersonalDataView } from '@/modules/Profile/PersonalData';
 import { SplashView } from '@/modules/Splash/ui';
@@ -41,6 +44,9 @@ export const MainStackNavigator = observer(() => {
             <Stack.Screen name="UserView" component={UserView} />
             <Stack.Screen name="EditUserView" component={EditUserView} />
             <Stack.Screen name="PersonalDataView" component={PersonalDataView} />
+            <Stack.Screen name="EditPersonalDataView" component={EditPersonalDataView} />
+            <Stack.Screen name="ContactInformationView" component={ContactInformationView} />
+            <Stack.Screen name="EditContactInformationView" component={EditContactInformationView} />
             <Stack.Screen name="LinkedObjectsView" component={LinkedObjectsView} />
         </Stack.Navigator>
     );

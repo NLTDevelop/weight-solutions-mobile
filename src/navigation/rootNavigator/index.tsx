@@ -3,7 +3,8 @@ import { MainStackNavigator } from '../stackNavigator';
 import { useUiContext } from '@/UIProvider';
 import { Logger } from '../../UIKit/Logger/ui/Logger';
 import { observer } from 'mobx-react';
-// import { ConnectionContainer } from '../../UIKit/ConnectionBanner/ui';
+import { ConnectionContainer } from '@/UIKit/ConnectionBanner/ui';
+
 
 type RootStackParamList = Record<string, object | undefined>;
 
@@ -14,7 +15,7 @@ export const RootNavigator = observer(() => {
 
     return (
         <NavigationContainer ref={navigationRef} theme={{ colors, dark: theme === 'dark', fonts }}>
-            {/* <ConnectionContainer /> */}
+            <ConnectionContainer />
             <MainStackNavigator />
             <Logger />
         </NavigationContainer>

@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
@@ -47,7 +47,7 @@ export const EditUserView = observer(() => {
                 <NLTTextInput label={t('users.email')} value={email} onChangeText={onChangeEmail} error={emailErrorText ? t(emailErrorText) : ''} autoCapitalize="none" keyboardType="email-address" />
                 <NLTTextInput label={t('users.passwordOptional')} value={password} onChangeText={onChangePassword} secureTextEntry />
                 <NLTTextInput label={t('users.description')} value={description} onChangeText={onChangeDescription} error={descriptionErrorText ? t(descriptionErrorText) : ''} multiline />
-                <Button text={t('users.saveButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
+                <NLTButton text={t('users.saveButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
             </View>
         </ScreenContainer>
     );

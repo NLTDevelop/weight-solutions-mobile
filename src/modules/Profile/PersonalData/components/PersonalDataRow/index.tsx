@@ -6,7 +6,7 @@ import { getStyles } from './styles';
 
 interface IProps {
     label: string;
-    value: string;
+    value: string | string[];
 }
 
 export const PersonalDataRow = ({ label, value }: IProps) => {
@@ -16,7 +16,11 @@ export const PersonalDataRow = ({ label, value }: IProps) => {
     return (
         <View style={styles.container}>
             <Typography variant='body_xs' text={label} style={styles.label} />
-            <Typography variant='body_m_bold' text={value} style={styles.value} />
+            {Array.isArray(value)
+                ? value.map((item, index) => (
+                    <Typography key={`${label}-${index}`} variant='body_m_bold' text={item} style={styles.value} />
+                ))
+                : <Typography variant='body_m_bold' text={value} style={styles.value} />}
         </View>
     );
 };

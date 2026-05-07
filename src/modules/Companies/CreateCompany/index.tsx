@@ -1,26 +1,35 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
+import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useCreateCompany } from './presenters/useCreateCompany';
 import { getStyles } from './styles';
 
 export const CreateCompanyView = observer(() => {
-    const { colors } = useUiContext();
+    const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const {
         name,
-        contact,
+        email,
+        address,
+        owner,
+        phone,
         description,
         isLoading,
         isSubmitDisabled,
         nameErrorText,
-        contactErrorText,
+        ownerErrorText,
+        descriptionLength,
+        descriptionMaxLength,
+        onChangeEmail,
         onChangeName,
-        onChangeContact,
+        onChangeAddress,
+        onChangeOwner,
+        onChangePhone,
         onChangeDescription,
         onPressBack,
         onSubmit,
@@ -28,57 +37,115 @@ export const CreateCompanyView = observer(() => {
 
     return (
         <ScreenContainer
-            edges={['top', 'bottom']}
             isKeyboardAvoiding
             scrollEnabled
-            contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title="Create company" onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={(
+                <HeaderWithBackButton
+                    title={t('companies.createTitle')}
+                    onPressBack={onPressBack}
+                />
+            )}
         >
-            <View style={styles.card}>
-                <View style={styles.form}>
-                    <View style={styles.field}>
-                        <Text style={styles.label}>Name</Text>
-                        <TextInput
-                            value={name}
-                            onChangeText={onChangeName}
-                            placeholder="Company name"
-                            placeholderTextColor={colors.text_light}
-                            style={[styles.input, nameErrorText ? styles.inputError : undefined]}
-                        />
-                        <Text style={nameErrorText ? styles.errorText : styles.helperText}>{nameErrorText || 'Required field'}</Text>
-                    </View>
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <View style={styles.form}>
+                        <View style={styles.field}>
+                            <NLTTextInput
+                                label={t('companies.nameLabel')}
+                                value={name}
+                                onChangeText={onChangeName}
+                                placeholder={t('companies.namePlaceholder')}
+                                error={nameErrorText}
+                                isMandatory
+                                maxLength={50}
+                                containerStyle={styles.inputContainer}
+                                inputContainerStyle={styles.pillInputInner}
+                                labelStyle={styles.labelStyle}
+                            />
+                        </View>
 
-                    <View style={styles.field}>
-                        <Text style={styles.label}>Contact</Text>
-                        <TextInput
-                            value={contact}
-                            onChangeText={onChangeContact}
-                            placeholder="Phone, email or person"
-                            placeholderTextColor={colors.text_light}
-                            style={[styles.input, contactErrorText ? styles.inputError : undefined]}
-                        />
-                        <Text style={contactErrorText ? styles.errorText : styles.helperText}>{contactErrorText || 'Required field'}</Text>
-                    </View>
+                        <View style={styles.field}>
+                            <NLTTextInput
+                                label={t('companies.ownerInputLabel')}
+                                value={owner}
+                                onChangeText={onChangeOwner}
+                                placeholder={t('companies.ownerPlaceholder')}
+                                error={ownerErrorText}
+                                isMandatory
+                                maxLength={50}
+                                containerStyle={styles.inputContainer}
+                                inputContainerStyle={styles.pillInputInner}
+                                labelStyle={styles.labelStyle}
+                            />
+                        </View>
 
-                    <View style={styles.field}>
-                        <Text style={styles.label}>Description</Text>
-                        <TextInput
-                            value={description}
-                            onChangeText={onChangeDescription}
-                            placeholder="Optional description"
-                            placeholderTextColor={colors.text_light}
-                            multiline
-                            style={[styles.input, styles.multilineInput]}
-                        />
-                    </View>
+                        <View style={styles.field}>
+                            <NLTTextInput
+                                label={t('companies.addressInputLabel')}
+                                value={address}
+                                onChangeText={onChangeAddress}
+                                placeholder={t('companies.addressPlaceholder')}
+                                maxLength={50}
+                                containerStyle={styles.inputContainer}
+                                inputContainerStyle={styles.pillInputInner}
+                                labelStyle={styles.labelStyle}
+                            />
+                        </View>
 
-                    <Button
-                        text="Create company"
+                        <View style={styles.field}>
+                            <NLTTextInput
+                                label={t('companies.phoneInputLabel')}
+                                value={phone}
+                                onChangeText={onChangePhone}
+                                placeholder={t('companies.phonePlaceholder')}
+                                keyboardType='phone-pad'
+                                maxLength={50}
+                                containerStyle={styles.inputContainer}
+                                inputContainerStyle={styles.pillInputInner}
+                                labelStyle={styles.labelStyle}
+                            />
+                        </View>
+
+                        <View style={styles.field}>
+                            <NLTTextInput
+                                label={t('companies.emailInputLabel')}
+                                value={email}
+                                onChangeText={onChangeEmail}
+                                placeholder={t('companies.emailPlaceholder')}
+                                keyboardType='email-address'
+                                maxLength={50}
+                                containerStyle={styles.inputContainer}
+                                inputContainerStyle={styles.pillInputInner}
+                                labelStyle={styles.labelStyle}
+                            />
+                        </View>
+
+                        <View style={styles.field}>
+                            <NLTTextInput
+                                label={t('companies.descriptionInputLabel')}
+                                value={description}
+                                onChangeText={onChangeDescription}
+                                placeholder={t('companies.descriptionPlaceholder')}
+                                multiline
+                                shape='rounded'
+                                maxLength={descriptionMaxLength}
+                                containerStyle={styles.inputContainer}
+                                inputContainerStyle={styles.multilineInputInner}
+                                labelStyle={styles.labelStyle}
+                                style={styles.multilineInput}
+                            />
+                            <Text style={styles.counterText}>{descriptionLength}/{descriptionMaxLength}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.footer}>
+                    <NLTButton
+                        text={t('companies.saveButton')}
                         onPress={onSubmit}
                         disabled={isSubmitDisabled}
                         inProgress={isLoading}
-                        containerStyle={styles.button}
-                        textStyle={styles.buttonText}
+                        containerStyle={[styles.button, isSubmitDisabled && styles.buttonDisabled]}
+                        textStyle={[styles.buttonText, isSubmitDisabled && styles.buttonTextDisabled]}
                     />
                 </View>
             </View>

@@ -1,20 +1,21 @@
 interface IProps {
     name: string;
-    contact: string;
+    owner: string;
     isSubmitted: boolean;
     isLoading: boolean;
+    t: (scope: string) => string;
 }
 
-export const useCreateCompanyUi = ({ name, contact, isSubmitted, isLoading }: IProps) => {
+export const useCreateCompanyUi = ({ name, owner, isSubmitted, isLoading, t }: IProps) => {
     const trimmedName = name.trim();
-    const trimmedContact = contact.trim();
-    const nameErrorText = isSubmitted && !trimmedName ? 'Company name is required' : '';
-    const contactErrorText = isSubmitted && !trimmedContact ? 'Contact is required' : '';
-    const isSubmitDisabled = isLoading || !trimmedName || !trimmedContact;
+    const trimmedOwner = owner.trim();
+    const nameErrorText = isSubmitted && !trimmedName ? t('companies.validationNameRequired') : '';
+    const ownerErrorText = isSubmitted && !trimmedOwner ? t('companies.validationOwnerRequired') : '';
+    const isSubmitDisabled = isLoading || !trimmedName || !trimmedOwner;
 
     return {
         nameErrorText,
-        contactErrorText,
+        ownerErrorText,
         isSubmitDisabled,
     };
 };

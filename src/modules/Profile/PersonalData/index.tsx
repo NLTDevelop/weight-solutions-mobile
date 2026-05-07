@@ -1,23 +1,24 @@
 import { useUiContext } from '@/UIProvider';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
-import { Typography } from '@/UIKit/Typography';
+import { TextButton } from '@/UIKit/textButton';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
 import { FlatList, ListRenderItem, View } from 'react-native';
 import { PersonalDataRow } from './components/PersonalDataRow';
 import { usePersonalData } from './presenters/usePersonalData';
 import { getStyles } from './styles';
+import { NLTCard } from '@/UIKit/NLTCard';
 
 export const PersonalDataView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { rows, onPressBack } = usePersonalData();
+    const { rows, onPressBack, onPressEdit } = usePersonalData();
 
     const keyExtractor = (item: { id: string }) => item.id;
 
-    const renderItem: ListRenderItem<{ id: string; label: string; value: string }> = ({ item }) => {
-        const value = item.value.startsWith('profile.roles.') ? t(item.value) : item.value;
+    const renderItem: ListRenderItem<{ id: string; label: string; value: string | string[] }> = ({ item }) => {
+        const value = typeof item.value === 'string' && item.value.startsWith('profile.roles.') ? t(item.value) : item.value;
         return <PersonalDataRow label={t(item.label)} value={value} />;
     };
 
@@ -26,9 +27,15 @@ export const PersonalDataView = observer(() => {
     };
 
     return (
-        <ScreenContainer edges={['top', 'bottom']} contentContainerStyle={styles.container} headerComponent={<HeaderWithBackButton title={t('profile.personalDataTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}>
-            <View style={styles.card}>
-                <Typography variant='h5' text={t('profile.personalDataTitle')} style={styles.title} />
+        <ScreenContainer
+            contentContainerStyle={styles.container}
+            headerComponent={<HeaderWithBackButton
+                title={t('profile.personalDataTitle')}
+                onPressBack={onPressBack}
+                rightComponent={<TextButton text={t('profile.editTitle')} onPress={onPressEdit} textStyles={styles.editButtonText} />}
+            />}
+        >
+            <NLTCard containerStyle={styles.card}>
                 <FlatList
                     data={rows}
                     renderItem={renderItem}
@@ -37,7 +44,7 @@ export const PersonalDataView = observer(() => {
                     contentContainerStyle={styles.listContent}
                     ItemSeparatorComponent={ItemSeparatorComponent}
                 />
-            </View>
+            </NLTCard>
         </ScreenContainer>
     );
 });

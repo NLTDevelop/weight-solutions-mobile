@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Button } from '@/UIKit/Button';
+import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
@@ -35,7 +35,7 @@ export const CreateProductView = observer(() => {
             <View style={styles.form}>
                 <NLTTextInput label={t('products.nameLabel')} value={name} onChangeText={onChangeName} error={nameErrorText ? t(nameErrorText) : ''} />
                 <NLTTextInput label={t('products.descriptionLabel')} value={description} onChangeText={onChangeDescription} multiline />
-                <Button text={t('products.createButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
+                <NLTButton text={t('products.createButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
             </View>
         </ScreenContainer>
     );
