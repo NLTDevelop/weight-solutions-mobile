@@ -1,33 +1,43 @@
 import { ReactNode, useEffect, useRef, useState, useCallback } from 'react';
-import { addEventListener, fetch as fetchNetInfo } from '@react-native-community/netinfo';
-import { localization } from '@/UIProvider/localization/Localization';
-import { colorTheme } from '@/UIProvider/theme/ColorTheme';
+import { addEventListener, NetInfoState } from '@react-native-community/netinfo';
+import { localization } from '../../../UIProvider/localization/Localization';
+import { colorTheme } from '../../../UIProvider/theme/ColorTheme';
 import { NetworkErrorIcon } from '@/assets/icons/NetworkErrorIcon';
 import { NetworkIcon } from '@/assets/icons/NetworkIcon';
+import { loggerModel } from '@/UIKit/Logger/entity/loggerModel';
 
 interface BannerState {
     visible: boolean;
     text: string;
     backgroundColor: string;
-    textColor: string;
     icon: ReactNode;
 }
 
-export const useConnectionBanner = () => {
-    const [banner, setBanner] = useState<BannerState>({
+const STATES = {
+    INITIAL: {
         visible: false,
         text: localization.t('networkError'),
-        backgroundColor: colorTheme.colors.error,
-        textColor: colorTheme.colors.text_inverted,
+        backgroundColor: colorTheme.colors.border_light,
         icon: <NetworkErrorIcon />,
-    });
+    },
+    DISCONNECTED: {
+        visible: true,
+        text: localization.t('networkError'),
+        backgroundColor: colorTheme.colors.error_strong,
+        icon: <NetworkErrorIcon />,
+    },
+    RECONNECTED: {
+        visible: true,
+        text: localization.t('reconnectNetwork'),
+        backgroundColor: colorTheme.colors.success,
+        icon: <NetworkIcon />,
+    }
+}
 
-    const isFirstCheck = useRef(true);
-    const lastStatus = useRef<boolean | null>(null);
+export const useConnectionBanner = () => {
+    const [banner, setBanner] = useState<BannerState>(STATES.INITIAL);
+    const lastStatus = useRef<'DISCONNECTED' | 'RECONNECTED' | null>(null);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const offlineTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const offlineShownRef = useRef(false);
-    const OFFLINE_DEBOUNCE_MS = 1500;
 
     const hideBanner = useCallback(() => {
         setBanner(prev => ({ ...prev, visible: false }));
@@ -37,80 +47,39 @@ export const useConnectionBanner = () => {
         }
     }, []);
 
-    useEffect(() => {
-        const clearOfflineTimeout = () => {
-            if (offlineTimeoutRef.current) {
-                clearTimeout(offlineTimeoutRef.current);
-                offlineTimeoutRef.current = null;
-            }
-        };
+    const onNetInfoChange = useCallback((state: NetInfoState) => {
+        loggerModel.add('library', 'NetInfo', JSON.stringify(state, null, 2));
 
-        const showOfflineBanner = () => {
-            hideBanner();
-            offlineShownRef.current = true;
-            setBanner({
-                visible: true,
-                text: localization.t('networkError'),
-                backgroundColor: colorTheme.colors.error,
-                textColor: colorTheme.colors.text,
-                icon: <NetworkErrorIcon />,
-            });
-        };
+        if (typeof state.isConnected !== 'boolean' || typeof state.isInternetReachable !== 'boolean') {
+            setBanner(STATES.INITIAL);
+            return;
+        }
 
-        const handleState = (state: { isConnected?: boolean | null; isInternetReachable?: boolean | null }) => {
-            const isOnline = Boolean(state.isConnected && state.isInternetReachable !== false);
+        if (state.isConnected === false) {
+            setBanner(STATES.DISCONNECTED);
+            lastStatus.current = 'DISCONNECTED';
+            return;
+        }
 
-            if (isFirstCheck.current) {
-                isFirstCheck.current = false;
-                lastStatus.current = isOnline;
-                if (!isOnline) {
-                    clearOfflineTimeout();
-                    offlineTimeoutRef.current = setTimeout(showOfflineBanner, OFFLINE_DEBOUNCE_MS);
-                }
-                return;
-            }
-
-            if (!isOnline) {
-                clearOfflineTimeout();
-                offlineTimeoutRef.current = setTimeout(showOfflineBanner, OFFLINE_DEBOUNCE_MS);
-            } else if (lastStatus.current === false && isOnline) {
-                clearOfflineTimeout();
-                if (!offlineShownRef.current) {
-                    lastStatus.current = isOnline;
-                    return;
-                }
+        if (state.isConnected === true && lastStatus.current === 'DISCONNECTED') {
+            setBanner(STATES.RECONNECTED);
+            lastStatus.current = 'RECONNECTED';
+            timeoutRef.current = setTimeout(() => {
                 hideBanner();
-                offlineShownRef.current = false;
-                setBanner({
-                    visible: true,
-                    text: localization.t('reconnectNetwork'),
-                    backgroundColor: colorTheme.colors.success,
-                    textColor: colorTheme.colors.text_inverted,
-                    icon: <NetworkIcon />,
-                });
+            }, 3000);
+        }
+    }, [hideBanner]);
 
-                timeoutRef.current = setTimeout(() => {
-                    setBanner(prevState => ({ ...prevState, visible: false }));
-                    timeoutRef.current = null;
-                }, 3000);
-            }
-
-            lastStatus.current = isOnline;
-        };
-
-        const unsubscribe = addEventListener(handleState);
-        fetchNetInfo()
-            .then(handleState)
-            .catch(error => {
-                console.error('netinfo fetch failed', error);
-            });
+    useEffect(() => {
+        const unsubscribe = addEventListener(onNetInfoChange);
 
         return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
             unsubscribe();
-            clearOfflineTimeout();
-            hideBanner();
         };
-    }, [hideBanner]);
+    }, [onNetInfoChange]);
 
     return { banner, hideBanner };
 };

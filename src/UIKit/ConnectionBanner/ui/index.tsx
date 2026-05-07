@@ -11,15 +11,15 @@ export const ConnectionContainer = () => {
     const { top } = useSafeAreaInsets();
     const styles = useMemo(() => getStyles(colors, top), [colors, top]);
     const { banner, hideBanner } = useConnectionBanner();
-    const { visible, backgroundColor, text, textColor, icon } = banner;
+    const { visible, backgroundColor, text, icon } = banner;
 
     if (!visible) return null;
 
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={hideBanner} style={styles.container}>
-            <View style={[styles.content, { backgroundColor }]}>
+            <View style={[styles.content, { backgroundColor}]}>
                 {icon}
-                <Typography style={[styles.text, { color: textColor }]} variant="body_m" text={text} />
+                <Typography style={styles.text} variant="body_m" text={text} />
             </View>
         </TouchableOpacity>
     );
