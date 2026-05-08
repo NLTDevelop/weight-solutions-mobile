@@ -65,7 +65,7 @@ class UsersService {
         }
     };
 
-    update = async (userId: number, body: UserUpdateDto): Promise<IResponse<IUserResponse>> => {
+    update = async (userId: number, body: Partial<UserUpdateDto>): Promise<IResponse<IUserResponse>> => {
         try {
             const response = await this.requester.request({
                 url: this.links.userDetails(userId),
