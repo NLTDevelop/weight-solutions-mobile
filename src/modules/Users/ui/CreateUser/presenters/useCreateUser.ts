@@ -5,12 +5,14 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { useCreateUserUi } from './useCreateUserUi';
 import { companyService } from '@/entities/Company/CompanyService';
+import { useUiContext } from '@/UIProvider';
 
 interface IRouteParams {
     companyId: number;
 }
 
 export const useCreateUser = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
     const { companyId } = route.params as IRouteParams;
@@ -77,12 +79,12 @@ export const useCreateUser = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('User creation failed', response.message || 'Please try again');
+            toastService.showError(t('users.createdFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
         companyService.details(companyId);
-        toastService.showSuccess('User created', response.data.data.name);
+        toastService.showSuccess(t('users.created'), response.data.data.name);
         navigation.replace('UserView', { companyId, userId: response.data.data.id });
     };
 

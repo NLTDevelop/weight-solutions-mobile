@@ -1,5 +1,5 @@
 {
-      "networkError": "Помилка мережі. Перевірте підключення.",
+    "networkError": "Помилка мережі. Перевірте підключення.",
     "reconnectNetwork": "Підключення до мережі",
     "common": {
         "email": "Email",
@@ -7,14 +7,18 @@
         "password": "Пароль",
         "passwordPlaceholder": "Введіть пароль",
         "back": "Назад",
-        "save": "Зберегти"
+        "save": "Зберегти",
+        "hello": "Привіт"
     },
     "authorization": {
         "title": "Авторизація",
         "subtitle": "Введіть свій email та пароль, щоб увійти в систему.",
         "forgotPassword": "Забули пароль?",
         "signIn": "Увійти",
-        "invalidCredentials": "Невірний email або пароль"
+        "invalidCredentials": "Невірний email або пароль",
+        "failed": "Не вдалося авторизуватися",
+        "checkYourCredentials": "Перевірте свої облікові дані та спробуйте ще раз",
+        "success": "Авторизація успішна"
     },
     "restorePassword": {
         "email": {
@@ -28,7 +32,9 @@
             "subtitle": "Введіть код, який ми надіслали на ваш email.",
             "label": "Введіть код",
             "button": "Далі",
-            "error": "Введіть 6-значний код"
+            "error": "Введіть 6-значний код",
+            "codeIsSend": "Код надіслано",
+            "weAreSendCodeOn": "Ми надіслали код на"
         },
         "password": {
             "title": "Новий пароль",
@@ -40,7 +46,9 @@
             "ruleMinLength": "Мінімум 6 символів",
             "ruleDigit": "Щонайменше 1 цифра",
             "ruleSpecialCharacter": "1 спецсимвол",
-            "error": "Паролі не співпадають."
+            "error": "Паролі не співпадають.",
+            "passwordUpdated": "Пароль оновлено",
+            "enterInSystemWithNewPassword": "Увійдіть у систему з новим паролем."
         }
     },
     "companies": {
@@ -76,7 +84,8 @@
         "createFailedTitle": "Не вдалося створити підприємство",
         "createSuccessTitle": "Підприємство створено",
         "updateFailedTitle": "Не вдалося оновити підприємство",
-        "updateSuccessTitle": "Підприємство оновлено"
+        "updateSuccessTitle": "Підприємство оновлено",
+        "сompaniesLoadingFailed": "Не вдалося завантажити підприємства"
     },
     "company": {
         "detailsTitle": "Деталі компанії",
@@ -161,7 +170,12 @@
         },
         "validation": {
             "nameRequired": "Вкажіть назву"
-        }
+        },
+        "creationFailed": "Не вдалося створити продукт",
+        "loadingFailed": "Не вдалося завантажити продукт",
+        "updateFailed": "Не вдалося оновити продукт",
+        "updated": "Продукт оновлено",
+        "created": "Продукт створено"
     },
     "users": {
         "companyUsersTitle": "Користувачі компанії",
@@ -204,7 +218,10 @@
             "descriptionRequired": "Вкажіть опис",
             "phoneRequired": "Вкажіть номер телефону",
             "roleRequired": "Оберіть роль"
-        }
+        },
+        "createdFailed": "Не вдалося створити користувача",
+        "created": "Користувач створений",
+        "loadingFailed": "Не вдалося завантажити користувача"
     },
     "profile": {
         "title": "Профіль",
@@ -257,6 +274,15 @@
             "admin": "Адміністратор",
             "user": "Користувач",
             "unknown": "Не вказано"
+        },
+        "updateFailed": "Не вдалося оновити профіль",
+        "tryAgainPlease": "Будь ласка спробуйте ще раз",
+        "updated": "Профіль оновлено",
+        "deletefailed": "Не вдалося видалити",
+        "actionFailed": "Помилка дії профілю",
+        "userNotAvailable": "Користувач недоступний",
+        "contact": {
+            "loadingFailed": "Не вдалося завантажити контактну інформацію"
         }
     },
     "tabs": {

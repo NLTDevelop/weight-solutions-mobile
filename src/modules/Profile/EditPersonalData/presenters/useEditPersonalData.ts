@@ -4,9 +4,11 @@ import { toastService } from '@/libs/toast/toastService';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useMemo, useState } from 'react';
+import { useUiContext } from '@/UIProvider';
 import { UserUpdateDto } from '@/entities/Users/dto/user-update.dto';
 
 export const useEditPersonalData = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [name, setName] = useState(userModel.user?.name || '');
     const [username, setUsername] = useState(userModel.user?.username || '');
@@ -58,11 +60,11 @@ export const useEditPersonalData = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('Profile update failed', response.message || 'Please try again');
+            toastService.showError(t('profile.updateFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess('Profile updated', response.data.data.name);
+        toastService.showSuccess(t('profile.updated'), response.data.data.name);
         navigation.goBack();
     };
 

@@ -41,9 +41,9 @@ export const useCompany = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Company loading failed', response.message || 'Please try again');
+            toastService.showError(t('companies.сompaniesLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [companyId]);
+    }, [companyId, t]);
 
     const onPressBack = () => {
         navigation.goBack();
