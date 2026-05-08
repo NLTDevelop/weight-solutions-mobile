@@ -39,7 +39,7 @@ export const ProfileView = observer(() => {
                     <ProfileMenuItem icon={<UserIcon color={colors.icon_strong} />} title={t('profile.personalDataTitle')} onPress={onGoToPersonalData} />
                     <View style={styles.itemSeparator} />
                     <ProfileMenuItem icon={<BellIcon color={colors.icon_strong} />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} trailingType={'toggle'} toggleValue={isNotificationsEnabled} onToggle={onToggleNotifications} />
-                    <View style={styles.itemSeparator} />
+                    {isSuperadmin ? <View style={styles.itemSeparator} /> : null}
                     {isSuperadmin ? <ProfileMenuItem icon={<EditIcon color={colors.icon_strong} />} title={t('profile.contactSettingsTitle')} onPress={onGoToContactInformation} /> : null}
                     <View style={styles.itemSeparator} />
                     <ProfileMenuItem icon={<LogoutIcon color={colors.icon_strong} />} title={t('profile.logoutTitle')} onPress={onOpenLogoutModal} />

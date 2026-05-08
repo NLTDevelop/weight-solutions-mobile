@@ -21,15 +21,17 @@ export const useCreateUser = () => {
     const [role, setRole] = useState<'admin' | 'user'>('admin');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [description, setDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { nameErrorText, phoneErrorText, roleErrorText, emailErrorText, passwordErrorText, isSubmitDisabled } = useCreateUserUi({
+    const { nameErrorText, phoneErrorText, roleErrorText, emailErrorText, passwordErrorText, descriptionErrorText, isSubmitDisabled } = useCreateUserUi({
         name,
         phone,
         role,
         email,
         password,
+        description,
         isSubmitted,
         isLoading,
     });
@@ -48,6 +50,10 @@ export const useCreateUser = () => {
 
     const onChangePassword = (value: string) => {
         setPassword(value);
+    };
+
+    const onChangeDescription = (value: string) => {
+        setDescription(value);
     };
 
     const onToggleRole = () => {
@@ -72,7 +78,7 @@ export const useCreateUser = () => {
             username: email.trim(),
             email: email.trim(),
             password: password.trim(),
-            description: null,
+            description: description.trim(),
             company_id: companyId,
         });
 
@@ -94,17 +100,20 @@ export const useCreateUser = () => {
         role,
         email,
         password,
+        description,
         isLoading,
         nameErrorText,
         phoneErrorText,
         roleErrorText,
         emailErrorText,
         passwordErrorText,
+        descriptionErrorText,
         isSubmitDisabled,
         onChangeName,
         onChangePhone,
         onChangeEmail,
         onChangePassword,
+        onChangeDescription,
         onToggleRole,
         onPressBack,
         onSubmit,

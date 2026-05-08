@@ -19,6 +19,7 @@ export const EditUserView = observer(() => {
         phone,
         role,
         email,
+        description,
         isLoading,
         nameErrorText,
         phoneErrorText,
@@ -27,6 +28,7 @@ export const EditUserView = observer(() => {
         onChangeName,
         onChangePhone,
         onChangeEmail,
+        onChangeDescription,
         onPressBack,
         onSubmit,
     } = useEditUser();
@@ -97,6 +99,18 @@ export const EditUserView = observer(() => {
                         autoCapitalize='none'
                         keyboardType='email-address'
                         containerStyle={styles.inputContainer}
+                    />
+                    <NLTTextInput
+                        label={t('users.description')}
+                        placeholder={t('users.descriptionPlaceholder')}
+                        value={description}
+                        onChangeText={onChangeDescription}
+                        isMandatory
+                        multiline
+                        shape='rounded'
+                        containerStyle={styles.inputContainer}
+                        inputContainerStyle={styles.textAreaInner}
+                        style={styles.textArea}
                     />
                 </View>
             </View>

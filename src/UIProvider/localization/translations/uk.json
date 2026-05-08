@@ -198,6 +198,7 @@
         "passwordPlaceholder": "Введіть пароль",
         "passwordOptional": "Новий пароль",
         "description": "Опис",
+        "descriptionPlaceholder": "Введіть опис",
         "role": "Роль",
         "phone": "Номер телефону",
         "phonePlaceholder": "Введіть номер телефону",
