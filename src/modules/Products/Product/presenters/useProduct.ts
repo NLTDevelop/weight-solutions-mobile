@@ -5,12 +5,14 @@ import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/nativ
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useState } from 'react';
 import { useProductUi } from './useProductUi';
+import { useUiContext } from '@/UIProvider';
 
 interface IRouteParams {
     productId: number;
 }
 
 export const useProduct = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
     const { productId } = route.params as IRouteParams;
@@ -28,9 +30,9 @@ export const useProduct = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Product loading failed', response.message || 'Please try again');
+            toastService.showError(t('product.loadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [productId]);
+    }, [productId, t]);
 
     useFocusEffect(useCallback(() => {
         loadProduct();

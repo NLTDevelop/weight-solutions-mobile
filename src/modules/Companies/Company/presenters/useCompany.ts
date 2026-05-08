@@ -5,12 +5,14 @@ import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/nativ
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useState } from 'react';
 import { useCompanyUi } from './useCompanyUi';
+import { useUiContext } from '@/UIProvider';
 
 interface IRouteParams {
     companyId: number;
 }
 
 export const useCompany = () => {
+    const {t} = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
     const [isLoading, setIsLoading] = useState(false);
@@ -33,9 +35,9 @@ export const useCompany = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Company loading failed', response.message || 'Please try again');
+            toastService.showError(t('companies.сompaniesLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [companyId]);
+    }, [companyId, t]);
 
     const onPressBack = () => {
         navigation.goBack();

@@ -13,6 +13,8 @@ interface IRouteParams {
 }
 
 export const useEditUser = () => {
+    const { t } = useUiContext();
+
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
     const { companyId, userId } = route.params as IRouteParams;
@@ -113,11 +115,11 @@ export const useEditUser = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('User update failed', response.message || 'Please try again');
+            toastService.showError(t('profile.updateFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess('User updated', response.data.data.name);
+        toastService.showSuccess(t('profile.updated'), response.data.data.name);
         navigation.replace('UserView', { companyId, userId });
     };
 

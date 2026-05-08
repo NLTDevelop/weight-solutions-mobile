@@ -4,8 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { useCreateProductUi } from './useCreateProductUi';
+import { useUiContext } from '@/UIProvider';
 
 export const useCreateProduct = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -47,11 +49,11 @@ export const useCreateProduct = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('Product creation failed', response.message || 'Please try again');
+            toastService.showError(t('product.creationFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess('Product created', response.data.data.name);
+        toastService.showSuccess(t('product.created'), response.data.data.name);
         navigation.replace('ProductView', { productId: response.data.data.id });
     };
 
