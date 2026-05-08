@@ -5,11 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useState } from 'react';
 import { useCompaniesUi } from './useCompaniesUi';
+import { useUiContext } from '@/UIProvider';
 
 const LIST_LIMIT = 20;
 const SEARCH_DEBOUNCE_MS = 300;
 
 export const useCompanies = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [isLoading, setIsLoading] = useState(false);
     const [search, setSearch] = useState('');
@@ -37,9 +39,9 @@ export const useCompanies = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Companies loading failed', response.message || 'Please try again');
+            toastService.showError(t('companies.сompaniesLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [search]);
+    }, [search, t]);
 
     const onPressCreateCompany = () => {
         navigation.navigate('CreateCompanyView');

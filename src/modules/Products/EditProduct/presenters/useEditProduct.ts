@@ -5,12 +5,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useState } from 'react';
 import { useEditProductUi } from './useEditProductUi';
+import { useUiContext } from '@/UIProvider';
 
 interface IRouteParams {
     productId: number;
 }
 
 export const useEditProduct = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
     const { productId } = route.params as IRouteParams;
@@ -28,14 +30,14 @@ export const useEditProduct = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('Product loading failed', response.message || 'Please try again');
+            toastService.showError(t('product.loadingFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
         setName(response.data.data.name || '');
         setDescription(response.data.data.description || '');
         setStatus(response.data.data.active || 'active');
-    }, [productId]);
+    }, [productId, t]);
 
     useEffect(() => {
         if (productModel.current?.id === productId) {
@@ -93,11 +95,11 @@ export const useEditProduct = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('Product update failed', response.message || 'Please try again');
+            toastService.showError(t('product.updateFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess('Product updated', response.data.data.name);
+        toastService.showSuccess(t('product.updated'), response.data.data.name);
         navigation.replace('ProductView', { productId });
     };
 

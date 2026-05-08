@@ -10,8 +10,10 @@ import {
     TRestorePasswordStep,
 } from '../types/IRestorePassword';
 import { useRestorePasswordUi } from './useRestorePasswordUi';
+import { useUiContext } from '@/UIProvider';
 
 export const useRestorePassword = () => {
+    const { t} = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const codeInputRef = useRef<TextInput>(null);
 
@@ -116,7 +118,7 @@ export const useRestorePassword = () => {
         setStep('code');
         setCode('');
         setIsCodeSubmitted(false);
-        toastService.showSuccess('Код надіслано', `Ми надіслали код на ${email.trim()}`);
+        toastService.showSuccess(t('code.codeIsSend'), `${t('code.weAreSendCodeOn')} ${email.trim()}`);
     };
 
     const onSubmitCode = async () => {
@@ -149,7 +151,7 @@ export const useRestorePassword = () => {
         setIsLoading(true);
         await new Promise(resolve => setTimeout(resolve, 300));
         setIsLoading(false);
-        toastService.showSuccess('Пароль оновлено', 'Увійдіть у систему з новим паролем.');
+        toastService.showSuccess(t('password.passwordUpdated'), t('password.enterInSystemWithNewPassword'));
         navigation.reset({ index: 0, routes: [{ name: 'AuthorizationView' }] });
     };
 

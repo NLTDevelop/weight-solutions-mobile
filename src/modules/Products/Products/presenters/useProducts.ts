@@ -3,12 +3,14 @@ import { productService } from '@/entities/Product/ProductService';
 import { toastService } from '@/libs/toast/toastService';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useProductsUi } from './useProductsUi';
+import { useUiContext } from '@/UIProvider';
 
 const LIST_LIMIT = 20;
 
 export const useProducts = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -21,7 +23,7 @@ export const useProducts = () => {
         onPressProduct,
     });
 
-    const loadProducts = async () => {
+    const loadProducts = useCallback(async () => {
         setIsLoading(true);
 
         const response = await productService.list({
@@ -33,9 +35,9 @@ export const useProducts = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Products loading failed', response.message || 'Please try again');
+            toastService.showError(t('product.loadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    };
+    }, [t]);
 
     const onPressCreateProduct = () => {
         navigation.navigate('CreateProductView');
@@ -43,7 +45,7 @@ export const useProducts = () => {
 
     useEffect(() => {
         loadProducts();
-    }, []);
+    }, [loadProducts]);
 
     return {
         productCards,
