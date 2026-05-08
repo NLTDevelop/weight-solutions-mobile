@@ -5,7 +5,6 @@ import { PlusIcon } from '@/assets/icons/PlusIcon';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { Loader } from '@/UIKit/Loader';
-import { EmptyListView } from '@/UIKit/NLTEmptyListView';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { NLTTabView } from '@/UIKit/NLTTabView';
 import { observer } from 'mobx-react';
@@ -16,6 +15,7 @@ import { InfoRow } from './components/InfoRow';
 import { useCompany } from './presenters/useCompany';
 import { ICompanyUserCard } from './types/ICompanyUserCard';
 import { getStyles } from './styles';
+import { UserIcon } from '@/assets/icons/UserIcon';
 
 type TRoute = {
     key: string;
@@ -81,7 +81,11 @@ export const CompanyView = observer(() => {
                     ))}
                     {!userCards.length ? (
                         <View style={styles.emptyState}>
-                            <EmptyListView text={t('users.emptyCompanyUsers')} />
+                            <View style={styles.emptyIconCircle}>
+                                <UserIcon width={28} height={28} color={colors.icon_strong} />
+                            </View>
+                            <Text style={styles.emptyTitle}>{t('users.emptyStateTitle')}</Text>
+                            <Text style={styles.emptyDescription}>{t('users.emptyStateDescription')}</Text>
                         </View>
                     ) : null}
                 </View>

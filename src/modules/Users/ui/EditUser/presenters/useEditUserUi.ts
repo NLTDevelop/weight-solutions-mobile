@@ -1,29 +1,28 @@
 interface IProps {
     name: string;
-    username: string;
+    phone: string;
+    role: 'superadmin' | 'admin' | 'user';
     email: string;
-    description: string;
     isSubmitted: boolean;
     isLoading: boolean;
 }
 
-export const useEditUserUi = ({ name, username, email, description, isSubmitted, isLoading }: IProps) => {
+export const useEditUserUi = ({ name, phone, role, email, isSubmitted, isLoading }: IProps) => {
     const trimmedName = name.trim();
-    const trimmedUsername = username.trim();
+    const trimmedPhone = phone.trim();
     const trimmedEmail = email.trim();
-    const trimmedDescription = description.trim();
 
     const nameErrorText = isSubmitted && !trimmedName ? 'users.validation.nameRequired' : '';
-    const usernameErrorText = isSubmitted && !trimmedUsername ? 'users.validation.usernameRequired' : '';
+    const phoneErrorText = isSubmitted && !trimmedPhone ? 'users.validation.phoneRequired' : '';
+    const roleErrorText = isSubmitted && !role ? 'users.validation.roleRequired' : '';
     const emailErrorText = isSubmitted && !trimmedEmail ? 'users.validation.emailRequired' : '';
-    const descriptionErrorText = isSubmitted && !trimmedDescription ? 'users.validation.descriptionRequired' : '';
-    const isSubmitDisabled = isLoading || !trimmedName || !trimmedUsername || !trimmedEmail || !trimmedDescription;
+    const isSubmitDisabled = isLoading || !trimmedName || !trimmedPhone || !role || !trimmedEmail;
 
     return {
         nameErrorText,
-        usernameErrorText,
+        phoneErrorText,
+        roleErrorText,
         emailErrorText,
-        descriptionErrorText,
         isSubmitDisabled,
     };
 };

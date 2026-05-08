@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { useCreateUserUi } from './useCreateUserUi';
+import { companyService } from '@/entities/Company/CompanyService';
 
 interface IRouteParams {
     companyId: number;
@@ -14,19 +15,19 @@ export const useCreateUser = () => {
     const route = useRoute();
     const { companyId } = route.params as IRouteParams;
     const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
+    const [phone, setPhone] = useState('');
+    const [role, setRole] = useState<'admin' | 'user'>('admin');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [description, setDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { nameErrorText, usernameErrorText, emailErrorText, passwordErrorText, descriptionErrorText, isSubmitDisabled } = useCreateUserUi({
+    const { nameErrorText, phoneErrorText, roleErrorText, emailErrorText, passwordErrorText, isSubmitDisabled } = useCreateUserUi({
         name,
-        username,
+        phone,
+        role,
         email,
         password,
-        description,
         isSubmitted,
         isLoading,
     });
@@ -35,8 +36,8 @@ export const useCreateUser = () => {
         setName(value);
     };
 
-    const onChangeUsername = (value: string) => {
-        setUsername(value);
+    const onChangePhone = (value: string) => {
+        setPhone(value);
     };
 
     const onChangeEmail = (value: string) => {
@@ -47,8 +48,8 @@ export const useCreateUser = () => {
         setPassword(value);
     };
 
-    const onChangeDescription = (value: string) => {
-        setDescription(value);
+    const onToggleRole = () => {
+        setRole(previousValue => previousValue === 'admin' ? 'user' : 'admin');
     };
 
     const onPressBack = () => {
@@ -66,10 +67,10 @@ export const useCreateUser = () => {
 
         const response = await usersService.create({
             name: name.trim(),
-            username: username.trim(),
+            username: email.trim(),
             email: email.trim(),
             password: password.trim(),
-            description: description.trim(),
+            description: null,
             company_id: companyId,
         });
 
@@ -80,28 +81,29 @@ export const useCreateUser = () => {
             return;
         }
 
+        companyService.details(companyId);
         toastService.showSuccess('User created', response.data.data.name);
         navigation.replace('UserView', { companyId, userId: response.data.data.id });
     };
 
     return {
         name,
-        username,
+        phone,
+        role,
         email,
         password,
-        description,
         isLoading,
         nameErrorText,
-        usernameErrorText,
+        phoneErrorText,
+        roleErrorText,
         emailErrorText,
         passwordErrorText,
-        descriptionErrorText,
         isSubmitDisabled,
         onChangeName,
-        onChangeUsername,
+        onChangePhone,
         onChangeEmail,
         onChangePassword,
-        onChangeDescription,
+        onToggleRole,
         onPressBack,
         onSubmit,
     };

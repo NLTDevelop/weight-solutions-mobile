@@ -2,9 +2,9 @@ import { companyModel } from '@/entities/Company/CompanyModel';
 import { companyService } from '@/entities/Company/CompanyService';
 import { toastService } from '@/libs/toast/toastService';
 import { useUiContext } from '@/UIProvider';
-import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useCompanyUi } from './useCompanyUi';
 
 interface IRouteParams {
@@ -49,9 +49,9 @@ export const useCompany = () => {
         navigation.goBack();
     };
 
-    useFocusEffect(useCallback(() => {
+    useEffect(() => {
         loadCompany();
-    }, [loadCompany]));
+    }, [loadCompany]);
 
     const onGoToCreateUser = useCallback(() => {
         navigation.navigate('CreateUserView', { companyId });

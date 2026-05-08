@@ -175,21 +175,35 @@
         "saveButton": "Зберегти",
         "titleFallback": "Користувач",
         "name": "Ім'я",
+        "fullName": "ПІБ",
+        "fullNamePlaceholder": "Введіть ПІБ",
         "username": "Логін",
         "email": "Email",
+        "emailPlaceholder": "Введіть email",
         "password": "Пароль",
+        "passwordPlaceholder": "Введіть пароль",
         "passwordOptional": "Новий пароль",
         "description": "Опис",
         "role": "Роль",
+        "phone": "Номер телефону",
+        "phonePlaceholder": "Введіть номер телефону",
         "status": "Статус",
         "company": "Компанія",
         "phoneFallback": "Телефон не вказано",
+        "emptyStateTitle": "Користувачів ще немає",
+        "emptyStateDescription": "Створіть першого користувача для цього підприємства.",
+        "sections": {
+            "mainInfo": "Основна інформація",
+            "credentials": "Дані для входу"
+        },
         "validation": {
             "nameRequired": "Вкажіть ім'я",
             "usernameRequired": "Вкажіть логін",
             "emailRequired": "Вкажіть email",
             "passwordRequired": "Вкажіть пароль",
-            "descriptionRequired": "Вкажіть опис"
+            "descriptionRequired": "Вкажіть опис",
+            "phoneRequired": "Вкажіть номер телефону",
+            "roleRequired": "Оберіть роль"
         }
     },
     "profile": {

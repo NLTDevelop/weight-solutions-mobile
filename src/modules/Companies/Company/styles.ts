@@ -39,6 +39,7 @@ export const getStyles = (colors: IColors) => {
             paddingTop: scaleVertical(16),
         },
         scrollContent: {
+            flexGrow: 1,
             paddingHorizontal: scaleHorizontal(16),
             paddingBottom: scaleVertical(16),
         },
@@ -89,9 +90,37 @@ export const getStyles = (colors: IColors) => {
         usersList: {
             gap: scaleVertical(8),
             marginTop: scaleVertical(16),
-        },
+        }, 
         emptyState: {
-            paddingTop: scaleVertical(48),
+            flex: 1,
+            justifyContent: 'center',
+            paddingTop: scaleVertical(148),
+            paddingHorizontal: scaleHorizontal(20),
+            alignItems: 'center',
+        },
+        emptyIconCircle: {
+            width: scaleHorizontal(64),
+            height: scaleHorizontal(64),
+            borderRadius: scaleHorizontal(32),
+            backgroundColor: colors.primary,
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        emptyTitle: {
+            marginTop: scaleVertical(16),
+            color: colors.text_strong,
+            fontSize: scaleFontSize(18),
+            lineHeight: scaleLineHeight(22),
+            fontFamily: 'Roboto-Bold',
+            textAlign: 'center',
+        },
+        emptyDescription: {
+            marginTop: scaleVertical(8),
+            color: colors.text_middle,
+            fontSize: scaleFontSize(14),
+            lineHeight: scaleLineHeight(18),
+            fontFamily: 'Roboto-Regular',
+            textAlign: 'center',
         },
         footer: {
             paddingHorizontal: scaleHorizontal(16),

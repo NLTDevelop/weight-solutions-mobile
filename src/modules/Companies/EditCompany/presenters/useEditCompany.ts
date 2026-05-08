@@ -95,9 +95,9 @@ export const useEditCompany = () => {
             toastService.showError(t('companies.updateFailedTitle'), response.message || 'Please try again');
             return;
         }
-
+        companyService.details(companyId);
         toastService.showSuccess(t('companies.updateSuccessTitle'), response.data.data.name);
-        navigation.replace('CompanyView', { companyId });
+        navigation.goBack();
     };
 
     return {

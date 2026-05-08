@@ -6,6 +6,8 @@ import { useEditUserUi } from './useEditUserUi';
 import { usersModel } from '@/entities/Users/UsersModel';
 import { usersService } from '@/entities/Users/UsersService';
 import { UserUpdateDto } from '@/entities/Users/dto/user-update.dto';
+import { companyService } from '@/entities/Company/CompanyService';
+import { userModel } from '@/entities/User/UserModel';
 
 interface IRouteParams {
     companyId: number;
@@ -17,48 +19,35 @@ export const useEditUser = () => {
     const route = useRoute();
     const { companyId, userId } = route.params as IRouteParams;
     const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
+    const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [description, setDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const role = userModel.user?.role === 'superadmin' ? 'admin' : 'user'
 
     const hydrateUser = useCallback(async () => {
         setIsLoading(true);
-
         const response = await usersService.details(companyId, userId);
-
         setIsLoading(false);
-
         if (response.isError || !response.data?.data) {
             toastService.showError('User loading failed', response.message || 'Please try again');
             return;
         }
 
         setName(response.data.data.name || '');
-        setUsername(response.data.data.username || '');
+        setPhone(response.data.data.contact?.phone || '');
         setEmail(response.data.data.email || '');
-        setDescription(response.data.data.description || '');
     }, [companyId, userId]);
 
     useEffect(() => {
-        if (usersModel.current?.id === userId) {
-            setName(usersModel.current.name || '');
-            setUsername(usersModel.current.username || '');
-            setEmail(usersModel.current.email || '');
-            setDescription(usersModel.current.description || '');
-            return;
-        }
-
         hydrateUser();
     }, [hydrateUser, userId]);
 
-    const { nameErrorText, usernameErrorText, emailErrorText, descriptionErrorText, isSubmitDisabled } = useEditUserUi({
+    const { nameErrorText, phoneErrorText, emailErrorText, isSubmitDisabled } = useEditUserUi({
         name,
-        username,
+        phone,
+        role,
         email,
-        description,
         isSubmitted,
         isLoading,
     });
@@ -67,20 +56,12 @@ export const useEditUser = () => {
         setName(value);
     };
 
-    const onChangeUsername = (value: string) => {
-        setUsername(value);
+    const onChangePhone = (value: string) => {
+        setPhone(value);
     };
 
     const onChangeEmail = (value: string) => {
         setEmail(value);
-    };
-
-    const onChangePassword = (value: string) => {
-        setPassword(value);
-    };
-
-    const onChangeDescription = (value: string) => {
-        setDescription(value);
     };
 
     const onPressBack = () => {
@@ -97,18 +78,15 @@ export const useEditUser = () => {
         setIsLoading(true);
 
         const body: Partial<UserUpdateDto> = {
-                    name: name.trim(),
-                    username: username.trim(),
-                    email: email.trim(),
-                    description: description.trim(),
-                    company_id: companyId,
-                    active: usersModel.current?.status === 'active',
-                };
-        
-                setIsLoading(true);
-                const response = await usersService.update(userId, password.trim() ? {
-                    ...body
-                } : body);
+            name: name.trim(),
+            username: email.trim(),
+            email: email.trim(),
+            description: usersModel.current?.description || null,
+            company_id: companyId,
+            active: usersModel.current?.status === 'active',
+        };
+
+        const response = await usersService.update(userId, body);
 
         setIsLoading(false);
 
@@ -117,27 +95,24 @@ export const useEditUser = () => {
             return;
         }
 
+        companyService.details(companyId);
         toastService.showSuccess('User updated', response.data.data.name);
-        navigation.replace('UserView', { companyId, userId });
+        navigation.goBack();
     };
 
     return {
         name,
-        username,
+        phone,
+        role,
         email,
-        password,
-        description,
         isLoading,
         nameErrorText,
-        usernameErrorText,
+        phoneErrorText,
         emailErrorText,
-        descriptionErrorText,
         isSubmitDisabled,
         onChangeName,
-        onChangeUsername,
+        onChangePhone,
         onChangeEmail,
-        onChangePassword,
-        onChangeDescription,
         onPressBack,
         onSubmit,
     };
