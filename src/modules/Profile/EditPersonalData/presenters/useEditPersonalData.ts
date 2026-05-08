@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useMemo, useState } from 'react';
 import { useUiContext } from '@/UIProvider';
+import { UserUpdateDto } from '@/entities/Users/dto/user-update.dto';
 
 export const useEditPersonalData = () => {
     const { t } = useUiContext();
@@ -43,16 +44,19 @@ export const useEditPersonalData = () => {
             return;
         }
 
-        setIsLoading(true);
-        const response = await userService.update(currentUserId, {
+        const body: Partial<UserUpdateDto> = {
             name: name.trim(),
             username: username.trim(),
             email: email.trim(),
             description: description.trim(),
             company_id: userModel.user?.company?.id || null,
             active: userModel.user?.status === 'active',
-            password: password.trim() ? password.trim() : null,
-        });
+        };
+
+        setIsLoading(true);
+        const response = await userService.update(currentUserId, password.trim() ? {
+            ...body
+        } : body);
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
