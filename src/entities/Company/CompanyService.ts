@@ -6,6 +6,7 @@ import { ICompanyMeta } from './ICompanyMeta';
 import { companyModel } from './CompanyModel';
 import { CompanyCreateDto } from './dto/company-create.dto';
 import { CompanyListDto } from './dto/company-list.dto';
+import { CompanyUpdateDto } from './dto/company-update.dto';
 
 interface ICompanyListResponse {
     data: ICompany[];
@@ -78,6 +79,26 @@ class CompanyService {
             return response;
         } catch (error) {
             console.warn('CompanyService -> details: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    update = async (companyId: number, body: CompanyUpdateDto): Promise<IResponse<ICompanyResponse>> => {
+        try {
+            const response = await this.requester.request({
+                url: this.links.companyDetails(companyId),
+                method: 'PUT',
+                data: body,
+                withCredentials: true,
+            });
+
+            if (!response.isError && response.data?.data) {
+                companyModel.company = response.data.data;
+            }
+
+            return response;
+        } catch (error) {
+            console.warn('CompanyService -> update: ', error);
             return { isError: true, data: null, message: '' } as any;
         }
     };

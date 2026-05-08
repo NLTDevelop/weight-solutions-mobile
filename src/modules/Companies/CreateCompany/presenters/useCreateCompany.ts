@@ -67,7 +67,7 @@ export const useCreateCompany = () => {
             phone: phone.trim(),
             address: address.trim(),
             email: email.trim(),
-            description: address.trim() || trimmedDescription,
+            description: trimmedDescription || null,
         });
 
         setIsLoading(false);

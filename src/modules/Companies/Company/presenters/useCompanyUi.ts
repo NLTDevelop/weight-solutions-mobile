@@ -9,34 +9,43 @@ interface ICompanyInfoRow {
 
 interface IProps {
     company: ICompany | null;
+    t: (scope: string) => string;
     onPressUser: (userId: number) => void;
+    onPressEditUser: (userId: number) => void;
 }
 
-export const useCompanyUi = ({ company, onPressUser }: IProps) => {
+export const useCompanyUi = ({ company, t, onPressUser, onPressEditUser }: IProps) => {
     const infoRows: ICompanyInfoRow[] = [
         {
-            id: 'contact',
-            label: 'company.contact',
-            value: company?.contact || 'company.contactFallback',
+            id: 'address',
+            label: t('companies.addressLabel'),
+            value: company?.address || t('companies.addressFallback'),
+        },
+        {
+            id: 'owner',
+            label: t('companies.ownerLabel'),
+            value: company?.contact || t('companies.ownerFallback'),
+        },
+        {
+            id: 'phone',
+            label: t('companies.phoneLabel'),
+            value: company?.phone || t('companies.phoneFallback'),
         },
         {
             id: 'description',
-            label: 'company.description',
-            value: company?.description || 'company.descriptionFallback',
-        },
-        {
-            id: 'status',
-            label: 'company.status',
-            value: company?.status || '-',
+            label: t('company.description'),
+            value: company?.description || t('company.descriptionFallback'),
         },
     ];
 
     const userCards: ICompanyUserCard[] = (company?.users || []).map(user => ({
         id: user.id,
         title: user.name,
-        subtitle: user.email,
-        status: user.status,
+        subtitle: t(`profile.roles.${user.role}`),
+        phone: user.contact?.phone || t('users.phoneFallback'),
+        email: user.email,
         onPress: () => onPressUser(user.id),
+        onPressEdit: () => onPressEditUser(user.id),
     }));
 
     return {

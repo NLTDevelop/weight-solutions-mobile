@@ -48,6 +48,7 @@
         "empty": "Компаній не знайдено",
         "createButton": "Додати підприємство",
         "createTitle": "Додати підприємство",
+        "editTitle": "Редагування підприємства",
         "saveButton": "Зберегти",
         "searchPlaceholder": "Пошук",
         "nameLabel": "Назва",
@@ -73,7 +74,9 @@
         "validationOwnerRequired": "Вкажіть власника",
         "validationPhoneRequired": "Вкажіть номер телефону",
         "createFailedTitle": "Не вдалося створити підприємство",
-        "createSuccessTitle": "Підприємство створено"
+        "createSuccessTitle": "Підприємство створено",
+        "updateFailedTitle": "Не вдалося оновити підприємство",
+        "updateSuccessTitle": "Підприємство оновлено"
     },
     "company": {
         "detailsTitle": "Деталі компанії",
@@ -82,8 +85,13 @@
         "description": "Опис",
         "status": "Статус",
         "owner": "Власник",
+        "editButton": "Редагувати",
         "contactFallback": "Контакт не вказано",
-        "descriptionFallback": "Опис не вказано"
+        "descriptionFallback": "Опис не вказано",
+        "tabs": {
+            "info": "Основна інформація",
+            "users": "Користувачі"
+        }
     },
     "weighings": {
         "title": "Зважування",
@@ -175,6 +183,7 @@
         "role": "Роль",
         "status": "Статус",
         "company": "Компанія",
+        "phoneFallback": "Телефон не вказано",
         "validation": {
             "nameRequired": "Вкажіть ім'я",
             "usernameRequired": "Вкажіть логін",

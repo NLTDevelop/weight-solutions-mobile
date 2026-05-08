@@ -3,6 +3,7 @@ import { RestorePasswordView } from '@/modules/Authorization/RestorePassword';
 import { CompaniesView } from '@/modules/Companies/Companies';
 import { CompanyView } from '@/modules/Companies/Company';
 import { CreateCompanyView } from '@/modules/Companies/CreateCompany';
+import { EditCompanyView } from '@/modules/Companies/EditCompany';
 import { CreateProductView } from '@/modules/Products/CreateProduct';
 import { EditProductView } from '@/modules/Products/EditProduct';
 import { ProductView } from '@/modules/Products/Product';
@@ -34,6 +35,7 @@ export const MainStackNavigator = observer(() => {
             <Stack.Screen name="CompaniesView" component={CompaniesView} />
             <Stack.Screen name="CompanyView" component={CompanyView} />
             <Stack.Screen name="CreateCompanyView" component={CreateCompanyView} />
+            <Stack.Screen name="EditCompanyView" component={EditCompanyView} />
             <Stack.Screen name="CreateWeighingView" component={CreateWeighingView} />
             <Stack.Screen name="WeighingView" component={WeighingView} />
             <Stack.Screen name="EditWeighingView" component={EditWeighingView} />
