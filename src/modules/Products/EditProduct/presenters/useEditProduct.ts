@@ -69,10 +69,6 @@ export const useEditProduct = () => {
         setStatus(value);
     };
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     const onSubmit = async () => {
         setIsSubmitted(true);
 
@@ -110,7 +106,6 @@ export const useEditProduct = () => {
         onChangeName,
         onChangeDescription,
         onSelectStatus,
-        onPressBack,
         onSubmit,
     };
 };

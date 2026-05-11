@@ -45,10 +45,6 @@ export const useCompany = () => {
         }
     }, [companyId, t]);
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     useEffect(() => {
         loadCompany();
     }, [loadCompany]);
@@ -66,7 +62,6 @@ export const useCompany = () => {
         infoRows,
         userCards,
         isLoading,
-        onPressBack,
         onGoToCreateUser,
         onPressEditCompany,
     };

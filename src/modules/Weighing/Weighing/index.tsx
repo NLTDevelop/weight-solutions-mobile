@@ -32,7 +32,7 @@ export const WeighingView = observer(() => {
         <ScreenContainer
             edges={['top', 'bottom']}
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('weighings.detailsTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={t('weighings.detailsTitle')} onPressBack={onPressBack}/>}
         >
             {isLoading
                 ? <Loader />

@@ -54,7 +54,7 @@ export const CreateWeighingView = observer(() => {
             isKeyboardAvoiding
             scrollEnabled
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('weighings.createTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={t('weighings.createTitle')} onPressBack={onPressBack}/>}
         >
             <View style={styles.form}>
                 <Text style={styles.sectionTitle}>{t('weighings.productLabel')}</Text>

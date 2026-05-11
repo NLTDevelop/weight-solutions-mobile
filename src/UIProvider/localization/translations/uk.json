@@ -223,6 +223,9 @@
         "phoneFallback": "Телефон не вказано",
         "emptyStateTitle": "Користувачів ще немає",
         "emptyStateDescription": "Створіть першого користувача для цього підприємства.",
+        "managementTitle": "Користувачі",
+        "managementEmptyTitle": "Користувачів ще немає",
+        "managementEmptyDescription": "Створіть першого користувача для вашої компанії.",
         "sections": {
             "mainInfo": "Основна інформація",
             "credentials": "Дані для входу"
@@ -248,6 +251,7 @@
         "editTitle": "Редагувати",
         "notificationsTitle": "Нотифікації",
         "changePasswordTitle": "Змінити пароль",
+        "usersManagementTitle": "Керування користувачами",
         "changePasswordScreenTitle": "Зміна пароля",
         "changePasswordDescription": "Введіть поточний пароль та створіть новий.",
         "changePasswordOldLabel": "Поточний пароль",

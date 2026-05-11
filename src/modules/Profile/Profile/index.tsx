@@ -22,9 +22,10 @@ import { OnePlatformIcon } from '@/assets/icons/OnePlatformIcon';
 export const ProfileView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { isExitModalVisible, isDeleteModalVisible, isNotificationsEnabled, onLogout, onCloseModal, onDeleteAccount, onGoToPersonalData, onGoToContactInformation, onGoToChangePassword, onOpenLogoutModal,
+    const { isExitModalVisible, isDeleteModalVisible, isNotificationsEnabled, onLogout, onCloseModal, onDeleteAccount, onGoToPersonalData, onGoToContactInformation, onGoToChangePassword, onGoToUsersManagement, onOpenLogoutModal,
         onToggleNotifications, onOpenDeleteModal, } = useProfile();
     const isSuperadmin = userModel.user?.role === 'superadmin';
+    const isAdmin = userModel.user?.role === 'admin';
 
     return (
         <ScreenContainer edges={['top']} headerComponent={<HeaderWithBackButton backDisabled title={t('profile.title')} />}>
@@ -40,6 +41,8 @@ export const ProfileView = observer(() => {
                     <ProfileMenuItem icon={<BellIcon color={colors.icon_strong} />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} trailingType={'toggle'} toggleValue={isNotificationsEnabled} onToggle={onToggleNotifications} />
                     <View style={styles.itemSeparator} />
                     <ProfileMenuItem icon={<EditIcon color={colors.icon_strong} />} title={t('profile.changePasswordTitle')} onPress={onGoToChangePassword} />
+                    {isAdmin ? <View style={styles.itemSeparator} /> : null}
+                    {isAdmin ? <ProfileMenuItem icon={<UserIcon color={colors.icon_strong} />} title={t('profile.usersManagementTitle')} onPress={onGoToUsersManagement} /> : null}
                     {isSuperadmin ? <View style={styles.itemSeparator} /> : null}
                     {isSuperadmin ? <ProfileMenuItem icon={<EditIcon color={colors.icon_strong} />} title={t('profile.contactSettingsTitle')} onPress={onGoToContactInformation} /> : null}
                     <View style={styles.itemSeparator} />

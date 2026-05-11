@@ -30,7 +30,6 @@ export const ChangePasswordView = observer(() => {
         onBlurOldPassword,
         onBlurNewPassword,
         onBlurConfirmPassword,
-        onPressBack,
         onSubmit,
     } = useChangePassword();
 
@@ -40,7 +39,7 @@ export const ChangePasswordView = observer(() => {
             isKeyboardAvoiding
             scrollEnabled
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('profile.changePasswordScreenTitle')} onPressBack={onPressBack} />}
+            headerComponent={<HeaderWithBackButton title={t('profile.changePasswordScreenTitle')} />}
         >
             <View style={styles.form}>
                 <View style={styles.titleBlock}>

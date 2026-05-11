@@ -9,9 +9,9 @@ import { UserUpdateDto } from '@/entities/Users/dto/user-update.dto';
 import { companyService } from '@/entities/Company/CompanyService';
 import { userModel } from '@/entities/User/UserModel';
 import { useUiContext } from '@/UIProvider';
+import { companyModel } from '@/entities/Company/CompanyModel';
 
 interface IRouteParams {
-    companyId: number;
     userId: number;
 }
 
@@ -20,9 +20,8 @@ export const useEditUser = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
-    const { companyId, userId } = route.params as IRouteParams;
+    const { userId } = route.params as IRouteParams;
     const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [role, setRole] = useState(userModel.user?.role === 'superadmin' ? 'admin' : 'user');
     const [description, setDescription] = useState('');
@@ -31,7 +30,7 @@ export const useEditUser = () => {
 
     const hydrateUser = useCallback(async () => {
         setIsLoading(true);
-        const response = await usersService.details(companyId, userId);
+        const response = await usersService.details(userId);
         setIsLoading(false);
         if (response.isError || !response.data?.data) {
             toastService.showError('User loading failed', response.message || 'Please try again');
@@ -39,19 +38,17 @@ export const useEditUser = () => {
         }
 
         setName(response.data.data.name || '');
-        setPhone(response.data.data.contact?.phone || '');
         setEmail(response.data.data.email || '');
         response.data.data.role && setRole(response.data.data.role);
         setDescription(response.data.data.description || '');
-    }, [companyId, userId]);
+    }, [userId]);
 
     useEffect(() => {
         hydrateUser();
     }, [hydrateUser, userId]);
 
-    const { nameErrorText, phoneErrorText, emailErrorText, isSubmitDisabled } = useEditUserUi({
+    const { nameErrorText, emailErrorText, isSubmitDisabled } = useEditUserUi({
         name,
-        phone,
         email,
         isSubmitted,
         isLoading,
@@ -59,10 +56,6 @@ export const useEditUser = () => {
 
     const onChangeName = (value: string) => {
         setName(value);
-    };
-
-    const onChangePhone = (value: string) => {
-        setPhone(value);
     };
 
     const onChangeEmail = (value: string) => {
@@ -91,7 +84,6 @@ export const useEditUser = () => {
             username: email.trim(),
             email: email.trim(),
             description: description.trim(),
-            company_id: companyId,
             active: usersModel.current?.status === 'active',
         };
 
@@ -105,23 +97,23 @@ export const useEditUser = () => {
         }
 
         toastService.showSuccess(t('profile.updated'), response.data.data.name);
-        companyService.details(companyId);
+        const companyId = usersModel.current?.company?.id || userModel.user?.company?.id || companyModel.company?.id;
+        if (companyId) {
+            companyService.details(companyId);
+        }
         navigation.goBack();
     };
 
     return {
         name,
-        phone,
         role,
         email,
         description,
         isLoading,
         nameErrorText,
-        phoneErrorText,
         emailErrorText,
         isSubmitDisabled,
         onChangeName,
-        onChangePhone,
         onChangeEmail,
         onChangeDescription,
         onPressBack,

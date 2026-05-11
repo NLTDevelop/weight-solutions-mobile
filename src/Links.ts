@@ -1,5 +1,6 @@
 export interface ILinks {
     signIn: string;
+    me: string;
     restorePassword: string;
     verifyRestoreCode: string;
     confirmRestorePassword: string;
@@ -19,6 +20,7 @@ class Links {
     private dev = 'https://weight-solutions.on-forge.com/api/v1';
     private _domain = this.dev;
     private _links = {
+        me: `${this._domain}/me`,
         signIn: `${this._domain}/auth/login`,
         restorePassword: `${this._domain}/auth/restore`,
         verifyRestoreCode: `${this._domain}/auth/restore/verify-code`,
@@ -31,6 +33,7 @@ class Links {
         userContactSave: `${this._domain}/user/contact/save`,
     };
 
+    public get me() { return this._links.me; }
     public get signIn() { return this._links.signIn; }
     public get restorePassword() { return this._links.restorePassword; }
     public get verifyRestoreCode() { return this._links.verifyRestoreCode; }

@@ -17,6 +17,7 @@ import { SplashView } from '@/modules/Splash/ui';
 import { CreateUserView } from '@/modules/Users/ui/CreateUser';
 import { EditUserView } from '@/modules/Users/ui/EditUser';
 import { UserView } from '@/modules/Users/ui/User';
+import { UsersManagementView } from '@/modules/Users/ui/UsersManagement';
 import { CreateWeighingView } from '@/modules/Weighing/CreateWeighing';
 import { EditWeighingView } from '@/modules/Weighing/EditWeighing';
 import { WeighingView } from '@/modules/Weighing/Weighing';
@@ -46,6 +47,7 @@ export const MainStackNavigator = observer(() => {
             <Stack.Screen name="CreateUserView" component={CreateUserView} />
             <Stack.Screen name="UserView" component={UserView} />
             <Stack.Screen name="EditUserView" component={EditUserView} />
+            <Stack.Screen name="UsersManagementView" component={UsersManagementView} />
             <Stack.Screen name="PersonalDataView" component={PersonalDataView} />
             <Stack.Screen name="EditPersonalDataView" component={EditPersonalDataView} />
             <Stack.Screen name="ContactInformationView" component={ContactInformationView} />

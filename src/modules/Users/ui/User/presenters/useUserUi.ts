@@ -14,11 +14,6 @@ interface IProps {
 export const useUserUi = ({ user }: IProps) => {
     const infoRows: IUserInfoRow[] = [
         {
-            id: 'phone',
-            label: 'users.phone',
-            value: user?.contact?.phone || 'users.phoneFallback',
-        },
-        {
             id: 'username',
             label: 'users.username',
             value: user?.username || '-',
@@ -42,11 +37,6 @@ export const useUserUi = ({ user }: IProps) => {
             id: 'description',
             label: 'users.description',
             value: user?.description || '-',
-        },
-        {
-            id: 'company',
-            label: 'users.company',
-            value: user?.company?.name || '-',
         },
     ];
 

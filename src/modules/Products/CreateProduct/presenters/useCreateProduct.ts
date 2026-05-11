@@ -35,10 +35,6 @@ export const useCreateProduct = () => {
         setStatus(value);
     };
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     const onSubmit = async () => {
         setIsSubmitted(true);
 
@@ -78,7 +74,6 @@ export const useCreateProduct = () => {
         onChangeName,
         onChangeDescription,
         onSelectStatus,
-        onPressBack,
         onSubmit,
     };
 };

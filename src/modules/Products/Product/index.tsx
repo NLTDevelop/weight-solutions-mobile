@@ -14,13 +14,13 @@ import { getStyles } from './styles';
 export const ProductView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { infoRows, status, isLoading, onPressBack, onPressEdit } = useProduct();
+    const { infoRows, status, isLoading, onPressEdit } = useProduct();
 
     return (
         <ScreenContainer
             edges={['top', 'bottom']}
             containerStyle={styles.screen}
-            headerComponent={<HeaderWithBackButton title={t('products.detailsTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={t('products.detailsTitle')} />}
         >
             {isLoading
                 ? <Loader />

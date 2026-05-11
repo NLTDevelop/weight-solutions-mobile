@@ -25,7 +25,7 @@ type TRoute = {
 export const CompanyView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { company, infoRows, userCards, isLoading, onPressBack, onGoToCreateUser, onPressEditCompany } = useCompany();
+    const { company, infoRows, userCards, isLoading, onGoToCreateUser, onPressEditCompany } = useCompany();
     const [tabIndex, setTabIndex] = useState(0);
 
     const routes = useMemo<TRoute[]>(() => [
@@ -115,7 +115,7 @@ export const CompanyView = observer(() => {
         <ScreenContainer
             edges={['top', 'bottom']}
             containerStyle={styles.screen}
-            headerComponent={<HeaderWithBackButton title={company?.name || t('company.titleFallback')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={company?.name || t('company.titleFallback')} />}
         >
             {isLoading
                 ? <Loader />

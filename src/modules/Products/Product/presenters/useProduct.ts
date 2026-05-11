@@ -38,10 +38,6 @@ export const useProduct = () => {
         loadProduct();
     }, [loadProduct]));
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     const onPressEdit = () => {
         navigation.navigate('EditProductView', { productId });
     };
@@ -51,7 +47,6 @@ export const useProduct = () => {
         infoRows,
         status,
         isLoading,
-        onPressBack,
         onPressEdit,
     };
 };

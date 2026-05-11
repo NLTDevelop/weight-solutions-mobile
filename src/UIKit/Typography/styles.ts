@@ -37,7 +37,7 @@ export const getStyle = (colors: IColors) => {
             lineHeight: scaleLineHeight(16),
             fontWeight: '700',
             fontFamily: 'Roboto-Bold',
-            color: colors.text,
+            color: colors.text_strong,
         },
         body_xl: {
             fontSize: scaleFontSize(18),

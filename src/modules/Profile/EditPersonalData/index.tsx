@@ -23,7 +23,6 @@ export const EditPersonalDataView = observer(() => {
         setUsername,
         setEmail,
         setDescription,
-        onPressBack,
         onSubmit,
     } = useEditPersonalData();
 
@@ -33,7 +32,7 @@ export const EditPersonalDataView = observer(() => {
             isKeyboardAvoiding
             scrollEnabled
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('profile.editPersonalDataTitle')} onPressBack={onPressBack} />}
+            headerComponent={<HeaderWithBackButton title={t('profile.editPersonalDataTitle')} />}
         >
             <View style={styles.form}>
                 <NLTTextInput label={t('users.name')} value={name} onChangeText={setName} />

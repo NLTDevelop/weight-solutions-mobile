@@ -31,8 +31,8 @@ export const EmptyListView = observer(({ text, description, image, BottomElement
                 </View>
                 : <View style={styles.container}>
                     {image}
-                    {text && <Typography variant='h5' style={styles.title} >{text}</Typography>}
-                    {description && <Typography variant='body_xl' style={styles.description} >{description}</Typography>}
+                    {text && <Typography variant='h3' style={styles.title} text={text} >{text}</Typography>}
+                    {description && <Typography variant='body_m' style={styles.description} text={description} >{description}</Typography>}
                     {BottomElement}
                 </View>
     );

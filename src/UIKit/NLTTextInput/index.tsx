@@ -65,16 +65,8 @@ export const NLTTextInput = memo(({
                 />
                 {RightAccessory}
                 {shouldShowSecureToggle ? (
-                    <TouchableOpacity
-                        onPress={onTogglePasswordVisibility}
-                        style={styles.iconContainer}
-                        hitSlop={10}
-                    >
-                        {isPasswordVisible ? (
-                            <EyeOffIcon color={colors.icon_strong} />
-                        ) : (
-                            <EyeIcon color={colors.icon_strong} />
-                        )}
+                    <TouchableOpacity onPress={onTogglePasswordVisibility} style={styles.iconContainer} hitSlop={10} >
+                        {isPasswordVisible ? (<EyeOffIcon color={colors.icon_strong} />) : (<EyeIcon color={colors.icon_strong} />)}
                     </TouchableOpacity>
                 ) : null}
             </View>
