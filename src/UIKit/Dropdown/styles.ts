@@ -1,24 +1,61 @@
 import { StyleSheet } from 'react-native';
 import { IColors } from '@/UIProvider/theme/IColors';
-import { scaleVertical } from '../../utils';
+import { scaleFontSize, scaleHorizontal, scaleLineHeight, scaleVertical } from '../../utils';
 
-export const getStyle = (colors: IColors) => {
+export const getStyle = (colors: IColors, isOpen: boolean) => {
     return StyleSheet.create({
+        container: {
+            zIndex: isOpen ? 1000 : 1,
+        },
         dropdown: {
-            borderRadius: 6,
+            minHeight: scaleVertical(44),
+            borderRadius: scaleHorizontal(22),
             borderColor: colors.border,
-            paddingHorizontal: 16,
-            minHeight: scaleVertical(36),
+            backgroundColor: colors.card,
+            paddingHorizontal: scaleHorizontal(12),
         },
         dropDownContainerStyle: {
+            minHeight: scaleVertical(100),
             borderColor: colors.border,
+            backgroundColor: colors.card,
+            borderRadius: scaleHorizontal(16),
+            overflow: 'hidden',
+            shadowColor: colors.shadow,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.08,
+            shadowRadius: 4,
+            elevation: 4,
         },
         listItemContainerStyle: {
-            paddingHorizontal: 16,
+            minHeight: scaleVertical(44),
+            paddingHorizontal: scaleHorizontal(12),
         },
         dropdownSelectedItemContainer: {
-            height: scaleVertical(36),
-            backgroundColor: colors.primary + '14'
-        }
+            backgroundColor: colors.card_middle,
+        },
+        textStyle: {
+            color: colors.text_strong,
+            fontSize: scaleFontSize(14),
+            lineHeight: scaleLineHeight(17),
+            fontFamily: 'Roboto-Regular',
+        },
+        placeholderStyle: {
+            color: colors.text_light,
+            fontSize: scaleFontSize(14),
+            lineHeight: scaleLineHeight(17),
+            fontFamily: 'Roboto-Regular',
+        },
+        selectedItemLabelStyle: {
+            color: colors.text_strong,
+            fontSize: scaleFontSize(14),
+            lineHeight: scaleLineHeight(17),
+            fontFamily: 'Roboto-Medium',
+        },
+        arrowIconStyle: {
+            tintColor: colors.icon_strong,
+        },
+        tickIconStyle: {
+            tintColor: colors.primary,
+        },
     });
 }

@@ -14,22 +14,29 @@ DropDownPicker.setListMode("SCROLLVIEW");
 
 export const Dropdown: FC<IProps> = memo(({ value, items, placeholder, setValue }) => {
     const { colors } = useUiContext();
-    const styles = useMemo(() => getStyle(colors), [colors]);
     const [open, setOpen] = useState(false);
+    const styles = useMemo(() => getStyle(colors, open), [colors, open]);
 
     return (
         <DropDownPicker
             closeOnBackPressed={true}
+            containerStyle={styles.container}
             style={styles.dropdown}
             selectedItemContainerStyle={styles.dropdownSelectedItemContainer}
             dropDownContainerStyle={styles.dropDownContainerStyle}
             listItemContainerStyle={styles.listItemContainerStyle}
+            textStyle={styles.textStyle}
+            placeholderStyle={styles.placeholderStyle}
+            selectedItemLabelStyle={styles.selectedItemLabelStyle}
+            arrowIconStyle={styles.arrowIconStyle}
+            tickIconStyle={styles.tickIconStyle}
             open={open}
             value={value}
             items={items}
             setOpen={setOpen}
             onSelectItem={setValue}
             placeholder={placeholder}
+            showTickIcon={false}
         />
     )
 });

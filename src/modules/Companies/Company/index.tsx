@@ -8,7 +8,7 @@ import { Loader } from '@/UIKit/Loader';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { NLTTabView } from '@/UIKit/NLTTabView';
 import { observer } from 'mobx-react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { CompanyUserCard } from './components/CompanyUserCard';
 import { InfoRow } from './components/InfoRow';
@@ -26,6 +26,7 @@ export const CompanyView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const { company, infoRows, userCards, isLoading, onPressBack, onGoToCreateUser, onPressEditCompany } = useCompany();
+    const [tabIndex, setTabIndex] = useState(0);
 
     const routes = useMemo<TRoute[]>(() => [
         { key: 'info', title: t('company.tabs.info') },
@@ -120,8 +121,9 @@ export const CompanyView = observer(() => {
                 ? <Loader />
                 : <View style={styles.content}>
                     <NLTTabView
-                        routes={routes}
+                        navigationState={{ index: tabIndex, routes }}
                         renderScene={renderScene}
+                        onIndexChange={setTabIndex}
                         tabBarStyle={styles.tabBar}
                         indicatorStyle={styles.tabIndicator}
                         labelStyle={styles.tabLabel}

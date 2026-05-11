@@ -6,6 +6,7 @@ import { userModel } from "./UserModel";
 import { UserSignInDto } from "./dto/user-sign-in.dto";
 import { UserUpdateDto } from "../Users/dto/user-update.dto";
 import { contactInformationModel } from "../ContactInformation/ContactInformationModel";
+import { UserChangePasswordDto } from "./dto/user-change-password.dto";
 
 class UserService {
     constructor(
@@ -50,6 +51,21 @@ class UserService {
             return response;
         } catch (error) {
             console.warn('UserService -> update: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    changePassword = async (body: UserChangePasswordDto): Promise<IResponse<{ message?: string }>> => {
+        try {
+            const url = `${this.links.users}/${userModel.user?.id}/change-password` 
+            return await this.requester.request({
+                url,
+                method: 'PUT',
+                data: body,
+                withCredentials: true,
+            });
+        } catch (error) {
+            console.warn('UserService -> changePassword: ', error);
             return { isError: true, data: null, message: '' } as any;
         }
     };

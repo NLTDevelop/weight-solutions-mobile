@@ -1,16 +1,21 @@
 import { useUiContext } from '@/UIProvider';
-import React, { useMemo, useState } from 'react';
-import { StyleProp, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
+import React, { useMemo } from 'react';
+import { StyleProp, Text, TextStyle, ViewStyle, useWindowDimensions } from 'react-native';
+import { TabBar, TabView } from 'react-native-tab-view';
 import { getStyle } from './styles';
 
-interface IRoute {
+export interface IRoute {
     key: string;
     title: string;
 }
 
 interface IProps {
-    routes: IRoute[];
+    navigationState: {
+        index: number;
+        routes: IRoute[];
+    };
     renderScene: (props: { route: IRoute; }) => React.ReactNode;
+    onIndexChange: (index: number) => void;
     activeColor?: string;
     inactiveColor?: string;
     tabBarStyle?: StyleProp<ViewStyle>;
@@ -19,42 +24,59 @@ interface IProps {
     sceneContainerStyle?: StyleProp<ViewStyle>;
 }
 
-export const NLTTabView = ({ routes, renderScene, activeColor, inactiveColor, tabBarStyle, indicatorStyle, labelStyle, sceneContainerStyle }: IProps) => {
+export const NLTTabView = ({ navigationState, renderScene, onIndexChange, activeColor, inactiveColor, tabBarStyle, indicatorStyle, labelStyle, sceneContainerStyle }: IProps) => {
     const { colors } = useUiContext();
+    const layout = useWindowDimensions();
     const styles = useMemo(() => getStyle(colors), [colors]);
-    const [index, setIndex] = useState(0);
-
-    const activeRoute = routes[index];
 
     return (
-        <View style={styles.container}>
-            <View style={[styles.tabBar, tabBarStyle]}>
-                {routes.map((route, routeIndex) => {
-                    const isActive = routeIndex === index;
-
-                    return (
-                        <TouchableOpacity key={route.key} style={styles.tabItem} onPress={() => setIndex(routeIndex)} activeOpacity={0.85}>
-                            <Text style={[
-                                styles.label,
-                                { color: isActive ? (activeColor ?? colors.text_strong) : (inactiveColor ?? colors.text_light) },
-                                labelStyle,
-                            ]}
-                            >
-                                {route.title}
-                            </Text>
-                            <View style={[
-                                styles.indicator,
-                                isActive && styles.indicatorActive,
-                                isActive ? indicatorStyle : null,
-                            ]}
-                            />
-                        </TouchableOpacity>
-                    );
-                })}
-            </View>
-            <View style={[styles.sceneContainer, sceneContainerStyle]}>
-                {activeRoute ? renderScene({ route: activeRoute }) : null}
-            </View>
-        </View>
+        <TabView
+            navigationState={navigationState}
+            renderScene={renderScene}
+            onIndexChange={onIndexChange}
+            initialLayout={{ width: layout.width }}
+            sceneContainerStyle={[styles.sceneContainer, sceneContainerStyle]}
+            renderTabBar={(props) => (
+                <TabBar
+                    {...props}
+                    style={[styles.tabBar, tabBarStyle]}
+                    indicatorStyle={[styles.indicator, indicatorStyle]}
+                    activeColor={activeColor ?? colors.text_strong}
+                    inactiveColor={inactiveColor ?? colors.text_light}
+                    renderLabel={({ route, color }) => (
+                        <TabBarLabel label={route.title} color={color} labelStyle={labelStyle} />
+                    )}
+                    pressColor="transparent"
+                />
+            )}
+        />
     );
 };
+
+interface ITabBarLabelProps {
+    label: string;
+    color: string;
+    labelStyle?: StyleProp<TextStyle>;
+}
+
+const TabBarLabel = React.memo(({ label, color, labelStyle }: ITabBarLabelProps) => {
+    const { colors } = useUiContext();
+    const styles = useMemo(() => getStyle(colors), [colors]);
+
+    return <TabBarLabelText label={label} color={color} styles={styles} labelStyle={labelStyle} />;
+});
+
+interface ITabBarLabelTextProps {
+    label: string;
+    color: string;
+    styles: ReturnType<typeof getStyle>;
+    labelStyle?: StyleProp<TextStyle>;
+}
+
+const TabBarLabelText = React.memo(({ label, color, styles, labelStyle }: ITabBarLabelTextProps) => {
+    return (
+        <Text style={[styles.label, { color }, labelStyle]}>
+            {label}
+        </Text>
+    );
+});

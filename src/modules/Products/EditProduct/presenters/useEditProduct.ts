@@ -50,10 +50,9 @@ export const useEditProduct = () => {
         hydrateProduct();
     }, [hydrateProduct, productId]);
 
-    const { nameErrorText, descriptionErrorText, isActiveSelected, isInactiveSelected, isSubmitDisabled } = useEditProductUi({
+    const { nameErrorText, descriptionErrorText, isSubmitDisabled } = useEditProductUi({
         name,
         description,
-        status,
         isSubmitted,
         isLoading,
     });
@@ -66,12 +65,8 @@ export const useEditProduct = () => {
         setDescription(value.slice(0, 250));
     };
 
-    const onSelectActive = () => {
-        setStatus('active');
-    };
-
-    const onSelectInactive = () => {
-        setStatus('inactive');
+    const onSelectStatus = (value: 'active' | 'inactive') => {
+        setStatus(value);
     };
 
     const onPressBack = () => {
@@ -101,7 +96,7 @@ export const useEditProduct = () => {
         }
 
         toastService.showSuccess(t('products.updated'), response.data.data.name);
-        navigation.replace('ProductView', { productId });
+        navigation.goBack();
     };
 
     return {
@@ -111,13 +106,10 @@ export const useEditProduct = () => {
         isLoading,
         nameErrorText,
         descriptionErrorText,
-        isActiveSelected,
-        isInactiveSelected,
         isSubmitDisabled,
         onChangeName,
         onChangeDescription,
-        onSelectActive,
-        onSelectInactive,
+        onSelectStatus,
         onPressBack,
         onSubmit,
     };

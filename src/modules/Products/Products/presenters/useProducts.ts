@@ -20,27 +20,23 @@ export const useProducts = () => {
         navigation.navigate('ProductView', { productId });
     };
 
+    const productsBucket = status === 'active' ? productModel.activeProducts : productModel.inactiveProducts;
+    const products = productsBucket?.data || [];
+
     const { productCards } = useProductsUi({
-        products: productModel.products,
+        products,
         searchQuery,
         onPressProduct,
     });
 
-    const loadProducts = useCallback(async () => {
+    const loadProducts = useCallback(async (offset: number = 0) => {
         setIsLoading(true);
-
-        const response = await productService.list({
-            limit: LIST_LIMIT,
-            offset: 0,
-            status,
-        });
-
+        const response = await productService.list({ limit: LIST_LIMIT, offset, status, name: searchQuery });
         setIsLoading(false);
-
         if (response.isError) {
             toastService.showError(t('products.listLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [status, t]);
+    }, [searchQuery, status, t]);
 
     const onPressCreateProduct = () => {
         navigation.navigate('CreateProductView');
@@ -62,15 +58,26 @@ export const useProducts = () => {
         setStatus('inactive');
     };
 
+    const onSelectStatus = (nextStatus: any) => {
+        setStatus(nextStatus);
+    };
+
+    const onEndReached = async () => {
+        if (isLoading || ((productsBucket?.meta?.total || 0) <= products.length)) return;
+        await loadProducts(products.length);
+    }
+
     return {
         productCards,
         searchQuery,
         status,
         isLoading,
+        onEndReached,
         onRefresh: loadProducts,
         onChangeSearchQuery,
         onSelectActive,
         onSelectInactive,
+        onSelectStatus,
         onPressCreateProduct,
     };
 };

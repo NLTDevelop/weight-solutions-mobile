@@ -3,22 +3,30 @@ import { IProduct } from './IProduct';
 import { IProductMeta } from './IProductMeta';
 
 export interface IProductModel {
-    products: IProduct[];
+    activeProducts: { data: IProduct[], meta: IProductMeta | null } | null;
+    inactiveProducts: { data: IProduct[], meta: IProductMeta | null } | null;
     current: IProduct | null;
-    meta: IProductMeta | null;
 }
 
 class ProductModel implements IProductModel {
-    private productsRepository = new MobXRepository<IProduct[]>([]);
+    private activeProductsRepository = new MobXRepository<{ data: IProduct[], meta: IProductMeta | null } | null>(null);
+    private inactiveProductsRepository = new MobXRepository<{ data: IProduct[], meta: IProductMeta | null } | null>(null);
     private currentRepository = new MobXRepository<IProduct | null>(null);
-    private metaRepository = new MobXRepository<IProductMeta | null>(null);
 
-    public get products() {
-        return this.productsRepository.data || [];
+    public get activeProducts() {
+        return this.activeProductsRepository.data;
     }
 
-    public set products(products: IProduct[]) {
-        this.productsRepository.save(products);
+    public set activeProducts(products: { data: IProduct[], meta: IProductMeta | null } | null) {
+        this.activeProductsRepository.save(products);
+    }
+
+    public get inactiveProducts() {
+        return this.inactiveProductsRepository.data;
+    }
+
+    public set inactiveProducts(products: { data: IProduct[], meta: IProductMeta | null } | null) {
+        this.inactiveProductsRepository.save(products);
     }
 
     public get current() {
@@ -29,22 +37,24 @@ class ProductModel implements IProductModel {
         this.currentRepository.save(product);
     }
 
-    public get meta() {
-        return this.metaRepository.data;
-    }
-
-    public set meta(meta: IProductMeta | null) {
-        this.metaRepository.save(meta);
-    }
-
-    public append(products: IProduct[]) {
-        this.products = [...this.products, ...products];
+    public append(data: { data: IProduct[], meta: IProductMeta }, status: 'active' | 'inactive') {
+        if (status === 'active') {
+            this.activeProducts = {
+                data: [...(this.activeProducts?.data || []), ...data.data],
+                meta: data.meta,
+            };
+        } else {
+            this.inactiveProducts = {
+                data: [...(this.inactiveProducts?.data || []), ...data.data],
+                meta: data.meta,
+            };
+        }
     }
 
     public clear() {
-        this.meta = null;
         this.current = null;
-        this.products = [];
+        this.activeProducts = null;
+        this.inactiveProducts = null;
     }
 
 }

@@ -1,12 +1,12 @@
 import { useUiContext } from '@/UIProvider';
-import { Chevron } from '@/assets/icons/ChevronIcon';
+import { Dropdown } from '@/UIKit/Dropdown';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useEditProduct } from './presenters/useEditProduct';
 import { getStyles } from './styles';
 
@@ -20,15 +20,18 @@ export const EditProductView = observer(() => {
         isLoading,
         nameErrorText,
         descriptionErrorText,
-        isActiveSelected,
         isSubmitDisabled,
         onChangeName,
         onChangeDescription,
-        onSelectActive,
-        onSelectInactive,
+        onSelectStatus,
         onPressBack,
         onSubmit,
     } = useEditProduct();
+
+    const statusOptions = useMemo(() => ([
+        { label: t('products.statuses.active'), value: 'active' },
+        { label: t('products.statuses.inactive'), value: 'inactive' },
+    ]), [t]);
 
     return (
         <ScreenContainer
@@ -54,10 +57,12 @@ export const EditProductView = observer(() => {
                         <Text style={styles.label}>{t('products.statusLabel')}</Text>
                         <Text style={styles.mandatoryMark}>*</Text>
                     </View>
-                    <TouchableOpacity style={styles.selectField} onPress={isActiveSelected ? onSelectInactive : onSelectActive} activeOpacity={0.85}>
-                        <Text style={styles.selectValue}>{t(`products.statuses.${status}`)}</Text>
-                        <Chevron position='DOWN' color={colors.icon_strong} />
-                    </TouchableOpacity>
+                    <Dropdown
+                        value={status}
+                        items={statusOptions}
+                        placeholder={t('products.statusPlaceholder')}
+                        setValue={(item) => onSelectStatus(item.value as 'active' | 'inactive')}
+                    />
                 </View>
                 <NLTTextInput
                     label={t('products.descriptionLabel')}

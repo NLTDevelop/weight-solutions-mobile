@@ -33,8 +33,19 @@ class ProductService {
             });
 
             if (!response.isError && response.data) {
-                productModel.products = response.data.data;
-                productModel.meta = response.data.meta;
+                if (params.offset) {
+                    productModel.append(response.data, params.status)
+                } else if (params.status === 'active') {
+                    productModel.activeProducts = {
+                        data: response.data.data,
+                        meta: response.data.meta,
+                    };
+                } else if (params.status === 'inactive') {
+                    productModel.inactiveProducts = {
+                        data: response.data.data,
+                        meta: response.data.meta,
+                    };
+                }
             }
 
             return response;

@@ -12,9 +12,12 @@ export const getStyles = (colors: IColors) => {
             paddingBottom: scaleVertical(8),
             backgroundColor: colors.background,
         },
+        content: {
+            flex: 1,
+        },
         searchContainer: {
-            paddingHorizontal: scaleHorizontal(4),
             paddingTop: scaleVertical(8),
+            marginHorizontal: scaleHorizontal(16),
         },
         searchInputContainer: {
             marginBottom: 0,
@@ -22,32 +25,23 @@ export const getStyles = (colors: IColors) => {
         searchInputInner: {
             paddingLeft: scaleHorizontal(12),
         },
-        tabsContainer: {
-            flexDirection: 'row',
+        tabBar: {
             paddingHorizontal: scaleHorizontal(16),
             backgroundColor: colors.background,
             borderBottomWidth: StyleSheet.hairlineWidth,
             borderBottomColor: colors.border,
         },
-        tab: {
-            flex: 1,
-            minHeight: scaleVertical(32),
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderBottomWidth: StyleSheet.hairlineWidth,
-            borderBottomColor: colors.border,
-            paddingHorizontal: scaleHorizontal(12),
-            paddingTop: scaleVertical(8),
-            paddingBottom: scaleVertical(8),
-        },
-        tabActive: {
-            borderBottomColor: colors.primary,
+        tabIndicator: {
+            backgroundColor: colors.primary,
         },
         tabLabel: {
             color: colors.text_strong,
             fontSize: scaleFontSize(14),
             lineHeight: scaleLineHeight(18),
             fontFamily: 'Roboto-Medium',
+        },
+        scene: {
+            flex: 1,
         },
         list: {
             flex: 1,
@@ -57,7 +51,7 @@ export const getStyles = (colors: IColors) => {
             backgroundColor: colors.background,
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(16),
-            paddingBottom: scaleVertical(120),
+            paddingBottom: scaleVertical(24),
             flexGrow: 1,
         },
         itemSeparator: {
@@ -67,17 +61,7 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(8),
             paddingBottom: scaleVertical(8),
-            backgroundColor: colors.card_middle,
-        },
-        button: {
-            width: '100%',
-            minHeight: scaleVertical(48),
-        },
-        buttonText: {
-            fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Medium',
-        },
+        }, 
     });
 
     return styles;

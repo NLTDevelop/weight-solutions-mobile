@@ -1,5 +1,6 @@
 export interface ProductListDto {
     limit: number;
     offset: number;
-    status: 'active' | 'inactive' | 'archive';
+    status: 'active' | 'inactive';
+    name?: string;
 }

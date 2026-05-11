@@ -11,7 +11,7 @@ export const useCreateProduct = () => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [status, setStatus] = useState<'active' | 'inactive' | null>(null);
+    const [status, setStatus] = useState<'active' | 'inactive'>('active');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -31,14 +31,8 @@ export const useCreateProduct = () => {
         setDescription(value.slice(0, 250));
     };
 
-    const onToggleStatus = () => {
-        setStatus(previousValue => {
-            if (!previousValue) {
-                return 'active';
-            }
-
-            return previousValue === 'active' ? 'inactive' : 'active';
-        });
+    const onSelectStatus = (value: 'active' | 'inactive') => {
+        setStatus(value);
     };
 
     const onPressBack = () => {
@@ -68,7 +62,8 @@ export const useCreateProduct = () => {
         }
 
         toastService.showSuccess(t('products.created'), response.data.data.name);
-        navigation.replace('ProductView', { productId: response.data.data.id });
+        productService.list({ limit: 20, offset: 0, status });
+        navigation.goBack();
     };
 
     return {
@@ -82,7 +77,7 @@ export const useCreateProduct = () => {
         isSubmitDisabled,
         onChangeName,
         onChangeDescription,
-        onToggleStatus,
+        onSelectStatus,
         onPressBack,
         onSubmit,
     };
