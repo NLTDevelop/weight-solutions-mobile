@@ -55,7 +55,8 @@ export const useEditPersonalData = () => {
 
         setIsLoading(true);
         const response = await userService.update(currentUserId, password.trim() ? {
-            ...body
+            ...body,
+            password: password.trim()
         } : body);
         setIsLoading(false);
 
