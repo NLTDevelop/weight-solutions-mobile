@@ -150,29 +150,40 @@
         }
     },
     "products": {
-        "title": "Продукти",
+        "title": "Продукція",
         "empty": "Продукти не знайдено",
-        "createTitle": "Створення продукту",
-        "createButton": "Створити продукт",
-        "detailsTitle": "Деталі продукту",
-        "editTitle": "Редагування продукту",
-        "editButton": "Редагувати",
+        "createTitle": "Додати продукцію",
+        "createButton": "Додати продукцію",
+        "detailsTitle": "Детальна сторінка продукції",
+        "editTitle": "Редагувати продукцію",
+        "editButton": "Редагування",
         "saveButton": "Зберегти",
         "titleFallback": "Продукт",
         "nameLabel": "Назва",
+        "namePlaceholder": "Введіть назву",
         "descriptionLabel": "Опис",
+        "descriptionPlaceholder": "Введіть опис",
         "statusLabel": "Статус",
+        "statusPlaceholder": "Оберіть статус",
         "descriptionFallback": "Опис не вказано",
+        "searchPlaceholder": "Пошук",
+        "tabs": {
+            "active": "Активні",
+            "inactive": "Неактивні"
+        },
         "statuses": {
             "active": "Активний",
             "inactive": "Неактивний",
             "archive": "Архів"
         },
         "validation": {
-            "nameRequired": "Вкажіть назву"
+            "nameRequired": "Вкажіть назву",
+            "statusRequired": "Оберіть статус",
+            "descriptionRequired": "Введіть опис"
         },
         "creationFailed": "Не вдалося створити продукт",
         "loadingFailed": "Не вдалося завантажити продукт",
+        "listLoadingFailed": "Не вдалося завантажити продукцію",
         "updateFailed": "Не вдалося оновити продукт",
         "updated": "Продукт оновлено",
         "created": "Продукт створено"

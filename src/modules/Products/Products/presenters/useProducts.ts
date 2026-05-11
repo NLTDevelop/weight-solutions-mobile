@@ -13,6 +13,8 @@ export const useProducts = () => {
     const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [isLoading, setIsLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [status, setStatus] = useState<'active' | 'inactive'>('active');
 
     const onPressProduct = (productId: number) => {
         navigation.navigate('ProductView', { productId });
@@ -20,6 +22,7 @@ export const useProducts = () => {
 
     const { productCards } = useProductsUi({
         products: productModel.products,
+        searchQuery,
         onPressProduct,
     });
 
@@ -29,15 +32,15 @@ export const useProducts = () => {
         const response = await productService.list({
             limit: LIST_LIMIT,
             offset: 0,
-            status: 'active',
+            status,
         });
 
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError(t('product.loadingFailed'), response.message || t('profile.tryAgainPlease'));
+            toastService.showError(t('products.listLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [t]);
+    }, [status, t]);
 
     const onPressCreateProduct = () => {
         navigation.navigate('CreateProductView');
@@ -47,10 +50,27 @@ export const useProducts = () => {
         loadProducts();
     }, [loadProducts]);
 
+    const onChangeSearchQuery = (value: string) => {
+        setSearchQuery(value);
+    };
+
+    const onSelectActive = () => {
+        setStatus('active');
+    };
+
+    const onSelectInactive = () => {
+        setStatus('inactive');
+    };
+
     return {
         productCards,
+        searchQuery,
+        status,
         isLoading,
         onRefresh: loadProducts,
+        onChangeSearchQuery,
+        onSelectActive,
+        onSelectInactive,
         onPressCreateProduct,
     };
 };

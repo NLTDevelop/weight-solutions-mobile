@@ -30,7 +30,7 @@ export const useEditProduct = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError(t('product.loadingFailed'), response.message || t('profile.tryAgainPlease'));
+            toastService.showError(t('products.loadingFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
@@ -50,8 +50,9 @@ export const useEditProduct = () => {
         hydrateProduct();
     }, [hydrateProduct, productId]);
 
-    const { nameErrorText, isActiveSelected, isInactiveSelected, isSubmitDisabled } = useEditProductUi({
+    const { nameErrorText, descriptionErrorText, isActiveSelected, isInactiveSelected, isSubmitDisabled } = useEditProductUi({
         name,
+        description,
         status,
         isSubmitted,
         isLoading,
@@ -62,7 +63,7 @@ export const useEditProduct = () => {
     };
 
     const onChangeDescription = (value: string) => {
-        setDescription(value);
+        setDescription(value.slice(0, 250));
     };
 
     const onSelectActive = () => {
@@ -95,19 +96,21 @@ export const useEditProduct = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError(t('product.updateFailed'), response.message || t('profile.tryAgainPlease'));
+            toastService.showError(t('products.updateFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess(t('product.updated'), response.data.data.name);
+        toastService.showSuccess(t('products.updated'), response.data.data.name);
         navigation.replace('ProductView', { productId });
     };
 
     return {
         name,
         description,
+        status,
         isLoading,
         nameErrorText,
+        descriptionErrorText,
         isActiveSelected,
         isInactiveSelected,
         isSubmitDisabled,

@@ -18,7 +18,7 @@ export const useProduct = () => {
     const { productId } = route.params as IRouteParams;
     const [isLoading, setIsLoading] = useState(false);
 
-    const { infoRows } = useProductUi({
+    const { infoRows, status } = useProductUi({
         product: productModel.current,
     });
 
@@ -30,7 +30,7 @@ export const useProduct = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError(t('product.loadingFailed'), response.message || t('profile.tryAgainPlease'));
+            toastService.showError(t('products.loadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
     }, [productId, t]);
 
@@ -49,6 +49,7 @@ export const useProduct = () => {
     return {
         product: productModel.current,
         infoRows,
+        status,
         isLoading,
         onPressBack,
         onPressEdit,

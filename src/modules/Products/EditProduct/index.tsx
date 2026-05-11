@@ -1,4 +1,5 @@
 import { useUiContext } from '@/UIProvider';
+import { Chevron } from '@/assets/icons/ChevronIcon';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
@@ -15,10 +16,11 @@ export const EditProductView = observer(() => {
     const {
         name,
         description,
+        status,
         isLoading,
         nameErrorText,
+        descriptionErrorText,
         isActiveSelected,
-        isInactiveSelected,
         isSubmitDisabled,
         onChangeName,
         onChangeDescription,
@@ -36,21 +38,44 @@ export const EditProductView = observer(() => {
             contentContainerStyle={styles.container}
             headerComponent={<HeaderWithBackButton title={t('products.editTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
         >
-            <View style={styles.form}>
-                <NLTTextInput label={t('products.nameLabel')} value={name} onChangeText={onChangeName} error={nameErrorText ? t(nameErrorText) : ''} />
-                <NLTTextInput label={t('products.descriptionLabel')} value={description} onChangeText={onChangeDescription} multiline />
-                <View style={styles.statusSection}>
-                    <Text style={styles.statusLabel}>{t('products.statusLabel')}</Text>
-                    <View style={styles.statusRow}>
-                        <TouchableOpacity style={[styles.statusOption, isActiveSelected ? styles.statusOptionActive : undefined]} onPress={onSelectActive}>
-                            <Text style={[styles.statusOptionText, isActiveSelected ? styles.statusOptionTextActive : undefined]}>{t('products.statuses.active')}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.statusOption, isInactiveSelected ? styles.statusOptionActive : undefined]} onPress={onSelectInactive}>
-                            <Text style={[styles.statusOptionText, isInactiveSelected ? styles.statusOptionTextActive : undefined]}>{t('products.statuses.inactive')}</Text>
-                        </TouchableOpacity>
+            <View style={styles.content}>
+                <NLTTextInput
+                    label={t('products.nameLabel')}
+                    placeholder={t('products.namePlaceholder')}
+                    value={name}
+                    onChangeText={onChangeName}
+                    error={nameErrorText ? t(nameErrorText) : ''}
+                    isMandatory
+                    shape='pill'
+                    containerStyle={styles.inputContainer}
+                />
+                <View style={styles.inputContainer}>
+                    <View style={styles.labelRow}>
+                        <Text style={styles.label}>{t('products.statusLabel')}</Text>
+                        <Text style={styles.mandatoryMark}>*</Text>
                     </View>
+                    <TouchableOpacity style={styles.selectField} onPress={isActiveSelected ? onSelectInactive : onSelectActive} activeOpacity={0.85}>
+                        <Text style={styles.selectValue}>{t(`products.statuses.${status}`)}</Text>
+                        <Chevron position='DOWN' color={colors.icon_strong} />
+                    </TouchableOpacity>
                 </View>
-                <NLTButton text={t('products.saveButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
+                <NLTTextInput
+                    label={t('products.descriptionLabel')}
+                    placeholder={t('products.descriptionPlaceholder')}
+                    value={description}
+                    onChangeText={onChangeDescription}
+                    error={descriptionErrorText ? t(descriptionErrorText) : ''}
+                    isMandatory
+                    multiline
+                    shape='rounded'
+                    containerStyle={styles.inputContainer}
+                    inputContainerStyle={styles.textAreaInner}
+                    style={styles.textArea}
+                />
+                <Text style={styles.counterText}>{description.length}/250</Text>
+            </View>
+            <View style={styles.footer}>
+                <NLTButton text={t('common.save')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={[styles.button, isSubmitDisabled && styles.buttonDisabled]} textStyle={[styles.buttonText, isSubmitDisabled && styles.buttonTextDisabled]} />
             </View>
         </ScreenContainer>
     );
