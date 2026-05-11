@@ -23,7 +23,7 @@ class UserService {
     signIn = async (body: UserSignInDto): Promise<IResponse<{ data: IUser }>> => {
         try {
             const response = await this.requester.request({
-                url: this.links.me,
+                url: this.links.signIn,
                 method: 'POST',
                 data: body,
                 withCredentials: true,

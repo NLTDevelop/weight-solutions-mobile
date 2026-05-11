@@ -29,11 +29,16 @@ class AxiosRequester implements IRequester {
         try {
             config.headers = this.getHeaders(config.headers);
             console.log('AxiosRequester -> request: ', config);
+            loggerModel.add(
+                'request',
+                `AxiosRequester -> request -> ${config.url}: `,
+                JSON.stringify(config, null, 3),
+            );
             const response = await axios(config);
             console.log('AxiosRequester -> request response: ', response);
             loggerModel.add(
                 'response',
-                `AxiosRequester -> request -> ${config.url}: `,
+                `AxiosRequester -> response -> ${config.url}: `,
                 JSON.stringify(response, null, 3),
             );
             return this.processingResponse({
