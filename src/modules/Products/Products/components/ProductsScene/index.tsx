@@ -1,7 +1,7 @@
-import { EmptyListView } from '@/UIKit/NLTEmptyListView';
+import { ProductsTabIcon } from '@/assets/icons/ProductsTabIcon';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { observer } from 'mobx-react';
-import { ListRenderItem, FlatList, View } from 'react-native';
+import { ListRenderItem, FlatList, Text, View } from 'react-native';
 import { PlusIcon } from '@/assets/icons/PlusIcon';
 import { useUiContext } from '@/UIProvider';
 import { IProductCardItem } from '../../presenters/useProductsUi';
@@ -34,7 +34,15 @@ export const ProductsScene = observer(({ productCards, isLoading, onEndReached, 
                 renderItem={renderItem}
                 keyExtractor={keyExtractor}
                 onEndReached={onEndReached}
-                ListEmptyComponent={<EmptyListView text={t('products.empty')} isLoading={isLoading} />}
+                ListEmptyComponent={isLoading ? null : (
+                    <View style={styles.emptyState}>
+                        <View style={styles.emptyIconCircle}>
+                            <ProductsTabIcon width={28} height={28} color={colors.icon_strong} />
+                        </View>
+                        <Text style={styles.emptyTitle}>{t('products.emptyStateTitle')}</Text>
+                        <Text style={styles.emptyDescription}>{t('products.emptyStateDescription')}</Text>
+                    </View>
+                )}
                 onRefresh={onRefresh}
                 refreshing={isLoading}
                 style={styles.list}

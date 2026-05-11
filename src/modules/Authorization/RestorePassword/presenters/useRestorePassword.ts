@@ -1,3 +1,4 @@
+import { userService } from '@/entities/User/UserService';
 import { toastService } from '@/libs/toast/toastService';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -22,6 +23,7 @@ export const useRestorePassword = () => {
     const [code, setCode] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [resetToken, setResetToken] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isEmailTouched, setIsEmailTouched] = useState(false);
     const [isEmailSubmitted, setIsEmailSubmitted] = useState(false);
@@ -113,12 +115,21 @@ export const useRestorePassword = () => {
         }
 
         setIsLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 300));
+        const response = await userService.restorePassword({
+            email: email.trim(),
+        });
         setIsLoading(false);
+
+        if (response.isError) {
+            toastService.showError(t('restorePassword.email.failed'), response.message || t('profile.tryAgainPlease'));
+            return;
+        }
+
         setStep('code');
         setCode('');
+        setResetToken('');
         setIsCodeSubmitted(false);
-        toastService.showSuccess(t('code.codeIsSend'), `${t('code.weAreSendCodeOn')} ${email.trim()}`);
+        toastService.showSuccess(t('restorePassword.code.codeIsSend'), `${t('restorePassword.code.weAreSendCodeOn')} ${email.trim()}`);
     };
 
     const onSubmitCode = async () => {
@@ -129,8 +140,19 @@ export const useRestorePassword = () => {
         }
 
         setIsLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 300));
+        const response = await userService.verifyRestoreCode({
+            email: email.trim(),
+            code,
+        });
         setIsLoading(false);
+
+        if (response.isError || !response.data?.reset_token) {
+            toastService.showError(t('restorePassword.code.failed'), response.message || t('profile.tryAgainPlease'));
+            return;
+        }
+
+        setResetToken(response.data.reset_token);
+        setEmail(response.data.email || email.trim());
         setStep('password');
         setPassword('');
         setConfirmPassword('');
@@ -144,14 +166,24 @@ export const useRestorePassword = () => {
         setIsPasswordTouched(true);
         setIsConfirmPasswordTouched(true);
 
-        if (ui.isActionDisabled) {
+        if (ui.isActionDisabled || !resetToken) {
             return;
         }
 
         setIsLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 300));
+        const response = await userService.confirmRestorePassword({
+            email: email.trim(),
+            reset_token: resetToken,
+            password,
+        });
         setIsLoading(false);
-        toastService.showSuccess(t('password.passwordUpdated'), t('password.enterInSystemWithNewPassword'));
+
+        if (response.isError) {
+            toastService.showError(t('restorePassword.password.failed'), response.message || t('profile.tryAgainPlease'));
+            return;
+        }
+
+        toastService.showSuccess(t('restorePassword.password.passwordUpdated'), t('restorePassword.password.enterInSystemWithNewPassword'));
         navigation.reset({ index: 0, routes: [{ name: 'AuthorizationView' }] });
     };
 
@@ -175,11 +207,13 @@ export const useRestorePassword = () => {
         } else if (step === 'code') {
             setStep('email');
             setCode('');
+            setResetToken('');
             setIsCodeSubmitted(false);
         } else {
             setStep('code');
             setPassword('');
             setConfirmPassword('');
+            setResetToken('');
             setIsPasswordSubmitted(false);
             setIsPasswordTouched(false);
             setIsConfirmPasswordTouched(false);
@@ -213,7 +247,6 @@ export const useRestorePassword = () => {
         shouldHighlightPasswordFields: ui.passwordStep.shouldHighlightPasswordFields,
         hasPasswordMinLength: ui.passwordStep.hasPasswordMinLength,
         hasPasswordDigit: ui.passwordStep.hasPasswordDigit,
-        hasPasswordSpecialCharacter: ui.passwordStep.hasPasswordSpecialCharacter,
         onChangePassword,
         onChangeConfirmPassword,
         onBlurPassword,

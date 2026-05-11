@@ -23,9 +23,10 @@
     "restorePassword": {
         "email": {
             "title": "Відновлення паролю",
-            "subtitle": "Введіть свій email, щоб отримати посилання для скидання паролю.",
+            "subtitle": "Введіть свій email, щоб отримати код для скидання паролю.",
             "button": "Надіслати код",
-            "error": "Невірний email"
+            "error": "Невірний email",
+            "failed": "Не вдалося надіслати код"
         },
         "code": {
             "title": "Відновлення паролю",
@@ -34,7 +35,8 @@
             "button": "Далі",
             "error": "Введіть 6-значний код",
             "codeIsSend": "Код надіслано",
-            "weAreSendCodeOn": "Ми надіслали код на"
+            "weAreSendCodeOn": "Ми надіслали код на",
+            "failed": "Не вдалося підтвердити код"
         },
         "password": {
             "title": "Новий пароль",
@@ -48,7 +50,8 @@
             "ruleSpecialCharacter": "1 спецсимвол",
             "error": "Паролі не співпадають.",
             "passwordUpdated": "Пароль оновлено",
-            "enterInSystemWithNewPassword": "Увійдіть у систему з новим паролем."
+            "enterInSystemWithNewPassword": "Увійдіть у систему з новим паролем.",
+            "failed": "Не вдалося змінити пароль"
         }
     },
     "companies": {
@@ -166,6 +169,8 @@
         "statusLabel": "Статус",
         "statusPlaceholder": "Оберіть статус",
         "descriptionFallback": "Опис не вказано",
+        "emptyStateTitle": "Продуктів ще немає",
+        "emptyStateDescription": "Додайте перший продукт, щоб почати роботу з продукцією.",
         "searchPlaceholder": "Пошук",
         "tabs": {
             "active": "Активні",

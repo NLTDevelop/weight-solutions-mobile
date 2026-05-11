@@ -9,7 +9,7 @@ export const getStyles = (colors: IColors) => {
             justifyContent: 'center',
             alignItems: 'center',
             paddingHorizontal: scaleHorizontal(20),
-            backgroundColor: colors.background_dark,
+            backgroundColor: colors.background_dark + 'AA',
         },
         card: {
             width: '100%',

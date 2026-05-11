@@ -25,7 +25,6 @@ export interface IPasswordStepPresenter {
     isActionDisabled: boolean;
     hasPasswordMinLength: boolean;
     hasPasswordDigit: boolean;
-    hasPasswordSpecialCharacter: boolean;
 }
 
 export interface IEmailStepComponentProps {
@@ -55,7 +54,6 @@ export interface IPasswordStepComponentProps {
     shouldHighlightPasswordFields: boolean;
     hasPasswordMinLength: boolean;
     hasPasswordDigit: boolean;
-    hasPasswordSpecialCharacter: boolean;
     onChangePassword: (value: string) => void;
     onChangeConfirmPassword: (value: string) => void;
     onBlurPassword: () => void;

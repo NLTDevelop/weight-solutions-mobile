@@ -6,6 +6,12 @@ import { userModel } from "./UserModel";
 import { UserSignInDto } from "./dto/user-sign-in.dto";
 import { UserUpdateDto } from "../Users/dto/user-update.dto";
 import { contactInformationModel } from "../ContactInformation/ContactInformationModel";
+import {
+    UserConfirmRestorePasswordDto,
+    UserRestorePasswordDto,
+    UserVerifyRestoreCodeDto,
+    UserVerifyRestoreCodeResponseDto,
+} from "./dto/user-restore-password.dto";
 import { UserChangePasswordDto } from "./dto/user-change-password.dto";
 
 class UserService {
@@ -29,6 +35,48 @@ class UserService {
             return response;
         } catch (error) {
             console.warn('UserService -> signIn: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    restorePassword = async (body: UserRestorePasswordDto): Promise<IResponse<{ message: string }>> => {
+        try {
+            return await this.requester.request({
+                url: this.links.restorePassword,
+                method: 'POST',
+                data: body,
+                withCredentials: true,
+            });
+        } catch (error) {
+            console.warn('UserService -> restorePassword: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    verifyRestoreCode = async (body: UserVerifyRestoreCodeDto): Promise<IResponse<UserVerifyRestoreCodeResponseDto>> => {
+        try {
+            return await this.requester.request({
+                url: this.links.verifyRestoreCode,
+                method: 'POST',
+                data: body,
+                withCredentials: true,
+            });
+        } catch (error) {
+            console.warn('UserService -> verifyRestoreCode: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    confirmRestorePassword = async (body: UserConfirmRestorePasswordDto): Promise<IResponse<{ message: string }>> => {
+        try {
+            return await this.requester.request({
+                url: this.links.confirmRestorePassword,
+                method: 'POST',
+                data: body,
+                withCredentials: true,
+            });
+        } catch (error) {
+            console.warn('UserService -> confirmRestorePassword: ', error);
             return { isError: true, data: null, message: '' } as any;
         }
     };
