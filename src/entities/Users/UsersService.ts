@@ -1,5 +1,7 @@
 import { ILinks, links as appLinks } from "@/Links";
+import { companyModel } from "@/entities/Company/CompanyModel";
 import { companyService } from "@/entities/Company/CompanyService";
+import { userModel } from "@/entities/User/UserModel";
 import { IRequester, requester as appRequester } from "../../libs/requester";
 import { IResponse } from "../../libs/requester/IRequester/IResponse";
 import { IUserMeta } from "../Users/IUserMeta";
@@ -100,8 +102,16 @@ class UsersService {
         }
     };
 
-    details = async (companyId: number, userId: number): Promise<IResponse<IUserResponse>> => {
+    details = async (userId: number): Promise<IResponse<IUserResponse>> => {
         try {
+            const companyId = usersModel.current?.company?.id
+                || userModel.user?.company?.id
+                || companyModel.company?.id;
+
+            if (!companyId) {
+                return { isError: true, data: null, message: 'Company not found' } as any;
+            }
+
             const response = await companyService.details(companyId);
 
             if (response.isError || !response.data?.data?.users) {

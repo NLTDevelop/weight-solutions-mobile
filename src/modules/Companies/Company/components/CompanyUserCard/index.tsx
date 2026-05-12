@@ -26,11 +26,6 @@ export const CompanyUserCard = ({ item }: IProps) => {
             </View>
             <View style={styles.separator} />
             <View style={styles.infoBlock}>
-                <Text style={styles.label}>{t('companies.phoneLabel')}</Text>
-                <Text style={styles.value}>{item.phone}</Text>
-            </View>
-            <View style={styles.separator} />
-            <View style={styles.infoBlock}>
                 <Text style={styles.label}>{t('users.email')}:</Text>
                 <Text style={styles.value}>{item.email}</Text>
             </View>

@@ -32,13 +32,9 @@ export const useContactInformation = () => {
         loadContactInformation();
     }, [loadContactInformation]);
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     const onPressEdit = () => {
         navigation.navigate('EditContactInformationView');
     };
 
-    return { rows, isLoading, onPressBack, onPressEdit, };
+    return { rows, isLoading, onPressEdit, };
 };

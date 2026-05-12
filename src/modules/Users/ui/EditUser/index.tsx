@@ -16,17 +16,14 @@ export const EditUserView = observer(() => {
     const styles = useMemo(() => getStyles(colors), [colors]);
     const {
         name,
-        phone,
         role,
         email,
         description,
         isLoading,
         nameErrorText,
-        phoneErrorText,
         emailErrorText,
         isSubmitDisabled,
         onChangeName,
-        onChangePhone,
         onChangeEmail,
         onChangeDescription,
         onPressBack,
@@ -39,7 +36,7 @@ export const EditUserView = observer(() => {
             isKeyboardAvoiding
             scrollEnabled
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('users.editTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={t('users.editTitle')} onPressBack={onPressBack}/>}
         >
             <View style={styles.content}>
                 <View style={styles.section}>
@@ -57,17 +54,6 @@ export const EditUserView = observer(() => {
                         error={nameErrorText ? t(nameErrorText) : ''}
                         isMandatory
                         shape='pill'
-                        containerStyle={styles.inputContainer}
-                    />
-                    <NLTTextInput
-                        label={t('users.phone')}
-                        placeholder={t('users.phonePlaceholder')}
-                        value={phone}
-                        onChangeText={onChangePhone}
-                        error={phoneErrorText ? t(phoneErrorText) : ''}
-                        isMandatory
-                        shape='pill'
-                        keyboardType='phone-pad'
                         containerStyle={styles.inputContainer}
                     />
                     <View style={styles.inputContainer}>

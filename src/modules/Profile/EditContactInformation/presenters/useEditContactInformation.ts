@@ -59,10 +59,6 @@ export const useEditContactInformation = () => {
 
     const isSubmitDisabled = JSON.stringify(payload) === JSON.stringify(initialPayload) || isLoading;
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     const onSubmit = async () => {
         if (isSubmitDisabled) {
             return;
@@ -100,7 +96,6 @@ export const useEditContactInformation = () => {
         setViber,
         setTiktok,
         setYoutube,
-        onPressBack,
         onSubmit,
     };
 };

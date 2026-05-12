@@ -30,6 +30,10 @@ export const useProfile = () => {
         navigation.navigate('ChangePasswordView');
     };
 
+    const onGoToUsersManagement = () => {
+        navigation.navigate('UsersManagementView');
+    };
+
     const onOpenLogoutModal = () => {
         setConfirmationType('logout');
     };
@@ -83,6 +87,7 @@ export const useProfile = () => {
         onGoToPersonalData,
         onGoToContactInformation,
         onGoToChangePassword,
+        onGoToUsersManagement,
         onOpenLogoutModal,
         onToggleNotifications,
         onOpenDeleteModal,

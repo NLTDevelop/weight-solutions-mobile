@@ -83,7 +83,7 @@ class UserService {
 
     update = async (userId: number, body: Partial<UserUpdateDto>): Promise<IResponse<{ data: IUser }>> => {
         try {
-            
+
             const response = await this.requester.request({
                 url: this.links.userDetails(userId),
                 method: 'PUT',
@@ -105,13 +105,29 @@ class UserService {
 
     changePassword = async (body: UserChangePasswordDto): Promise<IResponse<{ message?: string }>> => {
         try {
-            const url = `${this.links.users}/${userModel.user?.id}/change-password` 
+            const url = `${this.links.users}/${userModel.user?.id}/change-password`
             return await this.requester.request({
                 url,
                 method: 'PUT',
                 data: body,
                 withCredentials: true,
             });
+        } catch (error) {
+            console.warn('UserService -> changePassword: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    me = async (): Promise<void> => {
+        try {
+            const response = await this.requester.request({
+                url: this.links.me,
+                method: 'GET',
+                withCredentials: true,
+            });
+            if (!response.isError && response.data?.data) {
+                userModel.user = response.data.data;
+            }
         } catch (error) {
             console.warn('UserService -> changePassword: ', error);
             return { isError: true, data: null, message: '' } as any;

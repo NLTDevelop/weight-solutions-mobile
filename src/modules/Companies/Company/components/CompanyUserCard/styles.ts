@@ -14,6 +14,7 @@ export const getStyles = (colors: IColors) => {
             shadowRadius: 4,
             elevation: 4,
             gap: scaleVertical(8),
+            marginBottom: scaleVertical(16),
         },
         headerRow: {
             flexDirection: 'row',

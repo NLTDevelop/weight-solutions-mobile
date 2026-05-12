@@ -25,7 +25,6 @@ export const CreateProductView = observer(() => {
         onChangeName,
         onChangeDescription,
         onSelectStatus,
-        onPressBack,
         onSubmit,
     } = useCreateProduct();
 
@@ -40,7 +39,7 @@ export const CreateProductView = observer(() => {
             isKeyboardAvoiding
             scrollEnabled
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('products.createTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={t('products.createTitle')} />}
         >
             <View style={styles.content}>
                 <NLTTextInput

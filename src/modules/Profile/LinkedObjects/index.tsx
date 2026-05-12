@@ -13,10 +13,10 @@ import { getStyles } from './styles';
 export const LinkedObjectsView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { linkedCompany, onPressBack } = useLinkedObjects();
+    const { linkedCompany } = useLinkedObjects();
 
     return (
-        <ScreenContainer edges={['top', 'bottom']} contentContainerStyle={styles.container} headerComponent={<HeaderWithBackButton title={t('profile.linkedObjectsTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}>
+        <ScreenContainer edges={['top', 'bottom']} contentContainerStyle={styles.container} headerComponent={<HeaderWithBackButton title={t('profile.linkedObjectsTitle')}  />}>
             <View style={styles.card}>
                 <Typography variant='h5' text={t('profile.linkedObjectsTitle')} style={styles.title} />
                 {linkedCompany

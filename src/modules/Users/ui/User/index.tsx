@@ -15,13 +15,13 @@ import { getStyles } from './styles';
 export const UserView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { user, infoRows, isLoading, onPressBack, onPressEdit } = useUser();
+    const { user, infoRows, isLoading, onPressEdit } = useUser();
 
     return (
         <ScreenContainer
             edges={['top', 'bottom']}
             containerStyle={styles.screen}
-            headerComponent={<HeaderWithBackButton title={user?.name || t('users.titleFallback')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={user?.name || t('users.titleFallback')} />}
         >
             {isLoading
                 ? <Loader />

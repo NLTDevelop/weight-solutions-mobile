@@ -31,7 +31,6 @@ export const EditCompanyView = observer(() => {
         onChangeOwner,
         onChangePhone,
         onChangeDescription,
-        onPressBack,
         onSubmit,
     } = useEditCompany();
 
@@ -39,12 +38,7 @@ export const EditCompanyView = observer(() => {
         <ScreenContainer
             isKeyboardAvoiding
             scrollEnabled
-            headerComponent={(
-                <HeaderWithBackButton
-                    title={t('companies.editTitle')}
-                    onPressBack={onPressBack}
-                />
-            )}
+            headerComponent={(<HeaderWithBackButton title={t('companies.editTitle')} />)}
         >
             <View style={styles.container}>
                 <View style={styles.content}>

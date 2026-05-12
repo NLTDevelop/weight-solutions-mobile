@@ -1,5 +1,6 @@
 export interface UserCreateDto {
     name: string;
+    role?: 'admin' | 'user';
     password: string;
     description?: string | null;
     email: string;

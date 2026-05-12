@@ -68,10 +68,6 @@ export const useChangePassword = () => {
         || !isPasswordMatch
         || isSameAsOld;
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     const onBlurOldPassword = () => {
         setIsOldPasswordTouched(true);
     };
@@ -127,7 +123,6 @@ export const useChangePassword = () => {
         onBlurOldPassword,
         onBlurNewPassword,
         onBlurConfirmPassword,
-        onPressBack,
         onSubmit,
     };
 };

@@ -66,10 +66,6 @@ export const useEditCompany = () => {
 
     const { nameErrorText, ownerErrorText, isSubmitDisabled } = useCreateCompanyUi({ name, owner, isSubmitted, isLoading, t });
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     const onSubmit = async () => {
         setIsSubmitted(true);
 
@@ -119,7 +115,6 @@ export const useEditCompany = () => {
         onChangeOwner: setOwner,
         onChangePhone: setPhone,
         onChangeDescription: (value: string) => setDescription(value.slice(0, DESCRIPTION_MAX_LENGTH)),
-        onPressBack,
         onSubmit,
     };
 };

@@ -1,5 +1,5 @@
 import { useUiContext } from '@/UIProvider';
-import { Chevron } from '@/assets/icons/ChevronIcon';
+import { Dropdown } from '@/UIKit/Dropdown';
 import { InfoIcon } from '@/assets/icons/InfoIcon';
 import { UserIcon } from '@/assets/icons/UserIcon';
 import { NLTButton } from '@/UIKit/NLTButton';
@@ -8,7 +8,7 @@ import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useCreateUser } from './presenters/useCreateUser';
 import { getStyles } from './styles';
 
@@ -17,36 +17,35 @@ export const CreateUserView = observer(() => {
     const styles = useMemo(() => getStyles(colors), [colors]);
     const {
         name,
-        phone,
         role,
         email,
         password,
         description,
         isLoading,
         nameErrorText,
-        phoneErrorText,
-        roleErrorText,
         emailErrorText,
         passwordErrorText,
         descriptionErrorText,
         isSubmitDisabled,
         onChangeName,
-        onChangePhone,
+        onChangeRole,
         onChangeEmail,
         onChangePassword,
         onChangeDescription,
-        onToggleRole,
-        onPressBack,
         onSubmit,
     } = useCreateUser();
+
+    const roleOptions = useMemo(() => ([
+        { label: t('profile.roles.admin'), value: 'admin' },
+        { label: t('profile.roles.user'), value: 'user' },]
+    ), [t]);
 
     return (
         <ScreenContainer
             edges={['top', 'bottom']}
             isKeyboardAvoiding
             scrollEnabled
-            contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('users.createTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={t('users.createTitle')} />}
         >
             <View style={styles.content}>
                 <View style={styles.section}>
@@ -66,27 +65,17 @@ export const CreateUserView = observer(() => {
                         shape='pill'
                         containerStyle={styles.inputContainer}
                     />
-                    <NLTTextInput
-                        label={t('users.phone')}
-                        placeholder={t('users.phonePlaceholder')}
-                        value={phone}
-                        onChangeText={onChangePhone}
-                        error={phoneErrorText ? t(phoneErrorText) : ''}
-                        isMandatory
-                        shape='pill'
-                        keyboardType='phone-pad'
-                        containerStyle={styles.inputContainer}
-                    />
                     <View style={styles.inputContainer}>
                         <View style={styles.labelRow}>
                             <Text style={styles.label}>{t('users.role')}</Text>
                             <Text style={styles.mandatoryMark}>*</Text>
                         </View>
-                        <TouchableOpacity style={[styles.selectField, roleErrorText ? styles.selectFieldError : null]} onPress={onToggleRole} activeOpacity={0.85}>
-                            <Text style={styles.selectValue}>{t(`profile.roles.${role}`)}</Text>
-                            <Chevron position='DOWN' color={colors.icon_strong} />
-                        </TouchableOpacity>
-                        {roleErrorText ? <Text style={styles.errorText}>{t(roleErrorText)}</Text> : null}
+                        <Dropdown
+                            value={role}
+                            items={roleOptions}
+                            placeholder={t('users.role')}
+                            setValue={(item) => onChangeRole(item.value as 'admin' | 'user')}
+                        />
                     </View>
                 </View>
 
@@ -130,9 +119,6 @@ export const CreateUserView = observer(() => {
                         isMandatory
                         multiline
                         shape='rounded'
-                        containerStyle={styles.inputContainer}
-                        inputContainerStyle={styles.textAreaInner}
-                        style={styles.textArea}
                     />
                 </View>
             </View>
