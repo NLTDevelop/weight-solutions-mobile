@@ -1,6 +1,7 @@
 import { contactInformationModel } from '@/entities/ContactInformation/ContactInformationModel';
 import { contactInformationService } from '@/entities/ContactInformation/ContactInformationService';
 import { toastService } from '@/libs/toast/toastService';
+import { useUiContext } from '@/UIProvider';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useEffect, useMemo, useState } from 'react';
@@ -12,6 +13,7 @@ const normalizeValue = (value: string) => {
 
 export const useEditContactInformation = () => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
+    const { t } = useUiContext();
     const [phone, setPhone] = useState('');
     const [phone2, setPhone2] = useState('');
     const [telegram, setTelegram] = useState('');
@@ -69,11 +71,11 @@ export const useEditContactInformation = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Contact information update failed', response.message || 'Please try again');
+            toastService.showError(t('profile.contact.contactInformationUpdateFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess('Contact information updated', '');
+        toastService.showSuccess(t('profile.contact.contactInformationUpdated'), '');
         navigation.goBack();
     };
 

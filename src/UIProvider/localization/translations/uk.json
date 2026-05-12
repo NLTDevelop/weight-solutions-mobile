@@ -318,7 +318,9 @@
         "actionFailed": "Помилка дії профілю",
         "userNotAvailable": "Користувач недоступний",
         "contact": {
-            "loadingFailed": "Не вдалося завантажити контактну інформацію"
+            "loadingFailed": "Не вдалося завантажити контактну інформацію",
+            "contactInformationUpdateFailed": "Не вдалося оновити контактну інформацію",
+            "contactInformationUpdated": "Контактну інформацію оновлено"
         }
     },
     "tabs": {
