@@ -11,11 +11,14 @@ export const useCreateProduct = () => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [status, setStatus] = useState<'active' | 'inactive'>('active');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { nameErrorText, isSubmitDisabled } = useCreateProductUi({
+    const { nameErrorText, descriptionErrorText, statusErrorText, isSubmitDisabled } = useCreateProductUi({
         name,
+        description,
+        status,
         isSubmitted,
         isLoading,
     });
@@ -25,7 +28,11 @@ export const useCreateProduct = () => {
     };
 
     const onChangeDescription = (value: string) => {
-        setDescription(value);
+        setDescription(value.slice(0, 250));
+    };
+
+    const onSelectStatus = (value: 'active' | 'inactive') => {
+        setStatus(value);
     };
 
     const onPressBack = () => {
@@ -44,27 +51,33 @@ export const useCreateProduct = () => {
         const response = await productService.create({
             name: name.trim(),
             description: description.trim() || null,
+            status,
         });
 
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError(t('product.creationFailed'), response.message || t('profile.tryAgainPlease'));
+            toastService.showError(t('products.creationFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess(t('product.created'), response.data.data.name);
-        navigation.replace('ProductView', { productId: response.data.data.id });
+        toastService.showSuccess(t('products.created'), response.data.data.name);
+        productService.list({ limit: 20, offset: 0, status });
+        navigation.goBack();
     };
 
     return {
         name,
         description,
+        status,
         isLoading,
         nameErrorText,
+        descriptionErrorText,
+        statusErrorText,
         isSubmitDisabled,
         onChangeName,
         onChangeDescription,
+        onSelectStatus,
         onPressBack,
         onSubmit,
     };

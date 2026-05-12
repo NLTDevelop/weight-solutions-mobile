@@ -13,31 +13,30 @@ export const useProducts = () => {
     const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [isLoading, setIsLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [status, setStatus] = useState<'active' | 'inactive'>('active');
 
     const onPressProduct = (productId: number) => {
         navigation.navigate('ProductView', { productId });
     };
 
+    const productsBucket = status === 'active' ? productModel.activeProducts : productModel.inactiveProducts;
+    const products = productsBucket?.data || [];
+
     const { productCards } = useProductsUi({
-        products: productModel.products,
+        products,
+        searchQuery,
         onPressProduct,
     });
 
-    const loadProducts = useCallback(async () => {
+    const loadProducts = useCallback(async (offset: number = 0) => {
         setIsLoading(true);
-
-        const response = await productService.list({
-            limit: LIST_LIMIT,
-            offset: 0,
-            status: 'active',
-        });
-
+        const response = await productService.list({ limit: LIST_LIMIT, offset, status, name: searchQuery });
         setIsLoading(false);
-
         if (response.isError) {
-            toastService.showError(t('product.loadingFailed'), response.message || t('profile.tryAgainPlease'));
+            toastService.showError(t('products.listLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [t]);
+    }, [searchQuery, status, t]);
 
     const onPressCreateProduct = () => {
         navigation.navigate('CreateProductView');
@@ -47,10 +46,38 @@ export const useProducts = () => {
         loadProducts();
     }, [loadProducts]);
 
+    const onChangeSearchQuery = (value: string) => {
+        setSearchQuery(value);
+    };
+
+    const onSelectActive = () => {
+        setStatus('active');
+    };
+
+    const onSelectInactive = () => {
+        setStatus('inactive');
+    };
+
+    const onSelectStatus = (nextStatus: any) => {
+        setStatus(nextStatus);
+    };
+
+    const onEndReached = async () => {
+        if (isLoading || ((productsBucket?.meta?.total || 0) <= products.length)) return;
+        await loadProducts(products.length);
+    }
+
     return {
         productCards,
+        searchQuery,
+        status,
         isLoading,
+        onEndReached,
         onRefresh: loadProducts,
+        onChangeSearchQuery,
+        onSelectActive,
+        onSelectInactive,
+        onSelectStatus,
         onPressCreateProduct,
     };
 };

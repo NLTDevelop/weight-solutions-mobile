@@ -21,7 +21,7 @@ If FlatList uses pagination need props `onEndReached` to fetch next page
 
 # Localization
 
-Add translate localization and use t for texts: const { t } = useUiContext();
+**ALWAYS** Add localization and use `t` for texts: `const { t } = useUiContext();`
 
 # Folder structure in module
 

@@ -26,6 +26,10 @@ export const useProfile = () => {
         navigation.navigate('ContactInformationView');
     };
 
+    const onGoToChangePassword = () => {
+        navigation.navigate('ChangePasswordView');
+    };
+
     const onOpenLogoutModal = () => {
         setConfirmationType('logout');
     };
@@ -78,6 +82,7 @@ export const useProfile = () => {
         onDeleteAccount,
         onGoToPersonalData,
         onGoToContactInformation,
+        onGoToChangePassword,
         onOpenLogoutModal,
         onToggleNotifications,
         onOpenDeleteModal,

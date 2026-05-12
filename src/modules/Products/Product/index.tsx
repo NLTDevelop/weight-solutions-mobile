@@ -1,4 +1,5 @@
 import { useUiContext } from '@/UIProvider';
+import { EditIcon } from '@/assets/icons/EditIcon';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { Loader } from '@/UIKit/Loader';
@@ -6,41 +7,59 @@ import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { InfoRow } from '@/modules/Users/ui/User/components/InfoRow';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { FlatList, ListRenderItem, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { useProduct } from './presenters/useProduct';
 import { getStyles } from './styles';
 
 export const ProductView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { product, infoRows, isLoading, onPressBack, onPressEdit } = useProduct();
-
-    const keyExtractor = (item: { id: string }) => item.id;
-
-    const renderItem: ListRenderItem<{ id: string; label: string; value: string }> = ({ item }) => {
-        const value = item.value.startsWith('products.') ? t(item.value) : item.label === 'products.statusLabel' ? t(`products.statuses.${item.value}`) : item.value;
-        return <InfoRow label={t(item.label)} value={value} />;
-    };
-
-    const ItemSeparatorComponent = () => {
-        return <View style={styles.separator} />;
-    };
+    const { infoRows, status, isLoading, onPressBack, onPressEdit } = useProduct();
 
     return (
-        <ScreenContainer edges={['top', 'bottom']} contentContainerStyle={styles.container} headerComponent={<HeaderWithBackButton title={t('products.detailsTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}>
+        <ScreenContainer
+            edges={['top', 'bottom']}
+            containerStyle={styles.screen}
+            headerComponent={<HeaderWithBackButton title={t('products.detailsTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+        >
             {isLoading
                 ? <Loader />
-                : <View style={styles.card}>
-                    <Text style={styles.title}>{product?.name || t('products.titleFallback')}</Text>
-                    <FlatList
-                        data={infoRows}
-                        renderItem={renderItem}
-                        keyExtractor={keyExtractor}
-                        scrollEnabled={false}
-                        contentContainerStyle={styles.listContent}
-                        ItemSeparatorComponent={ItemSeparatorComponent}
-                    />
-                    <NLTButton text={t('products.editButton')} onPress={onPressEdit} containerStyle={styles.button} textStyle={styles.buttonText} />
+                : <View style={styles.content}>
+                    <ScrollView
+                        bounces={false}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={styles.scrollContent}
+                    >
+                        <View style={styles.card}>
+                            {infoRows.map((item, index) => (
+                                <View key={item.id}>
+                                    {index > 0 ? <View style={styles.separator} /> : null}
+                                    <InfoRow
+                                        label={t(item.label)}
+                                        value={item.value.startsWith('products.') ? t(item.value) : item.value}
+                                    />
+                                </View>
+                            ))}
+                            <View style={styles.separator} />
+                            <View style={styles.statusBlock}>
+                                <Text style={styles.statusLabel}>{t('products.statusLabel')}:</Text>
+                                <View style={[styles.statusBadge, status === 'active' ? styles.statusBadgeActive : styles.statusBadgeInactive]}>
+                                    <Text style={[styles.statusBadgeText, status === 'active' ? styles.statusBadgeTextActive : styles.statusBadgeTextInactive]}>
+                                        {t(`products.statuses.${status}`)}
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                    </ScrollView>
+                    <View style={styles.footer}>
+                        <NLTButton
+                            text={t('products.editButton')}
+                            onPress={onPressEdit}
+                            containerStyle={styles.button}
+                            textStyle={styles.buttonText}
+                            LeftAccessory={<EditIcon color={colors.icon_strong} />}
+                        />
+                    </View>
                 </View>}
         </ScreenContainer>
     );

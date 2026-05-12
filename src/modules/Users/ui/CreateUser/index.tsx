@@ -21,17 +21,20 @@ export const CreateUserView = observer(() => {
         role,
         email,
         password,
+        description,
         isLoading,
         nameErrorText,
         phoneErrorText,
         roleErrorText,
         emailErrorText,
         passwordErrorText,
+        descriptionErrorText,
         isSubmitDisabled,
         onChangeName,
         onChangePhone,
         onChangeEmail,
         onChangePassword,
+        onChangeDescription,
         onToggleRole,
         onPressBack,
         onSubmit,
@@ -117,6 +120,19 @@ export const CreateUserView = observer(() => {
                         secureTextEntry
                         showSecureToggle
                         containerStyle={styles.inputContainer}
+                    />
+                    <NLTTextInput
+                        label={t('users.description')}
+                        placeholder={t('users.descriptionPlaceholder')}
+                        value={description}
+                        onChangeText={onChangeDescription}
+                        error={descriptionErrorText ? t(descriptionErrorText) : ''}
+                        isMandatory
+                        multiline
+                        shape='rounded'
+                        containerStyle={styles.inputContainer}
+                        inputContainerStyle={styles.textAreaInner}
+                        style={styles.textArea}
                     />
                 </View>
             </View>

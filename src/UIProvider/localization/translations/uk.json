@@ -23,9 +23,10 @@
     "restorePassword": {
         "email": {
             "title": "Відновлення паролю",
-            "subtitle": "Введіть свій email, щоб отримати посилання для скидання паролю.",
+            "subtitle": "Введіть свій email, щоб отримати код для скидання паролю.",
             "button": "Надіслати код",
-            "error": "Невірний email"
+            "error": "Невірний email",
+            "failed": "Не вдалося надіслати код"
         },
         "code": {
             "title": "Відновлення паролю",
@@ -34,7 +35,8 @@
             "button": "Далі",
             "error": "Введіть 6-значний код",
             "codeIsSend": "Код надіслано",
-            "weAreSendCodeOn": "Ми надіслали код на"
+            "weAreSendCodeOn": "Ми надіслали код на",
+            "failed": "Не вдалося підтвердити код"
         },
         "password": {
             "title": "Новий пароль",
@@ -48,7 +50,8 @@
             "ruleSpecialCharacter": "1 спецсимвол",
             "error": "Паролі не співпадають.",
             "passwordUpdated": "Пароль оновлено",
-            "enterInSystemWithNewPassword": "Увійдіть у систему з новим паролем."
+            "enterInSystemWithNewPassword": "Увійдіть у систему з новим паролем.",
+            "failed": "Не вдалося змінити пароль"
         }
     },
     "companies": {
@@ -150,29 +153,42 @@
         }
     },
     "products": {
-        "title": "Продукти",
+        "title": "Продукція",
         "empty": "Продукти не знайдено",
-        "createTitle": "Створення продукту",
-        "createButton": "Створити продукт",
-        "detailsTitle": "Деталі продукту",
-        "editTitle": "Редагування продукту",
-        "editButton": "Редагувати",
+        "createTitle": "Додати продукцію",
+        "createButton": "Додати продукцію",
+        "detailsTitle": "Детальна сторінка продукції",
+        "editTitle": "Редагувати продукцію",
+        "editButton": "Редагування",
         "saveButton": "Зберегти",
         "titleFallback": "Продукт",
         "nameLabel": "Назва",
+        "namePlaceholder": "Введіть назву",
         "descriptionLabel": "Опис",
+        "descriptionPlaceholder": "Введіть опис",
         "statusLabel": "Статус",
+        "statusPlaceholder": "Оберіть статус",
         "descriptionFallback": "Опис не вказано",
+        "emptyStateTitle": "Продуктів ще немає",
+        "emptyStateDescription": "Додайте перший продукт, щоб почати роботу з продукцією.",
+        "searchPlaceholder": "Пошук",
+        "tabs": {
+            "active": "Активні",
+            "inactive": "Неактивні"
+        },
         "statuses": {
             "active": "Активний",
             "inactive": "Неактивний",
             "archive": "Архів"
         },
         "validation": {
-            "nameRequired": "Вкажіть назву"
+            "nameRequired": "Вкажіть назву",
+            "statusRequired": "Оберіть статус",
+            "descriptionRequired": "Введіть опис"
         },
         "creationFailed": "Не вдалося створити продукт",
         "loadingFailed": "Не вдалося завантажити продукт",
+        "listLoadingFailed": "Не вдалося завантажити продукцію",
         "updateFailed": "Не вдалося оновити продукт",
         "updated": "Продукт оновлено",
         "created": "Продукт створено"
@@ -198,6 +214,7 @@
         "passwordPlaceholder": "Введіть пароль",
         "passwordOptional": "Новий пароль",
         "description": "Опис",
+        "descriptionPlaceholder": "Введіть опис",
         "role": "Роль",
         "phone": "Номер телефону",
         "phonePlaceholder": "Введіть номер телефону",
@@ -230,6 +247,21 @@
         "editPersonalDataTitle": "Редагування профілю",
         "editTitle": "Редагувати",
         "notificationsTitle": "Нотифікації",
+        "changePasswordTitle": "Змінити пароль",
+        "changePasswordScreenTitle": "Зміна пароля",
+        "changePasswordDescription": "Введіть поточний пароль та створіть новий.",
+        "changePasswordOldLabel": "Поточний пароль",
+        "changePasswordNewLabel": "Новий пароль",
+        "changePasswordConfirmLabel": "Підтвердіть новий пароль",
+        "changePasswordSubmit": "Змінити пароль",
+        "changePasswordSuccess": "Пароль оновлено",
+        "changePasswordFailed": "Не вдалося змінити пароль",
+        "changePasswordOldRequired": "Введіть поточний пароль",
+        "changePasswordNewRequired": "Введіть новий пароль",
+        "changePasswordNewInvalid": "Пароль не відповідає вимогам",
+        "changePasswordConfirmRequired": "Підтвердіть новий пароль",
+        "changePasswordConfirmMismatch": "Паролі не співпадають",
+        "changePasswordSameAsOld": "Новий пароль має відрізнятися від поточного",
         "linkedObjectsTitle": "Прив'язані об'єкти",
         "contactInformationTitle": "Контактна інформація",
         "contactSettingsTitle": "Контактна інформація",

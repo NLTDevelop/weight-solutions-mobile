@@ -8,32 +8,20 @@ export const getStyle = (colors: IColors) => {
             flex: 1,
             width: '100%',
         },
-        tabView: {
-            width: '100%',
-        },
         tabBar: {
-            flexDirection: 'row',
             backgroundColor: colors.background,
-        },
-        tabItem: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: scaleVertical(32),
-            paddingHorizontal: scaleHorizontal(12),
-            paddingTop: scaleVertical(8),
+            elevation: 0,
+            shadowOpacity: 0,
         },
         label: {
             textAlign: 'center',
+            paddingHorizontal: scaleHorizontal(12),
+            paddingTop: scaleVertical(8),
+            minHeight: scaleVertical(32),
         },
         indicator: {
-            marginTop: scaleVertical(8),
-            width: '100%',
             height: StyleSheet.hairlineWidth,
             backgroundColor: colors.border,
-        },
-        indicatorActive: {
-            backgroundColor: colors.primary,
         },
         sceneContainer: {
             flex: 1,

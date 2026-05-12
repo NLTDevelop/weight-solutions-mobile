@@ -15,6 +15,7 @@ export const getStyles = (colors: IColors) => {
             paddingBottom: scaleVertical(72),
         },
         header: {
+            marginTop: scaleVertical(16),
             gap: scaleVertical(12),
             marginBottom: scaleVertical(16),
             marginHorizontal: scaleHorizontal(16),
@@ -44,7 +45,7 @@ export const getStyles = (colors: IColors) => {
         },
         itemSeparator: {
             height: scaleVertical(16),
-        }, 
+        },
     });
 
     return styles;

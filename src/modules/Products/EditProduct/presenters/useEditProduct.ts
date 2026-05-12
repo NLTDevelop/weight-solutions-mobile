@@ -30,7 +30,7 @@ export const useEditProduct = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError(t('product.loadingFailed'), response.message || t('profile.tryAgainPlease'));
+            toastService.showError(t('products.loadingFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
@@ -50,9 +50,9 @@ export const useEditProduct = () => {
         hydrateProduct();
     }, [hydrateProduct, productId]);
 
-    const { nameErrorText, isActiveSelected, isInactiveSelected, isSubmitDisabled } = useEditProductUi({
+    const { nameErrorText, descriptionErrorText, isSubmitDisabled } = useEditProductUi({
         name,
-        status,
+        description,
         isSubmitted,
         isLoading,
     });
@@ -62,15 +62,11 @@ export const useEditProduct = () => {
     };
 
     const onChangeDescription = (value: string) => {
-        setDescription(value);
+        setDescription(value.slice(0, 250));
     };
 
-    const onSelectActive = () => {
-        setStatus('active');
-    };
-
-    const onSelectInactive = () => {
-        setStatus('inactive');
+    const onSelectStatus = (value: 'active' | 'inactive') => {
+        setStatus(value);
     };
 
     const onPressBack = () => {
@@ -95,26 +91,25 @@ export const useEditProduct = () => {
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError(t('product.updateFailed'), response.message || t('profile.tryAgainPlease'));
+            toastService.showError(t('products.updateFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess(t('product.updated'), response.data.data.name);
-        navigation.replace('ProductView', { productId });
+        toastService.showSuccess(t('products.updated'), response.data.data.name);
+        navigation.goBack();
     };
 
     return {
         name,
         description,
+        status,
         isLoading,
         nameErrorText,
-        isActiveSelected,
-        isInactiveSelected,
+        descriptionErrorText,
         isSubmitDisabled,
         onChangeName,
         onChangeDescription,
-        onSelectActive,
-        onSelectInactive,
+        onSelectStatus,
         onPressBack,
         onSubmit,
     };

@@ -8,6 +8,7 @@ import { CreateProductView } from '@/modules/Products/CreateProduct';
 import { EditProductView } from '@/modules/Products/EditProduct';
 import { ProductView } from '@/modules/Products/Product';
 import { ContactInformationView } from '@/modules/Profile/ContactInformation';
+import { ChangePasswordView } from '@/modules/Profile/ChangePassword';
 import { EditContactInformationView } from '@/modules/Profile/EditContactInformation';
 import { EditPersonalDataView } from '@/modules/Profile/EditPersonalData';
 import { LinkedObjectsView } from '@/modules/Profile/LinkedObjects';
@@ -48,6 +49,7 @@ export const MainStackNavigator = observer(() => {
             <Stack.Screen name="PersonalDataView" component={PersonalDataView} />
             <Stack.Screen name="EditPersonalDataView" component={EditPersonalDataView} />
             <Stack.Screen name="ContactInformationView" component={ContactInformationView} />
+            <Stack.Screen name="ChangePasswordView" component={ChangePasswordView} />
             <Stack.Screen name="EditContactInformationView" component={EditContactInformationView} />
             <Stack.Screen name="LinkedObjectsView" component={LinkedObjectsView} />
         </Stack.Navigator>

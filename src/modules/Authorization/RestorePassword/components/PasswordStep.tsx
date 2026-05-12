@@ -17,7 +17,6 @@ export const PasswordStep = memo(({
     shouldHighlightPasswordFields,
     hasPasswordMinLength,
     hasPasswordDigit,
-    hasPasswordSpecialCharacter,
     onChangePassword,
     onChangeConfirmPassword,
     onBlurPassword,
@@ -88,14 +87,6 @@ export const PasswordStep = memo(({
                             variant='body_m'
                             text={t('restorePassword.password.ruleDigit')}
                             style={[styles.helperRuleText, hasPasswordDigit && styles.helperRuleTextActive]}
-                        />
-                    </View>
-                    <View style={styles.helperRuleRow}>
-                        <View style={styles.helperRuleDot} />
-                        <Typography
-                            variant='body_m'
-                            text={t('restorePassword.password.ruleSpecialCharacter')}
-                            style={[styles.helperRuleText, hasPasswordSpecialCharacter && styles.helperRuleTextActive]}
                         />
                     </View>
                 </View>

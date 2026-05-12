@@ -1,5 +1,8 @@
 export interface ILinks {
     signIn: string;
+    restorePassword: string;
+    verifyRestoreCode: string;
+    confirmRestorePassword: string;
     company: string;
     companyDetails: (companyId: number) => string;
     orders: string;
@@ -17,6 +20,9 @@ class Links {
     private _domain = this.dev;
     private _links = {
         signIn: `${this._domain}/auth/login`,
+        restorePassword: `${this._domain}/auth/restore`,
+        verifyRestoreCode: `${this._domain}/auth/restore/verify-code`,
+        confirmRestorePassword: `${this._domain}/auth/restore/confirm`,
         company: `${this._domain}/company`,
         orders: `${this._domain}/orders`,
         products: `${this._domain}/products`,
@@ -26,6 +32,9 @@ class Links {
     };
 
     public get signIn() { return this._links.signIn; }
+    public get restorePassword() { return this._links.restorePassword; }
+    public get verifyRestoreCode() { return this._links.verifyRestoreCode; }
+    public get confirmRestorePassword() { return this._links.confirmRestorePassword; }
     public get company() { return this._links.company; }
     public companyDetails = (companyId: number) => `${this._links.company}/${companyId}`;
     public get orders() { return this._links.orders; }

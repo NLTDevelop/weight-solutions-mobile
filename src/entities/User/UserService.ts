@@ -6,6 +6,13 @@ import { userModel } from "./UserModel";
 import { UserSignInDto } from "./dto/user-sign-in.dto";
 import { UserUpdateDto } from "../Users/dto/user-update.dto";
 import { contactInformationModel } from "../ContactInformation/ContactInformationModel";
+import {
+    UserConfirmRestorePasswordDto,
+    UserRestorePasswordDto,
+    UserVerifyRestoreCodeDto,
+    UserVerifyRestoreCodeResponseDto,
+} from "./dto/user-restore-password.dto";
+import { UserChangePasswordDto } from "./dto/user-change-password.dto";
 
 class UserService {
     constructor(
@@ -32,6 +39,48 @@ class UserService {
         }
     };
 
+    restorePassword = async (body: UserRestorePasswordDto): Promise<IResponse<{ message: string }>> => {
+        try {
+            return await this.requester.request({
+                url: this.links.restorePassword,
+                method: 'POST',
+                data: body,
+                withCredentials: true,
+            });
+        } catch (error) {
+            console.warn('UserService -> restorePassword: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    verifyRestoreCode = async (body: UserVerifyRestoreCodeDto): Promise<IResponse<UserVerifyRestoreCodeResponseDto>> => {
+        try {
+            return await this.requester.request({
+                url: this.links.verifyRestoreCode,
+                method: 'POST',
+                data: body,
+                withCredentials: true,
+            });
+        } catch (error) {
+            console.warn('UserService -> verifyRestoreCode: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    confirmRestorePassword = async (body: UserConfirmRestorePasswordDto): Promise<IResponse<{ message: string }>> => {
+        try {
+            return await this.requester.request({
+                url: this.links.confirmRestorePassword,
+                method: 'POST',
+                data: body,
+                withCredentials: true,
+            });
+        } catch (error) {
+            console.warn('UserService -> confirmRestorePassword: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
     update = async (userId: number, body: Partial<UserUpdateDto>): Promise<IResponse<{ data: IUser }>> => {
         try {
             
@@ -50,6 +99,21 @@ class UserService {
             return response;
         } catch (error) {
             console.warn('UserService -> update: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    changePassword = async (body: UserChangePasswordDto): Promise<IResponse<{ message?: string }>> => {
+        try {
+            const url = `${this.links.users}/${userModel.user?.id}/change-password` 
+            return await this.requester.request({
+                url,
+                method: 'PUT',
+                data: body,
+                withCredentials: true,
+            });
+        } catch (error) {
+            console.warn('UserService -> changePassword: ', error);
             return { isError: true, data: null, message: '' } as any;
         }
     };

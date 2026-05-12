@@ -13,7 +13,6 @@ export const useEditPersonalData = () => {
     const [name, setName] = useState(userModel.user?.name || '');
     const [username, setUsername] = useState(userModel.user?.username || '');
     const [email, setEmail] = useState(userModel.user?.email || '');
-    const [password, setPassword] = useState('');
     const [description, setDescription] = useState(userModel.user?.description || '');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -26,12 +25,11 @@ export const useEditPersonalData = () => {
                 name.trim() === (userModel.user?.name || '') &&
                 username.trim() === (userModel.user?.username || '') &&
                 email.trim() === (userModel.user?.email || '') &&
-                description.trim() === (userModel.user?.description || '') &&
-                !password.trim()
+                description.trim() === (userModel.user?.description || '')
             ) ||
             isLoading
         );
-    }, [description, email, isLoading, name, password, username]);
+    }, [description, email, isLoading, name, username]);
 
     const onPressBack = () => {
         navigation.goBack();
@@ -54,10 +52,7 @@ export const useEditPersonalData = () => {
         };
 
         setIsLoading(true);
-        const response = await userService.update(currentUserId, password.trim() ? {
-            ...body,
-            password: password.trim()
-        } : body);
+        const response = await userService.update(currentUserId, body);
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
@@ -73,14 +68,12 @@ export const useEditPersonalData = () => {
         name,
         username,
         email,
-        password,
         description,
         isLoading,
         isSubmitDisabled,
         setName,
         setUsername,
         setEmail,
-        setPassword,
         setDescription,
         onPressBack,
         onSubmit,

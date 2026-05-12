@@ -8,6 +8,7 @@ import { usersService } from '@/entities/Users/UsersService';
 import { UserUpdateDto } from '@/entities/Users/dto/user-update.dto';
 import { companyService } from '@/entities/Company/CompanyService';
 import { userModel } from '@/entities/User/UserModel';
+import { useUiContext } from '@/UIProvider';
 
 interface IRouteParams {
     companyId: number;
@@ -23,9 +24,10 @@ export const useEditUser = () => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
+    const [role, setRole] = useState(userModel.user?.role === 'superadmin' ? 'admin' : 'user');
+    const [description, setDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const role = userModel.user?.role === 'superadmin' ? 'admin' : 'user'
 
     const hydrateUser = useCallback(async () => {
         setIsLoading(true);
@@ -39,6 +41,8 @@ export const useEditUser = () => {
         setName(response.data.data.name || '');
         setPhone(response.data.data.contact?.phone || '');
         setEmail(response.data.data.email || '');
+        response.data.data.role && setRole(response.data.data.role);
+        setDescription(response.data.data.description || '');
     }, [companyId, userId]);
 
     useEffect(() => {
@@ -48,7 +52,6 @@ export const useEditUser = () => {
     const { nameErrorText, phoneErrorText, emailErrorText, isSubmitDisabled } = useEditUserUi({
         name,
         phone,
-        role,
         email,
         isSubmitted,
         isLoading,
@@ -64,6 +67,10 @@ export const useEditUser = () => {
 
     const onChangeEmail = (value: string) => {
         setEmail(value);
+    };
+
+    const onChangeDescription = (value: string) => {
+        setDescription(value);
     };
 
     const onPressBack = () => {
@@ -83,7 +90,7 @@ export const useEditUser = () => {
             name: name.trim(),
             username: email.trim(),
             email: email.trim(),
-            description: usersModel.current?.description || null,
+            description: description.trim(),
             company_id: companyId,
             active: usersModel.current?.status === 'active',
         };
@@ -107,6 +114,7 @@ export const useEditUser = () => {
         phone,
         role,
         email,
+        description,
         isLoading,
         nameErrorText,
         phoneErrorText,
@@ -115,6 +123,7 @@ export const useEditUser = () => {
         onChangeName,
         onChangePhone,
         onChangeEmail,
+        onChangeDescription,
         onPressBack,
         onSubmit,
     };

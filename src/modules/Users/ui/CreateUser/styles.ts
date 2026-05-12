@@ -83,6 +83,17 @@ export const getStyles = (colors: IColors) => {
             lineHeight: scaleLineHeight(17),
             fontFamily: 'Roboto-Regular',
         },
+        textAreaInner: {
+            minHeight: scaleVertical(96),
+            borderRadius: scaleHorizontal(16),
+            alignItems: 'flex-start',
+            paddingTop: scaleVertical(12),
+            paddingBottom: scaleVertical(12),
+        },
+        textArea: {
+            minHeight: scaleVertical(72),
+            textAlignVertical: 'top',
+        },
         errorText: {
             marginTop: scaleVertical(4),
             color: colors.text_error,

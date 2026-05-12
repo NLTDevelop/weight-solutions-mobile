@@ -5,48 +5,28 @@ import { StyleSheet } from 'react-native';
 export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
         container: {
-            flex: 1,
-            paddingHorizontal: scaleHorizontal(16),
-            paddingVertical: scaleVertical(16),
-            borderRadius: scaleHorizontal(16),
-            backgroundColor: colors.card,
-            borderWidth: scaleHorizontal(1),
-            borderColor: colors.border,
-            gap: scaleVertical(8),
-        },
-        header: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: scaleHorizontal(12),
-            
+            padding: scaleHorizontal(12),
+            borderRadius: scaleHorizontal(8),
+            backgroundColor: colors.card_middle,
+            shadowColor: colors.shadow,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.08,
+            shadowRadius: 4,
+            elevation: 4,
         },
         textWrapper: {
-            flex: 1,
+            gap: scaleVertical(4),
         },
         title: {
-            flex: 1,
             color: colors.text_strong,
-            fontSize: scaleFontSize(18),
-            lineHeight: scaleLineHeight(24),
+            fontSize: scaleFontSize(16),
+            lineHeight: scaleLineHeight(19),
             fontFamily: 'Roboto-Bold',
-        },
-        badge: {
-            paddingHorizontal: scaleHorizontal(10),
-            paddingVertical: scaleVertical(4),
-            borderRadius: scaleHorizontal(999),
-            backgroundColor: colors.tertiary_12,
-        },
-        badgeText: {
-            color: colors.primary,
-            fontSize: scaleFontSize(12),
-            lineHeight: scaleLineHeight(16),
-            fontFamily: 'Roboto-Medium',
         },
         description: {
             color: colors.text_middle,
-            fontSize: scaleFontSize(14),
-            lineHeight: scaleLineHeight(20),
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
             fontFamily: 'Roboto-Regular',
         },
     });

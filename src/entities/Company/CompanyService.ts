@@ -33,8 +33,13 @@ class CompanyService {
             });
 
             if (!response.isError && response.data) {
-                companyModel.companies = response.data.data;
-                companyModel.meta = response.data.meta;
+                if (params.offset && companyModel.companies.length) {
+                    companyModel.companies = [...companyModel.companies, ...response.data.data];
+                    companyModel.meta = response.data.meta;
+                } else {
+                    companyModel.companies = response.data.data;
+                    companyModel.meta = response.data.meta;
+                }
             }
 
             return response;
