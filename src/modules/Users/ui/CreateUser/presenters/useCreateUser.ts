@@ -1,6 +1,6 @@
 import { usersService } from '@/entities/Users/UsersService';
 import { toastService } from '@/libs/toast/toastService';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { useCreateUserUi } from './useCreateUserUi';
@@ -19,6 +19,7 @@ export const useCreateUser = () => {
     const [description, setDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const companyId = useRoute<any>()?.params?.companyId || userModel.user?.company?.id || companyModel.company?.id;
 
     const { nameErrorText, emailErrorText, passwordErrorText, descriptionErrorText, isSubmitDisabled }
         = useCreateUserUi({ name, role, email, password, description, isSubmitted, isLoading, });
@@ -46,7 +47,7 @@ export const useCreateUser = () => {
     const onSubmit = async () => {
         setIsSubmitted(true);
 
-        if (isSubmitDisabled || !userModel.user?.company?.id) {
+        if (isSubmitDisabled || !companyId) {
             return;
         }
 
@@ -59,7 +60,7 @@ export const useCreateUser = () => {
             email: email.trim(),
             password: password.trim(),
             description: description.trim(),
-            company_id: userModel.user?.company?.id
+            company_id: companyId
         });
 
         setIsLoading(false);
@@ -69,7 +70,6 @@ export const useCreateUser = () => {
             return;
         }
 
-        const companyId = userModel.user?.company?.id || companyModel.company?.id;
         if (companyId) {
             companyService.details(companyId);
         }
