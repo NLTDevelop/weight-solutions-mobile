@@ -1,53 +1,91 @@
+import { useUiContext } from '@/UIProvider';
+import { contactInformationModel } from '@/entities/ContactInformation/ContactInformationModel';
+import { contactInformationService } from '@/entities/ContactInformation/ContactInformationService';
 import { orderModel } from '@/entities/Order/OrderModel';
 import { orderService } from '@/entities/Order/OrderService';
 import { toastService } from '@/libs/toast/toastService';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useWeighingsUi } from './useWeighingsUi';
 
 const LIST_LIMIT = 20;
+const SEARCH_DEBOUNCE_MS = 300;
 
 export const useWeighings = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [isLoading, setIsLoading] = useState(false);
+    const [search, setSearch] = useState('');
+    const [status, setStatus] = useState<'active' | 'completed'>('active');
 
     const onPressWeighing = (orderId: number) => {
         navigation.navigate('WeighingView', { orderId });
     };
 
+    const onPressWeighingAction = (orderId: number) => {
+        navigation.navigate('EditWeighingView', { orderId });
+    };
+
     const { weighingCards } = useWeighingsUi({
         orders: orderModel.orders,
         onPressWeighing,
+        onPressWeighingAction,
     });
 
-    const loadOrders = async () => {
+    const loadOrders = useCallback(async (offset: number = 0, searchValue = search, statusValue = status) => {
         setIsLoading(true);
 
         const response = await orderService.list({
             limit: LIST_LIMIT,
-            offset: 0,
+            offset,
+            status: statusValue,
+            car_number: searchValue.trim() || undefined,
         });
 
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Weighings loading failed', response.message || 'Please try again');
+            toastService.showError(t('weighings.listLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    };
-
-    const onPressCreateWeighing = () => {
-        navigation.navigate('CreateWeighingView');
-    };
+    }, [search, status, t]);
 
     useEffect(() => {
-        loadOrders();
+        const timeoutId = setTimeout(() => {
+            loadOrders(0, search, status);
+        }, SEARCH_DEBOUNCE_MS);
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [loadOrders, search, status]);
+
+    useEffect(() => {
+        contactInformationService.details();
     }, []);
+
+    const onPressCreateWeighing = () => {
+        navigation.navigate('CreateWeighingView', { isGuest: false });
+    };
+
+    const onEndReached = async () => {
+        if (isLoading || ((orderModel.meta?.total || 0) <= orderModel.orders.length)) {
+            return;
+        }
+
+        await loadOrders(orderModel.orders.length, search, status);
+    };
 
     return {
         weighingCards,
+        search,
+        status,
         isLoading,
-        onRefresh: loadOrders,
+        onRefresh: () => loadOrders(0, search, status),
+        onEndReached,
+        onChangeSearch: setSearch,
+        onSelectStatus: setStatus,
         onPressCreateWeighing,
+        contactInformation: contactInformationModel.contactInformation,
     };
 };

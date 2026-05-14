@@ -4,7 +4,10 @@ export interface IWeighingCardItem {
     productName: string;
     carNumber: string;
     netWeight: string;
-    status: 'completed' | 'suspicious';
-    createdAt: string;
+    firstWeighingAt: string;
+    secondWeighingAt: string;
+    status: 'active' | 'completed';
+    actionLabel: string;
+    onActionPress: () => void;
     onPress: () => void;
 }

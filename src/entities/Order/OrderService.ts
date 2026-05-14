@@ -4,7 +4,7 @@ import { IResponse } from '@/libs/requester/IRequester/IResponse';
 import { IOrder } from './IOrder';
 import { IOrderMeta } from './IOrderMeta';
 import { orderModel } from './OrderModel';
-import { OrderCreateDto } from './dto/order-create.dto';
+import { OrderCreateDto, OrderWeightItemDto } from './dto/order-create.dto';
 import { OrderListDto } from './dto/order-list.dto';
 import { OrderUpdateDto } from './dto/order-update.dto';
 
@@ -33,7 +33,11 @@ class OrderService {
             });
 
             if (!response.isError && response.data) {
-                orderModel.orders = response.data.data;
+                if (params.offset > 0) {
+                    orderModel.append(response.data.data);
+                } else {
+                    orderModel.orders = response.data.data;
+                }
                 orderModel.meta = response.data.meta;
             }
 
@@ -99,6 +103,26 @@ class OrderService {
             return response;
         } catch (error) {
             console.warn('OrderService -> update: ', error);
+            return { isError: true, data: null, message: '' } as any;
+        }
+    };
+
+    addItem = async (orderId: number, body: OrderWeightItemDto): Promise<IResponse<IOrderResponse>> => {
+        try {
+            const response = await this.requester.request({
+                url: this.links.orderAddItem(orderId),
+                method: 'PUT',
+                data: body,
+                withCredentials: true,
+            });
+
+            if (!response.isError && response.data?.data) {
+                orderModel.current = response.data.data;
+            }
+
+            return response;
+        } catch (error) {
+            console.warn('OrderService -> addItem: ', error);
             return { isError: true, data: null, message: '' } as any;
         }
     };

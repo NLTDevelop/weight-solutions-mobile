@@ -3,53 +3,83 @@ import { scaleFontSize, scaleHorizontal, scaleLineHeight, scaleVertical } from '
 import { StyleSheet } from 'react-native';
 
 export const getStyles = (colors: IColors) => {
-    const styles = StyleSheet.create({
+    return StyleSheet.create({
         container: {
             flexGrow: 1,
             backgroundColor: colors.background,
-            paddingHorizontal: scaleHorizontal(20),
+        },
+        content: {
+            gap: scaleVertical(8),
+            paddingHorizontal: scaleHorizontal(16),
+            paddingTop: scaleVertical(16),
             paddingBottom: scaleVertical(24),
         },
-        header: {
-            paddingHorizontal: scaleHorizontal(20),
-            paddingBottom: scaleVertical(16),
+        inputContainer: {
+            marginBottom: 0,
         },
-        form: {
-            gap: scaleVertical(16),
-            paddingHorizontal: scaleHorizontal(20),
-            paddingVertical: scaleVertical(20),
-            borderRadius: scaleHorizontal(20),
-            backgroundColor: colors.card,
-            borderWidth: scaleHorizontal(1),
-            borderColor: colors.border,
+        readonlyInput: {
+            backgroundColor: '#F8FAFC',
         },
-        sectionTitle: {
-            color: colors.text_strong,
-            fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(20),
+        labelRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: scaleHorizontal(2),
+            marginBottom: scaleVertical(4),
+        },
+        label: {
+            color: colors.text_secondary,
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
+            fontFamily: 'Roboto-Medium',
+        },
+        mandatoryMark: {
+            color: colors.primary,
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
             fontFamily: 'Roboto-Bold',
         },
-        productSeparator: {
-            height: scaleVertical(12),
+        textAreaInner: {
+            minHeight: scaleVertical(64),
+            borderRadius: scaleHorizontal(8),
+            alignItems: 'flex-start',
+            paddingTop: scaleVertical(12),
+            paddingBottom: scaleVertical(12),
+        },
+        textArea: {
+            minHeight: scaleVertical(40),
+            textAlignVertical: 'top',
+        },
+        counterText: {
+            color: colors.text_light,
+            fontSize: scaleFontSize(10),
+            lineHeight: scaleLineHeight(12),
+            fontFamily: 'Roboto-Medium',
+            textAlign: 'right',
         },
         errorText: {
-            marginTop: scaleVertical(-8),
-            color: colors.error,
+            marginTop: scaleVertical(4),
+            color: colors.text_error,
             fontSize: scaleFontSize(12),
-            lineHeight: scaleLineHeight(16),
+            lineHeight: scaleLineHeight(14),
             fontFamily: 'Roboto-Regular',
         },
+        footer: {
+            marginTop: 'auto',
+            paddingHorizontal: scaleHorizontal(16),
+            paddingTop: scaleVertical(8),
+            paddingBottom: scaleVertical(8),
+        },
         button: {
-            minHeight: scaleVertical(52),
-            borderRadius: scaleHorizontal(14),
-            marginTop: scaleVertical(8),
+            minHeight: scaleVertical(48),
+            width: '100%',
+        },
+        buttonDisabled: {
+            backgroundColor: colors.background_light,
         },
         buttonText: {
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Bold',
+            fontFamily: 'Roboto-Medium',
         },
     });
-
-    return styles;
 };

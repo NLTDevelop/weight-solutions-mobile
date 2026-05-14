@@ -8,6 +8,7 @@ export interface ILinks {
     companyDetails: (companyId: number) => string;
     orders: string;
     orderDetails: (orderId: number) => string;
+    orderAddItem: (orderId: number) => string;
     products: string;
     productDetails: (productId: number) => string;
     users: string;
@@ -26,7 +27,7 @@ class Links {
         verifyRestoreCode: `${this._domain}/auth/restore/verify-code`,
         confirmRestorePassword: `${this._domain}/auth/restore/confirm`,
         company: `${this._domain}/company`,
-        orders: `${this._domain}/orders`,
+        orders: `${this._domain}/weights`,
         products: `${this._domain}/products`,
         users: `${this._domain}/users`,
         userContact: `${this._domain}/user/contact`,
@@ -42,6 +43,7 @@ class Links {
     public companyDetails = (companyId: number) => `${this._links.company}/${companyId}`;
     public get orders() { return this._links.orders; }
     public orderDetails = (orderId: number) => `${this._links.orders}/${orderId}`;
+    public orderAddItem = (orderId: number) => `${this._links.orders}/${orderId}/add`;
     public get products() { return this._links.products; }
     public productDetails = (productId: number) => `${this._links.products}/${productId}`;
     public get users() { return this._links.users; }

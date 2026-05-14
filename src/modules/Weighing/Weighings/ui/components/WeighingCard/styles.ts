@@ -10,19 +10,36 @@ export const getStyles = (colors: IColors) => {
             justifyContent: 'space-between',
             gap: scaleHorizontal(12),
         },
-        productName: {
-            marginTop: scaleVertical(12),
+        content: {
+            gap: scaleVertical(8),
+            marginTop: scaleVertical(16),
         },
-        metaRow: {
+        separator: {
+            height: 1,
+            backgroundColor: colors.border,
+        },
+        label: {
+            color: colors.text_middle,
+        },
+        value: {
+            color: colors.text_strong,
+            marginTop: scaleVertical(2),
+        },
+        actionButton: {
+            minHeight: scaleVertical(40),
+            borderRadius: scaleHorizontal(999),
+            borderWidth: 1,
+            borderColor: colors.border,
+            backgroundColor: colors.card,
+            marginTop: scaleVertical(16),
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            gap: scaleHorizontal(12),
-            marginTop: scaleVertical(8),
-            marginBottom: scaleVertical(12),
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: scaleHorizontal(6),
+            paddingHorizontal: scaleHorizontal(16),
         },
-        metaText: {
-            color: colors.text_light,
-            flex: 1,
+        actionText: {
+            color: colors.text,
         },
     });
 

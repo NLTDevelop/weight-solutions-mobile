@@ -1,46 +1,34 @@
-import { IProduct } from '@/entities/Product/IProduct';
-import { ISelectableOptionItem } from '@/modules/Weighing/types/ISelectableOptionItem';
-
 interface IProps {
-    products: IProduct[];
     selectedProductId: number | null;
+    carPhone: string;
     carNumber: string;
-    weightBefore: string;
-    weightAfter: string;
-    scalePoint: string;
+    movementType: string | null;
+    weightCount: number | null;
+    firstWeight: string;
     isSubmitted: boolean;
     isLoading: boolean;
-    onSelectProduct: (productId: number) => void;
 }
 
-export const useCreateWeighingUi = ({ products, selectedProductId, carNumber, weightBefore, weightAfter, scalePoint, isSubmitted, isLoading, onSelectProduct }: IProps) => {
+export const useCreateWeighingUi = ({ selectedProductId, carPhone, carNumber, movementType, weightCount, firstWeight, isSubmitted, isLoading }: IProps) => {
+    const trimmedCarPhone = carPhone.trim();
     const trimmedCarNumber = carNumber.trim();
-    const trimmedWeightBefore = weightBefore.trim();
-    const trimmedWeightAfter = weightAfter.trim();
-    const trimmedScalePoint = scalePoint.trim();
-
-    const productOptions: ISelectableOptionItem[] = products.map(product => ({
-        id: product.id,
-        title: product.name,
-        description: product.description || 'weighings.fallbacks.descriptionUnavailable',
-        isSelected: selectedProductId === product.id,
-        onPress: () => onSelectProduct(product.id),
-    }));
+    const trimmedFirstWeight = firstWeight.trim();
 
     const productErrorText = isSubmitted && !selectedProductId ? 'weighings.validation.productRequired' : '';
+    const phoneErrorText = isSubmitted && !trimmedCarPhone ? 'weighings.validation.phoneRequired' : '';
     const carNumberErrorText = isSubmitted && !trimmedCarNumber ? 'weighings.validation.carNumberRequired' : '';
-    const weightBeforeErrorText = isSubmitted && !trimmedWeightBefore ? 'weighings.validation.grossWeightRequired' : '';
-    const weightAfterErrorText = isSubmitted && !trimmedWeightAfter ? 'weighings.validation.tareWeightRequired' : '';
-    const scalePointErrorText = isSubmitted && !trimmedScalePoint ? 'weighings.validation.scalePointRequired' : '';
-    const isSubmitDisabled = isLoading || !selectedProductId || !trimmedCarNumber || !trimmedWeightBefore || !trimmedWeightAfter || !trimmedScalePoint;
+    const movementTypeErrorText = isSubmitted && !movementType ? 'weighings.validation.movementTypeRequired' : '';
+    const weightCountErrorText = isSubmitted && !weightCount ? 'weighings.validation.weightCountRequired' : '';
+    const firstWeightErrorText = isSubmitted && !trimmedFirstWeight ? 'weighings.validation.tareWeightRequired' : '';
+    const isSubmitDisabled = isLoading || !selectedProductId || !trimmedCarPhone || !trimmedCarNumber || !movementType || !weightCount || !trimmedFirstWeight;
 
     return {
-        productOptions,
         productErrorText,
+        phoneErrorText,
         carNumberErrorText,
-        weightBeforeErrorText,
-        weightAfterErrorText,
-        scalePointErrorText,
+        movementTypeErrorText,
+        weightCountErrorText,
+        firstWeightErrorText,
         isSubmitDisabled,
     };
 };

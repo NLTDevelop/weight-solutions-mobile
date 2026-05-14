@@ -21,6 +21,7 @@ import { UsersManagementView } from '@/modules/Users/ui/UsersManagement';
 import { CreateWeighingView } from '@/modules/Weighing/CreateWeighing';
 import { EditWeighingView } from '@/modules/Weighing/EditWeighing';
 import { WeighingView } from '@/modules/Weighing/Weighing';
+import { WeighingsListView } from '@/modules/Weighing/Weighings/ui/WeighingsListView';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react';
 import { TabNavigator } from '../tabNavigator';
@@ -39,6 +40,7 @@ export const MainStackNavigator = observer(() => {
             <Stack.Screen name="CreateCompanyView" component={CreateCompanyView} />
             <Stack.Screen name="EditCompanyView" component={EditCompanyView} />
             <Stack.Screen name="CreateWeighingView" component={CreateWeighingView} />
+            <Stack.Screen name="WeighingsListView" component={WeighingsListView} />
             <Stack.Screen name="WeighingView" component={WeighingView} />
             <Stack.Screen name="EditWeighingView" component={EditWeighingView} />
             <Stack.Screen name="CreateProductView" component={CreateProductView} />

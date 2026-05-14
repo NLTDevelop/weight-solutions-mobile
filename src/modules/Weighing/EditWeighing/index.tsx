@@ -1,49 +1,36 @@
 import { useUiContext } from '@/UIProvider';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
-import { EmptyListView } from '@/UIKit/NLTEmptyListView';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { FlatList, ListRenderItem, Text, View } from 'react-native';
-import { ProductOptionCard } from '../components/ProductOptionCard';
-import { ISelectableOptionItem } from '../types/ISelectableOptionItem';
+import { Text, View } from 'react-native';
 import { useEditWeighing } from './presenters/useEditWeighing';
 import { getStyles } from './styles';
+import { formatWeighingDateTime } from '../utils/weight';
 
 export const EditWeighingView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const {
-        productOptions,
+        recordNumber,
+        carPhone,
         carNumber,
-        weightBefore,
-        weightAfter,
+        productName,
+        movementType,
+        weightCount,
+        firstWeightDateTime,
+        firstWeight,
+        secondWeightDateTime,
+        secondWeight,
         isLoading,
-        isProductsLoading,
-        productErrorText,
-        carNumberErrorText,
-        weightBeforeErrorText,
-        weightAfterErrorText,
+        secondWeightErrorText,
         isSubmitDisabled,
-        onRefreshProducts,
-        onChangeCarNumber,
-        onChangeWeightBefore,
-        onChangeWeightAfter,
+        onChangeSecondWeight,
         onPressBack,
         onSubmit,
     } = useEditWeighing();
-
-    const keyExtractor = (item: ISelectableOptionItem) => String(item.id);
-
-    const renderItem: ListRenderItem<ISelectableOptionItem> = ({ item }) => {
-        return <ProductOptionCard item={item} />;
-    };
-
-    const ItemSeparatorComponent = () => {
-        return <View style={styles.productSeparator} />;
-    };
 
     return (
         <ScreenContainer
@@ -53,23 +40,41 @@ export const EditWeighingView = observer(() => {
             contentContainerStyle={styles.container}
             headerComponent={<HeaderWithBackButton title={t('weighings.editTitle')} onPressBack={onPressBack} />}
         >
-            <View style={styles.form}>
-                <Text style={styles.sectionTitle}>{t('weighings.productLabel')}</Text>
-                <FlatList
-                    data={productOptions}
-                    renderItem={renderItem}
-                    keyExtractor={keyExtractor}
-                    scrollEnabled={false}
-                    ItemSeparatorComponent={ItemSeparatorComponent}
-                    onRefresh={onRefreshProducts}
-                    refreshing={isProductsLoading}
-                    ListEmptyComponent={<EmptyListView text={t('weighings.noProducts')} isLoading={isProductsLoading} />}
+            <View style={styles.content}>
+                <Text style={styles.sectionTitle}>{t('weighings.baseInfoTitle')}</Text>
+                <NLTTextInput label={t('weighings.recordNumberLabel')} value={recordNumber} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTTextInput label={t('weighings.phoneLabel')} value={carPhone} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTTextInput label={t('weighings.carNumberLabel')} value={carNumber} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTTextInput label={t('weighings.cargoTypeLabel')} value={productName} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTTextInput label={t('weighings.movementTypeLabel')} value={movementType ? t(`weighings.movementTypes.${movementType}`) : ''} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTTextInput label={t('weighings.weightCountLabel')} value={String(weightCount || '')} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+
+                <Text style={styles.sectionTitle}>{t('weighings.firstWeighingSectionTitle')}</Text>
+                <NLTTextInput label={t('weighings.firstWeightDateTimeLabel')} value={formatWeighingDateTime(firstWeightDateTime)} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTTextInput label={t('weighings.tareWeightLabel')} value={firstWeight} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+
+                <Text style={styles.sectionTitle}>{t('weighings.secondWeighingSectionTitle')}</Text>
+                <NLTTextInput label={t('weighings.secondWeightDateTimeLabel')} value={formatWeighingDateTime(secondWeightDateTime)} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTTextInput
+                    label={t('weighings.grossWeightLabel')}
+                    placeholder={t('weighings.grossWeightPlaceholder')}
+                    value={secondWeight}
+                    onChangeText={onChangeSecondWeight}
+                    error={secondWeightErrorText ? t(secondWeightErrorText) : ''}
+                    isMandatory
+                    shape='pill'
+                    keyboardType='numeric'
                 />
-                {productErrorText ? <Text style={styles.errorText}>{t(productErrorText)}</Text> : null}
-                <NLTTextInput label={t('weighings.carNumberLabel')} value={carNumber} onChangeText={onChangeCarNumber} error={carNumberErrorText ? t(carNumberErrorText) : ''} />
-                <NLTTextInput label={t('weighings.grossWeightLabel')} value={weightBefore} onChangeText={onChangeWeightBefore} error={weightBeforeErrorText ? t(weightBeforeErrorText) : ''} keyboardType='numeric' />
-                <NLTTextInput label={t('weighings.tareWeightLabel')} value={weightAfter} onChangeText={onChangeWeightAfter} error={weightAfterErrorText ? t(weightAfterErrorText) : ''} keyboardType='numeric' />
-                <NLTButton text={t('weighings.saveButton')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={styles.button} textStyle={styles.buttonText} />
+            </View>
+            <View style={styles.footer}>
+                <NLTButton
+                    text={t('weighings.finishButton')}
+                    onPress={onSubmit}
+                    disabled={isSubmitDisabled}
+                    inProgress={isLoading}
+                    containerStyle={[styles.button, isSubmitDisabled && styles.buttonDisabled]}
+                    textStyle={styles.buttonText}
+                />
             </View>
         </ScreenContainer>
     );

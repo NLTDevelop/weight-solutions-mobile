@@ -5,18 +5,20 @@ import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/nativ
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useState } from 'react';
 import { useWeighingUi } from './useWeighingUi';
+import { useUiContext } from '@/UIProvider';
 
 interface IRouteParams {
     orderId: number;
 }
 
 export const useWeighing = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
     const { orderId } = route.params as IRouteParams;
     const [isLoading, setIsLoading] = useState(false);
 
-    const { infoRows } = useWeighingUi({
+    const { sections, status, actionLabel } = useWeighingUi({
         order: orderModel.current,
     });
 
@@ -28,9 +30,9 @@ export const useWeighing = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Weighing loading failed', response.message || 'Please try again');
+            toastService.showError(t('weighings.loadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [orderId]);
+    }, [orderId, t]);
 
     useFocusEffect(useCallback(() => {
         loadOrder();
@@ -46,7 +48,9 @@ export const useWeighing = () => {
 
     return {
         order: orderModel.current,
-        infoRows,
+        sections,
+        status,
+        actionLabel,
         isLoading,
         onPressBack,
         onPressEdit,

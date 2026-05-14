@@ -1,7 +1,15 @@
+export interface OrderWeightItemDto {
+    weight: string;
+    weight_type: string;
+}
+
 export interface OrderCreateDto {
-    product_id: number;
+    car_phone: string;
     car_number: string;
-    weight_before: string;
-    weight_after: string;
+    product_id: number;
     type: string;
+    weight_count: number;
+    is_guest: boolean;
+    comment?: string;
+    item: OrderWeightItemDto;
 }

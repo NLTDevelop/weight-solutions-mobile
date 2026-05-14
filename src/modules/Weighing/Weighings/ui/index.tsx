@@ -1,50 +1,80 @@
 import { useUiContext } from '@/UIProvider';
-import { NLTButton } from '@/UIKit/NLTButton';
+import { SearchIcon } from '@/assets/icons/SearchIcon';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
-import { EmptyListView } from '@/UIKit/NLTEmptyListView';
+import { NLTButton } from '@/UIKit/NLTButton';
+import { NLTTextInput } from '@/UIKit/NLTTextInput';
+import { PhoneBanner } from '@/UIKit/PhoneBanner';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
-import { userModel } from '@/entities/User/UserModel';
+import { IRoute, NLTTabView } from '@/UIKit/NLTTabView';
 import { observer } from 'mobx-react';
-import { useMemo } from 'react';
-import { FlatList, ListRenderItem, View } from 'react-native';
-import { WeighingCard } from './components/WeighingCard';
+import { useMemo, useState } from 'react';
+import { View } from 'react-native';
+import { WeighingsScene } from './components/WeighingsScene';
 import { useWeighings } from './presenters/useWeighings';
-import { IWeighingCardItem } from '@/modules/Weighing/types/IWeighingCardItem';
 import { getStyles } from './styles';
 
 export const WeighingsView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { weighingCards, isLoading, onRefresh, onPressCreateWeighing } = useWeighings();
-    const shouldShowCreateButton = userModel.user?.role !== 'user';
+    const [tabIndex, setTabIndex] = useState(0);
+    const { weighingCards, search, isLoading, onRefresh, onEndReached, onChangeSearch, onSelectStatus, onPressCreateWeighing, contactInformation } = useWeighings();
+    const phones = [contactInformation?.phone, contactInformation?.phone2].filter(Boolean) as string[];
 
-    const keyExtractor = (item: IWeighingCardItem) => String(item.id);
+    const routes = useMemo<IRoute[]>(() => [
+        { key: 'active', title: t('weighings.tabs.active') },
+        { key: 'completed', title: t('weighings.tabs.completed') },
+    ], [t]);
 
-    const renderItem: ListRenderItem<IWeighingCardItem> = ({ item }) => {
-        return <WeighingCard item={item} />;
-    };
-
-    const ItemSeparatorComponent = () => {
-        return <View style={styles.itemSeparator} />;
+    const renderScene = ({ route }: { route: IRoute; }) => {
+        return (
+            <WeighingsScene
+                key={route.key}
+                weighingCards={weighingCards}
+                isLoading={isLoading}
+                onEndReached={onEndReached}
+                onRefresh={onRefresh}
+            />
+        );
     };
 
     return (
         <ScreenContainer
             edges={['top', 'bottom']}
-            headerComponent={<HeaderWithBackButton backDisabled title={t('weighings.title')} />}
+            contentContainerStyle={styles.root}
+            headerComponent={<HeaderWithBackButton title={t('weighings.title')} />}
         >
-            <FlatList
-                data={weighingCards}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-                ItemSeparatorComponent={ItemSeparatorComponent}
-                ListEmptyComponent={<EmptyListView text={t('weighings.empty')} isLoading={isLoading} />}
-                onRefresh={onRefresh}
-                refreshing={isLoading}
-                style={styles.list}
-                contentContainerStyle={styles.contentContainerStyle}
+            <PhoneBanner
+                text={t('weighings.bannerText')}
+                phones={phones}
             />
-            {shouldShowCreateButton ? <NLTButton text={t('weighings.createButton')} onPress={onPressCreateWeighing} /> : null}
+            <View style={styles.searchContainer}>
+                <NLTTextInput
+                    value={search}
+                    onChangeText={onChangeSearch}
+                    placeholder={t('weighings.searchPlaceholder')}
+                    shape='pill'
+                    hasBottomOffset={false}
+                    inputContainerStyle={styles.searchInputInner}
+                    LeftAccessory={<SearchIcon color={colors.icon_middle} />}
+                />
+            </View>
+            <NLTTabView
+                navigationState={{ index: tabIndex, routes }}
+                renderScene={renderScene}
+                onIndexChange={(index) => {
+                    setTabIndex(index);
+                    onSelectStatus(routes[index].key as 'active' | 'completed');
+                }}
+                tabBarStyle={styles.tabBar}
+                indicatorStyle={styles.tabIndicator}
+                labelStyle={styles.tabLabel}
+                activeColor={colors.text_strong}
+                inactiveColor={colors.text_middle}
+                sceneContainerStyle={styles.sceneContainer}
+            />
+            <View style={styles.footer}>
+                <NLTButton text={t('weighings.startButton')} onPress={onPressCreateWeighing} />
+            </View>
         </ScreenContainer>
     );
 });

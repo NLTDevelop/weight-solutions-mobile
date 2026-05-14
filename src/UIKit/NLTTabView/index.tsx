@@ -28,22 +28,24 @@ export const NLTTabView = ({ navigationState, renderScene, onIndexChange, active
     const { colors } = useUiContext();
     const layout = useWindowDimensions();
     const styles = useMemo(() => getStyle(colors), [colors]);
+    const NativeTabView = TabView as any;
+    const NativeTabBar = TabBar as any;
 
     return (
-        <TabView
+        <NativeTabView
             navigationState={navigationState}
             renderScene={renderScene}
             onIndexChange={onIndexChange}
             initialLayout={{ width: layout.width }}
             sceneContainerStyle={[styles.sceneContainer, sceneContainerStyle]}
-            renderTabBar={(props) => (
-                <TabBar
+            renderTabBar={(props: any) => (
+                <NativeTabBar
                     {...props}
                     style={[styles.tabBar, tabBarStyle]}
                     indicatorStyle={[styles.indicator, indicatorStyle]}
                     activeColor={activeColor ?? colors.text_strong}
                     inactiveColor={inactiveColor ?? colors.text_light}
-                    renderLabel={({ route, color }) => (
+                    renderLabel={({ route, color }: { route: IRoute; color: string; }) => (
                         <TabBarLabel label={route.title} color={color} labelStyle={labelStyle} />
                     )}
                     pressColor="transparent"

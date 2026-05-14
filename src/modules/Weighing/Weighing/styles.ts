@@ -1,47 +1,80 @@
 import { IColors } from '@/UIProvider/theme/IColors';
-import { scaleFontSize, scaleHorizontal, scaleLineHeight, scaleVertical } from '@/utils';
+import { scaleHorizontal, scaleVertical } from '@/utils';
 import { StyleSheet } from 'react-native';
 
 export const getStyles = (colors: IColors) => {
-    const styles = StyleSheet.create({
+    return StyleSheet.create({
         container: {
             flexGrow: 1,
             backgroundColor: colors.background,
-            paddingHorizontal: scaleHorizontal(20),
+        },
+        content: {
+            paddingHorizontal: scaleHorizontal(16),
+            paddingTop: scaleVertical(16),
             paddingBottom: scaleVertical(24),
         },
-        header: {
-            paddingHorizontal: scaleHorizontal(20),
-            paddingBottom: scaleVertical(16),
-        },
         card: {
-            paddingHorizontal: scaleHorizontal(20),
-            paddingVertical: scaleVertical(20),
+            borderRadius: scaleHorizontal(8),
+            backgroundColor: colors.card_middle,
+            padding: scaleHorizontal(12),
+            gap: scaleVertical(16),
+        },
+        cardHeader: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: scaleHorizontal(12),
+        },
+        titleRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            flex: 1,
+            gap: scaleHorizontal(8),
+        },
+        iconCircle: {
+            width: scaleHorizontal(32),
+            height: scaleHorizontal(32),
             borderRadius: scaleHorizontal(16),
-            backgroundColor: colors.card,
-            borderWidth: scaleHorizontal(1),
-            borderColor: colors.border,
-            gap: scaleVertical(20),
+            backgroundColor: colors.primary,
+            alignItems: 'center',
+            justifyContent: 'center',
         },
         title: {
             color: colors.text_strong,
         },
-        listContent: {
+        badge: {
+            backgroundColor: '#E7F7F5',
+            borderRadius: scaleHorizontal(100),
+            paddingHorizontal: scaleHorizontal(8),
+            paddingVertical: scaleVertical(4),
+        },
+        badgeText: {
+            color: '#00C8B3',
+            fontSize: 12,
+            fontFamily: 'Roboto-Bold',
+        },
+        section: {
             gap: scaleVertical(16),
         },
+        rows: {
+            gap: scaleVertical(8),
+        },
+        row: {
+            gap: scaleVertical(2),
+        },
+        rowLabel: {
+            color: colors.text_middle,
+        },
+        rowValue: {
+            color: colors.text_strong,
+        },
         separator: {
-            height: scaleVertical(16),
+            height: 1,
+            backgroundColor: colors.border,
         },
         button: {
             minHeight: scaleVertical(48),
-            borderRadius: scaleHorizontal(14),
-        },
-        buttonText: {
-            fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Bold',
+            marginTop: scaleVertical(8),
         },
     });
-
-    return styles;
 };

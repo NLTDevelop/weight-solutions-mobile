@@ -66,7 +66,6 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(8),
             paddingBottom: scaleVertical(8),
-            backgroundColor: colors.background,
         },
         button: {
             minHeight: scaleVertical(48),

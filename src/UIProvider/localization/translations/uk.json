@@ -108,31 +108,72 @@
     "weighings": {
         "title": "Зважування",
         "empty": "Записи зважування не знайдено",
-        "createTitle": "Створення зважування",
-        "createButton": "Створити зважування",
+        "createTitle": "Перше зважування",
+        "createButton": "Зважувати",
         "startButton": "Почати зважування",
-        "detailsTitle": "Деталі зважування",
-        "editTitle": "Редагування зважування",
-        "editButton": "Редагувати",
+        "startOptions": {
+            "own": {
+                "title": "Власне зважування",
+                "description": "Повноцінне зважування з збереженням у системі. Для регулярного обліку, звітності."
+            },
+            "guest": {
+                "title": "Гостьове зважування",
+                "description": "Швидке зважування без прив’язки до компанії. Для разових операцій без збереження в історії"
+            }
+        },
+        "detailsTitle": "Детальна сторінка зважування",
+        "editTitle": "Друге зважування",
+        "editButton": "Корегувати заважування",
         "saveButton": "Зберегти",
+        "completeSecondWeightButton": "Друге зважування",
+        "finishButton": "Завершити зважування",
         "titleFallback": "Зважування",
+        "bannerText": "Питання? Дзвоніть або пишіть за цим номером.",
+        "searchPlaceholder": "Пошук",
         "productLabel": "Сировина",
+        "productPlaceholder": "Оберіть тип вантажу",
         "selectedProductLabel": "Обрано",
         "noProducts": "Немає активних продуктів для вибору",
         "productFallback": "Продукт не вказано",
+        "phoneLabel": "Номер телефону водія",
+        "phonePlaceholder": "Введіть номер телефону",
+        "baseInfoTitle": "Основна інформація",
         "recordNumberLabel": "Номер запису",
+        "recordNumberPlaceholder": "Буде присвоєно автоматично",
         "firstWeightDateTimeLabel": "Дата і час першого зважування",
+        "firstWeightDateTimeLabelShort": "Дата/час 1 зважування:",
+        "firstWeighingSectionTitle": "Перше зважування",
         "secondWeightDateTimeLabel": "Дата і час другого зважування",
+        "secondWeightDateTimeLabelShort": "Дата/час 2 зважування:",
+        "secondWeighingSectionTitle": "Друге зважування",
         "carNumberLabel": "Номер авто",
+        "carNumberPlaceholder": "Введіть номер авто",
         "cargoTypeLabel": "Тип вантажу / сировина",
+        "cargoTypeLabelShort": "Тип вантажу:",
         "scalePointLabel": "Пункт зважування",
+        "movementTypeLabel": "Тип руху вантажу",
+        "movementTypePlaceholder": "Оберіть напрямок загрузка/вигрузка",
+        "movementTypes": {
+            "loading": "Загрузка",
+            "unloading": "Вигрузка"
+        },
+        "weightCountLabel": "Кількість зважувань",
+        "weightCountPlaceholder": "Оберіть кількість зважувань",
         "grossWeightLabel": "Вага брутто",
+        "grossWeightPlaceholder": "Введіть вагу брутто",
         "tareWeightLabel": "Вага тари",
+        "tareWeightPlaceholder": "Введіть вагу тари",
         "netWeightLabel": "Вага нетто",
         "statusLabel": "Статус",
         "commentLabel": "Коментар",
+        "commentPlaceholder": "Введіть коментар",
         "suspiciousLabel": "Підозрілий запис",
+        "tabs": {
+            "active": "Активні",
+            "completed": "Завершені"
+        },
         "statuses": {
+            "active": "Нова",
             "completed": "Завершено",
             "suspicious": "Підозріло"
         },
@@ -142,15 +183,26 @@
         },
         "fallbacks": {
             "unavailable": "Недоступно в API",
-            "descriptionUnavailable": "Опис не вказано"
+            "descriptionUnavailable": "Опис не вказано",
+            "notPerformed": "Ще не виконано"
         },
         "validation": {
             "productRequired": "Оберіть продукт",
+            "phoneRequired": "Вкажіть номер телефону водія",
             "carNumberRequired": "Вкажіть номер авто",
             "grossWeightRequired": "Вкажіть вагу брутто",
             "tareWeightRequired": "Вкажіть вагу тари",
-            "scalePointRequired": "Вкажіть пункт зважування"
-        }
+            "scalePointRequired": "Вкажіть пункт зважування",
+            "movementTypeRequired": "Оберіть тип руху вантажу",
+            "weightCountRequired": "Оберіть кількість зважувань"
+        },
+        "listLoadingFailed": "Не вдалося завантажити зважування",
+        "loadingFailed": "Не вдалося завантажити зважування",
+        "creationFailed": "Не вдалося створити зважування",
+        "created": "Зважування створено",
+        "secondWeightFailed": "Не вдалося завершити зважування",
+        "secondWeightSaved": "Зважування завершено",
+        "updateFailed": "Не вдалося оновити зважування"
     },
     "products": {
         "title": "Продукція",

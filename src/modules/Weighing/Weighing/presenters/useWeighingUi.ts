@@ -1,123 +1,63 @@
 import { IOrder } from '@/entities/Order/IOrder';
-import { IWeighingInfoRow } from '@/modules/Weighing/types/IWeighingInfoRow';
+import { formatWeighingDateTime, getFirstWeighingItem, getNetWeightValue, getSecondWeighingItem, getWeighingActionTranslationKey, getWeighingStatus } from '@/modules/Weighing/utils/weight';
+
+interface ISectionRow {
+    id: string;
+    label: string;
+    value: string;
+}
+
+interface ISection {
+    id: string;
+    title: string;
+    rows: ISectionRow[];
+}
 
 interface IProps {
     order: IOrder | null;
 }
 
-const getNumberValue = (value?: string | null) => {
-    const parsedValue = Number(String(value || '').replace(',', '.'));
-    return Number.isFinite(parsedValue) ? parsedValue : null;
-};
-
-const getDateTimeValue = (value?: string | null) => {
-    if (!value) {
-        return 'weighings.fallbacks.unavailable';
-    }
-
-    return new Date(value).toLocaleString('uk-UA');
-};
-
-const getNetWeightValue = (weightBefore?: string | null, weightAfter?: string | null) => {
-    const weightBeforeValue = getNumberValue(weightBefore);
-    const weightAfterValue = getNumberValue(weightAfter);
-
-    if (weightBeforeValue === null || weightAfterValue === null) {
-        return 'weighings.fallbacks.unavailable';
-    }
-
-    return String(weightBeforeValue - weightAfterValue);
-};
-
-const getStatusValue = (order: IOrder | null) => {
-    if (order?.status) {
-        return order.status;
-    }
-
-    const netWeightValue = getNumberValue(getNetWeightValue(order?.weight_before, order?.weight_after));
-
-    if (order?.suspicious || (netWeightValue !== null && netWeightValue <= 0)) {
-        return 'weighings.statuses.suspicious';
-    }
-
-    return 'weighings.statuses.completed';
-};
-
-const getSuspiciousValue = (order: IOrder | null) => {
-    const netWeightValue = getNumberValue(getNetWeightValue(order?.weight_before, order?.weight_after));
-
-    if (order?.suspicious || (netWeightValue !== null && netWeightValue <= 0)) {
-        return 'weighings.suspiciousValues.yes';
-    }
-
-    return 'weighings.suspiciousValues.no';
-};
+const withFallback = (value?: string | null) => value || 'weighings.fallbacks.unavailable';
 
 export const useWeighingUi = ({ order }: IProps) => {
-    const infoRows: IWeighingInfoRow[] = [
+    const firstItem = getFirstWeighingItem(order);
+    const secondItem = getSecondWeighingItem(order);
+
+    const sections: ISection[] = [
         {
-            id: 'recordNumber',
-            label: 'weighings.recordNumberLabel',
-            value: order ? `#${order.id}` : 'weighings.fallbacks.unavailable',
+            id: 'base',
+            title: 'weighings.baseInfoTitle',
+            rows: [
+                { id: 'phone', label: 'weighings.phoneLabel', value: withFallback(order?.car_phone) },
+                { id: 'product', label: 'weighings.cargoTypeLabelShort', value: order?.product?.name || 'weighings.productFallback' },
+                { id: 'carNumber', label: 'weighings.carNumberLabel', value: withFallback(order?.car_number) },
+                { id: 'movementType', label: 'weighings.movementTypeLabel', value: order?.type ? `weighings.movementTypes.${order.type}` : 'weighings.fallbacks.unavailable' },
+                { id: 'netWeight', label: 'weighings.netWeightLabel', value: getNetWeightValue(order) },
+                { id: 'comment', label: 'weighings.commentLabel', value: withFallback(order?.comment) },
+            ],
         },
         {
-            id: 'firstWeightAt',
-            label: 'weighings.firstWeightDateTimeLabel',
-            value: getDateTimeValue(order?.first_weight_at || order?.created_at),
+            id: 'first',
+            title: 'weighings.firstWeighingSectionTitle',
+            rows: [
+                { id: 'firstDate', label: 'weighings.firstWeightDateTimeLabel', value: formatWeighingDateTime(firstItem?.created_at || order?.created_at) },
+                { id: 'firstWeight', label: 'weighings.tareWeightLabel', value: withFallback(firstItem?.weight || order?.weight_after) },
+                { id: 'firstNetWeight', label: 'weighings.netWeightLabel', value: getNetWeightValue(order) },
+            ],
         },
         {
-            id: 'secondWeightAt',
-            label: 'weighings.secondWeightDateTimeLabel',
-            value: getDateTimeValue(order?.second_weight_at || order?.updated_at),
-        },
-        {
-            id: 'carNumber',
-            label: 'weighings.carNumberLabel',
-            value: order?.car_number || 'weighings.fallbacks.unavailable',
-        },
-        {
-            id: 'product',
-            label: 'weighings.cargoTypeLabel',
-            value: order?.product?.name || 'weighings.productFallback',
-        },
-        {
-            id: 'scalePoint',
-            label: 'weighings.scalePointLabel',
-            value: order?.type || 'weighings.fallbacks.unavailable',
-        },
-        {
-            id: 'grossWeight',
-            label: 'weighings.grossWeightLabel',
-            value: order?.weight_before || 'weighings.fallbacks.unavailable',
-        },
-        {
-            id: 'tareWeight',
-            label: 'weighings.tareWeightLabel',
-            value: order?.weight_after || 'weighings.fallbacks.unavailable',
-        },
-        {
-            id: 'netWeight',
-            label: 'weighings.netWeightLabel',
-            value: getNetWeightValue(order?.weight_before, order?.weight_after),
-        },
-        {
-            id: 'status',
-            label: 'weighings.statusLabel',
-            value: getStatusValue(order),
-        },
-        {
-            id: 'comment',
-            label: 'weighings.commentLabel',
-            value: order?.comment || 'weighings.fallbacks.unavailable',
-        },
-        {
-            id: 'suspicious',
-            label: 'weighings.suspiciousLabel',
-            value: getSuspiciousValue(order),
+            id: 'second',
+            title: 'weighings.secondWeighingSectionTitle',
+            rows: [
+                { id: 'secondDate', label: 'weighings.secondWeightDateTimeLabel', value: secondItem ? formatWeighingDateTime(secondItem.created_at || order?.updated_at) : 'weighings.fallbacks.notPerformed' },
+                { id: 'secondWeight', label: 'weighings.grossWeightLabel', value: secondItem ? withFallback(secondItem.weight || order?.weight_before) : 'weighings.fallbacks.notPerformed' },
+            ],
         },
     ];
 
     return {
-        infoRows,
+        sections,
+        status: getWeighingStatus(order),
+        actionLabel: getWeighingActionTranslationKey(order),
     };
 };

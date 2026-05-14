@@ -1,6 +1,5 @@
 export interface OrderUpdateDto {
-    product_id: number;
+    car_phone: string;
     car_number: string;
-    weight_before: string;
-    weight_after: string;
+    comment?: string;
 }

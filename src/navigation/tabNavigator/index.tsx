@@ -8,7 +8,7 @@ import { userService } from '@/entities/User/UserService';
 import { HomeView } from '@/modules/Home/ui';
 import { ProductsView } from '@/modules/Products/Products';
 import { ProfileView } from '@/modules/Profile/Profile';
-import { WeighingsView } from '@/modules/Weighing/Weighings/ui';
+import { WeighingSelectionView } from '@/modules/Weighing/WeighingSelection';
 import { scaleVertical } from '@/utils';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { observer } from 'mobx-react';
@@ -121,6 +121,5 @@ const TAB_ROUTES: Record<TabRouteName, React.ComponentType<any>> = {
     HomeView,
     ProductsView,
     ProfileView,
-    WeighingsView,
+    WeighingsView: WeighingSelectionView,
 };
-

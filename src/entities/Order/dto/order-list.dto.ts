@@ -1,5 +1,6 @@
 export interface OrderListDto {
     limit: number;
     offset: number;
-    type?: string | null;
+    status?: string | null;
+    car_number?: string | null;
 }

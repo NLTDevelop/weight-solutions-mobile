@@ -1,55 +1,30 @@
 import { orderModel } from '@/entities/Order/OrderModel';
 import { orderService } from '@/entities/Order/OrderService';
-import { productModel } from '@/entities/Product/ProductModel';
-import { productService } from '@/entities/Product/ProductService';
 import { toastService } from '@/libs/toast/toastService';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
 import { useEditWeighingUi } from './useEditWeighingUi';
-
-const PRODUCT_LIMIT = 100;
+import { getFirstWeighingItem } from '@/modules/Weighing/utils/weight';
+import { useUiContext } from '@/UIProvider';
 
 interface IRouteParams {
     orderId: number;
 }
 
 export const useEditWeighing = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
     const { orderId } = route.params as IRouteParams;
-    const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
-    const [carNumber, setCarNumber] = useState('');
-    const [weightBefore, setWeightBefore] = useState('');
-    const [weightAfter, setWeightAfter] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isProductsLoading, setIsProductsLoading] = useState(false);
+    const [secondWeight, setSecondWeight] = useState('');
 
-    const loadProducts = async () => {
-        setIsProductsLoading(true);
-
-        const response = await productService.list({
-            limit: PRODUCT_LIMIT,
-            offset: 0,
-            status: 'active',
-        });
-
-        setIsProductsLoading(false);
-
-        if (response.isError) {
-            toastService.showError('Products loading failed', response.message || 'Please try again');
-        }
-    };
+    const currentOrder = orderModel.current?.id === orderId ? orderModel.current : null;
 
     useEffect(() => {
-        loadProducts();
-
-        if (orderModel.current?.id === orderId) {
-            setSelectedProductId(orderModel.current.product?.id || null);
-            setCarNumber(orderModel.current.car_number || '');
-            setWeightBefore(orderModel.current.weight_before || '');
-            setWeightAfter(orderModel.current.weight_after || '');
+        if (currentOrder) {
             return;
         }
 
@@ -60,95 +35,64 @@ export const useEditWeighing = () => {
 
             setIsLoading(false);
 
-            if (response.isError || !response.data?.data) {
-                toastService.showError('Weighing loading failed', response.message || 'Please try again');
-                return;
+            if (response.isError) {
+                toastService.showError(t('weighings.loadingFailed'), response.message || t('profile.tryAgainPlease'));
             }
-
-            setSelectedProductId(response.data.data.product?.id || null);
-            setCarNumber(response.data.data.car_number || '');
-            setWeightBefore(response.data.data.weight_before || '');
-            setWeightAfter(response.data.data.weight_after || '');
         };
 
         loadOrder();
-    }, [orderId]);
+    }, [currentOrder, orderId, t]);
 
-    const onSelectProduct = (productId: number) => {
-        setSelectedProductId(productId);
-    };
-
-    const { productOptions, productErrorText, carNumberErrorText, weightBeforeErrorText, weightAfterErrorText, isSubmitDisabled } = useEditWeighingUi({
-        products: productModel.activeProducts?.data || [],
-        selectedProductId,
-        carNumber,
-        weightBefore,
-        weightAfter,
+    const order = orderModel.current?.id === orderId ? orderModel.current : currentOrder;
+    const firstItem = getFirstWeighingItem(order);
+    const { secondWeightErrorText, isSubmitDisabled } = useEditWeighingUi({
+        secondWeight,
         isSubmitted,
         isLoading,
-        onSelectProduct,
     });
-
-    const onChangeCarNumber = (value: string) => {
-        setCarNumber(value);
-    };
-
-    const onChangeWeightBefore = (value: string) => {
-        setWeightBefore(value);
-    };
-
-    const onChangeWeightAfter = (value: string) => {
-        setWeightAfter(value);
-    };
-
-    const onPressBack = () => {
-        navigation.goBack();
-    };
 
     const onSubmit = async () => {
         setIsSubmitted(true);
 
-        if (isSubmitDisabled || !selectedProductId) {
+        if (isSubmitDisabled) {
             return;
         }
 
         setIsLoading(true);
 
-        const response = await orderService.update(orderId, {
-            product_id: selectedProductId,
-            car_number: carNumber.trim(),
-            weight_before: weightBefore.trim(),
-            weight_after: weightAfter.trim(),
+        const response = await orderService.addItem(orderId, {
+            weight: secondWeight.trim(),
+            weight_type: 'gross',
         });
 
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('Weighing update failed', response.message || 'Please try again');
+            toastService.showError(t('weighings.secondWeightFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess('Weighing updated', `#${response.data.data.id}`);
+        toastService.showSuccess(t('weighings.secondWeightSaved'), `#${response.data.data.id}`);
         navigation.replace('WeighingView', { orderId });
     };
 
     return {
-        productOptions,
-        carNumber,
-        weightBefore,
-        weightAfter,
+        recordNumber: order ? `#${order.id}` : '',
+        carPhone: order?.car_phone || '',
+        carNumber: order?.car_number || '',
+        selectedProductId: order?.product?.id || null,
+        productName: order?.product?.name || '',
+        movementType: order?.type || 'loading',
+        weightCount: order?.weight_count || 2,
+        firstWeightDateTime: firstItem?.created_at || order?.created_at || '',
+        firstWeight: firstItem?.weight || '',
+        secondWeightDateTime: new Date().toISOString(),
+        secondWeight,
         isLoading,
-        isProductsLoading,
-        productErrorText,
-        carNumberErrorText,
-        weightBeforeErrorText,
-        weightAfterErrorText,
+        secondWeightErrorText,
         isSubmitDisabled,
-        onRefreshProducts: loadProducts,
-        onChangeCarNumber,
-        onChangeWeightBefore,
-        onChangeWeightAfter,
-        onPressBack,
+        onChangeSecondWeight: setSecondWeight,
+        onPressBack: () => navigation.goBack(),
         onSubmit,
     };
 };
