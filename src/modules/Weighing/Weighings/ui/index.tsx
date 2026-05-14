@@ -12,17 +12,17 @@ import { View } from 'react-native';
 import { WeighingsScene } from './components/WeighingsScene';
 import { useWeighings } from './presenters/useWeighings';
 import { getStyles } from './styles';
+import { OrderListDtoStatusEnum } from '@/entities/Order/enums/OrderListDtoStatusEnum';
 
 export const WeighingsView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const [tabIndex, setTabIndex] = useState(0);
-    const { weighingCards, search, isLoading, onRefresh, onEndReached, onChangeSearch, onSelectStatus, onPressCreateWeighing, contactInformation } = useWeighings();
-    const phones = [contactInformation?.phone, contactInformation?.phone2].filter(Boolean) as string[];
-
+    const { weighingCards, search, isLoading, onRefresh, onEndReached, onChangeSearch, onSelectStatus, onPressCreateWeighing } = useWeighings();
+   
     const routes = useMemo<IRoute[]>(() => [
-        { key: 'active', title: t('weighings.tabs.active') },
-        { key: 'completed', title: t('weighings.tabs.completed') },
+        { key: OrderListDtoStatusEnum.ACTIVE, title: t('weighings.tabs.active') },
+        { key: OrderListDtoStatusEnum.ARCHIVE, title: t('weighings.tabs.completed') },
     ], [t]);
 
     const renderScene = ({ route }: { route: IRoute; }) => {
@@ -43,10 +43,7 @@ export const WeighingsView = observer(() => {
             contentContainerStyle={styles.root}
             headerComponent={<HeaderWithBackButton title={t('weighings.title')} />}
         >
-            <PhoneBanner
-                text={t('weighings.bannerText')}
-                phones={phones}
-            />
+            <PhoneBanner containerStyle={styles.phoneContainerStyle}/>
             <View style={styles.searchContainer}>
                 <NLTTextInput
                     value={search}
@@ -63,7 +60,7 @@ export const WeighingsView = observer(() => {
                 renderScene={renderScene}
                 onIndexChange={(index) => {
                     setTabIndex(index);
-                    onSelectStatus(routes[index].key as 'active' | 'completed');
+                    onSelectStatus(routes[index].key as OrderListDtoStatusEnum.ACTIVE | OrderListDtoStatusEnum.ARCHIVE);
                 }}
                 tabBarStyle={styles.tabBar}
                 indicatorStyle={styles.tabIndicator}

@@ -12,6 +12,10 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(16),
         },
+        phoneContainerStyle: {
+            gap: scaleHorizontal(8),
+            marginHorizontal: scaleHorizontal(16)
+        },
         searchInputInner: {
             backgroundColor: colors.card,
         },
