@@ -5,18 +5,20 @@ import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/nativ
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useState } from 'react';
 import { useProductUi } from './useProductUi';
+import { useUiContext } from '@/UIProvider';
 
 interface IRouteParams {
     productId: number;
 }
 
 export const useProduct = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
     const { productId } = route.params as IRouteParams;
     const [isLoading, setIsLoading] = useState(false);
 
-    const { infoRows } = useProductUi({
+    const { infoRows, status } = useProductUi({
         product: productModel.current,
     });
 
@@ -28,17 +30,13 @@ export const useProduct = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Product loading failed', response.message || 'Please try again');
+            toastService.showError(t('products.loadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [productId]);
+    }, [productId, t]);
 
     useFocusEffect(useCallback(() => {
         loadProduct();
     }, [loadProduct]));
-
-    const onPressBack = () => {
-        navigation.goBack();
-    };
 
     const onPressEdit = () => {
         navigation.navigate('EditProductView', { productId });
@@ -47,8 +45,8 @@ export const useProduct = () => {
     return {
         product: productModel.current,
         infoRows,
+        status,
         isLoading,
-        onPressBack,
         onPressEdit,
     };
 };

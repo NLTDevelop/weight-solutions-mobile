@@ -35,6 +35,7 @@ export const getStyles = (colors: IColors) => {
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(19),
             fontFamily: 'Roboto-Bold',
+            marginBottom: scaleVertical(16),
         },
         role: {
             color: colors.text_light,
@@ -49,7 +50,11 @@ export const getStyles = (colors: IColors) => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: scaleHorizontal(12),
+            gap: scaleHorizontal(8),
+        },
+        row: {
+            flexDirection: 'row',
+            alignItems: 'center',
         },
         footerCard: {
             paddingVertical: scaleVertical(8),

@@ -13,18 +13,19 @@ interface IProps {
 export const useProductUi = ({ product }: IProps) => {
     const infoRows: IProductInfoRow[] = [
         {
+            id: 'name',
+            label: 'products.nameLabel',
+            value: product?.name || 'products.titleFallback',
+        },
+        {
             id: 'description',
             label: 'products.descriptionLabel',
             value: product?.description || 'products.descriptionFallback',
-        },
-        {
-            id: 'status',
-            label: 'products.statusLabel',
-            value: product?.active || 'inactive',
         },
     ];
 
     return {
         infoRows,
+        status: product?.active || 'inactive',
     };
 };

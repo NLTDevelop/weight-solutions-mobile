@@ -1,11 +1,8 @@
 import { useUiContext } from '@/UIProvider';
 import { useMemo } from 'react';
-import { View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { IProductCardItem } from '../../presenters/useProductsUi';
 import { getStyles } from './styles';
-import { NLTCard } from '@/UIKit/NLTCard';
-import { NLTLabel } from '@/UIKit/NLTLabel';
-import { Typography } from '@/UIKit/Typography';
 
 interface IProps {
     item: IProductCardItem;
@@ -16,14 +13,11 @@ export const ProductCard = ({ item }: IProps) => {
     const styles = useMemo(() => getStyles(colors), [colors]);
 
     return (
-        <NLTCard onPress={item.onPress}>
-            <View style={styles.header}>
-                <View style={styles.textWrapper}>
-                    <Typography variant={'h2'} text={item.title} />
-                </View>
-                <NLTLabel value={t(`products.statuses.${item.status}`)} />
+        <TouchableOpacity style={styles.container} onPress={item.onPress} activeOpacity={0.85}>
+            <View style={styles.textWrapper}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.description}>{item.description || t('products.descriptionFallback')}</Text>
             </View>
-            {!!item.description && <Typography variant={'body_s'} text={item.description} />}
-        </NLTCard>
+        </TouchableOpacity>
     );
 };

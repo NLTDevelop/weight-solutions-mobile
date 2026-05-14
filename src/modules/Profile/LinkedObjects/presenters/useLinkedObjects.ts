@@ -5,10 +5,6 @@ import { useLinkedObjectsUi } from './useLinkedObjectsUi';
 export const useLinkedObjects = () => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     const onOpenCompany = (companyId: number) => {
         navigation.navigate('CompanyView', { companyId });
     };
@@ -19,6 +15,5 @@ export const useLinkedObjects = () => {
 
     return {
         linkedCompany,
-        onPressBack,
     };
 };

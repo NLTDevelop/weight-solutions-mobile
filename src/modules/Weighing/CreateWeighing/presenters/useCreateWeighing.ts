@@ -45,7 +45,7 @@ export const useCreateWeighing = () => {
     };
 
     const { productOptions, productErrorText, carNumberErrorText, weightBeforeErrorText, weightAfterErrorText, scalePointErrorText, isSubmitDisabled } = useCreateWeighingUi({
-        products: productModel.products,
+        products: productModel.activeProducts?.data || [],
         selectedProductId,
         carNumber,
         weightBefore,

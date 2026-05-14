@@ -1,4 +1,5 @@
 import { IUser } from '@/entities/User/IUser';
+import { getProfileRoleTextKey } from '@/modules/Profile/presenters/getProfileRoleTextKey';
 
 interface IUserInfoRow {
     id: string;
@@ -25,22 +26,17 @@ export const useUserUi = ({ user }: IProps) => {
         {
             id: 'role',
             label: 'users.role',
-            value: user?.role || '-',
+            value: getProfileRoleTextKey(user?.role),
         },
         {
             id: 'status',
             label: 'users.status',
-            value: user?.status || '-',
+            value: user?.status === 'active' ? 'products.statuses.active' : 'products.statuses.inactive',
         },
         {
             id: 'description',
             label: 'users.description',
             value: user?.description || '-',
-        },
-        {
-            id: 'company',
-            label: 'users.company',
-            value: user?.company?.name || '-',
         },
     ];
 

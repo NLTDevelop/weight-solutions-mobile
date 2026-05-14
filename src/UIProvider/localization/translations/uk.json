@@ -1,5 +1,5 @@
 {
-      "networkError": "Помилка мережі. Перевірте підключення.",
+    "networkError": "Помилка мережі. Перевірте підключення.",
     "reconnectNetwork": "Підключення до мережі",
     "common": {
         "email": "Email",
@@ -7,28 +7,36 @@
         "password": "Пароль",
         "passwordPlaceholder": "Введіть пароль",
         "back": "Назад",
-        "save": "Зберегти"
+        "save": "Зберегти",
+        "hello": "Привіт"
     },
     "authorization": {
         "title": "Авторизація",
         "subtitle": "Введіть свій email та пароль, щоб увійти в систему.",
         "forgotPassword": "Забули пароль?",
         "signIn": "Увійти",
-        "invalidCredentials": "Невірний email або пароль"
+        "invalidCredentials": "Невірний email або пароль",
+        "failed": "Не вдалося авторизуватися",
+        "checkYourCredentials": "Перевірте свої облікові дані та спробуйте ще раз",
+        "success": "Авторизація успішна"
     },
     "restorePassword": {
         "email": {
             "title": "Відновлення паролю",
-            "subtitle": "Введіть свій email, щоб отримати посилання для скидання паролю.",
+            "subtitle": "Введіть свій email, щоб отримати код для скидання паролю.",
             "button": "Надіслати код",
-            "error": "Невірний email"
+            "error": "Невірний email",
+            "failed": "Не вдалося надіслати код"
         },
         "code": {
             "title": "Відновлення паролю",
             "subtitle": "Введіть код, який ми надіслали на ваш email.",
             "label": "Введіть код",
             "button": "Далі",
-            "error": "Введіть 6-значний код"
+            "error": "Введіть 6-значний код",
+            "codeIsSend": "Код надіслано",
+            "weAreSendCodeOn": "Ми надіслали код на",
+            "failed": "Не вдалося підтвердити код"
         },
         "password": {
             "title": "Новий пароль",
@@ -40,7 +48,10 @@
             "ruleMinLength": "Мінімум 6 символів",
             "ruleDigit": "Щонайменше 1 цифра",
             "ruleSpecialCharacter": "1 спецсимвол",
-            "error": "Паролі не співпадають."
+            "error": "Паролі не співпадають.",
+            "passwordUpdated": "Пароль оновлено",
+            "enterInSystemWithNewPassword": "Увійдіть у систему з новим паролем.",
+            "failed": "Не вдалося змінити пароль"
         }
     },
     "companies": {
@@ -48,6 +59,7 @@
         "empty": "Компаній не знайдено",
         "createButton": "Додати підприємство",
         "createTitle": "Додати підприємство",
+        "editTitle": "Редагування підприємства",
         "saveButton": "Зберегти",
         "searchPlaceholder": "Пошук",
         "nameLabel": "Назва",
@@ -61,7 +73,7 @@
         "phoneLabel": "Номер телефону:",
         "phoneInputLabel": "Номер телефону",
         "phonePlaceholder": "Введіть номер телефону",
-        "emailInputLabel": "Emnail",
+        "emailInputLabel": "Email",
         "emailPlaceholder": "Введіть email",
         "descriptionInputLabel": "Опис",
         "descriptionPlaceholder": "Введіть опис",
@@ -73,7 +85,10 @@
         "validationOwnerRequired": "Вкажіть власника",
         "validationPhoneRequired": "Вкажіть номер телефону",
         "createFailedTitle": "Не вдалося створити підприємство",
-        "createSuccessTitle": "Підприємство створено"
+        "createSuccessTitle": "Підприємство створено",
+        "updateFailedTitle": "Не вдалося оновити підприємство",
+        "updateSuccessTitle": "Підприємство оновлено",
+        "сompaniesLoadingFailed": "Не вдалося завантажити підприємства"
     },
     "company": {
         "detailsTitle": "Деталі компанії",
@@ -82,8 +97,13 @@
         "description": "Опис",
         "status": "Статус",
         "owner": "Власник",
+        "editButton": "Редагувати",
         "contactFallback": "Контакт не вказано",
-        "descriptionFallback": "Опис не вказано"
+        "descriptionFallback": "Опис не вказано",
+        "tabs": {
+            "info": "Основна інформація",
+            "users": "Користувачі"
+        }
     },
     "weighings": {
         "title": "Зважування",
@@ -133,27 +153,45 @@
         }
     },
     "products": {
-        "title": "Продукти",
+        "title": "Продукція",
         "empty": "Продукти не знайдено",
-        "createTitle": "Створення продукту",
-        "createButton": "Створити продукт",
-        "detailsTitle": "Деталі продукту",
-        "editTitle": "Редагування продукту",
-        "editButton": "Редагувати",
+        "createTitle": "Додати продукцію",
+        "createButton": "Додати продукцію",
+        "detailsTitle": "Детальна сторінка продукції",
+        "editTitle": "Редагувати продукцію",
+        "editButton": "Редагування",
         "saveButton": "Зберегти",
         "titleFallback": "Продукт",
         "nameLabel": "Назва",
+        "namePlaceholder": "Введіть назву",
         "descriptionLabel": "Опис",
+        "descriptionPlaceholder": "Введіть опис",
         "statusLabel": "Статус",
+        "statusPlaceholder": "Оберіть статус",
         "descriptionFallback": "Опис не вказано",
+        "emptyStateTitle": "Продуктів ще немає",
+        "emptyStateDescription": "Додайте перший продукт, щоб почати роботу з продукцією.",
+        "searchPlaceholder": "Пошук",
+        "tabs": {
+            "active": "Активні",
+            "inactive": "Неактивні"
+        },
         "statuses": {
             "active": "Активний",
             "inactive": "Неактивний",
             "archive": "Архів"
         },
         "validation": {
-            "nameRequired": "Вкажіть назву"
-        }
+            "nameRequired": "Вкажіть назву",
+            "statusRequired": "Оберіть статус",
+            "descriptionRequired": "Введіть опис"
+        },
+        "creationFailed": "Не вдалося створити продукт",
+        "loadingFailed": "Не вдалося завантажити продукт",
+        "listLoadingFailed": "Не вдалося завантажити продукцію",
+        "updateFailed": "Не вдалося оновити продукт",
+        "updated": "Продукт оновлено",
+        "created": "Продукт створено"
     },
     "users": {
         "companyUsersTitle": "Користувачі компанії",
@@ -167,21 +205,43 @@
         "saveButton": "Зберегти",
         "titleFallback": "Користувач",
         "name": "Ім'я",
+        "fullName": "ПІБ",
+        "fullNamePlaceholder": "Введіть ПІБ",
         "username": "Логін",
         "email": "Email",
+        "emailPlaceholder": "Введіть email",
         "password": "Пароль",
+        "passwordPlaceholder": "Введіть пароль",
         "passwordOptional": "Новий пароль",
         "description": "Опис",
+        "descriptionPlaceholder": "Введіть опис",
         "role": "Роль",
+        "phone": "Номер телефону",
+        "phonePlaceholder": "Введіть номер телефону",
         "status": "Статус",
         "company": "Компанія",
+        "phoneFallback": "Телефон не вказано",
+        "emptyStateTitle": "Користувачів ще немає",
+        "emptyStateDescription": "Створіть першого користувача для цього підприємства.",
+        "managementTitle": "Користувачі",
+        "managementEmptyTitle": "Користувачів ще немає",
+        "managementEmptyDescription": "Створіть першого користувача для вашої компанії.",
+        "sections": {
+            "mainInfo": "Основна інформація",
+            "credentials": "Дані для входу"
+        },
         "validation": {
             "nameRequired": "Вкажіть ім'я",
             "usernameRequired": "Вкажіть логін",
             "emailRequired": "Вкажіть email",
             "passwordRequired": "Вкажіть пароль",
-            "descriptionRequired": "Вкажіть опис"
-        }
+            "descriptionRequired": "Вкажіть опис",
+            "phoneRequired": "Вкажіть номер телефону",
+            "roleRequired": "Оберіть роль"
+        },
+        "createdFailed": "Не вдалося створити користувача",
+        "created": "Користувач створений",
+        "loadingFailed": "Не вдалося завантажити користувача"
     },
     "profile": {
         "title": "Профіль",
@@ -190,6 +250,22 @@
         "editPersonalDataTitle": "Редагування профілю",
         "editTitle": "Редагувати",
         "notificationsTitle": "Нотифікації",
+        "changePasswordTitle": "Змінити пароль",
+        "usersManagementTitle": "Керування користувачами",
+        "changePasswordScreenTitle": "Зміна пароля",
+        "changePasswordDescription": "Введіть поточний пароль та створіть новий.",
+        "changePasswordOldLabel": "Поточний пароль",
+        "changePasswordNewLabel": "Новий пароль",
+        "changePasswordConfirmLabel": "Підтвердіть новий пароль",
+        "changePasswordSubmit": "Змінити пароль",
+        "changePasswordSuccess": "Пароль оновлено",
+        "changePasswordFailed": "Не вдалося змінити пароль",
+        "changePasswordOldRequired": "Введіть поточний пароль",
+        "changePasswordNewRequired": "Введіть новий пароль",
+        "changePasswordNewInvalid": "Пароль не відповідає вимогам",
+        "changePasswordConfirmRequired": "Підтвердіть новий пароль",
+        "changePasswordConfirmMismatch": "Паролі не співпадають",
+        "changePasswordSameAsOld": "Новий пароль має відрізнятися від поточного",
         "linkedObjectsTitle": "Прив'язані об'єкти",
         "contactInformationTitle": "Контактна інформація",
         "contactSettingsTitle": "Контактна інформація",
@@ -234,6 +310,17 @@
             "admin": "Адміністратор",
             "user": "Користувач",
             "unknown": "Не вказано"
+        },
+        "updateFailed": "Не вдалося оновити профіль",
+        "tryAgainPlease": "Будь ласка спробуйте ще раз",
+        "updated": "Профіль оновлено",
+        "deletefailed": "Не вдалося видалити",
+        "actionFailed": "Помилка дії профілю",
+        "userNotAvailable": "Користувач недоступний",
+        "contact": {
+            "loadingFailed": "Не вдалося завантажити контактну інформацію",
+            "contactInformationUpdateFailed": "Не вдалося оновити контактну інформацію",
+            "contactInformationUpdated": "Контактну інформацію оновлено"
         }
     },
     "tabs": {

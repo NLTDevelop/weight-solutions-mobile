@@ -4,11 +4,13 @@ import { userModel } from '@/entities/User/UserModel';
 import { usersModel } from '@/entities/Users/UsersModel';
 import { usersService } from '@/entities/Users/UsersService';
 import { toastService } from '@/libs/toast/toastService';
+import { useUiContext } from '@/UIProvider';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 
 export const useProfile = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [confirmationType, setConfirmationType] = useState<'logout' | 'delete' | null>(null);
     const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
@@ -22,6 +24,14 @@ export const useProfile = () => {
 
     const onGoToContactInformation = () => {
         navigation.navigate('ContactInformationView');
+    };
+
+    const onGoToChangePassword = () => {
+        navigation.navigate('ChangePasswordView');
+    };
+
+    const onGoToUsersManagement = () => {
+        navigation.navigate('UsersManagementView');
     };
 
     const onOpenLogoutModal = () => {
@@ -53,7 +63,7 @@ export const useProfile = () => {
         const currentUserId = userModel.user?.id;
 
         if (!currentUserId) {
-            toastService.showError('Profile action failed', 'User is not available');
+            toastService.showError(t('profile.actionFailed'), t('profile.userNotAvailable'));
             onCloseModal();
             return;
         }
@@ -61,7 +71,7 @@ export const useProfile = () => {
         const response = await usersService.delete(currentUserId);
         onCloseModal();
         if (response.isError) {
-            toastService.showError('Delete failed', response.message || 'Please try again');
+            toastService.showError(t('profile.deletefailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
         onLogout();
@@ -76,6 +86,8 @@ export const useProfile = () => {
         onDeleteAccount,
         onGoToPersonalData,
         onGoToContactInformation,
+        onGoToChangePassword,
+        onGoToUsersManagement,
         onOpenLogoutModal,
         onToggleNotifications,
         onOpenDeleteModal,

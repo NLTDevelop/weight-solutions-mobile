@@ -1,9 +1,10 @@
 import { companyModel } from '@/entities/Company/CompanyModel';
 import { companyService } from '@/entities/Company/CompanyService';
 import { toastService } from '@/libs/toast/toastService';
-import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
+import { useUiContext } from '@/UIProvider';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useCompanyUi } from './useCompanyUi';
 
 interface IRouteParams {
@@ -11,6 +12,7 @@ interface IRouteParams {
 }
 
 export const useCompany = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const route = useRoute();
     const [isLoading, setIsLoading] = useState(false);
@@ -20,9 +22,15 @@ export const useCompany = () => {
         navigation.navigate('UserView', { companyId, userId });
     }, [companyId, navigation]);
 
+    const onPressEditUser = useCallback((userId: number) => {
+        navigation.navigate('EditUserView', { companyId, userId });
+    }, [companyId, navigation]);
+
     const { infoRows, userCards } = useCompanyUi({
         company: companyModel.company,
+        t,
         onPressUser,
+        onPressEditUser,
     });
 
     const loadCompany = useCallback(async () => {
@@ -33,20 +41,20 @@ export const useCompany = () => {
         setIsLoading(false);
 
         if (response.isError) {
-            toastService.showError('Company loading failed', response.message || 'Please try again');
+            toastService.showError(t('companies.сompaniesLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [companyId]);
+    }, [companyId, t]);
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
-    useFocusEffect(useCallback(() => {
+    useEffect(() => {
         loadCompany();
-    }, [loadCompany]));
+    }, [loadCompany]);
 
     const onGoToCreateUser = useCallback(() => {
         navigation.navigate('CreateUserView', { companyId });
+    }, [companyId, navigation]);
+
+    const onPressEditCompany = useCallback(() => {
+        navigation.navigate('EditCompanyView', { companyId });
     }, [companyId, navigation]);
 
     return {
@@ -54,7 +62,7 @@ export const useCompany = () => {
         infoRows,
         userCards,
         isLoading,
-        onPressBack,
         onGoToCreateUser,
+        onPressEditCompany,
     };
 };

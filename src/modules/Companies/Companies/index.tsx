@@ -51,7 +51,6 @@ export const CompaniesView = observer(() => {
                 onEndReached={onEndReached}
                 keyExtractor={keyExtractor}
                 contentContainerStyle={styles.listContent}
-                // ItemSeparatorComponent={ItemSeparatorComponent}
                 ListEmptyComponent={<EmptyListView text={t('companies.empty')} isLoading={isLoading} />}
                 onRefresh={onRefresh}
                 refreshing={isLoading}

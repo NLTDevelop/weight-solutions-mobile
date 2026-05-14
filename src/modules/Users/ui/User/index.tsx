@@ -1,11 +1,13 @@
 import { useUiContext } from '@/UIProvider';
+import { EditIcon } from '@/assets/icons/EditIcon';
+import { UserIcon } from '@/assets/icons/UserIcon';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { Loader } from '@/UIKit/Loader';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { FlatList, ListRenderItem, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { InfoRow } from './components/InfoRow';
 import { useUser } from './presenters/useUser';
 import { getStyles } from './styles';
@@ -13,38 +15,50 @@ import { getStyles } from './styles';
 export const UserView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { user, infoRows, isLoading, onPressBack, onPressEdit } = useUser();
-
-    const keyExtractor = (item: { id: string }) => item.id;
-
-    const renderItem: ListRenderItem<{ id: string; label: string; value: string }> = ({ item }) => {
-        return <InfoRow label={t(item.label)} value={item.value} />;
-    };
-
-    const ItemSeparatorComponent = () => {
-        return <View style={styles.itemSeparator} />;
-    };
+    const { user, infoRows, isLoading, onPressEdit } = useUser();
 
     return (
         <ScreenContainer
             edges={['top', 'bottom']}
-            contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('users.detailsTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            containerStyle={styles.screen}
+            headerComponent={<HeaderWithBackButton title={user?.name || t('users.titleFallback')} />}
         >
             {isLoading
                 ? <Loader />
                 : <View style={styles.content}>
-                    <View style={styles.card}>
-                        <Text style={styles.title}>{user?.name || t('users.titleFallback')}</Text>
-                        <FlatList
-                            data={infoRows}
-                            renderItem={renderItem}
-                            keyExtractor={keyExtractor}
-                            scrollEnabled={false}
-                            contentContainerStyle={styles.listContent}
-                            ItemSeparatorComponent={ItemSeparatorComponent}
+                    <ScrollView
+                        bounces={false}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={styles.scrollContent}
+                    >
+                        <View style={styles.card}>
+                            <View style={styles.cardHeader}>
+                                <View style={styles.iconCircle}>
+                                    <UserIcon width={20} height={20} color={colors.icon_strong} />
+                                </View>
+                                <Text style={styles.title}>{user?.name || t('users.titleFallback')}</Text>
+                            </View>
+                            {infoRows.map((item, index) => (
+                                <View key={item.id}>
+                                    {index > 0 ? <View style={styles.separator} /> : null}
+                                    <InfoRow
+                                        label={t(item.label)}
+                                        value={item.value.startsWith('users.') || item.value.startsWith('profile.') || item.value.startsWith('products.')
+                                            ? t(item.value)
+                                            : item.value}
+                                    />
+                                </View>
+                            ))}
+                        </View>
+                    </ScrollView>
+                    <View style={styles.footer}>
+                        <NLTButton
+                            text={t('users.editButton')}
+                            onPress={onPressEdit}
+                            containerStyle={styles.button}
+                            textStyle={styles.buttonText}
+                            LeftAccessory={<EditIcon color={colors.icon_strong} />}
                         />
-                        <NLTButton text={t('users.editButton')} onPress={onPressEdit} containerStyle={styles.button} textStyle={styles.buttonText} />
                     </View>
                 </View>}
         </ScreenContainer>

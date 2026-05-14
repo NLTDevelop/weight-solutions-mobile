@@ -79,7 +79,7 @@ export const useEditWeighing = () => {
     };
 
     const { productOptions, productErrorText, carNumberErrorText, weightBeforeErrorText, weightAfterErrorText, isSubmitDisabled } = useEditWeighingUi({
-        products: productModel.products,
+        products: productModel.activeProducts?.data || [],
         selectedProductId,
         carNumber,
         weightBefore,

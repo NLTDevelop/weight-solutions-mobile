@@ -14,7 +14,7 @@ import { getStyles } from './styles';
 export const ContactInformationView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { rows, isLoading, onPressBack, onPressEdit } = useContactInformation();
+    const { rows, isLoading, onPressEdit } = useContactInformation();
 
     const renderItem: ListRenderItem<{ id: string; label: string; value: string | string[] }> = ({ item }) => {
         return <PersonalDataRow label={t(item.label)} value={item.value} />;
@@ -26,7 +26,7 @@ export const ContactInformationView = observer(() => {
 
     return (
         <ScreenContainer
-            headerComponent={<HeaderWithBackButton title={t('profile.contactSettingsTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={t('profile.contactSettingsTitle')} />}
         >
             <View style={styles.container}>
 

@@ -4,13 +4,15 @@ import { toastService } from '@/libs/toast/toastService';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useMemo, useState } from 'react';
+import { useUiContext } from '@/UIProvider';
+import { UserUpdateDto } from '@/entities/Users/dto/user-update.dto';
 
 export const useEditPersonalData = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [name, setName] = useState(userModel.user?.name || '');
     const [username, setUsername] = useState(userModel.user?.username || '');
     const [email, setEmail] = useState(userModel.user?.email || '');
-    const [password, setPassword] = useState('');
     const [description, setDescription] = useState(userModel.user?.description || '');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -23,12 +25,11 @@ export const useEditPersonalData = () => {
                 name.trim() === (userModel.user?.name || '') &&
                 username.trim() === (userModel.user?.username || '') &&
                 email.trim() === (userModel.user?.email || '') &&
-                description.trim() === (userModel.user?.description || '') &&
-                !password.trim()
+                description.trim() === (userModel.user?.description || '')
             ) ||
             isLoading
         );
-    }, [description, email, isLoading, name, password, username]);
+    }, [description, email, isLoading, name, username]);
 
     const onPressBack = () => {
         navigation.goBack();
@@ -41,24 +42,25 @@ export const useEditPersonalData = () => {
             return;
         }
 
-        setIsLoading(true);
-        const response = await userService.update(currentUserId, {
+        const body: Partial<UserUpdateDto> = {
             name: name.trim(),
             username: username.trim(),
             email: email.trim(),
             description: description.trim(),
             company_id: userModel.user?.company?.id || null,
             active: userModel.user?.status === 'active',
-            password: password.trim() ? password.trim() : null,
-        });
+        };
+
+        setIsLoading(true);
+        const response = await userService.update(currentUserId, body);
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('Profile update failed', response.message || 'Please try again');
+            toastService.showError(t('profile.updateFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess('Profile updated', response.data.data.name);
+        toastService.showSuccess(t('profile.updated'), response.data.data.name);
         navigation.goBack();
     };
 
@@ -66,14 +68,12 @@ export const useEditPersonalData = () => {
         name,
         username,
         email,
-        password,
         description,
         isLoading,
         isSubmitDisabled,
         setName,
         setUsername,
         setEmail,
-        setPassword,
         setDescription,
         onPressBack,
         onSubmit,

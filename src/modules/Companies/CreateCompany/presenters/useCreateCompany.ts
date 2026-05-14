@@ -67,13 +67,13 @@ export const useCreateCompany = () => {
             phone: phone.trim(),
             address: address.trim(),
             email: email.trim(),
-            description: address.trim() || trimmedDescription,
+            description: trimmedDescription || null,
         });
 
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError(t('companies.createFailedTitle'), response.message || 'Please try again');
+            toastService.showError(t('companies.createFailedTitle'), response.message || t('profile.tryAgainPlease'));
             return;
         }
         companyService.list({ limit: 20, offset: 0, status: 'active' });

@@ -4,45 +4,83 @@ import { StyleSheet } from 'react-native';
 
 export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
-        container: {
-            flexGrow: 1,
-            backgroundColor: colors.background,
-            paddingHorizontal: scaleHorizontal(20),
-            paddingBottom: scaleVertical(24),
+        screen: {
+            flex: 1,
         },
         header: {
-            paddingHorizontal: scaleHorizontal(20),
-            paddingBottom: scaleVertical(16),
+            paddingHorizontal: scaleHorizontal(12),
+            paddingBottom: scaleVertical(8),
+        },
+        content: {
+            flex: 1,
+        },
+        scrollContent: {
+            paddingHorizontal: scaleHorizontal(16),
+            paddingTop: scaleVertical(16),
+            paddingBottom: scaleVertical(24),
         },
         card: {
-            paddingHorizontal: scaleHorizontal(20),
-            paddingVertical: scaleVertical(20),
-            borderRadius: scaleHorizontal(16),
-            backgroundColor: colors.card,
-            borderWidth: scaleHorizontal(1),
+            padding: scaleHorizontal(12),
+            borderRadius: scaleHorizontal(8),
+            backgroundColor: colors.card_middle,
             borderColor: colors.border,
-            gap: scaleVertical(20),
-        },
-        title: {
-            color: colors.text_strong,
-            fontSize: scaleFontSize(22),
-            lineHeight: scaleLineHeight(28),
-            fontFamily: 'Roboto-Bold',
-        },
-        listContent: {
-            gap: scaleVertical(16),
+            shadowColor: colors.shadow,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.08,
+            shadowRadius: 4,
+            elevation: 4,
         },
         separator: {
-            height: scaleVertical(16),
+            height: StyleSheet.hairlineWidth,
+            backgroundColor: colors.border,
+            marginVertical: scaleVertical(8),
+        },
+        statusBlock: {
+            gap: scaleVertical(2),
+        },
+        statusLabel: {
+            color: colors.text_middle,
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
+            fontFamily: 'Roboto-Regular',
+        },
+        statusBadge: {
+            alignSelf: 'flex-start',
+            paddingHorizontal: scaleHorizontal(8),
+            minHeight: scaleVertical(20),
+            borderRadius: scaleHorizontal(100),
+            justifyContent: 'center',
+        },
+        statusBadgeActive: {
+            backgroundColor: '#E7F4E8',
+        },
+        statusBadgeInactive: {
+            backgroundColor: colors.border,
+        },
+        statusBadgeText: {
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
+            fontFamily: 'Roboto-Bold',
+        },
+        statusBadgeTextActive: {
+            color: colors.success,
+        },
+        statusBadgeTextInactive: {
+            color: colors.text_middle,
+        },
+        footer: {
+            marginTop: 'auto',
+            paddingHorizontal: scaleHorizontal(16),
+            paddingTop: scaleVertical(8),
+            paddingBottom: scaleVertical(8),
         },
         button: {
-            minHeight: scaleVertical(48),
-            borderRadius: scaleHorizontal(14),
+            width: '100%',
         },
         buttonText: {
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Bold',
+            fontFamily: 'Roboto-Medium',
         },
     });
 

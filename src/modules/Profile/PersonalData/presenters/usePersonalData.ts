@@ -9,7 +9,6 @@ export const usePersonalData = () => {
     const rows = [
         { id: 'name', label: 'profile.personalName', value: userModel.user?.name || '-' },
         { id: 'role', label: 'profile.personalRole', value: getProfileRoleTextKey(userModel.user?.role) },
-        { id: 'phone', label: 'profile.personalPhone', value: userModel.user?.contact?.phone || '-' },
         { id: 'email', label: 'profile.personalEmail', value: userModel.user?.email || '-' },
     ];
 

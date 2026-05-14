@@ -5,6 +5,7 @@ import { RootNavigator } from './navigation/rootNavigator';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { IColors } from './UIProvider/theme/IColors';
 import { useMemo } from 'react';
+import { StatusBar } from 'react-native';
 
 export const App = () => (
     <UIProvider>
@@ -19,6 +20,7 @@ const ThemedApp = () => {
     return (
         <GestureHandlerRootView style={styles.container}>
             <SafeAreaProvider>
+                <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'} />
                 <RootNavigator />
                 <ToastOverlay />
             </SafeAreaProvider>

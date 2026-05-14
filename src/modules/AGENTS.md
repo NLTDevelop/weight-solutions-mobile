@@ -21,7 +21,7 @@ If FlatList uses pagination need props `onEndReached` to fetch next page
 
 # Localization
 
-Add translate localization and use t for texts: const { t } = useUiContext();
+**ALWAYS** Add localization and use `t` for texts: `const { t } = useUiContext();`
 
 # Folder structure in module
 
@@ -48,3 +48,7 @@ modules/
 - each screen in module must have index and styles file and folder `presenters`
 - screen can contain a `components` folder for reusable components inside the module
 - all presentation logic must be moved to presenters
+
+# UIKit rules
+
+`HeaderWithBackButton` do not add styles and onPressBack if it don't need. Styles in this component should be used

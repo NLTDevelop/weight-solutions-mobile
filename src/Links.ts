@@ -1,5 +1,9 @@
 export interface ILinks {
     signIn: string;
+    me: string;
+    restorePassword: string;
+    verifyRestoreCode: string;
+    confirmRestorePassword: string;
     company: string;
     companyDetails: (companyId: number) => string;
     orders: string;
@@ -16,7 +20,11 @@ class Links {
     private dev = 'https://weight-solutions.on-forge.com/api/v1';
     private _domain = this.dev;
     private _links = {
+        me: `${this._domain}/me`,
         signIn: `${this._domain}/auth/login`,
+        restorePassword: `${this._domain}/auth/restore`,
+        verifyRestoreCode: `${this._domain}/auth/restore/verify-code`,
+        confirmRestorePassword: `${this._domain}/auth/restore/confirm`,
         company: `${this._domain}/company`,
         orders: `${this._domain}/orders`,
         products: `${this._domain}/products`,
@@ -25,7 +33,11 @@ class Links {
         userContactSave: `${this._domain}/user/contact/save`,
     };
 
+    public get me() { return this._links.me; }
     public get signIn() { return this._links.signIn; }
+    public get restorePassword() { return this._links.restorePassword; }
+    public get verifyRestoreCode() { return this._links.verifyRestoreCode; }
+    public get confirmRestorePassword() { return this._links.confirmRestorePassword; }
     public get company() { return this._links.company; }
     public companyDetails = (companyId: number) => `${this._links.company}/${companyId}`;
     public get orders() { return this._links.orders; }

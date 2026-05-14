@@ -1,10 +1,12 @@
 import { userService } from '@/entities/User/UserService';
 import { toastService } from '@/libs/toast/toastService';
+import { useUiContext } from '@/UIProvider';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 
 export const useAuthorization = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -47,13 +49,13 @@ export const useAuthorization = () => {
 
         if (response.isError || !response.data?.data) {
             setAuthErrorText('authorization.invalidCredentials');
-            toastService.showError('Authorization failed', response.message || 'Check your credentials and try again');
+            toastService.showError(t('authorization.failed'), response.message || t('authorization.checkYourCredentials'));
             return;
         }
 
         setPassword('');
         setAuthErrorText('');
-        toastService.showSuccess('Authorization successful', `Hello, ${response.data.data.name}`);
+        toastService.showSuccess(t('authorization.success'), `${t('common.hello')}, ${response.data.data.name}`);
         navigation.reset({ index: 0, routes: [{ name: 'TabNavigator', params: { screen: 'HomeView' } }] });
     };
 

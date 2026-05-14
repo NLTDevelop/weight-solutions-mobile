@@ -4,6 +4,7 @@ import { ProductsTabIcon } from '@/assets/icons/ProductsTabIcon';
 import { ProfileIcon } from '@/assets/icons/ProfileIcon';
 import { ScaleTabIcon } from '@/assets/icons/ScaleTabIcon';
 import { userModel } from '@/entities/User/UserModel';
+import { userService } from '@/entities/User/UserService';
 import { HomeView } from '@/modules/Home/ui';
 import { ProductsView } from '@/modules/Products/Products';
 import { ProfileView } from '@/modules/Profile/Profile';
@@ -11,7 +12,7 @@ import { WeighingsView } from '@/modules/Weighing/Weighings/ui';
 import { scaleVertical } from '@/utils';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { observer } from 'mobx-react';
-import React, { ReactNode, useMemo } from 'react';
+import React, { ReactNode, useEffect, useMemo } from 'react';
 
 const Tab = createBottomTabNavigator();
 
@@ -78,6 +79,10 @@ export const TabNavigator = observer(() => {
     const { t, colors } = useUiContext();
     const role = userModel.user?.role ?? 'admin';
     const tabs = useMemo(() => getTabConfigs(role, t), [role, t]);
+
+    useEffect(() => {
+        userService.me();
+    }, [])
 
     return (
         <Tab.Navigator

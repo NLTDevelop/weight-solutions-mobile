@@ -20,11 +20,11 @@ export const NLTButton: FC<IProps> = memo(({ text, onPress, disabled, RightAcces
     const styles = useMemo(() => getStyle(colors), [colors]);
 
     return (
-        <TouchableOpacity disabled={disabled} style={[styles.container, containerStyle]} onPress={onPress}        >
+        <TouchableOpacity disabled={disabled} style={[styles.container, containerStyle]} onPress={onPress} >
             {LeftAccessory}
             <Text numberOfLines={1} style={[styles.text, textStyle]}>{text}</Text>
             {RightAccessory}
-            {inProgress ? <View style={styles.absoluteSheet}><ActivityIndicator color={colors.primary} size='large' /></View> : null}
+            {inProgress ? <View style={styles.absoluteSheet}><ActivityIndicator color={colors.icon_strong} size='large' /></View> : null}
         </TouchableOpacity>
     );
 })

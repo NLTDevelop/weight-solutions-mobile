@@ -31,7 +31,6 @@ export const EditContactInformationView = observer(() => {
         setViber,
         setTiktok,
         setYoutube,
-        onPressBack,
         onSubmit,
     } = useEditContactInformation();
 
@@ -41,7 +40,7 @@ export const EditContactInformationView = observer(() => {
             scrollEnabled
             isKeyboardAvoiding
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('profile.contactInformationEditTitle')} onPressBack={onPressBack} containerStyle={styles.header} />}
+            headerComponent={<HeaderWithBackButton title={t('profile.contactInformationEditTitle')}  />}
         >
             <View style={styles.form}>
                 <NLTTextInput label={t('profile.contactPhoneSingle')} placeholder={t('profile.contactPhonePlaceholder')} value={phone} onChangeText={setPhone} shape='pill' keyboardType='number-pad' />

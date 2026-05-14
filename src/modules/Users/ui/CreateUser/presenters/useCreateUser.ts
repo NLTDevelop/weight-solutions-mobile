@@ -4,39 +4,32 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { useCreateUserUi } from './useCreateUserUi';
-
-interface IRouteParams {
-    companyId: number;
-}
+import { companyService } from '@/entities/Company/CompanyService';
+import { useUiContext } from '@/UIProvider';
+import { userModel } from '@/entities/User/UserModel';
+import { companyModel } from '@/entities/Company/CompanyModel';
 
 export const useCreateUser = () => {
+    const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
-    const route = useRoute();
-    const { companyId } = route.params as IRouteParams;
     const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
+    const [role, setRole] = useState<'admin' | 'user'>('user');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [description, setDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const companyId = useRoute<any>()?.params?.companyId || userModel.user?.company?.id || companyModel.company?.id;
 
-    const { nameErrorText, usernameErrorText, emailErrorText, passwordErrorText, descriptionErrorText, isSubmitDisabled } = useCreateUserUi({
-        name,
-        username,
-        email,
-        password,
-        description,
-        isSubmitted,
-        isLoading,
-    });
+    const { nameErrorText, emailErrorText, passwordErrorText, descriptionErrorText, isSubmitDisabled }
+        = useCreateUserUi({ name, role, email, password, description, isSubmitted, isLoading, });
 
     const onChangeName = (value: string) => {
         setName(value);
     };
 
-    const onChangeUsername = (value: string) => {
-        setUsername(value);
+    const onChangeRole = (value: 'admin' | 'user') => {
+        setRole(value);
     };
 
     const onChangeEmail = (value: string) => {
@@ -51,14 +44,10 @@ export const useCreateUser = () => {
         setDescription(value);
     };
 
-    const onPressBack = () => {
-        navigation.goBack();
-    };
-
     const onSubmit = async () => {
         setIsSubmitted(true);
 
-        if (isSubmitDisabled) {
+        if (isSubmitDisabled || !companyId) {
             return;
         }
 
@@ -66,43 +55,45 @@ export const useCreateUser = () => {
 
         const response = await usersService.create({
             name: name.trim(),
-            username: username.trim(),
+            role,
+            username: email.trim(),
             email: email.trim(),
             password: password.trim(),
             description: description.trim(),
-            company_id: companyId,
+            company_id: companyId
         });
 
         setIsLoading(false);
 
         if (response.isError || !response.data?.data) {
-            toastService.showError('User creation failed', response.message || 'Please try again');
+            toastService.showError(t('users.createdFailed'), response.message || t('profile.tryAgainPlease'));
             return;
         }
 
-        toastService.showSuccess('User created', response.data.data.name);
-        navigation.replace('UserView', { companyId, userId: response.data.data.id });
+        if (companyId) {
+            companyService.details(companyId);
+        }
+        toastService.showSuccess(t('users.created'), response.data.data.name);
+        navigation.goBack();
     };
 
     return {
         name,
-        username,
+        role,
         email,
         password,
         description,
         isLoading,
         nameErrorText,
-        usernameErrorText,
         emailErrorText,
         passwordErrorText,
         descriptionErrorText,
         isSubmitDisabled,
         onChangeName,
-        onChangeUsername,
+        onChangeRole,
         onChangeEmail,
         onChangePassword,
         onChangeDescription,
-        onPressBack,
         onSubmit,
     };
 };
