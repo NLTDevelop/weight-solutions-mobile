@@ -1,20 +1,25 @@
 import { useUiContext } from '@/UIProvider';
 import { useMemo } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, ViewStyle } from 'react-native';
 import { getStyles } from './styles';
 import { usePhoneBanners } from './usePhoneBanners';
 import { observer } from 'mobx-react';
 import { Typography } from '../Typography';
 import { NLTCard } from '../NLTCard';
 
-export const PhoneBanner = observer(() => {
+interface IProps{
+    containerStyle?: ViewStyle;
+}
+
+
+export const PhoneBanner = observer(({ containerStyle}:IProps) => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const { contactInformation, onPressFirstPhone, onPressSecondPhone } = usePhoneBanners();
 
     return (
         contactInformation?.phone ?
-            <NLTCard containerStyle={styles.container} >
+            <NLTCard containerStyle={containerStyle ?? styles.container}>
                 <Typography variant='body_m' text={t('weighings.bannerText')} />
                 <View style={styles.row}>
                     <TouchableOpacity onPress={onPressFirstPhone} >
