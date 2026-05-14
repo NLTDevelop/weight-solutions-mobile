@@ -8,7 +8,7 @@ export const usePhoneBanners = () => {
 
     useEffect(() => {
         contactInformationService.details();
-    }, [contactInformation]);
+    }, []);
 
     const onPressFirstPhone = () => {
         Linking.openURL(`tel:${contactInformation?.phone}`)
