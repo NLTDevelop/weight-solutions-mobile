@@ -1,5 +1,5 @@
 interface IProps {
-    secondWeight: string;
+    secondWeight:string;
     isSubmitted: boolean;
     isLoading: boolean;
 }

@@ -17,7 +17,7 @@ interface IProps {
     order: IOrder | null;
 }
 
-const withFallback = (value?: string | null) => value || 'weighings.fallbacks.unavailable';
+const withFallback = (value?: string | null) => value || '';
 
 export const useWeighingUi = ({ order }: IProps) => {
     const firstItem = getFirstWeighingItem(order);
@@ -41,8 +41,7 @@ export const useWeighingUi = ({ order }: IProps) => {
             title: 'weighings.firstWeighingSectionTitle',
             rows: [
                 { id: 'firstDate', label: 'weighings.firstWeightDateTimeLabel', value: formatWeighingDateTime(firstItem?.created_at || order?.created_at) },
-                { id: 'firstWeight', label: 'weighings.tareWeightLabel', value: withFallback(firstItem?.weight || order?.weight_after) },
-                { id: 'firstNetWeight', label: 'weighings.netWeightLabel', value: getNetWeightValue(order) },
+                { id: 'firstWeight', label: 'weighings.tareWeightLabel', value: withFallback(firstItem?.weight) },
             ],
         },
         {
@@ -50,10 +49,15 @@ export const useWeighingUi = ({ order }: IProps) => {
             title: 'weighings.secondWeighingSectionTitle',
             rows: [
                 { id: 'secondDate', label: 'weighings.secondWeightDateTimeLabel', value: secondItem ? formatWeighingDateTime(secondItem.created_at || order?.updated_at) : 'weighings.fallbacks.notPerformed' },
-                { id: 'secondWeight', label: 'weighings.grossWeightLabel', value: secondItem ? withFallback(secondItem.weight || order?.weight_before) : 'weighings.fallbacks.notPerformed' },
+                { id: 'secondWeight', label: 'weighings.grossWeightLabel', value: secondItem ? withFallback(secondItem.weight) : 'weighings.fallbacks.notPerformed' },
             ],
         },
     ];
+
+    if(secondItem !== null){
+        sections[1].rows.push({ id: 'firstNetWeight', label: 'weighings.netWeightLabel', value: getNetWeightValue(order) },);
+    }
+
 
     return {
         sections,

@@ -13,8 +13,6 @@ export interface IOrder {
     id: number;
     car_phone?: string | null;
     car_number: string;
-    weight_before?: string | null;
-    weight_after?: string | null;
     created_at: string;
     user?: IUser | null;
     product?: IProduct | null;
@@ -25,8 +23,5 @@ export interface IOrder {
     items?: IOrderItem[] | null;
     status?: string | null;
     comment?: string | null;
-    suspicious?: boolean | null;
     updated_at?: string | null;
-    first_weight_at?: string | null;
-    second_weight_at?: string | null;
 }
