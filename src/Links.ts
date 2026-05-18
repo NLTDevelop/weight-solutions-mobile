@@ -15,6 +15,7 @@ export interface ILinks {
     userDetails: (userId: number) => string;
     userContact: string;
     userContactSave: string;
+    notification: string;
 }
 
 class Links {
@@ -32,6 +33,7 @@ class Links {
         users: `${this._domain}/users`,
         userContact: `${this._domain}/user/contact`,
         userContactSave: `${this._domain}/user/contact/save`,
+        notification: `${this._domain}/notification`,
     };
 
     public get me() { return this._links.me; }
@@ -50,6 +52,7 @@ class Links {
     public userDetails = (userId: number) => `${this._links.users}/${userId}`;
     public get userContact() { return this._links.userContact; }
     public get userContactSave() { return this._links.userContactSave; }
+    public get notification() { return this._links.notification; }
 
 }
 

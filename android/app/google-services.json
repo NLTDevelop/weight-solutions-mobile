@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "893670201125",
+    "project_id": "weightsolutions-b904e",
+    "storage_bucket": "weightsolutions-b904e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893670201125:android:f9ad4e8fdfe1e42cb1eccc",
+        "android_client_info": {
+          "package_name": "com.weightsolutions"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB22Tdwq07AtyXRS_rw-Z9rQoLpXqMTa04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,7 @@ import { ProfileIcon } from '@/assets/icons/ProfileIcon';
 import { ScaleTabIcon } from '@/assets/icons/ScaleTabIcon';
 import { userModel } from '@/entities/User/UserModel';
 import { userService } from '@/entities/User/UserService';
+import { useNotifications } from '@/libs/notificationService/useNotifications';
 import { HomeView } from '@/modules/Home/ui';
 import { ProductsView } from '@/modules/Products/Products';
 import { ProfileView } from '@/modules/Profile/Profile';
@@ -79,6 +80,7 @@ export const TabNavigator = observer(() => {
     const { t, colors } = useUiContext();
     const role = userModel.user?.role ?? 'admin';
     const tabs = useMemo(() => getTabConfigs(role, t), [role, t]);
+    useNotifications();
 
     useEffect(() => {
         userService.me();
