@@ -27,6 +27,27 @@ class OrderModel implements IOrderModel {
 
     public set current(order: IOrder | null) {
         this.currentRepository.save(order);
+        var isFindElement: boolean = false;
+        const newOrders: IOrder[] = this.orders.map<IOrder>((e) => {
+            if(order != null && e.id === order!.id){
+                isFindElement = true;
+                return order!;
+            } else {
+                return e;
+            }
+        })
+        if(isFindElement){
+            this.orders = [
+            ...newOrders,
+            ];
+        } else {
+            if(order != null){
+                this.orders = [
+                order,
+                ...this.orders
+            ];
+            }
+        }
     }
 
     public get meta() {

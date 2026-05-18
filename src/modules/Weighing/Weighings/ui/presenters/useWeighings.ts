@@ -4,9 +4,9 @@ import { orderModel } from '@/entities/Order/OrderModel';
 import { orderService } from '@/entities/Order/OrderService';
 import {OrderListDtoStatusEnum } from '@/entities/Order/enums/OrderListDtoStatusEnum';
 import { toastService } from '@/libs/toast/toastService';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useWeighingsUi } from './useWeighingsUi';
 
 const LIST_LIMIT = 20;
@@ -18,6 +18,8 @@ export const useWeighings = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [search, setSearch] = useState('');
     const [status, setStatus] = useState<OrderListDtoStatusEnum>(OrderListDtoStatusEnum.ACTIVE);
+    const searchRef = useRef(search);
+    const statusRef = useRef(status);
 
     const onPressWeighing = (orderId: number) => {
         navigation.navigate('WeighingView', { orderId });
@@ -29,11 +31,21 @@ export const useWeighings = () => {
 
     const { weighingCards } = useWeighingsUi({
         orders: orderModel.orders,
+        status,
         onPressWeighing,
         onPressWeighingAction,
     });
 
-    const loadOrders = useCallback(async (offset: number = 0, searchValue = search, statusValue = status) => {
+    useEffect(() => {
+        searchRef.current = search;
+        statusRef.current = status;
+    }, [search, status]);
+
+    const loadOrders = useCallback(async (
+        offset: number = 0,
+        searchValue = searchRef.current,
+        statusValue = statusRef.current,
+    ) => {
         setIsLoading(true);
 
         const response = await orderService.list({
@@ -48,7 +60,7 @@ export const useWeighings = () => {
         if (response.isError) {
             toastService.showError(t('weighings.listLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [search, status, t]);
+    }, [t]);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -59,6 +71,12 @@ export const useWeighings = () => {
             clearTimeout(timeoutId);
         };
     }, [loadOrders, search, status]);
+
+    useFocusEffect(
+        useCallback(() => {
+            loadOrders();
+        }, [loadOrders]),
+    );
 
     const onPressCreateWeighing = () => {
         navigation.navigate('CreateWeighingView', { isGuest: false });
