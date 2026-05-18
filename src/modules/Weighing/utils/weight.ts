@@ -1,26 +1,20 @@
-import { IOrder, IOrderItem } from '@/entities/Order/IOrder';
+import { IOrder } from '@/entities/Order/IOrder';
 
-const SECOND_WEIGHT_TYPES = ['gross', 'brutto', 'weight_before'];
-const FIRST_WEIGHT_TYPES = ['tare', 'tara', 'weight_after'];
 
 export const formatWeighingDateTime = (value?: string | null) => {
     if (!value) {
-        return 'weighings.fallbacks.unavailable';
+        return 'weighings.fallbacks.notPerformed';
     }
 
     return new Date(value).toLocaleString('uk-UA');
 };
 
 export const getWeightNumberValue = (value?: string | null) => {
-    const parsedValue = Number(String(value || '').replace(',', '.'));
+    if(value === null){
+        return value;
+    }
+    const parsedValue = Number(String(value).replace(',', '.'));
     return Number.isFinite(parsedValue) ? parsedValue : null;
-};
-
-const findItemByType = (items: IOrderItem[] | null | undefined, types: string[]) => {
-    return items?.find(item => {
-        const normalizedType = item.weight_type?.toLowerCase?.() || '';
-        return types.includes(normalizedType);
-    }) || null;
 };
 
 export const getFirstWeighingItem = (order: IOrder | null) => {
@@ -28,7 +22,7 @@ export const getFirstWeighingItem = (order: IOrder | null) => {
         return null;
     }
 
-    return findItemByType(order.items, FIRST_WEIGHT_TYPES) || order.items?.[0] || null;
+    return order.items?.[0];
 };
 
 export const getSecondWeighingItem = (order: IOrder | null) => {
@@ -36,18 +30,18 @@ export const getSecondWeighingItem = (order: IOrder | null) => {
         return null;
     }
 
-    return findItemByType(order.items, SECOND_WEIGHT_TYPES) || order.items?.[1] || null;
+    return (order.items?.length ?? 0) > 1 ? order.items?.[order.items.length - 1] : null;
 };
 
 export const getNetWeightValue = (order: IOrder | null) => {
-    const firstValue = getWeightNumberValue(getFirstWeighingItem(order)?.weight || order?.weight_after);
-    const secondValue = getWeightNumberValue(getSecondWeighingItem(order)?.weight || order?.weight_before);
+    const firstValue = getWeightNumberValue(getFirstWeighingItem(order)?.weight);
+    const secondValue = getWeightNumberValue(getSecondWeighingItem(order)?.weight);
 
     if (firstValue === null || secondValue === null) {
-        return 'weighings.fallbacks.unavailable';
+        return 'weighings.fallbacks.notPerformed';
     }
 
-    return `${secondValue - firstValue}`;
+    return order!.type === 'loading' ? `${secondValue - firstValue}` : `${firstValue - secondValue}`;
 };
 
 export const getWeighingStatus = (order: IOrder | null) => {
