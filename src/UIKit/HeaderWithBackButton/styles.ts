@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { IColors } from '@/UIProvider/theme/IColors';
-import { scaleFontSize, scaleLineHeight } from '@/utils';
+import { scaleFontSize, scaleHorizontal, scaleLineHeight } from '@/utils';
 
-export const getStyle = (colors: IColors, backDisabled?: boolean) => {
+export const getStyle = (colors: IColors, backDisabled?: boolean, isCenterPlacement?: boolean) => {
     const styles = StyleSheet.create({
         container: {
             flexDirection: 'row',
@@ -21,7 +21,7 @@ export const getStyle = (colors: IColors, backDisabled?: boolean) => {
         titleContainer: {
             flex: 1,
             justifyContent: 'center',
-            alignItems: backDisabled ? 'center' : 'flex-start',
+            alignItems: backDisabled || isCenterPlacement ? 'center' : 'flex-start',
         },
         title: {
             fontSize: scaleFontSize(18),
@@ -30,6 +30,9 @@ export const getStyle = (colors: IColors, backDisabled?: boolean) => {
             fontFamily: 'Roboto-Regular',
             color: colors.text,
         },
+        emptyView: {
+            width: scaleHorizontal(40),
+        }
     });
     return styles;
 }

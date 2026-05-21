@@ -19,12 +19,13 @@ interface IProps {
     activeColor?: string;
     inactiveColor?: string;
     tabBarStyle?: StyleProp<ViewStyle>;
+    tabBarViewStyle?: StyleProp<ViewStyle>;
     indicatorStyle?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;
     sceneContainerStyle?: StyleProp<ViewStyle>;
 }
 
-export const NLTTabView = ({ navigationState, renderScene, onIndexChange, activeColor, inactiveColor, tabBarStyle, indicatorStyle, labelStyle, sceneContainerStyle }: IProps) => {
+export const NLTTabView = ({ navigationState, renderScene, onIndexChange, activeColor, inactiveColor, tabBarStyle, indicatorStyle, labelStyle, sceneContainerStyle, tabBarViewStyle }: IProps) => {
     const { colors } = useUiContext();
     const layout = useWindowDimensions();
     const styles = useMemo(() => getStyle(colors), [colors]);
@@ -45,8 +46,9 @@ export const NLTTabView = ({ navigationState, renderScene, onIndexChange, active
                     indicatorStyle={[styles.indicator, indicatorStyle]}
                     activeColor={activeColor ?? colors.text_strong}
                     inactiveColor={inactiveColor ?? colors.text_light}
+                    tabStyle={tabBarViewStyle}
                     renderLabel={({ route, color }: { route: IRoute; color: string; }) => (
-                        <TabBarLabel label={route.title} color={color} labelStyle={labelStyle} />
+                        <TabBarLabel label={route.title} color={color} labelStyle={[styles.label, labelStyle]} />
                     )}
                     pressColor="transparent"
                 />
