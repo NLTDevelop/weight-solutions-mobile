@@ -12,11 +12,12 @@ interface IProps {
     backDisabled?: boolean;
     rightComponent?: React.ReactNode;
     containerStyle?: ViewStyle;
+    isCenterPlacement?: boolean;
 }
 
-export const HeaderWithBackButton: FC<IProps> = ({ title, backDisabled, rightComponent, containerStyle, onPressBack }) => {
+export const HeaderWithBackButton: FC<IProps> = ({ title, backDisabled, rightComponent, containerStyle, onPressBack , isCenterPlacement}) => {
     const { colors } = useUiContext();
-    const styles = useMemo(() => getStyle(colors, backDisabled), [colors, backDisabled]);
+    const styles = useMemo(() => getStyle(colors, backDisabled, isCenterPlacement), [colors, backDisabled, isCenterPlacement]);
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
     const onGoBack = useCallback(() => {
@@ -37,7 +38,7 @@ export const HeaderWithBackButton: FC<IProps> = ({ title, backDisabled, rightCom
             <View style={[styles.titleContainer]}>
                 <Text style={styles.title} numberOfLines={1}>{title}</Text>
             </View>
-            {rightComponent}
+            {rightComponent ?? (<View style={styles.emptyView}> </View>)}
         </View>
     );
 };

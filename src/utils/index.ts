@@ -67,6 +67,13 @@ export const formatDate = (dateString: string) => {
     return date.toLocaleDateString('uk-UA');
 };
 
+export const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+}
+
 export const shuffleArray = <T>(array: T[]): T[] => {
     const result = [...array];
     for (let i = result.length - 1; i > 0; i--) {

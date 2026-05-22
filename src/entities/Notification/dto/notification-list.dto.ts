@@ -1,5 +1,7 @@
+import { NotificationStatusEnum } from '../enums/NotificationStatusEnum';
+
 export interface NotificationListDto {
-    type: 'all' | 'unread';
+    type: NotificationStatusEnum;
     limit: number;
     offset: number;
 }

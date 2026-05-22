@@ -7,6 +7,7 @@ export interface INotificationModel {
     current: INotification | null;
     meta: INotificationMeta | null;
     message: string;
+    append: (data: { data: INotification[], meta: INotificationMeta }) => void;
     clear: () => void;
 }
 
@@ -46,6 +47,11 @@ class NotificationModel implements INotificationModel {
 
     public set message(message: string) {
         this.messageRepository.save(message);
+    }
+
+    public append(data: { data: INotification[], meta: INotificationMeta }) {
+        this.notifications = [...this.notifications, ...data.data];
+        this.meta = data.meta;
     }
 
     public clear() {

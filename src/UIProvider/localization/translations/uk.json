@@ -245,6 +245,18 @@
         "updated": "Продукт оновлено",
         "created": "Продукт створено"
     },
+    "notifications": {
+        "title": "Сповіщення",
+        "emptyStateTitle": "Нотифікацій ще немає",
+        "emptyStateDescription": "Нові сповіщення з'являться тут.",
+        "dateFallback": "Без дати",
+        "listLoadingFailed": "Не вдалося завантажити сповіщення",
+        "tabs": {
+            "all": "Всі",
+            "read": "Прочитані",
+            "unread": "Непрочитані"
+        }
+    },
     "users": {
         "companyUsersTitle": "Користувачі компанії",
         "emptyCompanyUsers": "У цій компанії ще немає користувачів",

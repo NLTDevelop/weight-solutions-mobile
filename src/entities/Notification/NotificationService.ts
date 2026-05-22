@@ -12,7 +12,7 @@ import { NotificationDeleteDto } from './dto/notification-delete.dto';
 import { NotificationListDto } from './dto/notification-list.dto';
 
 interface INotificationListResponse {
-    data: INotification[];
+    items: INotification[];
     meta: INotificationMeta;
 }
 
@@ -36,8 +36,12 @@ class NotificationService implements ISendRegisterToken, ISendDeleteToken {
             });
 
             if (!response.isError && response.data) {
-                notificationModel.notifications = response.data.data;
-                notificationModel.meta = response.data.meta;
+                if (params.offset > 0) {
+                    notificationModel.append(response.data);
+                } else {
+                    notificationModel.notifications = response.data.items;
+                    notificationModel.meta = response.data.meta;
+                }
             }
 
             return response;

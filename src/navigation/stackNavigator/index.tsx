@@ -4,6 +4,7 @@ import { CompaniesView } from '@/modules/Companies/Companies';
 import { CompanyView } from '@/modules/Companies/Company';
 import { CreateCompanyView } from '@/modules/Companies/CreateCompany';
 import { EditCompanyView } from '@/modules/Companies/EditCompany';
+import { NotificationsView } from '@/modules/Notifications/ui';
 import { CreateProductView } from '@/modules/Products/CreateProduct';
 import { EditProductView } from '@/modules/Products/EditProduct';
 import { ProductView } from '@/modules/Products/Product';
@@ -36,6 +37,7 @@ export const MainStackNavigator = observer(() => {
             <Stack.Screen name="RestorePasswordView" component={RestorePasswordView} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="CompaniesView" component={CompaniesView} />
+            <Stack.Screen name="NotificationsView" component={NotificationsView} />
             <Stack.Screen name="CompanyView" component={CompanyView} />
             <Stack.Screen name="CreateCompanyView" component={CreateCompanyView} />
             <Stack.Screen name="EditCompanyView" component={EditCompanyView} />
