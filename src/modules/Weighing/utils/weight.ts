@@ -29,8 +29,8 @@ export const getSecondWeighingItem = (order: IOrder | null) => {
     if (!order) {
         return null;
     }
-
-    return (order.items?.length ?? 0) > 1 ? order.items?.[order.items.length - 1] : null;
+ 
+    return order.items !== null ? (order.items?.length ?? 0) > 1 ? order.items![order.items!.length - 1] : null : null;;
 };
 
 export const getNetWeightValue = (order: IOrder | null) => {

@@ -21,19 +21,22 @@ const isOrderVisibleForStatus = (order: IOrder, status: OrderListDtoStatusEnum) 
 export const useWeighingsUi = ({ orders, status, onPressWeighing, onPressWeighingAction }: IProps) => {
     const weighingCards: IWeighingCardItem[] = orders
         .filter(order => isOrderVisibleForStatus(order, status))
-        .map(order => ({
+        .map((order) => {
+            const secondWeightCreatedAt =  getSecondWeighingItem(order)?.created_at;
+            return {
             id: order.id,
-            recordNumber: `#${order.id}`,
+            recordNumber: `№ ${order.id}`,
             productName: order.product?.name || 'weighings.productFallback',
             carNumber: order.car_number,
             netWeight: getNetWeightValue(order),
             firstWeighingAt: formatWeighingDateTime(getFirstWeighingItem(order)?.created_at),
-            secondWeighingAt: formatWeighingDateTime(getSecondWeighingItem(order)?.created_at),
+            secondWeighingAt: (secondWeightCreatedAt === null || secondWeightCreatedAt === undefined ? null : secondWeightCreatedAt),
             status: getWeighingStatus(order),
             actionLabel: getWeighingActionTranslationKey(order),
             onActionPress: () => onPressWeighingAction(order.id),
-            onPress: () => onPressWeighing(order.id),
-        }));
+            onPress: () => onPressWeighing(order.id)
+            };
+        });
 
     return {
         weighingCards,

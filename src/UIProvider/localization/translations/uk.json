@@ -202,7 +202,9 @@
         "created": "Зважування створено",
         "secondWeightFailed": "Не вдалося завершити зважування",
         "secondWeightSaved": "Зважування завершено",
-        "updateFailed": "Не вдалося оновити зважування"
+        "updateFailed": "Не вдалося оновити зважування",
+        "weightPoint": "Точка вагів",
+        "kg": "кг"
     },
     "products": {
         "title": "Продукція",

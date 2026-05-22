@@ -1,4 +1,5 @@
 import { IOrder } from '@/entities/Order/IOrder';
+import { IUser } from '@/entities/User/IUser';
 import { formatWeighingDateTime, getFirstWeighingItem, getNetWeightValue, getSecondWeighingItem, getWeighingActionTranslationKey, getWeighingStatus } from '@/modules/Weighing/utils/weight';
 
 interface ISectionRow {
@@ -15,11 +16,12 @@ interface ISection {
 
 interface IProps {
     order: IOrder | null;
+    user: IUser | null;
 }
 
 const withFallback = (value?: string | null) => value || '';
 
-export const useWeighingUi = ({ order }: IProps) => {
+export const useWeighingUi = ({ order, user }: IProps) => {
     const firstItem = getFirstWeighingItem(order);
     const secondItem = getSecondWeighingItem(order);
 
@@ -31,6 +33,7 @@ export const useWeighingUi = ({ order }: IProps) => {
                 { id: 'phone', label: 'weighings.phoneLabel', value: withFallback(order?.car_phone) },
                 { id: 'product', label: 'weighings.cargoTypeLabelShort', value: order?.product?.name || 'weighings.productFallback' },
                 { id: 'carNumber', label: 'weighings.carNumberLabel', value: withFallback(order?.car_number) },
+                { id: 'weightPoint', label: 'weighings.weightPoint', value: user?.name ?? ''},
                 { id: 'movementType', label: 'weighings.movementTypeLabel', value: order?.type ? `weighings.movementTypes.${order.type}` : 'weighings.fallbacks.unavailable' },
                 { id: 'netWeight', label: 'weighings.netWeightLabel', value: getNetWeightValue(order) },
                 { id: 'comment', label: 'weighings.commentLabel', value: withFallback(order?.comment) },
