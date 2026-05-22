@@ -5,8 +5,8 @@ import { scaleFontSize, scaleHorizontal, scaleLineHeight, scaleVertical } from '
 export const getStyle = (colors: IColors) => {
     const styles = StyleSheet.create({
         container: {
-            backgroundColor: colors.primary,
-            borderRadius: scaleHorizontal(32),
+            backgroundColor: colors.accent,
+            borderRadius: 100,
             elevation: 4,
             minHeight: scaleVertical(48),
             gap: scaleHorizontal(6),
@@ -21,7 +21,7 @@ export const getStyle = (colors: IColors) => {
         text: {
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(20),
-            color: colors.text,
+            color: colors.text_main,
             fontWeight: '500',
             textAlign: 'center',
         },

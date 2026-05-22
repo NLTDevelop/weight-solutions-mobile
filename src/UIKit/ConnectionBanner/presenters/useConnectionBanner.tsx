@@ -17,13 +17,13 @@ const STATES = {
     INITIAL: {
         visible: false,
         text: localization.t('networkError'),
-        backgroundColor: colorTheme.colors.border_light,
+        backgroundColor: colorTheme.colors.semantic_error,
         icon: <NetworkErrorIcon />,
     },
     DISCONNECTED: {
         visible: true,
         text: localization.t('networkError'),
-        backgroundColor: colorTheme.colors.error_strong,
+        backgroundColor: colorTheme.colors.semantic_error,
         icon: <NetworkErrorIcon />,
     },
     RECONNECTED: {

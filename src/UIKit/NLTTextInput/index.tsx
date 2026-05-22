@@ -1,7 +1,10 @@
 import { memo, useMemo } from 'react';
+
+
 import { TextInput, View, Text, ViewStyle, TextInputProps, TextStyle, TouchableOpacity } from 'react-native';
 import { EyeIcon } from '@/assets/icons/EyeIcon';
 import { EyeOffIcon } from '@/assets/icons/EyeOffIcon';
+
 import { useUiContext } from '../../UIProvider';
 import { Typography } from '../../UIKit/Typography';
 import { getStyles } from './styles';
@@ -58,15 +61,23 @@ export const NLTTextInput = memo(({
                     ref={inputRef}
                     {...props}
                     style={[styles.input, props.multiline && styles.inputMultiline, props.style]}
-                    placeholderTextColor={colors.text_light + 'CC'}
+                    placeholderTextColor={colors.text_additional}
                     secureTextEntry={secureTextEntry && isPasswordVisible}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                 />
                 {RightAccessory}
                 {shouldShowSecureToggle ? (
-                    <TouchableOpacity onPress={onTogglePasswordVisibility} style={styles.iconContainer} hitSlop={10} >
-                        {isPasswordVisible ? (<EyeOffIcon color={colors.icon_strong} />) : (<EyeIcon color={colors.icon_strong} />)}
+                    <TouchableOpacity
+                        onPress={onTogglePasswordVisibility}
+                        style={styles.iconContainer}
+                        hitSlop={10}
+                    >
+                        {isPasswordVisible ? (
+                            <EyeOffIcon color={colors.primary} />
+                        ) : (
+                            <EyeIcon color={colors.primary} />
+                        )}
                     </TouchableOpacity>
                 ) : null}
             </View>
