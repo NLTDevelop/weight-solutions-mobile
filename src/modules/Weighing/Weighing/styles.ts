@@ -73,8 +73,15 @@ export const getStyles = (colors: IColors) => {
             backgroundColor: colors.border,
         },
         button: {
+            position: 'absolute',
+            right: scaleHorizontal(16),
+            left: scaleHorizontal(16),
+            bottom: scaleVertical(8),
             minHeight: scaleVertical(48),
             marginTop: scaleVertical(8),
         },
+        srcollContent: {
+            paddingBottom: scaleVertical(40),
+        }
     });
 };
