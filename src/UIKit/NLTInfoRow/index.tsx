@@ -8,7 +8,7 @@ interface IProps {
     value: string;
 }
 
-export const InfoRow = ({ label, value }: IProps) => {
+export const NLTInfoRow = ({ label, value }: IProps) => {
     const { colors } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
 

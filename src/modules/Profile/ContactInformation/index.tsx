@@ -7,17 +7,17 @@ import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
 import { FlatList, ListRenderItem, View } from 'react-native';
-import { PersonalDataRow } from '../PersonalData/components/PersonalDataRow';
 import { useContactInformation } from './presenters/useContactInformation';
 import { getStyles } from './styles';
+import { NLTInfoRow } from '@/UIKit/NLTInfoRow';
 
 export const ContactInformationView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const { rows, isLoading, onPressEdit } = useContactInformation();
 
-    const renderItem: ListRenderItem<{ id: string; label: string; value: string | string[] }> = ({ item }) => {
-        return <PersonalDataRow label={t(item.label)} value={item.value} />;
+    const renderItem: ListRenderItem<{ id: string; label: string; value: string }> = ({ item }) => {
+        return <NLTInfoRow label={t(item.label)} value={item.value} />;
     };
 
     const keyExtractor = (item: { id: string }) => item.id;

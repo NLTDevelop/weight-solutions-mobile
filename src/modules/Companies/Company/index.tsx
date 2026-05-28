@@ -11,11 +11,12 @@ import { observer } from 'mobx-react';
 import { useMemo, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { CompanyUserCard } from './components/CompanyUserCard';
-import { InfoRow } from './components/InfoRow';
 import { useCompany } from './presenters/useCompany';
 import { ICompanyUserCard } from './types/ICompanyUserCard';
 import { getStyles } from './styles';
 import { UserIcon } from '@/assets/icons/UserIcon';
+import { NLTCard } from '@/UIKit/NLTCard';
+import { NLTInfoRow } from '@/UIKit/NLTInfoRow';
 
 type TRoute = {
     key: string;
@@ -40,18 +41,20 @@ export const CompanyView = observer(() => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.scrollContent}
             >
-                <View style={styles.card}>
+                <NLTCard>
                     <View style={styles.cardHeader}>
                         <CompanyIcon />
-                        <Text style={styles.cardTitle}>{company?.name || t('company.titleFallback')}</Text>
+                        <View style={styles.titleWrapper}>
+                            <Text style={styles.cardTitle}>{company?.name || t('company.titleFallback')}</Text>
+                        </View>
                     </View>
                     {infoRows.map((item, index) => (
                         <View key={item.id}>
                             {index > 0 ? <View style={styles.separator} /> : null}
-                            <InfoRow label={item.label} value={item.value} />
+                            <NLTInfoRow label={item.label} value={item.value} />
                         </View>
                     ))}
-                </View>
+                </NLTCard>
             </ScrollView>
             <View style={styles.footer}>
                 <NLTButton
@@ -123,13 +126,7 @@ export const CompanyView = observer(() => {
                     <NLTTabView
                         navigationState={{ index: tabIndex, routes }}
                         renderScene={renderScene}
-                        onIndexChange={setTabIndex}
-                        tabBarStyle={styles.tabBar}
-                        indicatorStyle={styles.tabIndicator}
-                        labelStyle={styles.tabLabel}
-                        activeColor={colors.text_strong}
-                        inactiveColor={colors.text_middle}
-                        sceneContainerStyle={styles.sceneContainer}
+                        onIndexChange={setTabIndex} 
                     />
                 </View>}
         </ScreenContainer>

@@ -6,19 +6,18 @@ import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { FlatList, ListRenderItem, TouchableOpacity, View } from 'react-native';
+import { FlatList, ListRenderItem, View } from 'react-native';
 import { CompanyCard } from './components/CompanyCard';
 import { useCompanies } from './presenters/useCompanies';
 import { ICompanyCardItem } from './presenters/useCompaniesUi';
 import { getStyles } from './styles';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { PlusIcon } from '@/assets/icons/PlusIcon';
-import { BellIcon } from '@/assets/icons/BellIcon';
 
 export const CompaniesView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { companyCards, isLoading, onPressCreateCompany, onRefresh, search, onChangeSearch, onEndReached, onNotificationPress } = useCompanies();
+    const { companyCards, isLoading, onPressCreateCompany, onRefresh, search, onChangeSearch, onEndReached } = useCompanies();
 
     const keyExtractor = (item: ICompanyCardItem) => String(item.id);
 
@@ -27,8 +26,7 @@ export const CompaniesView = observer(() => {
     };
 
     return (
-        <ScreenContainer edges={['top']} headerComponent={(<HeaderWithBackButton backDisabled title={t('companies.title')} 
-        rightComponent={( <TouchableOpacity onPress={onNotificationPress}><BellIcon/></TouchableOpacity>)} />)}>
+        <ScreenContainer edges={['top']} headerComponent={(<HeaderWithBackButton backDisabled title={t('companies.title')} />)}>
             <View style={styles.header}>
                 <NLTTextInput
                     value={search}

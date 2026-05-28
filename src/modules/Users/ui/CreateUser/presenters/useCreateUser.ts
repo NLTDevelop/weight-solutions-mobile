@@ -21,8 +21,8 @@ export const useCreateUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const companyId = useRoute<any>()?.params?.companyId || userModel.user?.company?.id || companyModel.company?.id;
 
-    const { nameErrorText, emailErrorText, passwordErrorText, descriptionErrorText, isSubmitDisabled }
-        = useCreateUserUi({ name, role, email, password, description, isSubmitted, isLoading, });
+    const { nameErrorText, emailErrorText, passwordErrorText, isSubmitDisabled }
+        = useCreateUserUi({ name, role, email, password, isSubmitted, isLoading, });
 
     const onChangeName = (value: string) => {
         setName(value);
@@ -87,7 +87,6 @@ export const useCreateUser = () => {
         nameErrorText,
         emailErrorText,
         passwordErrorText,
-        descriptionErrorText,
         isSubmitDisabled,
         onChangeName,
         onChangeRole,

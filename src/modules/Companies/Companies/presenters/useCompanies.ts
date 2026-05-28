@@ -20,10 +20,6 @@ export const useCompanies = () => {
         navigation.navigate('CompanyView', { companyId });
     };
 
-    const onNotificationPress = () => {
-        navigation.navigate('NotificationsView');
-    }
-
     const { companyCards } = useCompaniesUi({
         companies: companyModel.companies,
         onPressCompany,
@@ -78,6 +74,5 @@ export const useCompanies = () => {
         onRefresh: () => loadCompanies(0, search),
         search,
         onChangeSearch,
-        onNotificationPress,
     };
 };

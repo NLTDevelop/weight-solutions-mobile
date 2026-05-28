@@ -9,7 +9,7 @@ export const getStyles = (colors: IColors) => {
             justifyContent: 'center',
             alignItems: 'center',
             paddingHorizontal: scaleHorizontal(20),
-            backgroundColor: colors.background_dark + 'AA',
+            backgroundColor: colors.icon_strong + 'AA',
         },
         card: {
             width: '100%',
@@ -58,12 +58,6 @@ export const getStyles = (colors: IColors) => {
             minHeight: scaleVertical(48),
             borderRadius: scaleHorizontal(12),
             backgroundColor: colors.error,
-        },
-        confirmText: {
-            color: colors.text_inverted,
-            fontSize: scaleFontSize(15),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Bold',
         },
         cancelButton: {
             minHeight: scaleVertical(44),

@@ -46,9 +46,9 @@ export const getStyles = (colors: IColors) => {
         card: {
             padding: scaleHorizontal(12),
             borderRadius: scaleHorizontal(8),
-            backgroundColor: colors.card_middle,
+            backgroundColor: colors.card,
             borderColor: colors.border,
-            shadowColor: colors.shadow,
+            // shadowColor: colors.shadow,
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.08,
             shadowRadius: 4,
@@ -56,16 +56,17 @@ export const getStyles = (colors: IColors) => {
             gap: scaleVertical(8),
         },
         cardHeader: {
+            flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
             gap: scaleHorizontal(8),
             marginBottom: scaleVertical(8),
         },
         cardTitle: {
-            flex: 1,
             color: colors.text_strong,
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(19),
+            fontWeight: '600',
             fontFamily: 'Roboto-Bold',
         },
         separator: {
@@ -90,7 +91,7 @@ export const getStyles = (colors: IColors) => {
         usersList: {
             gap: scaleVertical(8),
             marginTop: scaleVertical(16),
-        }, 
+        },
         emptyState: {
             flex: 1,
             justifyContent: 'center',
@@ -121,6 +122,10 @@ export const getStyles = (colors: IColors) => {
             lineHeight: scaleLineHeight(18),
             fontFamily: 'Roboto-Regular',
             textAlign: 'center',
+        },
+        titleWrapper: {
+            flex: 1,
+            justifyContent: 'center',
         },
         footer: {
             paddingHorizontal: scaleHorizontal(16),

@@ -5,10 +5,10 @@ import { TextButton } from '@/UIKit/textButton';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
 import { FlatList, ListRenderItem, View } from 'react-native';
-import { PersonalDataRow } from './components/PersonalDataRow';
 import { usePersonalData } from './presenters/usePersonalData';
 import { getStyles } from './styles';
 import { NLTCard } from '@/UIKit/NLTCard';
+import { NLTInfoRow } from '@/UIKit/NLTInfoRow';
 
 export const PersonalDataView = observer(() => {
     const { colors, t } = useUiContext();
@@ -17,9 +17,9 @@ export const PersonalDataView = observer(() => {
 
     const keyExtractor = (item: { id: string }) => item.id;
 
-    const renderItem: ListRenderItem<{ id: string; label: string; value: string | string[] }> = ({ item }) => {
+    const renderItem: ListRenderItem<{ id: string; label: string; value: string }> = ({ item }) => {
         const value = typeof item.value === 'string' && item.value.startsWith('profile.roles.') ? t(item.value) : item.value;
-        return <PersonalDataRow label={t(item.label)} value={value} />;
+        return <NLTInfoRow label={item.label} value={value} />;
     };
 
     const ItemSeparatorComponent = () => {

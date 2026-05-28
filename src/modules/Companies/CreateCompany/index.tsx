@@ -143,9 +143,7 @@ export const CreateCompanyView = observer(() => {
                         text={t('companies.saveButton')}
                         onPress={onSubmit}
                         disabled={isSubmitDisabled}
-                        inProgress={isLoading}
-                        containerStyle={[styles.button, isSubmitDisabled && styles.buttonDisabled]}
-                        textStyle={[styles.buttonText, isSubmitDisabled && styles.buttonTextDisabled]}
+                        inProgress={isLoading} 
                     />
                 </View>
             </View>

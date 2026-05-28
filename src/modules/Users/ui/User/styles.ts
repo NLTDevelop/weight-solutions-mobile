@@ -19,18 +19,6 @@ export const getStyles = (colors: IColors) => {
             paddingTop: scaleVertical(16),
             paddingBottom: scaleVertical(24),
         },
-        card: {
-            padding: scaleHorizontal(12),
-            borderRadius: scaleHorizontal(8),
-            backgroundColor: colors.card_middle,
-            borderColor: colors.border,
-            shadowColor: colors.shadow,
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.08,
-            shadowRadius: 4,
-            elevation: 4,
-            gap: scaleVertical(8),
-        },
         cardHeader: {
             flexDirection: 'row',
             alignItems: 'center',
@@ -53,7 +41,7 @@ export const getStyles = (colors: IColors) => {
             fontFamily: 'Roboto-Bold',
         },
         separator: {
-            height: StyleSheet.hairlineWidth,
+            height: scaleVertical(1),
             backgroundColor: colors.border,
             marginVertical: scaleVertical(8),
         },

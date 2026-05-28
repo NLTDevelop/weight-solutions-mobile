@@ -6,19 +6,19 @@ export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
         container: {
             gap: scaleVertical(2),
-            paddingVertical: scaleVertical(8),
         },
         label: {
             color: colors.text_middle,
             fontSize: scaleFontSize(12),
-            lineHeight: scaleLineHeight(14),
+            lineHeight: scaleLineHeight(16),
             fontFamily: 'Roboto-Regular',
         },
         value: {
             color: colors.text_strong,
-            fontSize: scaleFontSize(15),
+            fontSize: scaleFontSize(14),
             lineHeight: scaleLineHeight(18),
-            fontFamily: 'Roboto-Regular',
+            fontWeight: '500',
+            fontFamily: 'Roboto-Medium',
         },
     });
 

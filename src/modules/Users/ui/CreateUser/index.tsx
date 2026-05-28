@@ -25,7 +25,6 @@ export const CreateUserView = observer(() => {
         nameErrorText,
         emailErrorText,
         passwordErrorText,
-        descriptionErrorText,
         isSubmitDisabled,
         onChangeName,
         onChangeRole,
@@ -115,8 +114,7 @@ export const CreateUserView = observer(() => {
                         placeholder={t('users.descriptionPlaceholder')}
                         value={description}
                         onChangeText={onChangeDescription}
-                        error={descriptionErrorText ? t(descriptionErrorText) : ''}
-                        isMandatory
+                        maxLength={500}
                         multiline
                         shape='rounded'
                     />
@@ -128,8 +126,6 @@ export const CreateUserView = observer(() => {
                     onPress={onSubmit}
                     disabled={isSubmitDisabled}
                     inProgress={isLoading}
-                    containerStyle={[styles.button, isSubmitDisabled && styles.buttonDisabled]}
-                    textStyle={[styles.buttonText, isSubmitDisabled && styles.buttonTextDisabled]}
                 />
             </View>
         </ScreenContainer>

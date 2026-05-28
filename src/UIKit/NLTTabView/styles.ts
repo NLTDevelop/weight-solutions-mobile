@@ -20,8 +20,7 @@ export const getStyle = (colors: IColors) => {
             minHeight: scaleVertical(32),
         },
         indicator: {
-            height: StyleSheet.hairlineWidth,
-            backgroundColor: colors.border,
+            backgroundColor: colors.primary,
         },
         sceneContainer: {
             flex: 1,

@@ -8,6 +8,7 @@ import { useUiContext } from '@/UIProvider';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
+import { Linking } from 'react-native';
 
 export const useProfile = () => {
     const { t } = useUiContext();
@@ -77,6 +78,10 @@ export const useProfile = () => {
         onLogout();
     };
 
+    const onGoToOnePlatform = () => {
+        Linking.openURL('https://oneplatform.club/uk')
+    }
+
     return {
         isExitModalVisible,
         isDeleteModalVisible,
@@ -91,5 +96,6 @@ export const useProfile = () => {
         onOpenLogoutModal,
         onToggleNotifications,
         onOpenDeleteModal,
+        onGoToOnePlatform,
     };
 };

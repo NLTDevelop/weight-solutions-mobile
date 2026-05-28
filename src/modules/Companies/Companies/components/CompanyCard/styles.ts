@@ -6,6 +6,7 @@ export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
         container: {
             marginBottom: scaleVertical(16),
+            backgroundColor: colors.card,
         },
         header: {
             flexDirection: 'row',
@@ -13,19 +14,14 @@ export const getStyles = (colors: IColors) => {
             gap: scaleHorizontal(8),
             marginBottom: scaleVertical(16),
         },
-        iconWrapper: {
-            width: scaleHorizontal(32),
-            height: scaleVertical(32),
-            borderRadius: scaleHorizontal(16),
-            alignItems: 'center',
+        titleWrapper: {
+            flex: 1,
             justifyContent: 'center',
-            backgroundColor: colors.primary,
         },
         title: {
-            flex: 1,
             color: colors.text_strong,
             fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(19),
+            lineHeight: scaleLineHeight(20),
             fontFamily: 'Roboto-Bold',
         },
         content: {
@@ -37,17 +33,18 @@ export const getStyles = (colors: IColors) => {
         label: {
             color: colors.text_middle,
             fontSize: scaleFontSize(12),
-            lineHeight: scaleLineHeight(14),
+            lineHeight: scaleLineHeight(16),
             fontFamily: 'Roboto-Regular',
         },
         value: {
             color: colors.text_strong,
             fontSize: scaleFontSize(14),
-            lineHeight: scaleLineHeight(17),
+            lineHeight: scaleLineHeight(18),
+            fontWeight: '500',
             fontFamily: 'Roboto-Medium',
         },
         separator: {
-            height: StyleSheet.hairlineWidth,
+            height: scaleVertical(1),
             backgroundColor: colors.border,
         },
     });

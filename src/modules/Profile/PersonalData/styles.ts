@@ -17,13 +17,6 @@ export const getStyles = (colors: IColors) => {
         card: {
             marginTop: scaleVertical(16),
             marginHorizontal: scaleHorizontal(16),
-            // paddingHorizontal: scaleHorizontal(12),
-            // paddingVertical: scaleVertical(12),
-            // borderRadius: scaleHorizontal(16),
-            // backgroundColor: colors.card,
-            // borderWidth: scaleHorizontal(1),
-            // borderColor: colors.border,
-            // gap: scaleVertical(12),
         },
         title: {
             color: colors.text_strong,
@@ -32,11 +25,12 @@ export const getStyles = (colors: IColors) => {
             fontFamily: 'Roboto-Regular',
         },
         listContent: {
-            gap: scaleVertical(8),
+
         },
         separator: {
             height: scaleVertical(1),
             backgroundColor: colors.border,
+            marginVertical: scaleVertical(8),
         },
         editButton: {
             minWidth: scaleHorizontal(74),
@@ -45,7 +39,7 @@ export const getStyles = (colors: IColors) => {
             alignItems: 'flex-end',
         },
         editButtonText: {
-            color: colors.text,
+            color: colors.text_strong,
             fontSize: scaleFontSize(12),
             lineHeight: scaleLineHeight(14),
             fontFamily: 'Roboto-Bold',

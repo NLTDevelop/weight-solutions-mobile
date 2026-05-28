@@ -8,7 +8,7 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(12),
             paddingVertical: scaleVertical(12),
             borderRadius: scaleHorizontal(8),
-            backgroundColor: colors.card_middle,
+            backgroundColor: colors.card,
             borderWidth: scaleHorizontal(1),
             borderColor: colors.border,
             shadowColor: '#000000',

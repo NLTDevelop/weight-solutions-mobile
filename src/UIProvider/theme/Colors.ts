@@ -1,9 +1,24 @@
 import { IColors } from './IColors';
 
-// TODO: цвета редактируются исключительно посогласованию
 export const COLORS: { dark: IColors } = {
     dark: {
+        // done
         background: '#EFF5FB',
+        card: '#F9F9F9',
+        border: '#E2E8F0',
+        primary: '#FAB500',
+
+        text_strong: '#1F2024',
+        text_middle: '#334155',
+        text_light: '#94A3B8',
+
+        icon_strong: '#1F2024',
+        icon_middle: '#94A3B8',
+
+        disabled: '#A1A3A5',
+
+        error: '#EF4444',
+        // done
 
         // background_light: '#A1A3A5',
         // background_strong: '#191F35',
@@ -17,9 +32,7 @@ export const COLORS: { dark: IColors } = {
         // notification: '#FCFCFC',
 
         white: '#FFFFFF',
-        primary: '#14181F',
         accent: '#FAB500',
-        border: '#E2E8F0',
         text_additional: '#94A3B8',
         text_secondary: '#334155',
         text_main: '#0F172A',
@@ -32,7 +45,7 @@ export const COLORS: { dark: IColors } = {
 
 
 
-       
+
 
         // error: '#EF4444',
         warning: '#F59E0B',

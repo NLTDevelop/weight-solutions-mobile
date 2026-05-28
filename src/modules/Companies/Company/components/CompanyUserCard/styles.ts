@@ -5,16 +5,7 @@ import { StyleSheet } from 'react-native';
 export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
         container: {
-            padding: scaleHorizontal(12),
-            borderRadius: scaleHorizontal(8),
-            backgroundColor: colors.card_middle,
-            shadowColor: colors.shadow,
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.08,
-            shadowRadius: 4,
-            elevation: 4,
             gap: scaleVertical(8),
-            marginBottom: scaleVertical(16),
         },
         headerRow: {
             flexDirection: 'row',
@@ -30,6 +21,7 @@ export const getStyles = (colors: IColors) => {
             color: colors.text_strong,
             fontSize: scaleFontSize(14),
             lineHeight: scaleLineHeight(17),
+            fontWeight: '600',
             fontFamily: 'Roboto-Bold',
         },
         subtitle: {

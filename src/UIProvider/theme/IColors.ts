@@ -2,14 +2,28 @@ export type TTheme = 'light' | 'dark';
 
 export type IColors = {
     background: string;
+    card: string;
+
+    text_strong: string;
+    text_middle: string;
+    text_light: string;
+
+    icon_strong: string;
+    icon_middle: string;
+
+    disabled: string;
+
+    error: string;
+
+
     white: string;
     primary: string;
     accent: string;
     border: string;
-    
+
     text_additional: string;
     text_secondary: string;
-    text_main:string;
+    text_main: string;
 
 
     semantic_success: string;

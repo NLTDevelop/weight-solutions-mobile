@@ -5,6 +5,7 @@ import { useUiContext } from '@/UIProvider';
 import { useMemo } from 'react';
 import { NLTCard } from '@/UIKit/NLTCard';
 import { CompanyIcon } from '@/assets/icons/CompanyIcon';
+import { NLTInfoRow } from '@/UIKit/NLTInfoRow';
 
 interface IProps {
     item: ICompanyCardItem;
@@ -17,26 +18,17 @@ export const CompanyCard = ({ item }: IProps) => {
     return (
         <NLTCard onPress={item.onPress} containerStyle={styles.container}>
             <View style={styles.header}>
-                <View style={styles.iconWrapper}>
-                    <CompanyIcon color={colors.icon_strong} />
+                <CompanyIcon color={colors.icon_strong} />
+                <View style={styles.titleWrapper}>
+                    <Text style={styles.title}>{item.title}</Text>
                 </View>
-                <Text style={styles.title}>{item.title}</Text>
             </View>
             <View style={styles.content}>
-                <View style={styles.infoSection}>
-                    <Text style={styles.label}>{item.addressLabel}</Text>
-                    <Text style={styles.value}>{item.addressValue}</Text>
-                </View>
+                <NLTInfoRow label={item.addressLabel} value={item.ownerValue} />
                 <View style={styles.separator} />
-                <View style={styles.infoSection}>
-                    <Text style={styles.label}>{item.ownerLabel}</Text>
-                    <Text style={styles.value}>{item.ownerValue}</Text>
-                </View>
+                <NLTInfoRow label={item.ownerLabel} value={item.addressValue} />
                 <View style={styles.separator} />
-                <View style={styles.infoSection}>
-                    <Text style={styles.label}>{item.phoneLabel}</Text>
-                    <Text style={styles.value}>{item.phoneValue}</Text>
-                </View>
+                <NLTInfoRow label={item.phoneLabel} value={item.phoneValue} />
             </View>
         </NLTCard>
     );

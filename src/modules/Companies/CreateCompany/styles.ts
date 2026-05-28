@@ -66,26 +66,7 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(8),
             paddingBottom: scaleVertical(8),
-        },
-        button: {
-            minHeight: scaleVertical(48),
-            borderRadius: scaleHorizontal(999),
-            backgroundColor: colors.primary,
-            shadowColor: '#000000',
-            shadowOpacity: 0.08,
-            shadowRadius: 4,
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            elevation: 4,
-        },
-        buttonText: {
-            fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Medium',
-            color: colors.icon_strong,
-        },
+        }, 
         buttonDisabled: {
             backgroundColor: '#A1A3A5',
             shadowOpacity: 0,

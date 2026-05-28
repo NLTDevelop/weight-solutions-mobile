@@ -31,7 +31,7 @@ export const NLTModal = ({ isVisible, title, description, confirmText, cancelTex
                         </TouchableOpacity>
                     </View>
                     <Typography variant='body_m' text={description} style={styles.description} />
-                    <NLTButton text={confirmText} onPress={onConfirm} containerStyle={isDestructive ? styles.destructiveConfirmButton : styles.confirmButton} textStyle={styles.confirmText} />
+                    <NLTButton text={confirmText} onPress={onConfirm} containerStyle={isDestructive ? styles.destructiveConfirmButton : styles.confirmButton} />
                     <NLTButton text={cancelText} onPress={onCancel} containerStyle={styles.cancelButton} textStyle={styles.cancelText} />
                 </View>
             </View>

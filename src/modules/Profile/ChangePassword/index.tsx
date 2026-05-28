@@ -102,8 +102,6 @@ export const ChangePasswordView = observer(() => {
                 onPress={onSubmit}
                 disabled={isSubmitDisabled}
                 inProgress={isLoading}
-                containerStyle={[styles.button, !isSubmitDisabled && styles.buttonEnabled]}
-                textStyle={{ color: isSubmitDisabled ? colors.text_inverted : colors.text }}
             />
         </ScreenContainer>
     );

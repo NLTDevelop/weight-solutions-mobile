@@ -4,7 +4,7 @@ export const useContactInformationUi = (contactInformation: IContactInformation 
     const phoneValues = [contactInformation?.phone, contactInformation?.phone2].filter(Boolean) as string[];
 
     const rows = [
-        { id: 'phone', label: 'profile.contactPhone', value: phoneValues.length ? phoneValues : ['-'], },
+        { id: 'phone', label: 'profile.contactPhone', value: phoneValues.length ? phoneValues?.join('\n') : '-', },
         { id: 'telegram', label: 'profile.contactTelegram', value: contactInformation?.telegram || '-' },
         { id: 'instagram', label: 'profile.contactInstagram', value: contactInformation?.instagram || '-' },
         { id: 'facebook', label: 'profile.contactFacebook', value: contactInformation?.facebook || '-' },

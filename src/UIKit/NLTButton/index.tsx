@@ -17,7 +17,7 @@ interface IProps {
 
 export const NLTButton: FC<IProps> = memo(({ text, onPress, disabled, RightAccessory, LeftAccessory, containerStyle, textStyle, inProgress }) => {
     const { colors } = useUiContext();
-    const styles = useMemo(() => getStyle(colors), [colors]);
+    const styles = useMemo(() => getStyle(colors, disabled), [colors, disabled]);
 
     return (
         <TouchableOpacity disabled={disabled} style={[styles.container, containerStyle]} onPress={onPress} >

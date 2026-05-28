@@ -17,15 +17,6 @@ export const getStyles = (colors: IColors) => {
         form: {
             marginTop: scaleVertical(16),
             gap: scaleVertical(8),
-        },
-        button: {
-            marginTop: 'auto',
-            borderRadius: scaleHorizontal(999),
-            marginBottom: scaleVertical(8),
-            backgroundColor: colors.background_light,
-        },
-        buttonEnabled: {
-            backgroundColor: colors.primary,
-        },
+        }, 
     });
 };

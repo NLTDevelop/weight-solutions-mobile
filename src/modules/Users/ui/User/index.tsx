@@ -11,6 +11,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { InfoRow } from './components/InfoRow';
 import { useUser } from './presenters/useUser';
 import { getStyles } from './styles';
+import { NLTCard } from '@/UIKit/NLTCard';
 
 export const UserView = observer(() => {
     const { colors, t } = useUiContext();
@@ -31,7 +32,7 @@ export const UserView = observer(() => {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={styles.scrollContent}
                     >
-                        <View style={styles.card}>
+                        <NLTCard>
                             <View style={styles.cardHeader}>
                                 <View style={styles.iconCircle}>
                                     <UserIcon width={20} height={20} color={colors.icon_strong} />
@@ -49,7 +50,7 @@ export const UserView = observer(() => {
                                     />
                                 </View>
                             ))}
-                        </View>
+                        </NLTCard>
                     </ScrollView>
                     <View style={styles.footer}>
                         <NLTButton

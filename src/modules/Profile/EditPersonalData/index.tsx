@@ -45,9 +45,7 @@ export const EditPersonalDataView = observer(() => {
                 text={t('common.save')}
                 onPress={onSubmit}
                 disabled={isSubmitDisabled}
-                inProgress={isLoading}
-                containerStyle={[styles.button, !isSubmitDisabled && styles.buttonEnabled]}
-                textStyle={{ color: isSubmitDisabled ? colors.text_inverted : colors.text }}
+                inProgress={isLoading} 
             />
         </ScreenContainer>
     );

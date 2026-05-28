@@ -27,6 +27,11 @@ export const useCompanyUi = ({ company, t, onPressUser, onPressEditUser }: IProp
             value: company?.contact || t('companies.ownerFallback'),
         },
         {
+            id: 'email',
+            label: t('companies.emailLabel'),
+            value: company?.email || t('companies.emailFallback'),
+        },
+        {
             id: 'phone',
             label: t('companies.phoneLabel'),
             value: company?.phone || t('companies.phoneFallback'),
