@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useState } from 'react';
 import { useWeighingUi } from './useWeighingUi';
 import { useUiContext } from '@/UIProvider';
+import { userModel } from '@/entities/User/UserModel';
 
 interface IRouteParams {
     orderId: number;
@@ -20,6 +21,7 @@ export const useWeighing = () => {
 
     const { sections, status, actionLabel } = useWeighingUi({
         order: orderModel.current,
+        user: userModel.user
     });
 
     const loadOrder = useCallback(async () => {

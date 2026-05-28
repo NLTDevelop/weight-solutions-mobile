@@ -5,7 +5,7 @@ export interface IWeighingCardItem {
     carNumber: string;
     netWeight: string;
     firstWeighingAt: string;
-    secondWeighingAt: string;
+    secondWeighingAt: string | null;
     status: 'active' | 'completed';
     actionLabel: string;
     onActionPress: () => void;
