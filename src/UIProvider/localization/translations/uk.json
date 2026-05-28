@@ -193,7 +193,9 @@
             "phoneRequired": "Вкажіть номер телефону водія",
             "carNumberRequired": "Вкажіть номер авто",
             "grossWeightRequired": "Вкажіть вагу брутто",
+            "grossWeightNumbersOnly": "Вага брутто має містити лише цифри",
             "tareWeightRequired": "Вкажіть вагу тари",
+            "tareWeightNumbersOnly": "Вага тари має містити лише цифри",
             "scalePointRequired": "Вкажіть пункт зважування",
             "movementTypeRequired": "Оберіть тип руху вантажу",
             "weightCountRequired": "Оберіть кількість зважувань"
@@ -204,7 +206,9 @@
         "created": "Зважування створено",
         "secondWeightFailed": "Не вдалося завершити зважування",
         "secondWeightSaved": "Зважування завершено",
-        "updateFailed": "Не вдалося оновити зважування"
+        "updateFailed": "Не вдалося оновити зважування",
+        "weightPoint": "Точка вагів",
+        "kg": "кг"
     },
     "products": {
         "title": "Продукція",

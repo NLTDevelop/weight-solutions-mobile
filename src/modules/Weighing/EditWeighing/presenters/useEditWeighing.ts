@@ -61,7 +61,7 @@ export const useEditWeighing = () => {
         setIsLoading(true);
 
         const response = await orderService.addItem(orderId, {
-            weight: (secondWeight as unknown as number) ?? 0,
+            weight: secondWeight.trim(),
             weight_type: 'gross',
         });
 

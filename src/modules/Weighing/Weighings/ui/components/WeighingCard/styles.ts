@@ -6,9 +6,16 @@ export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
         header: {
             flexDirection: 'row',
+              flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: scaleHorizontal(12),
+        },
+        weightNumber: {
+            flexDirection:'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            gap: scaleHorizontal(8),
         },
         content: {
             gap: scaleVertical(8),

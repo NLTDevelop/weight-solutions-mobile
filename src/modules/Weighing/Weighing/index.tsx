@@ -7,7 +7,7 @@ import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { Typography } from '@/UIKit/Typography';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { useWeighing } from './presenters/useWeighing';
 import { getStyles } from './styles';
 
@@ -24,7 +24,12 @@ export const WeighingView = observer(() => {
         >
             {isLoading
                 ? <Loader />
-                : <View style={styles.content}>
+                :  
+                    <View style={styles.content}>
+                        <ScrollView 
+                         bounces={false}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={styles.srcollContent}>
                     <View style={styles.card}>
                         <View style={styles.cardHeader}>
                             <View style={styles.titleRow}>
@@ -39,14 +44,14 @@ export const WeighingView = observer(() => {
                         </View>
                         {sections.map(section => (
                             <View key={section.id} style={styles.section}>
-                                <Typography variant='h5' text={t(section.title)} />
+                                <Typography variant='body_l_bold' text={t(section.title)} />
                                 <View style={styles.rows}>
                                     {section.rows.map((row, rowIndex) => {
                                         const value = row.value.startsWith('weighings.') ? t(row.value) : row.value;
                                         return (
                                             <View key={row.id}>
                                                 <View style={styles.row}>
-                                                    <Typography variant='body_xs' text={t(row.label)} style={styles.rowLabel} />
+                                                    <Typography variant='h5' text={t(row.label)} style={styles.rowLabel} />
                                                     <Typography variant='body_m' text={value} style={styles.rowValue} />
                                                 </View>
                                                 {rowIndex < section.rows.length - 1 ? <View style={styles.separator} /> : null}
@@ -57,6 +62,7 @@ export const WeighingView = observer(() => {
                             </View>
                         ))}
                     </View>
+                    </ScrollView>
                     <NLTButton text={t(actionLabel)} onPress={onPressEdit} LeftAccessory={<EditIcon color={colors.icon_strong} />} containerStyle={styles.button} />
                 </View>}
         </ScreenContainer>

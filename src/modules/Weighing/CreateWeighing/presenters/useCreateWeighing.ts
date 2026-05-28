@@ -85,7 +85,7 @@ export const useCreateWeighing = () => {
             is_guest: isGuest,
             comment: comment.trim() || undefined,
             item: {
-                weight: (firstWeight.trim() as unknown as number) ?? 0,
+                weight: firstWeight.trim(),
                 weight_type: 'tare',
             },
         });

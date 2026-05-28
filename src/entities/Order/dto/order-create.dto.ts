@@ -1,5 +1,5 @@
 export interface OrderWeightItemDto {
-    weight: number;
+    weight: string;
     weight_type: string;
 }
 

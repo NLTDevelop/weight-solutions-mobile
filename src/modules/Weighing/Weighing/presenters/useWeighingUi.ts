@@ -1,4 +1,5 @@
 import { IOrder } from '@/entities/Order/IOrder';
+import { IUser } from '@/entities/User/IUser';
 import { formatWeighingDateTime, getFirstWeighingItem, getNetWeightValue, getSecondWeighingItem, getWeighingActionTranslationKey, getWeighingStatus } from '@/modules/Weighing/utils/weight';
 
 interface ISectionRow {
@@ -15,11 +16,12 @@ interface ISection {
 
 interface IProps {
     order: IOrder | null;
+    user: IUser | null;
 }
 
 const withFallback = (value?: string | null) => value || '';
 
-export const useWeighingUi = ({ order }: IProps) => {
+export const useWeighingUi = ({ order, user }: IProps) => {
     const firstItem = getFirstWeighingItem(order);
     const secondItem = getSecondWeighingItem(order);
 
@@ -57,7 +59,9 @@ export const useWeighingUi = ({ order }: IProps) => {
     if(secondItem !== null){
         sections[1].rows.push({ id: 'firstNetWeight', label: 'weighings.netWeightLabel', value: getNetWeightValue(order) },);
     }
-
+    if(user !== null && user.role === 'admin'){
+        sections[0].rows.splice(2, 0, { id: 'weightPoint', label: 'weighings.weightPoint', value: order?.user?.name ?? ''});
+    }
 
     return {
         sections,
