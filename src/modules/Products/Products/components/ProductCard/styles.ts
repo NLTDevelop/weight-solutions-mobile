@@ -1,19 +1,9 @@
 import { IColors } from '@/UIProvider/theme/IColors';
-import { scaleFontSize, scaleHorizontal, scaleLineHeight, scaleVertical } from '@/utils';
+import { scaleFontSize, scaleLineHeight, scaleVertical } from '@/utils';
 import { StyleSheet } from 'react-native';
 
 export const getStyles = (colors: IColors) => {
     const styles = StyleSheet.create({
-        container: {
-            padding: scaleHorizontal(12),
-            borderRadius: scaleHorizontal(8),
-            backgroundColor: colors.card_middle,
-            shadowColor: colors.shadow,
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.08,
-            shadowRadius: 4,
-            elevation: 4,
-        },
         textWrapper: {
             gap: scaleVertical(4),
         },

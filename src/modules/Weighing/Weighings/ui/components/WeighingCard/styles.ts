@@ -46,7 +46,7 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(16),
         },
         actionText: {
-            color: colors.text,
+            color: colors.text_strong,
         },
     });
 

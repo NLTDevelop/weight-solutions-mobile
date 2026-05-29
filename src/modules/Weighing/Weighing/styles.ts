@@ -1,5 +1,5 @@
 import { IColors } from '@/UIProvider/theme/IColors';
-import { scaleHorizontal, scaleVertical } from '@/utils';
+import { scaleFontSize, scaleHorizontal, scaleLineHeight, scaleVertical } from '@/utils';
 import { StyleSheet } from 'react-native';
 
 export const getStyles = (colors: IColors) => {
@@ -12,11 +12,6 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(16),
             paddingBottom: scaleVertical(24),
-        },
-        card: {
-            borderRadius: scaleHorizontal(8),
-            backgroundColor: colors.card_middle,
-            padding: scaleHorizontal(12),
             gap: scaleVertical(16),
         },
         cardHeader: {
@@ -44,9 +39,6 @@ export const getStyles = (colors: IColors) => {
         },
         badge: {
             backgroundColor: '#E7F7F5',
-            borderRadius: scaleHorizontal(100),
-            paddingHorizontal: scaleHorizontal(8),
-            paddingVertical: scaleVertical(4),
         },
         badgeText: {
             color: '#00C8B3',
@@ -54,34 +46,20 @@ export const getStyles = (colors: IColors) => {
             fontFamily: 'Roboto-Bold',
         },
         section: {
-            gap: scaleVertical(16),
+            marginBottom: scaleVertical(8),
         },
-        rows: {
-            gap: scaleVertical(8),
-        },
-        row: {
-            gap: scaleVertical(2),
-        },
-        rowLabel: {
-            color: colors.text_middle,
-        },
-        rowValue: {
-            color: colors.text_strong,
+        titleSection: {
+            fontSize: scaleFontSize(16),
+            lineHeight: scaleLineHeight(20),
+            fontWeight: '500',
+            fontFamily: 'Inter-ExtraBold',
+            color: colors.text_main,
+            marginVertical: scaleVertical(16),
         },
         separator: {
             height: 1,
             backgroundColor: colors.border,
+            marginVertical: scaleVertical(8),
         },
-        button: {
-            position: 'absolute',
-            right: scaleHorizontal(16),
-            left: scaleHorizontal(16),
-            bottom: scaleVertical(8),
-            minHeight: scaleVertical(48),
-            marginTop: scaleVertical(8),
-        },
-        srcollContent: {
-            paddingBottom: scaleVertical(40),
-        }
     });
 };

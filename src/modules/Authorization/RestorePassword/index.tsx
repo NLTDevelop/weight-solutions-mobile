@@ -10,6 +10,7 @@ import { EmailStep } from './components/EmailStep';
 import { PasswordStep } from './components/PasswordStep';
 import { useRestorePassword } from './presenters/useRestorePassword';
 import { getStyles } from './styles';
+import { NLTButton } from '@/UIKit/NLTButton';
 
 const logo = require('@/assets/images/logo.png');
 
@@ -60,17 +61,11 @@ export const RestorePasswordView = observer(() => {
                             <PasswordStep {...passwordStepProps} styles={styles} />
                         ) : null}
 
-                        <TouchableOpacity
-                            style={[styles.actionButton, isActionDisabled && styles.actionButtonDisabled]}
+                        <NLTButton
                             onPress={onSubmit}
                             disabled={isActionDisabled}
-                        >
-                            <Typography
-                                variant='body_l_bold'
-                                text={t(buttonTextKey)}
-                                style={[styles.actionButtonText, isActionDisabled && styles.actionButtonTextDisabled]}
-                            />
-                        </TouchableOpacity>
+                            text={t(buttonTextKey)}
+                        />
                     </View>
                 </View>
             </View>

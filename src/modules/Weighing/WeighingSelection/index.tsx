@@ -17,7 +17,8 @@ export const WeighingSelectionView = observer(() => {
     const { onSelectGuest, onSelectOwn, role, onNotificationsPress } = useWeighingStart();
 
     return (
-        <ScreenContainer edges={['top']} headerComponent={<HeaderWithBackButton backDisabled title={t('weighings.title')} rightComponent={role !== null && role === 'admin' ? (<TouchableOpacity onPress={onNotificationsPress}><BellIcon/> </TouchableOpacity>) : null} />} >
+        <ScreenContainer edges={['top']} headerComponent={<HeaderWithBackButton backDisabled title={t('weighings.title')}
+            rightComponent={role === 'admin' ? (<TouchableOpacity onPress={onNotificationsPress}><BellIcon color={colors.icon_strong} /></TouchableOpacity>) : null} />} >
             <View style={styles.content}>
                 <PhoneBanner />
                 <NLTCard onPress={onSelectOwn} containerStyle={styles.marginTop} >

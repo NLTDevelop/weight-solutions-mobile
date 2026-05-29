@@ -2,9 +2,9 @@ import { useUiContext } from '@/UIProvider';
 import { contactInformationModel } from '@/entities/ContactInformation/ContactInformationModel';
 import { orderModel } from '@/entities/Order/OrderModel';
 import { orderService } from '@/entities/Order/OrderService';
-import {OrderListDtoStatusEnum } from '@/entities/Order/enums/OrderListDtoStatusEnum';
+import { OrderListDtoStatusEnum } from '@/entities/Order/enums/OrderListDtoStatusEnum';
 import { toastService } from '@/libs/toast/toastService';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useWeighingsUi } from './useWeighingsUi';
@@ -20,6 +20,12 @@ export const useWeighings = () => {
     const [status, setStatus] = useState<OrderListDtoStatusEnum>(OrderListDtoStatusEnum.ACTIVE);
     const searchRef = useRef(search);
     const statusRef = useRef(status);
+
+    useEffect(() => {
+        return () => {
+            orderModel.isGuest = null;
+        }
+    }, [])
 
     const onPressWeighing = (orderId: number) => {
         navigation.navigate('WeighingView', { orderId });
@@ -52,6 +58,7 @@ export const useWeighings = () => {
             limit: LIST_LIMIT,
             offset,
             status: statusValue,
+            is_guest: !!orderModel.isGuest,
             car_number: searchValue.trim() || undefined,
         });
 
@@ -71,12 +78,6 @@ export const useWeighings = () => {
             clearTimeout(timeoutId);
         };
     }, [loadOrders, search, status]);
-
-    useFocusEffect(
-        useCallback(() => {
-            loadOrders();
-        }, [loadOrders]),
-    );
 
     const onPressCreateWeighing = () => {
         navigation.navigate('CreateWeighingView', { isGuest: false });

@@ -20,7 +20,7 @@ export const getStyle = (colors: IColors, isOpen: boolean) => {
             backgroundColor: colors.card,
             borderRadius: scaleHorizontal(16),
             overflow: 'hidden',
-            shadowColor: colors.shadow,
+            shadowColor: '#000000',
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.08,
             shadowRadius: 4,
@@ -31,7 +31,7 @@ export const getStyle = (colors: IColors, isOpen: boolean) => {
             paddingHorizontal: scaleHorizontal(12),
         },
         dropdownSelectedItemContainer: {
-            backgroundColor: colors.card_middle,
+            backgroundColor: colors.card,
         },
         textStyle: {
             color: colors.text_strong,

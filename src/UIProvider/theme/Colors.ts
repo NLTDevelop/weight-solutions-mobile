@@ -11,6 +11,7 @@ export const COLORS: { dark: IColors } = {
         text_strong: '#1F2024',
         text_middle: '#334155',
         text_light: '#94A3B8',
+        text_inverted: '#F9F9F9',
 
         icon_strong: '#1F2024',
         icon_middle: '#94A3B8',

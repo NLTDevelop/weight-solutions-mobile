@@ -78,7 +78,7 @@ export const CreateProductView = observer(() => {
                 <Text style={styles.counterText}>{description.length}/250</Text>
             </View>
             <View style={styles.footer}>
-                <NLTButton text={t('common.save')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} containerStyle={[styles.button, isSubmitDisabled && styles.buttonDisabled]} textStyle={[styles.buttonText, isSubmitDisabled && styles.buttonTextDisabled]} />
+                <NLTButton text={t('common.save')} onPress={onSubmit} disabled={isSubmitDisabled} inProgress={isLoading} />
             </View>
         </ScreenContainer>
     );

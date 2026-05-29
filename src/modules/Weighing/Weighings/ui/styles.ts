@@ -13,6 +13,7 @@ export const getStyles = (colors: IColors) => {
             paddingTop: scaleVertical(16),
         },
         phoneContainerStyle: {
+            marginTop: scaleVertical(16),
             gap: scaleHorizontal(8),
             marginHorizontal: scaleHorizontal(16)
         },

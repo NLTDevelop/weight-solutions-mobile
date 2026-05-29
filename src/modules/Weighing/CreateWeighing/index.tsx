@@ -151,8 +151,6 @@ export const CreateWeighingView = observer(() => {
                     onPress={onSubmit}
                     disabled={isSubmitDisabled}
                     inProgress={isLoading}
-                    containerStyle={[styles.button, isSubmitDisabled && styles.buttonDisabled]}
-                    textStyle={styles.buttonText}
                 />
             </View>
         </ScreenContainer>

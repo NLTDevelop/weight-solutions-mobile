@@ -23,7 +23,7 @@ export const getStyles = (colors: IColors) => {
         },
         headerButtonText: {
             marginLeft: scaleHorizontal(4),
-            color: colors.text,
+            color: colors.text_strong,
             fontSize: scaleFontSize(12),
             lineHeight: scaleLineHeight(14.4),
             fontFamily: 'Roboto-Bold',
@@ -63,14 +63,14 @@ export const getStyles = (colors: IColors) => {
             alignItems: 'center',
         },
         fieldLabel: {
-            color: colors.text,
+            color: colors.text_strong,
             fontSize: scaleFontSize(12),
             lineHeight: scaleLineHeight(14.4),
             fontFamily: 'Roboto-Medium',
             fontWeight: '500',
         },
         fieldLabelError: {
-            color: colors.text_error,
+            color: colors.error,
         },
         mandatoryMark: {
             color: colors.primary,
@@ -87,7 +87,7 @@ export const getStyles = (colors: IColors) => {
         },
         fieldInputContainerError: {
             borderColor: colors.error,
-            backgroundColor: colors.card_secondary,
+            backgroundColor: colors.card,
         },
         fieldInput: {
             flex: 1,
@@ -100,7 +100,7 @@ export const getStyles = (colors: IColors) => {
             includeFontPadding: false,
         },
         fieldErrorText: {
-            color: colors.text_error,
+            color: colors.error,
             fontSize: scaleFontSize(10),
             lineHeight: scaleLineHeight(12),
             fontFamily: 'Roboto-Medium',
@@ -124,7 +124,7 @@ export const getStyles = (colors: IColors) => {
             backgroundColor: colors.card,
         },
         codeBoxActive: {
-            borderColor: colors.border_strong,
+            borderColor: colors.icon_middle,
         },
         codeBoxValue: {
             color: colors.text_strong,
@@ -152,8 +152,8 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(8),
             paddingVertical: scaleVertical(8),
             borderRadius: scaleHorizontal(8),
-            backgroundColor: colors.card_middle,
-            shadowColor: colors.shadow,
+            backgroundColor: colors.card,
+            shadowColor: colors.icon_strong,
             shadowOpacity: 0.08,
             shadowOffset: { width: 0, height: scaleVertical(2) },
             shadowRadius: scaleHorizontal(4),
@@ -180,7 +180,7 @@ export const getStyles = (colors: IColors) => {
             fontFamily: 'Roboto-Bold',
         },
         helperTitle: {
-            color: colors.text,
+            color: colors.text_strong,
             fontSize: scaleFontSize(14),
             lineHeight: scaleLineHeight(16.8),
             fontFamily: 'Roboto-Bold',
@@ -217,26 +217,11 @@ export const getStyles = (colors: IColors) => {
             justifyContent: 'center',
             paddingHorizontal: scaleHorizontal(20),
             backgroundColor: colors.primary,
-            shadowColor: colors.shadow,
+            shadowColor: colors.icon_strong,
             shadowOpacity: 0.08,
             shadowOffset: { width: 0, height: scaleVertical(2) },
             shadowRadius: scaleHorizontal(4),
             elevation: scaleVertical(2),
-        },
-        actionButtonDisabled: {
-            backgroundColor: colors.background_light,
-            shadowOpacity: 0,
-            elevation: 0,
-        },
-        actionButtonText: {
-            color: colors.text,
-            fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(19.2),
-            fontFamily: 'Roboto-Medium',
-            fontWeight: '500',
-        },
-        actionButtonTextDisabled: {
-            color: colors.text_inverted,
         },
     });
 

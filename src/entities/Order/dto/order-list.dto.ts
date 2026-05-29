@@ -3,6 +3,7 @@ import { OrderListDtoStatusEnum } from "../enums/OrderListDtoStatusEnum";
 export interface OrderListDto {
     limit: number;
     offset: number;
-    status?: OrderListDtoStatusEnum;
+    is_guest: boolean;
+    status: OrderListDtoStatusEnum;
     car_number?: string | null;
 }

@@ -7,6 +7,7 @@ export type IColors = {
     text_strong: string;
     text_middle: string;
     text_light: string;
+    text_inverted: string;
 
     icon_strong: string;
     icon_middle: string;
@@ -14,7 +15,6 @@ export type IColors = {
     disabled: string;
 
     error: string;
-
 
     white: string;
     primary: string;

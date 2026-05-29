@@ -3,15 +3,25 @@ import { IOrder } from './IOrder';
 import { IOrderMeta } from './IOrderMeta';
 
 export interface IOrderModel {
+    isGuest: boolean | null;
     orders: IOrder[];
     current: IOrder | null;
     meta: IOrderMeta | null;
 }
 
 class OrderModel implements IOrderModel {
+    private isGuestRepository = new MobXRepository<boolean | null>(null);
     private ordersRepository = new MobXRepository<IOrder[]>([]);
     private currentRepository = new MobXRepository<IOrder | null>(null);
     private metaRepository = new MobXRepository<IOrderMeta | null>(null);
+
+    public get isGuest() {
+        return this.isGuestRepository.data || null;
+    }
+
+    public set isGuest(orders: boolean | null) {
+        this.isGuestRepository.save(orders);
+    }
 
     public get orders() {
         return this.ordersRepository.data || [];
@@ -29,23 +39,23 @@ class OrderModel implements IOrderModel {
         this.currentRepository.save(order);
         var isFindElement: boolean = false;
         const newOrders: IOrder[] = this.orders.map<IOrder>((e) => {
-            if(order != null && e.id === order!.id){
+            if (order != null && e.id === order!.id) {
                 isFindElement = true;
                 return order!;
             } else {
                 return e;
             }
         })
-        if(isFindElement){
+        if (isFindElement) {
             this.orders = [
-            ...newOrders,
+                ...newOrders,
             ];
         } else {
-            if(order != null){
+            if (order != null) {
                 this.orders = [
-                order,
-                ...this.orders
-            ];
+                    order,
+                    ...this.orders
+                ];
             }
         }
     }
@@ -63,6 +73,7 @@ class OrderModel implements IOrderModel {
     }
 
     public clean() {
+        this.isGuest = null;
         this.meta = null;
         this.current = null;
         this.orders = [];

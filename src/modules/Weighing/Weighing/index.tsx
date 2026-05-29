@@ -1,5 +1,4 @@
 import { useUiContext } from '@/UIProvider';
-import { EditIcon } from '@/assets/icons/EditIcon';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { Loader } from '@/UIKit/Loader';
@@ -7,9 +6,13 @@ import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { Typography } from '@/UIKit/Typography';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useWeighing } from './presenters/useWeighing';
 import { getStyles } from './styles';
+import { NLTCard } from '@/UIKit/NLTCard';
+import { NLTInfoRow } from '@/UIKit/NLTInfoRow';
+import { WeightIcon } from '@/assets/icons/WeightsIcon';
+import { NLTLabel } from '@/UIKit/NLTLabel';
 
 export const WeighingView = observer(() => {
     const { colors, t } = useUiContext();
@@ -19,41 +22,31 @@ export const WeighingView = observer(() => {
     return (
         <ScreenContainer
             edges={['top']}
+            scrollEnabled
             contentContainerStyle={styles.container}
             headerComponent={<HeaderWithBackButton title={t('weighings.detailsTitle')} onPressBack={onPressBack} />}
         >
             {isLoading
                 ? <Loader />
-                :  
-                    <View style={styles.content}>
-                        <ScrollView 
-                         bounces={false}
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={styles.srcollContent}>
-                    <View style={styles.card}>
+                :
+                <View style={styles.content}>
+                    <NLTCard>
                         <View style={styles.cardHeader}>
                             <View style={styles.titleRow}>
-                                <View style={styles.iconCircle}>
-                                    <EditIcon width={20} height={20} color={colors.icon_strong} />
-                                </View>
+                                <WeightIcon color={colors.icon_strong} />
                                 <Typography variant='h5' text={`#${order?.id || ''}`} style={styles.title} />
                             </View>
-                            <View style={styles.badge}>
-                                <Text style={styles.badgeText}>{t(`weighings.statuses.${status}`)}</Text>
-                            </View>
+                            <NLTLabel value={t(`weighings.statuses.${status}`)} textStyle={styles.badgeText} containerStyle={styles.badge} />
                         </View>
                         {sections.map(section => (
                             <View key={section.id} style={styles.section}>
-                                <Typography variant='body_l_bold' text={t(section.title)} />
-                                <View style={styles.rows}>
+                                <Text style={styles.titleSection} >{t(section.title)}</Text>
+                                <View >
                                     {section.rows.map((row, rowIndex) => {
                                         const value = row.value.startsWith('weighings.') ? t(row.value) : row.value;
                                         return (
                                             <View key={row.id}>
-                                                <View style={styles.row}>
-                                                    <Typography variant='h5' text={t(row.label)} style={styles.rowLabel} />
-                                                    <Typography variant='body_m' text={value} style={styles.rowValue} />
-                                                </View>
+                                                <NLTInfoRow label={t(row.label)} value={value} />
                                                 {rowIndex < section.rows.length - 1 ? <View style={styles.separator} /> : null}
                                             </View>
                                         );
@@ -61,9 +54,8 @@ export const WeighingView = observer(() => {
                                 </View>
                             </View>
                         ))}
-                    </View>
-                    </ScrollView>
-                    <NLTButton text={t(actionLabel)} onPress={onPressEdit} LeftAccessory={<EditIcon color={colors.icon_strong} />} containerStyle={styles.button} />
+                    </NLTCard>
+                    <NLTButton text={t(actionLabel)} onPress={onPressEdit} />
                 </View>}
         </ScreenContainer>
     );
