@@ -15,7 +15,7 @@ export const SplashView = observer(() => {
     return (
         <View style={styles.container}>
             <StatusBar hidden />
-            <Animated.View entering={FadeIn.duration(800)} exiting={FadeOut} style={styles.content} >
+            <Animated.View entering={FadeIn.duration(500)} exiting={FadeOut} style={styles.content} >
                 <Image source={logo} style={styles.image} resizeMode="contain" />
             </Animated.View>
         </View>

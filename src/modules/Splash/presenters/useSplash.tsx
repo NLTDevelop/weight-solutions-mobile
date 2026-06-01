@@ -13,6 +13,6 @@ export const useSplash = () => {
             } else {
                 navigation.reset({ index: 0, routes: [{ name: 'AuthorizationView' }] });
             }
-        }, 1000);
+        }, 1300);
     }, [navigation]);
 };

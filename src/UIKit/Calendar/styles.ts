@@ -16,7 +16,7 @@ export const getStyle = (colors: IColors) => {
             backgroundColor: colors.background,
             borderRadius: 8,
             padding: scaleVertical(12),
-            height: scaleVertical(420),
+            height: scaleVertical(490),
         },
         calendar: {
             width: scaleHorizontal(291),

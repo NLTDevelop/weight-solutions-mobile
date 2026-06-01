@@ -7,7 +7,6 @@ import { useUiContext } from '@/UIProvider';
 export const usePersonalData = () => {
     const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
-    console.log('v ', userModel.user)
 
     const rows = [
         { id: 'name', label: t('profile.personalName'), value: userModel.user?.name || '-' },

@@ -22,8 +22,6 @@ export const WeighingCard = ({ item }: IProps) => {
     const netWeight = item.netWeight.startsWith('weighings.') ? t(item.netWeight) : `${item.netWeight} ${t('weighings.kg')}`;
     const actionLabel = t(item.actionLabel);
 
-    console.log(item.status)
-
     return (
         <NLTCard onPress={item.onPress}>
             <View style={styles.header}>

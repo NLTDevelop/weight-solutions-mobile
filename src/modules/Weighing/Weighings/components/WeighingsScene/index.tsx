@@ -43,7 +43,7 @@ export const WeighingsScene = observer(({ status }: IProps) => {
                 keyExtractor={(item) => String(item.id)}
                 onEndReached={onEndReached}
                 onRefresh={onRefresh}
-                refreshing={isLoading}
+                refreshing={false}
                 style={styles.list}
                 contentContainerStyle={styles.contentContainerStyle}
                 ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}

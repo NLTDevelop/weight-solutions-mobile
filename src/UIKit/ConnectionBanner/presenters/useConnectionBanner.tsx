@@ -55,7 +55,7 @@ export const useConnectionBanner = () => {
             return;
         }
 
-        if (state.isConnected === false) {
+        if (state.isConnected === false && state.type !== 'unknown') {
             setBanner(STATES.DISCONNECTED);
             lastStatus.current = 'DISCONNECTED';
             return;

@@ -28,6 +28,12 @@ export const getStyles = (colors: IColors) => {
             fontSize: scaleHorizontal(14),
             lineHeight: scaleVertical(20),
         },
+        userBlock: {
+            marginTop: scaleVertical(20),
+        },
+        dropdownContainer: {
+            marginTop: scaleVertical(8),
+        },
         rangeBlock: {
             marginTop: scaleVertical(20),
             padding: scaleHorizontal(16),

@@ -11,4 +11,5 @@ export interface IUser {
     description: string | null;
     company?: ICompany;
     contact?: IContactInformation | null;
+    token: string;
 }

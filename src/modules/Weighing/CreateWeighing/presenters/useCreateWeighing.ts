@@ -26,15 +26,28 @@ export const useCreateWeighing = () => {
     const isGuest = !!orderModel.isGuest;
 
     const loadProducts = useCallback(async () => {
-        const response = await productService.list({
-            limit: PRODUCT_LIMIT,
-            offset: 0,
-            status: 'active',
-        });
+        const loadProductsPage = async (offset: number): Promise<boolean> => {
+            const response = await productService.list({
+                limit: PRODUCT_LIMIT,
+                offset,
+                status: 'active',
+            });
 
-        if (response.isError) {
-            toastService.showError(t('products.listLoadingFailed'), response.message || t('profile.tryAgainPlease'));
-        }
+            if (response.isError || !response.data) {
+                toastService.showError(t('products.listLoadingFailed'), response.message || t('profile.tryAgainPlease'));
+                return false;
+            }
+
+            const nextOffset = offset + response.data.data.length;
+
+            if (nextOffset >= response.data.meta.total || response.data.data.length === 0) {
+                return true;
+            }
+
+            return loadProductsPage(nextOffset);
+        };
+
+        await loadProductsPage(0);
     }, [t]);
 
     useEffect(() => {

@@ -1,5 +1,6 @@
 import { useUiContext } from '@/UIProvider';
 import { CalendarModal } from '@/UIKit/Calendar';
+import { Dropdown } from '@/UIKit/Dropdown';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { NLTCard } from '@/UIKit/NLTCard';
@@ -25,6 +26,8 @@ export const ReportsView = observer(() => {
     const {
         range,
         selectedRange,
+        selectedUserId,
+        userItems,
         onDayPress,
         showCalendar,
         onChangeCalendarVisibility,
@@ -32,6 +35,7 @@ export const ReportsView = observer(() => {
         markedDates,
         onGetWeightReport,
         isLoading,
+        onSelectUser,
         onPressBack,
     } = useReports();
 
@@ -45,6 +49,17 @@ export const ReportsView = observer(() => {
                 <NLTCard >
                     <Text style={styles.cardTitle}>{t('reports.rangeTitle')}</Text>
                     <Text style={styles.cardDescription}>{t('reports.rangeDescription')}</Text>
+                    <View style={styles.userBlock}>
+                        <Text style={styles.rangeLabel}>{t('reports.userLabel')}</Text>
+                        <View style={styles.dropdownContainer}>
+                            <Dropdown
+                                value={selectedUserId ?? 0}
+                                items={userItems}
+                                placeholder={t('reports.userPlaceholder')}
+                                setValue={(item) => onSelectUser(item.value as number)}
+                            />
+                        </View>
+                    </View>
                     <View style={styles.rangeBlock}>
                         <Text style={styles.rangeLabel}>{t('reports.selectedRangeLabel')}</Text>
                         <Text style={styles.rangeValue}>{formatRange(selectedRange.startDate, selectedRange.endDate, t('reports.rangePlaceholder'))}</Text>
