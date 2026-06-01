@@ -16,6 +16,7 @@ export interface ILinks {
     userContact: string;
     userContactSave: string;
     notification: string;
+    reportWeight: string;
 }
 
 class Links {
@@ -34,6 +35,7 @@ class Links {
         userContact: `${this._domain}/user/contact`,
         userContactSave: `${this._domain}/user/contact/save`,
         notification: `${this._domain}/notification`,
+        reportWeight: `${this._domain}/export/orders`,
     };
 
     public get me() { return this._links.me; }
@@ -53,7 +55,7 @@ class Links {
     public get userContact() { return this._links.userContact; }
     public get userContactSave() { return this._links.userContactSave; }
     public get notification() { return this._links.notification; }
-
+    public get reportWeight() { return this._links.reportWeight; }
 }
 
 export const links = new Links();

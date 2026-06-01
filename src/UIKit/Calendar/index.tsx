@@ -32,11 +32,11 @@ export const CalendarModal: FC<IProps> = memo(({ visible, onDayPress, onBackdrop
                     style={styles.calendar}
                     theme={{
                         calendarBackground: colors.background,
-                        textSectionTitleColor: colors.text,
+                        textSectionTitleColor: colors.text_strong,
                         selectedDayBackgroundColor: colors.primary,
-                        selectedDayTextColor: colors.text,
+                        selectedDayTextColor: colors.text_strong,
                         todayTextColor: colors.primary,
-                        dayTextColor: colors.text,
+                        dayTextColor: colors.text_strong,
                         dotColor: colors.primary,
                         selectedDotColor: colors.primary,
                         arrowColor: colors.primary,
