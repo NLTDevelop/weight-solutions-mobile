@@ -9,6 +9,9 @@ import { Text, View } from 'react-native';
 import { useEditWeighing } from './presenters/useEditWeighing';
 import { getStyles } from './styles';
 import { formatWeighingDateTime } from '../utils/weight';
+import { NLTInfoRow } from '@/UIKit/NLTInfoRow';
+import { NLTCard } from '@/UIKit/NLTCard';
+import { NLTSeparator } from '@/UIKit/NLTSeparator';
 
 export const EditWeighingView = observer(() => {
     const { colors, t } = useUiContext();
@@ -41,18 +44,32 @@ export const EditWeighingView = observer(() => {
             headerComponent={<HeaderWithBackButton title={t('weighings.editTitle')} onPressBack={onPressBack} />}
         >
             <View style={styles.content}>
-                <Text style={styles.sectionTitle}>{t('weighings.baseInfoTitle')}</Text>
-                <NLTTextInput label={t('weighings.recordNumberLabel')} value={recordNumber} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTCard>
+                    <Text style={styles.sectionTitle}>{t('weighings.baseInfoTitle')}</Text>
+                    <NLTInfoRow label={t('weighings.recordNumberLabel')} value={recordNumber} />
+                    <NLTSeparator />
+                    <NLTInfoRow label={t('weighings.phoneLabel')} value={carPhone} />
+                    <NLTSeparator />
+                    <NLTInfoRow label={t('weighings.carNumberLabel')} value={carNumber} />
+                    <NLTSeparator />
+                    <NLTInfoRow label={t('weighings.cargoTypeLabel')} value={productName} />
+                    <NLTSeparator />
+                    <NLTInfoRow label={t('weighings.movementTypeLabel')} value={movementType ? t(`weighings.movementTypes.${movementType}`) : ''} />
+                    <NLTSeparator />
+                    <NLTInfoRow label={t('weighings.weightCountLabel')} value={String(weightCount || '')} />
+                    {/* <NLTTextInput label={t('weighings.recordNumberLabel')} value={recordNumber} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
                 <NLTTextInput label={t('weighings.phoneLabel')} value={carPhone} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
                 <NLTTextInput label={t('weighings.carNumberLabel')} value={carNumber} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
                 <NLTTextInput label={t('weighings.cargoTypeLabel')} value={productName} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
                 <NLTTextInput label={t('weighings.movementTypeLabel')} value={movementType ? t(`weighings.movementTypes.${movementType}`) : ''} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
-                <NLTTextInput label={t('weighings.weightCountLabel')} value={String(weightCount || '')} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTTextInput label={t('weighings.weightCountLabel')} value={String(weightCount || '')} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} /> */}
 
-                <Text style={styles.sectionTitle}>{t('weighings.firstWeighingSectionTitle')}</Text>
-                <NLTTextInput label={t('weighings.firstWeightDateTimeLabel')} value={formatWeighingDateTime(firstWeightDateTime)} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
-                <NLTTextInput label={t('weighings.tareWeightLabel')} value={firstWeight} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
-
+                    <Text style={styles.sectionTitle}>{t('weighings.firstWeighingSectionTitle')}</Text>
+                    <NLTInfoRow label={t('weighings.firstWeightDateTimeLabel')} value={formatWeighingDateTime(firstWeightDateTime)} />
+                    <NLTInfoRow label={t('weighings.tareWeightLabel')} value={firstWeight} />
+                    {/* <NLTTextInput label={t('weighings.firstWeightDateTimeLabel')} value={formatWeighingDateTime(firstWeightDateTime)} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <NLTTextInput label={t('weighings.tareWeightLabel')} value={firstWeight} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} /> */}
+                </NLTCard>
                 <Text style={styles.sectionTitle}>{t('weighings.secondWeighingSectionTitle')}</Text>
                 <NLTTextInput label={t('weighings.secondWeightDateTimeLabel')} value={formatWeighingDateTime(secondWeightDateTime)} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
                 <NLTTextInput

@@ -18,7 +18,7 @@ interface IProps {
 export const useWeighingsScene = ({ status }: IProps) => {
     const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [search, setSearch] = useState('');
     const searchRef = useRef(search);
 

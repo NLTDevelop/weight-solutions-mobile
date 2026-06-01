@@ -1,6 +1,6 @@
 import { IOrder } from '@/entities/Order/IOrder';
 import { IUser } from '@/entities/User/IUser';
-import { formatWeighingDateTime, getFirstWeighingItem, getIntermediateWeighingItems, getNetWeightValue, getSecondWeighingItem, getWeighingActionTranslationKey, getWeighingStatus } from '@/modules/Weighing/utils/weight';
+import { formatWeighingDateTime, getFirstWeighingItem, getIntermediateWeighingItems, getNetWeightValue, getSecondWeighingItem, getWeighingActionTranslationKey, getWeighingDisplayStatus } from '@/modules/Weighing/utils/weight';
 
 interface ISectionRow {
     id: string;
@@ -37,7 +37,6 @@ export const useWeighingUi = ({ order, user }: IProps) => {
                 { id: 'carNumber', label: 'weighings.carNumberLabel', value: withFallback(order?.car_number) },
                 { id: 'movementType', label: 'weighings.movementTypeLabel', value: order?.type ? `weighings.movementTypes.${order.type}` : 'weighings.fallbacks.unavailable' },
                 { id: 'netWeight', label: 'weighings.netWeightLabel', value: getNetWeightValue(order) },
-                { id: 'comment', label: 'weighings.commentLabel', value: withFallback(order?.comment) },
             ],
         },
         {
@@ -48,7 +47,14 @@ export const useWeighingUi = ({ order, user }: IProps) => {
                 { id: 'firstWeight', label: 'weighings.tareWeightLabel', value: withFallback(firstItem?.weight) },
             ],
         },
-        {
+    ];
+
+    if (order?.comment) {
+        sections[0].rows.push({ id: 'comment', label: 'weighings.commentLabel', value: withFallback(order?.comment) });
+    }
+
+    if (secondItem) {
+        sections.push({
             id: 'second',
             title: 'weighings.secondWeighingSectionTitle',
             rows: [
@@ -63,8 +69,8 @@ export const useWeighingUi = ({ order, user }: IProps) => {
                     value: secondItem ? withFallback(secondItem.weight) : 'weighings.fallbacks.notPerformed',
                 },
             ],
-        },
-    ];
+        })
+    }
 
     if (hasIntermediateItems) {
         sections.push({
@@ -94,7 +100,7 @@ export const useWeighingUi = ({ order, user }: IProps) => {
 
     return {
         sections,
-        status: getWeighingStatus(order),
+        status: getWeighingDisplayStatus(order),
         actionLabel: getWeighingActionTranslationKey(order),
     };
 };

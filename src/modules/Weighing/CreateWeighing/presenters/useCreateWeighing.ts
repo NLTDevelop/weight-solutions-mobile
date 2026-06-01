@@ -2,18 +2,18 @@ import { orderService } from '@/entities/Order/OrderService';
 import { productModel } from '@/entities/Product/ProductModel';
 import { productService } from '@/entities/Product/ProductService';
 import { toastService } from '@/libs/toast/toastService';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useCreateWeighingUi } from './useCreateWeighingUi';
 import { useUiContext } from '@/UIProvider';
+import { orderModel } from '@/entities/Order/OrderModel';
 
 const PRODUCT_LIMIT = 100;
 
 export const useCreateWeighing = () => {
     const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
-    const route = useRoute<any>();
     const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
     const [carPhone, setCarPhone] = useState('');
     const [carNumber, setCarNumber] = useState('');
@@ -23,7 +23,7 @@ export const useCreateWeighing = () => {
     const [comment, setComment] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const isGuest = Boolean(route.params?.isGuest);
+    const isGuest = !!orderModel.isGuest;
 
     const loadProducts = useCallback(async () => {
         const response = await productService.list({
@@ -97,7 +97,10 @@ export const useCreateWeighing = () => {
             return;
         }
 
-        toastService.showSuccess(t('weighings.created'), `#${response.data.data.id}`);
+        toastService.showSuccess(
+            response.type === 'OFFLINE_QUEUED' ? t('weighings.createdOffline') : t('weighings.created'),
+            `#${Math.abs(response.data.data.id)}`
+        );
         navigation.replace('WeighingView', { orderId: response.data.data.id });
     };
 

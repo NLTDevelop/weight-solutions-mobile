@@ -18,14 +18,16 @@ export const useWeighing = () => {
     const route = useRoute();
     const { orderId } = route.params as IRouteParams;
     const [isLoading, setIsLoading] = useState(false);
+    const currentOrder = orderModel.getById(orderId);
 
     const { sections, status, actionLabel } = useWeighingUi({
-        order: orderModel.current,
+        order: currentOrder,
         user: userModel.user
     });
 
     const loadOrder = useCallback(async () => {
         setIsLoading(true);
+        await orderService.syncPendingOrders();
 
         const response = await orderService.details(orderId);
 
@@ -45,11 +47,11 @@ export const useWeighing = () => {
     };
 
     const onPressEdit = () => {
-        navigation.navigate('EditWeighingView', { orderId });
+        navigation.navigate('EditWeighingView', { orderId: currentOrder?.id ?? orderId });
     };
 
     return {
-        order: orderModel.current,
+        order: currentOrder,
         sections,
         status,
         actionLabel,

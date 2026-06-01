@@ -34,7 +34,7 @@ export const WeighingView = observer(() => {
                         <View style={styles.cardHeader}>
                             <View style={styles.titleRow}>
                                 <WeightIcon color={colors.icon_strong} />
-                                <Typography variant='h5' text={`#${order?.id || ''}`} style={styles.title} />
+                                <Typography variant='h2' text={`#${order?.id || ''}`} style={styles.title} />
                             </View>
                             <NLTLabel value={t(`weighings.statuses.${status}`)} textStyle={styles.badgeText} containerStyle={styles.badge} />
                         </View>

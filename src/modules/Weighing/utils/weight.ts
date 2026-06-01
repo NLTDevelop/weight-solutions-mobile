@@ -70,6 +70,14 @@ export const getWeighingStatus = (order: IOrder | null) => {
     return 'active' as const;
 };
 
+export const getWeighingDisplayStatus = (order: IOrder | null) => {
+    if (order?.isSyncedWithServer === false) {
+        return 'not_synchronized' as const;
+    }
+
+    return getWeighingStatus(order);
+};
+
 export const canAddSecondWeighing = (order: IOrder | null) => {
     if (!order) {
         return false;

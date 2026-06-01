@@ -21,7 +21,7 @@ export const useEditWeighing = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [secondWeight, setSecondWeight] = useState('');
 
-    const currentOrder = orderModel.current?.id === orderId ? orderModel.current : null;
+    const currentOrder = orderModel.getById(orderId);
 
     useEffect(() => {
         if (currentOrder) {
@@ -30,6 +30,7 @@ export const useEditWeighing = () => {
 
         const loadOrder = async () => {
             setIsLoading(true);
+            await orderService.syncPendingOrders();
 
             const response = await orderService.details(orderId);
 
@@ -43,7 +44,8 @@ export const useEditWeighing = () => {
         loadOrder();
     }, [currentOrder, orderId, t]);
 
-    const order = orderModel.current?.id === orderId ? orderModel.current : currentOrder;
+    const order = orderModel.getById(orderId) || currentOrder;
+    const resolvedOrderId = order?.id ?? orderId;
     const firstItem = getFirstWeighingItem(order);
     const { secondWeightErrorText, isSubmitDisabled } = useEditWeighingUi({
         secondWeight,
@@ -60,7 +62,7 @@ export const useEditWeighing = () => {
 
         setIsLoading(true);
 
-        const response = await orderService.addItem(orderId, {
+        const response = await orderService.addItem(resolvedOrderId, {
             weight: secondWeight.trim(),
             weight_type: 'gross',
         });
@@ -72,8 +74,11 @@ export const useEditWeighing = () => {
             return;
         }
 
-        toastService.showSuccess(t('weighings.secondWeightSaved'), `#${response.data.data.id}`);
-        navigation.replace('WeighingView', { orderId });
+        toastService.showSuccess(
+            response.type === 'OFFLINE_QUEUED' ? t('weighings.secondWeightSavedOffline') : t('weighings.secondWeightSaved'),
+            `#${Math.abs(response.data.data.id)}`
+        );
+        navigation.replace('WeighingView', { orderId: resolvedOrderId });
     };
 
     return {

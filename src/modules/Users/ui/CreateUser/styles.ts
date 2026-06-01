@@ -39,6 +39,7 @@ export const getStyles = (colors: IColors) => {
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(19),
             fontFamily: 'Roboto-Bold',
+            fontWeight: '700',
         },
         inputContainer: {
             marginBottom: 0,
@@ -96,7 +97,7 @@ export const getStyles = (colors: IColors) => {
         },
         errorText: {
             marginTop: scaleVertical(4),
-            color: colors.text_error,
+            color: colors.error,
             fontSize: scaleFontSize(12),
             lineHeight: scaleLineHeight(14),
             fontFamily: 'Roboto-Regular',
@@ -106,22 +107,7 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(8),
             paddingBottom: scaleVertical(8),
-        },
-        button: {
-            width: '100%',
-            minHeight: scaleVertical(48),
-        },
-        buttonDisabled: {
-            backgroundColor: colors.background_light,
-        },
-        buttonText: {
-            fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Medium',
-        },
-        buttonTextDisabled: {
-            color: colors.text_inverted,
-        },
+        }, 
     });
 
     return styles;

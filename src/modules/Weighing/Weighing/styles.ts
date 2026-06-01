@@ -51,7 +51,7 @@ export const getStyles = (colors: IColors) => {
         titleSection: {
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(20),
-            fontWeight: '500',
+            fontWeight: '700',
             fontFamily: 'Inter-ExtraBold',
             color: colors.text_main,
             marginVertical: scaleVertical(16),

@@ -18,6 +18,8 @@ const getOrderListStatus = (order: IOrder | null) => {
         : OrderListDtoStatusEnum.ARCHIVE;
 };
 
+const matchesOrderId = (order: IOrder, orderId: number) => order.id === orderId || order.localId === orderId;
+
 class OrderModel implements IOrderModel {
     private isGuestRepository = new MobXRepository<boolean | null>(null);
     private ordersActiveRepository = new MobXRepository<IOrder[]>([], 'ordersActive');
@@ -27,11 +29,11 @@ class OrderModel implements IOrderModel {
     private metaArchivedRepository = new MobXRepository<IOrderMeta | null>(null, 'metaArchived');
 
     public get isGuest() {
-        return this.isGuestRepository.data || null;
+        return this.isGuestRepository.data || false;
     }
 
-    public set isGuest(orders: boolean | null) {
-        this.isGuestRepository.save(orders);
+    public set isGuest(isGuest: boolean | null) {
+        this.isGuestRepository.save(isGuest);
     }
 
     public get ordersActive() {
@@ -75,6 +77,14 @@ class OrderModel implements IOrderModel {
         this.ordersArchived = nextOrders;
     }
 
+    public getById(orderId: number) {
+        if (this.current && matchesOrderId(this.current, orderId)) {
+            return this.current;
+        }
+
+        return [...this.ordersActive, ...this.ordersArchived].find(order => matchesOrderId(order, orderId)) || null;
+    }
+
     public get metaActive() {
         return this.metaActiveRepository.data;
     }
@@ -116,6 +126,15 @@ class OrderModel implements IOrderModel {
         }
 
         this.ordersArchived = orders;
+    }
+
+    public remove(orderId: number) {
+        this.ordersActive = this.ordersActive.filter(order => !matchesOrderId(order, orderId));
+        this.ordersArchived = this.ordersArchived.filter(order => !matchesOrderId(order, orderId));
+
+        if (this.current && matchesOrderId(this.current, orderId)) {
+            this.current = null;
+        }
     }
 
     public clean() {

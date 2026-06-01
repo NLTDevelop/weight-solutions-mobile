@@ -21,6 +21,7 @@ export const getStyles = (colors: IColors) => {
             color: colors.text_strong,
             fontSize: scaleFontSize(16),
             lineHeight: scaleLineHeight(19),
+            fontWeight: '700',
             fontFamily: 'Roboto-Bold',
             marginTop: scaleVertical(8),
         },
@@ -29,18 +30,6 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(8),
             paddingBottom: scaleVertical(8),
-        },
-        button: {
-            minHeight: scaleVertical(48),
-            width: '100%',
-        },
-        buttonDisabled: {
-            backgroundColor: colors.background_light,
-        },
-        buttonText: {
-            fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Medium',
-        },
+        }, 
     });
 };

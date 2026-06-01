@@ -5,7 +5,9 @@ export interface IOrderToSyncModel {
     ordersToSync: IOrder[];
     addOrdersToSync(order: IOrder): void;
     updateOrdersToSync(order: IOrder): void;
-    removeOrdersToSync(orderId: string): void;
+    upsertOrderToSync(order: IOrder): void;
+    getOrderToSync(orderId: number): IOrder | null;
+    removeOrdersToSync(orderId: number): void;
 }
 
 
@@ -21,18 +23,36 @@ class OrderToSyncModel implements IOrderToSyncModel {
     }
 
     public addOrdersToSync(order: IOrder) {
-        return this.ordersToSync.push(order);
+        this.ordersToSync = [...this.ordersToSync, order];
     }
 
     public updateOrdersToSync(order: IOrder) {
-        const index = this.ordersToSync.findIndex((o) => o.id === order.id);
-        if (index !== -1) {
-            this.ordersToSync[index] = order;
-        }
+        this.ordersToSync = this.ordersToSync.map((currentOrder) => {
+            if (currentOrder.id === order.id || currentOrder.localId === order.id) {
+                return order;
+            }
+
+            return currentOrder;
+        });
     }
 
-    public removeOrdersToSync(orderId: number | string) {
-        this.ordersToSync = this.ordersToSync.filter((o) => o.id !== orderId);
+    public upsertOrderToSync(order: IOrder) {
+        const currentOrder = this.getOrderToSync(order.id);
+
+        if (currentOrder) {
+            this.updateOrdersToSync(order);
+            return;
+        }
+
+        this.addOrdersToSync(order);
+    }
+
+    public getOrderToSync(orderId: number) {
+        return this.ordersToSync.find((order) => order.id === orderId || order.localId === orderId) || null;
+    }
+
+    public removeOrdersToSync(orderId: number) {
+        this.ordersToSync = this.ordersToSync.filter((order) => order.id !== orderId && order.localId !== orderId);
     }
 
 }

@@ -1,6 +1,7 @@
 import { IOrder } from '@/entities/Order/IOrder';
+import { orderModel } from '@/entities/Order/OrderModel';
 import { IWeighingCardItem } from '@/modules/Weighing/types/IWeighingCardItem';
-import { formatWeighingDateTime, getFirstWeighingItem, getNetWeightValue, getSecondWeighingItem, getWeighingActionTranslationKey, getWeighingStatus } from '@/modules/Weighing/utils/weight';
+import { formatWeighingDateTime, getFirstWeighingItem, getNetWeightValue, getSecondWeighingItem, getWeighingActionTranslationKey, getWeighingDisplayStatus } from '@/modules/Weighing/utils/weight';
 
 interface IProps {
     orders: IOrder[];
@@ -9,7 +10,10 @@ interface IProps {
 }
 
 export const useWeighingsUi = ({ orders, onPressWeighing, onPressWeighingAction }: IProps) => {
+    const isGuest = orderModel.isGuest;
+
     const weighingCards: IWeighingCardItem[] = orders
+        .filter((order) => isGuest === order.is_guest)
         .map((order) => {
             const secondWeightCreatedAt = getSecondWeighingItem(order)?.created_at;
             return {
@@ -19,8 +23,8 @@ export const useWeighingsUi = ({ orders, onPressWeighing, onPressWeighingAction 
                 carNumber: order.car_number,
                 netWeight: getNetWeightValue(order),
                 firstWeighingAt: formatWeighingDateTime(getFirstWeighingItem(order)?.created_at),
-                secondWeighingAt: (secondWeightCreatedAt === null || secondWeightCreatedAt === undefined ? null : secondWeightCreatedAt),
-                status: getWeighingStatus(order),
+                secondWeighingAt: (secondWeightCreatedAt === null || secondWeightCreatedAt === undefined ? null : formatWeighingDateTime(secondWeightCreatedAt)),
+                status: getWeighingDisplayStatus(order),
                 actionLabel: getWeighingActionTranslationKey(order),
                 onActionPress: () => onPressWeighingAction(order.id),
                 onPress: () => onPressWeighing(order.id)

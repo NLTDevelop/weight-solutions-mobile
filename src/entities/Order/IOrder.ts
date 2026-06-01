@@ -11,6 +11,7 @@ export interface IOrderItem {
 
 export interface IOrder {
     id: number;
+    localId?: number | null;
     car_phone?: string | null;
     car_number: string;
     created_at: string;
@@ -24,4 +25,7 @@ export interface IOrder {
     status?: string | null;
     comment?: string | null;
     updated_at?: string | null;
+    isSyncedWithServer?: boolean;
+    pendingSyncAction?: 'create' | 'addItem' | null;
+    pendingItemsToSync?: IOrderItem[] | null;
 }

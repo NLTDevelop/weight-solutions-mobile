@@ -181,9 +181,11 @@
             "completed": "Завершені"
         },
         "statuses": {
-            "active": "Нова",
+            "new": "Нова",
+            "active": "Завершено",
             "completed": "Завершено",
-            "suspicious": "Підозріло"
+            "suspicious": "Підозріло",
+            "not_synchronized": "Не синхронізовано"
         },
         "suspiciousValues": {
             "yes": "Так",
@@ -210,8 +212,10 @@
         "loadingFailed": "Не вдалося завантажити зважування",
         "creationFailed": "Не вдалося створити зважування",
         "created": "Зважування створено",
+        "createdOffline": "Зважування збережено офлайн",
         "secondWeightFailed": "Не вдалося завершити зважування",
         "secondWeightSaved": "Зважування завершено",
+        "secondWeightSavedOffline": "Зміни збережено офлайн",
         "updateFailed": "Не вдалося оновити зважування",
         "weightPoint": "Точка вагів",
         "kg": "кг"
