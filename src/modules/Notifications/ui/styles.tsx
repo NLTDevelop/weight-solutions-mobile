@@ -30,8 +30,11 @@ export const getStyles = (colors: IColors) => {
         },
         contentContainerStyle: {
             flexGrow: 1,
+            paddingTop: scaleVertical(16),
             backgroundColor: colors.background,
             paddingBottom: scaleVertical(24),
+            paddingHorizontal: scaleHorizontal(16),
+            gap: scaleVertical(8),
         },
         itemSeparator: {
             height: scaleVertical(1),

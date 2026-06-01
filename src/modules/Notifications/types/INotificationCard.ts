@@ -5,4 +5,5 @@ export interface INotificationCard{
     content: string;
     createdAt: string;
     isUnread: boolean;
+    onPress: () => void;
 }

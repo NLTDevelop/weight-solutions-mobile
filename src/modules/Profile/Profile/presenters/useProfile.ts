@@ -1,6 +1,7 @@
 import { companyModel } from '@/entities/Company/CompanyModel';
 import { contactInformationModel } from '@/entities/ContactInformation/ContactInformationModel';
 import { notificationModel } from '@/entities/Notification/NotificationModel';
+// import { notificationEntityService } from '@/entities/Notification/NotificationService';
 import { orderModel } from '@/entities/Order/OrderModel';
 import { productModel } from '@/entities/Product/ProductModel';
 import { userModel } from '@/entities/User/UserModel';
@@ -18,6 +19,7 @@ export const useProfile = () => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [confirmationType, setConfirmationType] = useState<'logout' | 'delete' | null>(null);
     const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
+    const user = userModel.user;
 
     const isExitModalVisible = confirmationType === 'logout';
     const isDeleteModalVisible = confirmationType === 'delete';
@@ -56,6 +58,10 @@ export const useProfile = () => {
 
     const onLogout = () => {
         onCloseModal();
+        if (user?.role === 'admin') {
+            //  notificationService.getFCMToken()
+            //         .then(notificationEntityService.deleteToken)
+        }
         userModel.clear();
         usersModel.clear();
         companyModel.clear();

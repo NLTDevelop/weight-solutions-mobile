@@ -6,7 +6,6 @@ import { ISendRegisterToken } from '@/libs/notificationService/_ports/ISendRegis
 import { userModel } from '../User/UserModel';
 import { INotification } from './INotification';
 import { INotificationMeta } from './INotificationMeta';
-import { notificationModel } from './NotificationModel';
 import { NotificationCreateDto } from './dto/notification-create.dto';
 import { NotificationDeleteDto } from './dto/notification-delete.dto';
 import { NotificationListDto } from './dto/notification-list.dto';
@@ -35,15 +34,6 @@ class NotificationService implements ISendRegisterToken, ISendDeleteToken {
                 withCredentials: true,
             });
 
-            if (!response.isError && response.data) {
-                if (params.offset > 0) {
-                    notificationModel.append(response.data);
-                } else {
-                    notificationModel.notifications = response.data.items;
-                    notificationModel.meta = response.data.meta;
-                }
-            }
-
             return response;
         } catch (error) {
             console.warn('NotificationService -> list: ', error);
@@ -59,10 +49,6 @@ class NotificationService implements ISendRegisterToken, ISendDeleteToken {
                 data: body,
                 withCredentials: true,
             });
-
-            if (!response.isError && response.data?.message) {
-                notificationModel.message = response.data.message;
-            }
 
             return response;
         } catch (error) {
@@ -93,10 +79,6 @@ class NotificationService implements ISendRegisterToken, ISendDeleteToken {
                 withCredentials: true,
             });
 
-            if (!response.isError && response.data?.message) {
-                notificationModel.message = response.data.message;
-            }
-
             return response;
         } catch (error) {
             console.warn('NotificationService -> delete: ', error);
@@ -118,10 +100,6 @@ class NotificationService implements ISendRegisterToken, ISendDeleteToken {
                 withCredentials: true,
             });
 
-            if (!response.isError && response.data?.message) {
-                notificationModel.message = response.data.message;
-            }
-
             return response;
         } catch (error) {
             console.warn('NotificationService -> readAll: ', error);
@@ -136,10 +114,6 @@ class NotificationService implements ISendRegisterToken, ISendDeleteToken {
                 method: 'POST',
                 withCredentials: true,
             });
-
-            if (!response.isError && response.data) {
-                notificationModel.current = response.data;
-            }
 
             return response;
         } catch (error) {

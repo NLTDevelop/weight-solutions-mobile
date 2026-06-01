@@ -4,16 +4,17 @@ import { useUiContext } from '@/UIProvider';
 import { getStyle } from './styles';
 import Modal from 'react-native-modal';
 import { Calendar, CalendarProps, DateData } from 'react-native-calendars';
+import { NLTButton } from '../NLTButton';
 
 interface IProps {
     onDayPress: (day: DateData) => void;
     visible: boolean;
-    onBackdropPress?: () => void;
+    onBackdropPress: () => void;
     calendarProps?: CalendarProps;
 }
 
 export const CalendarModal: FC<IProps> = memo(({ visible, onDayPress, onBackdropPress, calendarProps = {} }) => {
-    const { colors } = useUiContext();
+    const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyle(colors), [colors]);
 
     return (
@@ -47,6 +48,7 @@ export const CalendarModal: FC<IProps> = memo(({ visible, onDayPress, onBackdrop
                     }}
                     {...calendarProps}
                 />
+                <NLTButton onPress={onBackdropPress} text={t('apply')} containerStyle={styles.button} />
             </View>
         </Modal>
     );

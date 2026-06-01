@@ -12,16 +12,20 @@ export const getStyle = (colors: IColors) => {
             paddingHorizontal: 20,
         },
         container: {
-            alignItems: 'center',
+            justifyContent: 'space-between',
             backgroundColor: colors.background,
             borderRadius: 8,
-            padding: 10,    
-            height: scaleVertical(360),        
+            padding: scaleVertical(12),
+            height: scaleVertical(420),
         },
         calendar: {
-            width: scaleHorizontal(261),
+            width: scaleHorizontal(291),
             backgroundColor: colors.background,
-        }
+        },
+        button: {
+            marginTop: scaleVertical(20),
+            paddingHorizontal: scaleHorizontal(20),
+        },
     });
     return styles;
 }

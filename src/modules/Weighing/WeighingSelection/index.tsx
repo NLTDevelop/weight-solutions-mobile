@@ -14,7 +14,7 @@ import { BellIcon } from '@/assets/icons/BellIcon';
 export const WeighingSelectionView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { onSelectGuest, onSelectOwn, role, onNotificationsPress } = useWeighingStart();
+    const { onSelectGuest, onSelectOwn, role, onNotificationsPress, onReportsPress } = useWeighingStart();
 
     return (
         <ScreenContainer edges={['top']} headerComponent={<HeaderWithBackButton backDisabled title={t('weighings.title')}
@@ -35,6 +35,15 @@ export const WeighingSelectionView = observer(() => {
                     </View>
                     <Text style={styles.optionDescription}>{t('weighings.startOptions.guest.description')}</Text>
                 </NLTCard>
+                {role === 'admin' ? (
+                    <NLTCard onPress={onReportsPress}>
+                        <View style={styles.optionHeader}>
+                            <Text style={styles.optionTitle}>{t('reports.title')}</Text>
+                            <Chevron color={colors.icon_strong} position='RIGHT' />
+                        </View>
+                        <Text style={styles.optionDescription}>{t('reports.description')}</Text>
+                    </NLTCard>
+                ) : null}
             </View>
         </ScreenContainer>
     );

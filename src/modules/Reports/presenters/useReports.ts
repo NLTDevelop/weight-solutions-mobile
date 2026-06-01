@@ -5,9 +5,12 @@ import Share from 'react-native-share';
 import { userModel } from "@/entities/User/UserModel";
 import { fileSystem } from "@/libs/fileSystems";
 import { links } from "@/Links";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export const useReports = () => {
     const { colors } = useUiContext();
+    const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [isLoading, setIsLoading] = useState(false);
     const [range, setRange] = useState({ startDate: '', endDate: '' });
     const [selectedRange, setSelectedRange] = useState({ startDate: '', endDate: '' });
@@ -113,6 +116,17 @@ export const useReports = () => {
         }
     };
 
-    return { range, onDayPress, showCalendar, onChangeCalendarVisibility, onApplyDay, markedDates, onGetWeightReport, isLoading };
+    return {
+        range,
+        selectedRange,
+        onDayPress,
+        showCalendar,
+        onChangeCalendarVisibility,
+        onApplyDay,
+        markedDates,
+        onGetWeightReport,
+        isLoading,
+        onPressBack: () => navigation.goBack(),
+    };
 
 }

@@ -127,3 +127,32 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+        def versionName = variant.versionName
+        def versionCode = variant.versionCode
+        def buildDate = new Date().format('yyyy-MM-dd')
+        def baseName = "weightsolutions-v${versionName}-b${versionCode}_${buildDate}"
+
+        if (output.outputFile.name.endsWith(".apk")) {
+            output.outputFileName = "${baseName}.apk"
+        }
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'bundleRelease') {
+        task.doLast {
+            def versionName = android.defaultConfig.versionName
+            def versionCode = android.defaultConfig.versionCode
+            def baseName = "weightsolutions-v${versionName}-b${versionCode}.aab"
+
+            def aabDir = file("${buildDir}/outputs/bundle/release/")
+            def aabFile = aabDir.listFiles().find { it.name.endsWith(".aab") }
+            if (aabFile) {
+                aabFile.renameTo(new File(aabDir, baseName))
+            }
+        }
+    }
+}

@@ -3,20 +3,18 @@ import { NotificationStatusEnum } from '@/entities/Notification/enums/Notificati
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { IRoute, NLTTabView } from '@/UIKit/NLTTabView';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
-import { Typography } from '@/UIKit/Typography';
+import { TextButton } from '@/UIKit/textButton';
 import { observer } from 'mobx-react';
 import { useMemo, useState } from 'react';
-import { FlatList, ListRenderItem, View } from 'react-native';
 import { useNotifications } from '../presenters/useNotifications';
-import { INotificationCard } from '../types/INotificationCard';
 import { getStyles } from './styles';
-import { NotificationCard } from './components/NotificationCard';
+import { NotificationsScene } from './components/NotificationsScene';
 
 export const NotificationsView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const [tabIndex, setTabIndex] = useState(0);
-    const { notificationCards, isLoading, onEndReached, onRefresh, onSelectStatus } = useNotifications();
+    const { refreshKey, isReadAllLoading, onReadAll, onNotificationsChanged } = useNotifications();
 
     const routes = useMemo<IRoute[]>(() => [
         { key: NotificationStatusEnum.ALL, title: t('notifications.tabs.all') },
@@ -24,33 +22,33 @@ export const NotificationsView = observer(() => {
         { key: NotificationStatusEnum.READ, title: t('notifications.tabs.read')}
     ], [t]);
 
-    const renderScene = () => (
+    const renderScene = ({ route }: { route: IRoute; }) => (
         <NotificationsScene
-            notificationCards={notificationCards}
-            isLoading={isLoading}
-            onEndReached={onEndReached}
-            onRefresh={onRefresh}
+            status={route.key as NotificationStatusEnum}
+            refreshKey={refreshKey}
+            onNotificationsChanged={onNotificationsChanged}
         />
     );
 
     return (
         <ScreenContainer
             edges={['top']}
-            headerComponent={<HeaderWithBackButton title={t('notifications.title')} isCenterPlacement={true} />}
+            headerComponent={(
+                <HeaderWithBackButton
+                    title={t('notifications.title')}
+                    rightComponent={(
+                        <TextButton
+                            text={isReadAllLoading ? t('notifications.loadingReadAll') : t('notifications.readAllButton')}
+                            onPress={onReadAll}
+                        />
+                    )}
+                />
+            )}
         >
             <NLTTabView
                 navigationState={{ index: tabIndex, routes }}
                 renderScene={renderScene}
-                onIndexChange={(index) => {
-                    const selectedRoute = routes[index];
-
-                    if (!selectedRoute) {
-                        return;
-                    }
-
-                    setTabIndex(index);
-                    onSelectStatus(selectedRoute.key as NotificationStatusEnum);
-                }}
+                onIndexChange={setTabIndex}
                 tabBarViewStyle={styles.tabBarView}
                 tabBarStyle={styles.tabBar}
                 indicatorStyle={styles.tabIndicator}
@@ -61,40 +59,3 @@ export const NotificationsView = observer(() => {
         </ScreenContainer>
     );
 });
-
-interface INotificationsSceneProps {
-    notificationCards: INotificationCard[];
-    isLoading: boolean;
-    onEndReached: () => void;
-    onRefresh: () => void;
-}
-
-const NotificationsScene = observer(({ notificationCards, isLoading, onEndReached, onRefresh }: INotificationsSceneProps) => {
-    const { colors, t } = useUiContext();
-    const styles = useMemo(() => getStyles(colors), [colors]);
-
-    const renderItem: ListRenderItem<INotificationCard> = ({ item }) => (
-        <NotificationCard item={item}/>
-    );
-
-    return (
-        <FlatList
-            data={notificationCards}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            onEndReached={onEndReached}
-            onRefresh={onRefresh}
-            refreshing={isLoading}
-            style={styles.list}
-            contentContainerStyle={styles.contentContainerStyle}
-            ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
-            ListEmptyComponent={isLoading ? null : (
-                <View style={styles.emptyState}>
-                    <Typography variant='h3' text={t('notifications.emptyStateTitle')} style={styles.emptyTitle} />
-                    <Typography variant='body_m' text={t('notifications.emptyStateDescription')} style={styles.emptyDescription} />
-                </View>
-            )}
-        />
-    );
-});
-

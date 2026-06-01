@@ -5,17 +5,18 @@ import { View } from "react-native";
 import { getStyles } from "./styles";
 import { formatTime } from "@/utils";
 import { INotificationCard } from "@/modules/Notifications/types/INotificationCard";
+import { NLTCard } from "@/UIKit/NLTCard";
 
 interface INotificationCardProps {
     item: INotificationCard;
 }
 
-export const NotificationCard = ({ item}: INotificationCardProps) => {
+export const NotificationCard = ({ item }: INotificationCardProps) => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors, item.isUnread), [colors, item.isUnread]);
 
     return (
-        <View style={styles.card}>
+        <NLTCard onPress={item.onPress}>
             {item.isUnread && <View style={styles.unreadDot} />}
             <View style={styles.cardRow}>
                 <View style={styles.cardHeader}>
@@ -24,6 +25,6 @@ export const NotificationCard = ({ item}: INotificationCardProps) => {
                 </View>
                 <Typography variant='body_xs' text={item.createdAt ? formatTime(item.createdAt) : t('notifications.dateFallback')} style={styles.cardDate} />
             </View>
-        </View>
+        </NLTCard>
     );
 };

@@ -5,8 +5,8 @@ import { formatWeighingDateTime, getFirstWeighingItem, getNetWeightValue, getSec
 
 interface IProps {
     orders: IOrder[];
-    onPressWeighing: (orderId: number) => void;
-    onPressWeighingAction: (orderId: number) => void;
+    onPressWeighing: (order: IOrder) => void;
+    onPressWeighingAction: (order: IOrder) => void;
 }
 
 export const useWeighingsUi = ({ orders, onPressWeighing, onPressWeighingAction }: IProps) => {
@@ -26,8 +26,8 @@ export const useWeighingsUi = ({ orders, onPressWeighing, onPressWeighingAction 
                 secondWeighingAt: (secondWeightCreatedAt === null || secondWeightCreatedAt === undefined ? null : formatWeighingDateTime(secondWeightCreatedAt)),
                 status: getWeighingDisplayStatus(order),
                 actionLabel: getWeighingActionTranslationKey(order),
-                onActionPress: () => onPressWeighingAction(order.id),
-                onPress: () => onPressWeighing(order.id)
+                onActionPress: () => onPressWeighingAction(order),
+                onPress: () => onPressWeighing(order)
             };
         });
 

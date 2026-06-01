@@ -21,5 +21,9 @@ export const useWeighingStart = () => {
         navigation.navigate('NotificationsView');
     }
 
-    return { onSelectGuest, onSelectOwn, role, onNotificationsPress };
+    const onReportsPress = () => {
+        navigation.navigate('ReportsView');
+    }
+
+    return { onSelectGuest, onSelectOwn, role, onNotificationsPress, onReportsPress };
 };

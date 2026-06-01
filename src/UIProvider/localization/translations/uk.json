@@ -1,4 +1,5 @@
 {
+    "apply": "Застосувати",
     "networkError": "Помилка мережі. Перевірте підключення.",
     "reconnectNetwork": "Підключення до мережі",
     "common": {
@@ -9,6 +10,22 @@
         "back": "Назад",
         "save": "Зберегти",
         "hello": "Привіт"
+    },
+    "notifications": {
+        "title": "Сповіщення",
+        "tabs": {
+            "all": "Усі",
+            "unread": "Непрочитані",
+            "read": "Прочитані"
+        },
+        "emptyStateTitle": "Сповіщень немає",
+        "emptyStateDescription": "Нові сповіщення з'являться тут.",
+        "dateFallback": "Немає дати",
+        "listLoadingFailed": "Не вдалося завантажити сповіщення",
+        "readFailed": "Не вдалося прочитати сповіщення",
+        "readAllFailed": "Не вдалося прочитати всі сповіщення",
+        "readAllButton": "Прочитати все",
+        "loadingReadAll": "Завантаження..."
     },
     "authorization": {
         "title": "Авторизація",
@@ -220,6 +237,16 @@
         "weightPoint": "Точка вагів",
         "kg": "кг"
     },
+    "reports": {
+        "title": "Звіти",
+        "description": "Завантажити звіт по зважуваннях за обраний період.",
+        "rangeTitle": "Період звіту",
+        "rangeDescription": "Оберіть дату початку та завершення, щоб сформувати Excel-звіт.",
+        "selectedRangeLabel": "Обраний період",
+        "rangePlaceholder": "Період не вибрано",
+        "selectRangeButton": "Обрати період",
+        "downloadButton": "Завантажити звіт"
+    },
     "products": {
         "title": "Продукція",
         "empty": "Продукти не знайдено",
@@ -260,18 +287,6 @@
         "updateFailed": "Не вдалося оновити продукт",
         "updated": "Продукт оновлено",
         "created": "Продукт створено"
-    },
-    "notifications": {
-        "title": "Сповіщення",
-        "emptyStateTitle": "Нотифікацій ще немає",
-        "emptyStateDescription": "Нові сповіщення з'являться тут.",
-        "dateFallback": "Без дати",
-        "listLoadingFailed": "Не вдалося завантажити сповіщення",
-        "tabs": {
-            "all": "Всі",
-            "read": "Прочитані",
-            "unread": "Непрочитані"
-        }
     },
     "users": {
         "companyUsersTitle": "Користувачі компанії",

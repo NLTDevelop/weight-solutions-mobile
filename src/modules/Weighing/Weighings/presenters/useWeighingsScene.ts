@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useWeighingsUi } from './useWeighingsUi';
+import { IOrder } from '@/entities/Order/IOrder';
 
 const LIST_LIMIT = 20;
 const SEARCH_DEBOUNCE_MS = 300;
@@ -29,12 +30,12 @@ export const useWeighingsScene = ({ status }: IProps) => {
         ? orderModel.metaArchived
         : orderModel.metaActive;
 
-    const onPressWeighing = (orderId: number) => {
-        navigation.navigate('WeighingView', { orderId });
+    const onPressWeighing = (order: IOrder) => {
+        navigation.navigate('WeighingView', { orderId: order.id, order });
     };
 
-    const onPressWeighingAction = (orderId: number) => {
-        navigation.navigate('EditWeighingView', { orderId });
+    const onPressWeighingAction = (order: IOrder) => {
+        navigation.navigate('EditWeighingView', { orderId: order.id, order });
     };
 
     const { weighingCards } = useWeighingsUi({

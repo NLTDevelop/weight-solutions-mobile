@@ -35,7 +35,7 @@ class Links {
         userContact: `${this._domain}/user/contact`,
         userContactSave: `${this._domain}/user/contact/save`,
         notification: `${this._domain}/notification`,
-        reportWeight: `${this._domain}/export/orders`,
+        reportWeight: `${this._domain}/export/weights`,
     };
 
     public get me() { return this._links.me; }
