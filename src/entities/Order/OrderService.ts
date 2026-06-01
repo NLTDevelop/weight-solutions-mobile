@@ -34,11 +34,11 @@ class OrderService {
 
             if (!response.isError && response.data) {
                 if (params.offset > 0) {
-                    orderModel.append(response.data.data);
+                    orderModel.append(params.status, response.data.data);
                 } else {
-                    orderModel.orders = response.data.data;
+                    orderModel.replace(params.status, response.data.data);
                 }
-                orderModel.meta = response.data.meta;
+                orderModel.setMeta(params.status, response.data.meta);
             }
 
             return response;

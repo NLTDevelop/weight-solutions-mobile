@@ -1,8 +1,6 @@
 import { useUiContext } from '@/UIProvider';
-import { SearchIcon } from '@/assets/icons/SearchIcon';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { NLTButton } from '@/UIKit/NLTButton';
-import { NLTTextInput } from '@/UIKit/NLTTextInput';
 import { PhoneBanner } from '@/UIKit/PhoneBanner';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
 import { IRoute, NLTTabView } from '@/UIKit/NLTTabView';
@@ -18,7 +16,7 @@ export const WeighingsView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const [tabIndex, setTabIndex] = useState(0);
-    const { weighingCards, search, isLoading, onRefresh, onEndReached, onChangeSearch, onSelectStatus, onPressCreateWeighing } = useWeighings();
+    const { onPressCreateWeighing } = useWeighings();
    
     const routes = useMemo<IRoute[]>(() => [
         { key: OrderListDtoStatusEnum.ACTIVE, title: t('weighings.tabs.active') },
@@ -29,10 +27,7 @@ export const WeighingsView = observer(() => {
         return (
             <WeighingsScene
                 key={route.key}
-                weighingCards={weighingCards}
-                isLoading={isLoading}
-                onEndReached={onEndReached}
-                onRefresh={onRefresh}
+                status={route.key as OrderListDtoStatusEnum}
             />
         );
     };
@@ -44,24 +39,10 @@ export const WeighingsView = observer(() => {
             headerComponent={<HeaderWithBackButton title={t('weighings.title')} />}
         >
             <PhoneBanner containerStyle={styles.phoneContainerStyle}/>
-            <View style={styles.searchContainer}>
-                <NLTTextInput
-                    value={search}
-                    onChangeText={onChangeSearch}
-                    placeholder={t('weighings.searchPlaceholder')}
-                    shape='pill'
-                    hasBottomOffset={false}
-                    inputContainerStyle={styles.searchInputInner}
-                    LeftAccessory={<SearchIcon color={colors.icon_middle} />}
-                />
-            </View>
             <NLTTabView
                 navigationState={{ index: tabIndex, routes }}
                 renderScene={renderScene}
-                onIndexChange={(index) => {
-                    setTabIndex(index);
-                    onSelectStatus(routes[index].key as OrderListDtoStatusEnum.ACTIVE | OrderListDtoStatusEnum.ARCHIVE);
-                }}
+                onIndexChange={setTabIndex}
                 tabBarStyle={styles.tabBar}
                 indicatorStyle={styles.tabIndicator}
                 labelStyle={styles.tabLabel}

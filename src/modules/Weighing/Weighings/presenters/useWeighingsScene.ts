@@ -1,5 +1,4 @@
 import { useUiContext } from '@/UIProvider';
-import { contactInformationModel } from '@/entities/ContactInformation/ContactInformationModel';
 import { orderModel } from '@/entities/Order/OrderModel';
 import { orderService } from '@/entities/Order/OrderService';
 import { OrderListDtoStatusEnum } from '@/entities/Order/enums/OrderListDtoStatusEnum';
@@ -12,20 +11,23 @@ import { useWeighingsUi } from './useWeighingsUi';
 const LIST_LIMIT = 20;
 const SEARCH_DEBOUNCE_MS = 300;
 
-export const useWeighings = () => {
+interface IProps {
+    status: OrderListDtoStatusEnum;
+}
+
+export const useWeighingsScene = ({ status }: IProps) => {
     const { t } = useUiContext();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [isLoading, setIsLoading] = useState(false);
     const [search, setSearch] = useState('');
-    const [status, setStatus] = useState<OrderListDtoStatusEnum>(OrderListDtoStatusEnum.ACTIVE);
     const searchRef = useRef(search);
-    const statusRef = useRef(status);
 
-    useEffect(() => {
-        return () => {
-            orderModel.isGuest = null;
-        }
-    }, [])
+    const currentOrders = status === OrderListDtoStatusEnum.ARCHIVE
+        ? orderModel.ordersArchived
+        : orderModel.ordersActive;
+    const currentMeta = status === OrderListDtoStatusEnum.ARCHIVE
+        ? orderModel.metaArchived
+        : orderModel.metaActive;
 
     const onPressWeighing = (orderId: number) => {
         navigation.navigate('WeighingView', { orderId });
@@ -36,28 +38,25 @@ export const useWeighings = () => {
     };
 
     const { weighingCards } = useWeighingsUi({
-        orders: orderModel.orders,
-        status,
+        orders: currentOrders,
         onPressWeighing,
         onPressWeighingAction,
     });
 
     useEffect(() => {
         searchRef.current = search;
-        statusRef.current = status;
-    }, [search, status]);
+    }, [search]);
 
     const loadOrders = useCallback(async (
         offset: number = 0,
         searchValue = searchRef.current,
-        statusValue = statusRef.current,
     ) => {
         setIsLoading(true);
 
         const response = await orderService.list({
             limit: LIST_LIMIT,
             offset,
-            status: statusValue,
+            status,
             is_guest: !!orderModel.isGuest,
             car_number: searchValue.trim() || undefined,
         });
@@ -67,40 +66,32 @@ export const useWeighings = () => {
         if (response.isError) {
             toastService.showError(t('weighings.listLoadingFailed'), response.message || t('profile.tryAgainPlease'));
         }
-    }, [t]);
+    }, [status, t]);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            loadOrders(0, search, status);
+            loadOrders(0, search);
         }, SEARCH_DEBOUNCE_MS);
 
         return () => {
             clearTimeout(timeoutId);
         };
-    }, [loadOrders, search, status]);
-
-    const onPressCreateWeighing = () => {
-        navigation.navigate('CreateWeighingView', { isGuest: false });
-    };
+    }, [loadOrders, search]);
 
     const onEndReached = async () => {
-        if (isLoading || ((orderModel.meta?.total || 0) <= orderModel.orders.length)) {
+        if (isLoading || ((currentMeta?.total || 0) <= currentOrders.length)) {
             return;
         }
 
-        await loadOrders(orderModel.orders.length, search, status);
+        await loadOrders(currentOrders.length, search);
     };
 
     return {
-        weighingCards,
         search,
-        status,
         isLoading,
-        onRefresh: () => loadOrders(0, search, status),
+        weighingCards,
+        onRefresh: () => loadOrders(0, search),
         onEndReached,
         onChangeSearch: setSearch,
-        onSelectStatus: setStatus,
-        onPressCreateWeighing,
-        contactInformation: contactInformationModel.contactInformation,
     };
 };

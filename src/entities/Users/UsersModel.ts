@@ -11,8 +11,8 @@ export interface IUserModel {
 
 class UsersModel implements IUserModel {
     private currentRepository = new MobXRepository<IUser | null>(null);
-    private usersRepository = new MobXRepository<IUser[]>([]);
-    private metaRepository = new MobXRepository<IUserMeta | null>(null);
+    private usersRepository = new MobXRepository<IUser[]>([], 'users');
+    private metaRepository = new MobXRepository<IUserMeta | null>(null, 'usersMeta');
 
     public get current() {
         return this.currentRepository.data;

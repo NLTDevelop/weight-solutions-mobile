@@ -33,6 +33,14 @@ export const getSecondWeighingItem = (order: IOrder | null) => {
     return order.items !== null ? (order.items?.length ?? 0) > 1 ? order.items![order.items!.length - 1] : null : null;;
 };
 
+export const getIntermediateWeighingItems = (order: IOrder | null) => {
+    if (!order?.items || order.items.length <= 2) {
+        return [];
+    }
+
+    return order.items.slice(1, -1);
+};
+
 export const getNetWeightValue = (order: IOrder | null) => {
     const firstValue = getWeightNumberValue(getFirstWeighingItem(order)?.weight);
     const secondValue = getWeightNumberValue(getSecondWeighingItem(order)?.weight);

@@ -1,6 +1,6 @@
 import { IOrder } from '@/entities/Order/IOrder';
 import { IUser } from '@/entities/User/IUser';
-import { formatWeighingDateTime, getFirstWeighingItem, getNetWeightValue, getSecondWeighingItem, getWeighingActionTranslationKey, getWeighingStatus } from '@/modules/Weighing/utils/weight';
+import { formatWeighingDateTime, getFirstWeighingItem, getIntermediateWeighingItems, getNetWeightValue, getSecondWeighingItem, getWeighingActionTranslationKey, getWeighingStatus } from '@/modules/Weighing/utils/weight';
 
 interface ISectionRow {
     id: string;
@@ -24,6 +24,8 @@ const withFallback = (value?: string | null) => value || '';
 export const useWeighingUi = ({ order, user }: IProps) => {
     const firstItem = getFirstWeighingItem(order);
     const secondItem = getSecondWeighingItem(order);
+    const intermediateItems = getIntermediateWeighingItems(order);
+    const hasIntermediateItems = intermediateItems.length > 0;
 
     const sections: ISection[] = [
         {
@@ -50,17 +52,44 @@ export const useWeighingUi = ({ order, user }: IProps) => {
             id: 'second',
             title: 'weighings.secondWeighingSectionTitle',
             rows: [
-                { id: 'secondDate', label: 'weighings.secondWeightDateTimeLabel', value: secondItem ? formatWeighingDateTime(secondItem.created_at || order?.updated_at) : 'weighings.fallbacks.notPerformed' },
-                { id: 'secondWeight', label: 'weighings.grossWeightLabel', value: secondItem ? withFallback(secondItem.weight) : 'weighings.fallbacks.notPerformed' },
+                {
+                    id: 'secondDate',
+                    label: hasIntermediateItems ? 'weighings.lastWeightDateTimeLabel' : 'weighings.secondWeightDateTimeLabel',
+                    value: secondItem ? formatWeighingDateTime(secondItem.created_at || order?.updated_at) : 'weighings.fallbacks.notPerformed',
+                },
+                {
+                    id: 'secondWeight',
+                    label: hasIntermediateItems ? 'weighings.lastWeightLabel' : 'weighings.grossWeightLabel',
+                    value: secondItem ? withFallback(secondItem.weight) : 'weighings.fallbacks.notPerformed',
+                },
             ],
         },
     ];
 
-    if(secondItem !== null){
+    if (hasIntermediateItems) {
+        sections.push({
+            id: 'otherWeighings',
+            title: 'weighings.otherWeighingsSectionTitle',
+            rows: intermediateItems.flatMap((item, index) => ([
+                {
+                    id: `otherDate-${item.id}`,
+                    label: `weighings.otherWeightDateTimeLabel`,
+                    value: `${index + 1}. ${formatWeighingDateTime(item.created_at)}`,
+                },
+                {
+                    id: `otherWeight-${item.id}`,
+                    label: 'weighings.otherWeightLabel',
+                    value: `${index + 1}. ${withFallback(item.weight)}`,
+                },
+            ])),
+        });
+    }
+
+    if (secondItem !== null) {
         sections[1].rows.push({ id: 'firstNetWeight', label: 'weighings.netWeightLabel', value: getNetWeightValue(order) },);
     }
-    if(user !== null && user.role === 'admin'){
-        sections[0].rows.splice(2, 0, { id: 'weightPoint', label: 'weighings.weightPoint', value: order?.user?.name ?? ''});
+    if (user !== null && user.role === 'admin') {
+        sections[0].rows.splice(2, 0, { id: 'weightPoint', label: 'weighings.weightPoint', value: order?.user?.name ?? '' });
     }
 
     return {

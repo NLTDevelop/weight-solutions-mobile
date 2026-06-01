@@ -1,19 +1,30 @@
 import { MobXRepository } from '@/repository/MobXRepository';
 import { IOrder } from './IOrder';
 import { IOrderMeta } from './IOrderMeta';
+import { OrderListDtoStatusEnum } from './enums/OrderListDtoStatusEnum';
 
 export interface IOrderModel {
     isGuest: boolean | null;
-    orders: IOrder[];
+    ordersActive: IOrder[];
+    ordersArchived: IOrder[];
     current: IOrder | null;
-    meta: IOrderMeta | null;
+    metaActive: IOrderMeta | null;
+    metaArchived: IOrderMeta | null;
 }
+
+const getOrderListStatus = (order: IOrder | null) => {
+    return order?.status?.toLowerCase?.() === OrderListDtoStatusEnum.ACTIVE
+        ? OrderListDtoStatusEnum.ACTIVE
+        : OrderListDtoStatusEnum.ARCHIVE;
+};
 
 class OrderModel implements IOrderModel {
     private isGuestRepository = new MobXRepository<boolean | null>(null);
-    private ordersRepository = new MobXRepository<IOrder[]>([]);
+    private ordersActiveRepository = new MobXRepository<IOrder[]>([], 'ordersActive');
+    private ordersArchivedRepository = new MobXRepository<IOrder[]>([], 'ordersArchived');
     private currentRepository = new MobXRepository<IOrder | null>(null);
-    private metaRepository = new MobXRepository<IOrderMeta | null>(null);
+    private metaActiveRepository = new MobXRepository<IOrderMeta | null>(null, 'metaActive');
+    private metaArchivedRepository = new MobXRepository<IOrderMeta | null>(null, 'metaArchived');
 
     public get isGuest() {
         return this.isGuestRepository.data || null;
@@ -23,12 +34,20 @@ class OrderModel implements IOrderModel {
         this.isGuestRepository.save(orders);
     }
 
-    public get orders() {
-        return this.ordersRepository.data || [];
+    public get ordersActive() {
+        return this.ordersActiveRepository.data || [];
     }
 
-    public set orders(orders: IOrder[]) {
-        this.ordersRepository.save(orders);
+    public set ordersActive(orders: IOrder[]) {
+        this.ordersActiveRepository.save(orders);
+    }
+
+    public get ordersArchived() {
+        return this.ordersArchivedRepository.data || [];
+    }
+
+    public set ordersArchived(orders: IOrder[]) {
+        this.ordersArchivedRepository.save(orders);
     }
 
     public get current() {
@@ -37,46 +56,75 @@ class OrderModel implements IOrderModel {
 
     public set current(order: IOrder | null) {
         this.currentRepository.save(order);
-        var isFindElement: boolean = false;
-        const newOrders: IOrder[] = this.orders.map<IOrder>((e) => {
-            if (order != null && e.id === order!.id) {
-                isFindElement = true;
-                return order!;
-            } else {
-                return e;
-            }
-        })
-        if (isFindElement) {
-            this.orders = [
-                ...newOrders,
-            ];
-        } else {
-            if (order != null) {
-                this.orders = [
-                    order,
-                    ...this.orders
-                ];
-            }
+        if (order === null) {
+            return;
         }
+
+        const nextStatus = getOrderListStatus(order);
+        const targetOrders = nextStatus === OrderListDtoStatusEnum.ACTIVE ? this.ordersActive : this.ordersArchived;
+        const nextOrders = [order, ...targetOrders.filter(item => item.id !== order.id)];
+
+        this.ordersActive = this.ordersActive.filter(item => item.id !== order.id);
+        this.ordersArchived = this.ordersArchived.filter(item => item.id !== order.id);
+
+        if (nextStatus === OrderListDtoStatusEnum.ACTIVE) {
+            this.ordersActive = nextOrders;
+            return;
+        }
+
+        this.ordersArchived = nextOrders;
     }
 
-    public get meta() {
-        return this.metaRepository.data;
+    public get metaActive() {
+        return this.metaActiveRepository.data;
     }
 
-    public set meta(meta: IOrderMeta | null) {
-        this.metaRepository.save(meta);
+    public set metaActive(meta: IOrderMeta | null) {
+        this.metaActiveRepository.save(meta);
     }
 
-    public append(orders: IOrder[]) {
-        this.orders = [...this.orders, ...orders];
+    public get metaArchived() {
+        return this.metaArchivedRepository.data;
+    }
+
+    public set metaArchived(meta: IOrderMeta | null) {
+        this.metaArchivedRepository.save(meta);
+    }
+
+    public setMeta(status: OrderListDtoStatusEnum, meta: IOrderMeta | null) {
+        if (status === OrderListDtoStatusEnum.ACTIVE) {
+            this.metaActive = meta;
+            return;
+        }
+
+        this.metaArchived = meta;
+    }
+
+    public append(status: OrderListDtoStatusEnum, orders: IOrder[]) {
+        if (status === OrderListDtoStatusEnum.ACTIVE) {
+            this.ordersActive = [...this.ordersActive, ...orders];
+            return;
+        }
+
+        this.ordersArchived = [...this.ordersArchived, ...orders];
+    }
+
+    public replace(status: OrderListDtoStatusEnum, orders: IOrder[]) {
+        if (status === OrderListDtoStatusEnum.ACTIVE) {
+            this.ordersActive = orders;
+            return;
+        }
+
+        this.ordersArchived = orders;
     }
 
     public clean() {
         this.isGuest = null;
-        this.meta = null;
+        this.metaActive = null;
+        this.metaArchived = null;
         this.current = null;
-        this.orders = [];
+        this.ordersActive = [];
+        this.ordersArchived = [];
     }
 }
 

@@ -1,5 +1,8 @@
 import { companyModel } from '@/entities/Company/CompanyModel';
 import { contactInformationModel } from '@/entities/ContactInformation/ContactInformationModel';
+import { notificationModel } from '@/entities/Notification/NotificationModel';
+import { orderModel } from '@/entities/Order/OrderModel';
+import { productModel } from '@/entities/Product/ProductModel';
 import { userModel } from '@/entities/User/UserModel';
 import { usersModel } from '@/entities/Users/UsersModel';
 import { usersService } from '@/entities/Users/UsersService';
@@ -57,6 +60,9 @@ export const useProfile = () => {
         usersModel.clear();
         companyModel.clear();
         contactInformationModel.clear();
+        notificationModel.clear();
+        orderModel.clean();
+        productModel.clear();
         navigation.reset({ index: 0, routes: [{ name: 'AuthorizationView' }] });
     };
 

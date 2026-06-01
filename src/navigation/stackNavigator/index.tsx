@@ -22,7 +22,7 @@ import { UsersManagementView } from '@/modules/Users/ui/UsersManagement';
 import { CreateWeighingView } from '@/modules/Weighing/CreateWeighing';
 import { EditWeighingView } from '@/modules/Weighing/EditWeighing';
 import { WeighingView } from '@/modules/Weighing/Weighing';
-import { WeighingsListView } from '@/modules/Weighing/Weighings/ui/WeighingsListView';
+import { WeighingsListView } from '@/modules/Weighing/Weighings/WeighingsListView';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react';
 import { TabNavigator } from '../tabNavigator';
