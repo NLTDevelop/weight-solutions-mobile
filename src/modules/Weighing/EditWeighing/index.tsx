@@ -78,7 +78,7 @@ export const EditWeighingView = observer(() => {
                         value={weightType}
                         items={weightTypeItems}
                         placeholder={t('weighings.weightTypePlaceholder')}
-                        setValue={(item) => onSelectWeightType(item.value as string)}
+                        setValue={(item) => onSelectWeightType(item.value as any)}
                     />
                 </View>
                 <NLTTextInput

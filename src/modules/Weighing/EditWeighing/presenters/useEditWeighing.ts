@@ -53,9 +53,11 @@ export const useEditWeighing = () => {
     const secondWeightType = getSecondWeighingType(order);
     const secondItem = getSecondWeighingItem(order);
 
-    console.log('secondItem ', secondItem)
-
     const weightTypeItems = useMemo(() => {
+        if (secondItem) {
+            setWeightType(secondWeightType);
+        }
+
         return secondItem
             ? [
                 { label: t(`weighings.weightTypes.${secondWeightType}`), value: secondWeightType },
@@ -65,16 +67,6 @@ export const useEditWeighing = () => {
                 { label: t(`weighings.weightTypes.${secondWeightType}`), value: secondWeightType },
             ];
     }, [firstWeightType, secondItem, secondWeightType, t]);
-
-    useEffect(() => {
-        setWeightType((currentValue) => {
-            if (currentValue && weightTypeItems.some(option => option.value === currentValue)) {
-                return currentValue;
-            }
-
-            return weightTypeItems[0]?.value ?? null;
-        });
-    }, [weightTypeItems]);
 
     const { weightTypeErrorText, secondWeightErrorText, isSubmitDisabled } = useEditWeighingUi({
         secondWeight,
@@ -96,7 +88,7 @@ export const useEditWeighing = () => {
         const response = await orderService.addItem(resolvedOrderId, {
             weight: secondWeight.trim(),
             weight_type: weightType!,
-            is_correction,
+            is_correction: String(is_correction) as 'true' | 'false',
         });
 
         setIsLoading(false);

@@ -94,7 +94,7 @@ export const getWeighingStatus = (order: IOrder | null) => {
     }
 
     if (getSecondWeighingItem(order)) {
-        return 'completed' as const;
+        return 'archive' as const;
     }
 
     return 'active' as const;

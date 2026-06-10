@@ -102,7 +102,7 @@ export const useCreateWeighing = () => {
             item: {
                 weight: firstWeight.trim(),
                 weight_type: weightType,
-                is_correction: false,
+                is_correction: 'false',
             },
         });
 

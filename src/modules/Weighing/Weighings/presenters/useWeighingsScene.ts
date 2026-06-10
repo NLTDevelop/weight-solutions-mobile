@@ -77,7 +77,7 @@ export const useWeighingsScene = ({ status }: IProps) => {
             limit: LIST_LIMIT,
             offset,
             status,
-            is_guest: !!orderModel.isGuest,
+            is_guest: String(!!orderModel.isGuest) as 'true' | 'false',
             car_number: searchValue.trim() || undefined,
             start_date: currentFilters.startDate || undefined,
             end_date: currentFilters.endDate || undefined,

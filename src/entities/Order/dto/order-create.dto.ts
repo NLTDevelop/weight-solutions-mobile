@@ -3,7 +3,7 @@ import { MovementType, WeightType } from "../types";
 export interface OrderWeightItemDto {
     weight: string;
     weight_type: WeightType;
-    is_correction: boolean;
+    is_correction: 'true' | 'false';
 }
 
 export interface OrderCreateDto {

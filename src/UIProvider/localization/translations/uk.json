@@ -228,6 +228,7 @@
             "new": "Нова",
             "active": "Активна",
             "completed": "Завершено",
+            "archive": "Архів",
             "suspicious": "Підозріло",
             "not_synchronized": "Не синхронізовано"
         },

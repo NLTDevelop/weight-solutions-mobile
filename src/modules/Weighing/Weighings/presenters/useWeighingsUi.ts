@@ -13,7 +13,7 @@ export const useWeighingsUi = ({ orders, onPressWeighing, onPressWeighingAction 
     const isGuest = orderModel.isGuest;
 
     const weighingCards: IWeighingCardItem[] = orders
-        .filter((order) => isGuest === order.is_guest)
+        .filter((order) => isGuest as any === order.is_guest || String(isGuest) === order.is_guest)
         .map((order) => {
             const secondWeightCreatedAt = getSecondWeighingItem(order)?.created_at;
             return {
@@ -24,7 +24,7 @@ export const useWeighingsUi = ({ orders, onPressWeighing, onPressWeighingAction 
                 netWeight: getNetWeightValue(order),
                 firstWeighingAt: formatWeighingDateTime(getFirstWeighingItem(order)?.created_at),
                 secondWeighingAt: (secondWeightCreatedAt === null || secondWeightCreatedAt === undefined ? null : formatWeighingDateTime(secondWeightCreatedAt)),
-                status: getWeighingDisplayStatus(order),
+                status: order.status || getWeighingDisplayStatus(order),
                 actionLabel: getWeighingActionTranslationKey(order),
                 onActionPress: () => onPressWeighingAction(order),
                 onPress: () => onPressWeighing(order)

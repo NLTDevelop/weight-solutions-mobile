@@ -60,6 +60,7 @@ export const ReportsView = observer(() => {
                                 items={userItems}
                                 placeholder={t('reports.userPlaceholder')}
                                 setValue={(item) => onSelectUser(item.value as number)}
+                                zIndex={400}
                             />
                         </View>
                     </View>
@@ -71,6 +72,7 @@ export const ReportsView = observer(() => {
                                 items={weighingTypeItems}
                                 placeholder={t('reports.weighingTypePlaceholder')}
                                 setValue={(item) => onSelectWeighingType(item.value)}
+                                zIndex={300}
                             />
                         </View>
                     </View>

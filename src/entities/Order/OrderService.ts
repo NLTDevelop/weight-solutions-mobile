@@ -116,13 +116,13 @@ class OrderService {
             product: selectedProduct,
             type: body.type,
             weight_count: body.weight_count,
-            is_guest: body.is_guest === 'true',
+            is_guest: String(body.is_guest),
             items: [
                 {
                     id: this.getNextLocalId(),
                     weight: body.item.weight,
                     weight_type: body.item.weight_type,
-                    is_correction: body.item.is_correction,
+                    is_correction: String(body.item.is_correction),
                     created_at: now,
                 },
             ],
@@ -139,7 +139,7 @@ class OrderService {
             id: this.getNextLocalId(),
             weight: body.weight,
             weight_type: body.weight_type,
-            is_correction: body.is_correction,
+            is_correction: String(body.is_correction) as any,
             created_at: new Date().toISOString(),
         };
 
@@ -199,7 +199,7 @@ class OrderService {
                         item: {
                             weight: firstItem.weight,
                             weight_type: firstItem.weight_type,
-                            is_correction: firstItem.is_correction,
+                            is_correction: String(firstItem.is_correction) as 'true' | 'false',
                         },
                     });
 
@@ -218,7 +218,7 @@ class OrderService {
                         const addItemResponse = await this.addItemRequest(syncedOrder.id, {
                             weight: item.weight,
                             weight_type: item.weight_type,
-                            is_correction: item.is_correction,
+                            is_correction:  String(item.is_correction) as 'true' | 'false',
                         });
 
                         if (addItemResponse.isError || !addItemResponse.data?.data) {
@@ -252,7 +252,7 @@ class OrderService {
                         const addItemResponse = await this.addItemRequest(pendingOrder.id, {
                             weight: item.weight,
                             weight_type: item.weight_type,
-                            is_correction: item.is_correction,
+                            is_correction: String(item.is_correction) as any,
                         });
 
                         if (addItemResponse.isError || !addItemResponse.data?.data) {

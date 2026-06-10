@@ -7,7 +7,7 @@ export interface IOrderItem {
     id: number;
     weight: string;
     weight_type: WeightType;
-    is_correction: boolean;
+    is_correction: 'true' | 'false';
     created_at?: string | null;
 }
 
@@ -22,7 +22,7 @@ export interface IOrder {
     company?: ICompany | null;
     type?: MovementType | null;
     weight_count?: number | null;
-    is_guest?: boolean | null;
+    is_guest?: 'true' | 'false';
     items?: IOrderItem[] | null;
     status?: string | null;
     comment?: string | null;

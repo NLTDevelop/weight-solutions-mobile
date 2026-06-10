@@ -6,7 +6,7 @@ export interface IWeighingCardItem {
     netWeight: string;
     firstWeighingAt: string;
     secondWeighingAt: string | null;
-    status: 'active' | 'completed' | 'not_synchronized';
+    status: 'active' | 'archive' | 'not_synchronized' | string;
     actionLabel: string;
     onActionPress: () => void;
     onPress: () => void;
