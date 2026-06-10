@@ -1,4 +1,6 @@
 import { IOrder } from '@/entities/Order/IOrder';
+import { IOrderItem } from '@/entities/Order/IOrder';
+import { getPrimaryWeightType, getSecondaryWeightType, WeightType } from '@/entities/Order/types';
 
 
 export const formatWeighingDateTime = (value?: string | null) => {
@@ -17,28 +19,56 @@ export const getWeightNumberValue = (value?: string | null) => {
     return Number.isFinite(parsedValue) ? parsedValue : null;
 };
 
+const getLatestWeighingItemByType = (order: IOrder | null, weightType: WeightType) => {
+    if (!order?.items?.length) {
+        return null;
+    }
+
+    for (let index = order.items.length - 1; index >= 0; index -= 1) {
+        const item = order.items[index];
+
+        if (item.weight_type === weightType) {
+            return item;
+        }
+    }
+
+    return null;
+};
+
+const getItemsWithoutSelected = (items: IOrderItem[], selectedItems: Array<IOrderItem | null>) => {
+    const selectedIds = new Set(selectedItems.filter(Boolean).map(item => item!.id));
+    return items.filter(item => !selectedIds.has(item.id));
+};
+
+export const getFirstWeighingType = (order: IOrder | null) => getPrimaryWeightType(order?.type);
+
+export const getSecondWeighingType = (order: IOrder | null) => getSecondaryWeightType(order?.type);
+
 export const getFirstWeighingItem = (order: IOrder | null) => {
     if (!order) {
         return null;
     }
 
-    return order.items?.[0];
+    return getLatestWeighingItemByType(order, getFirstWeighingType(order));
 };
 
 export const getSecondWeighingItem = (order: IOrder | null) => {
     if (!order) {
         return null;
     }
- 
-    return order.items !== null ? (order.items?.length ?? 0) > 1 ? order.items![order.items!.length - 1] : null : null;;
+
+    return getLatestWeighingItemByType(order, getSecondWeighingType(order));
 };
 
 export const getIntermediateWeighingItems = (order: IOrder | null) => {
-    if (!order?.items || order.items.length <= 2) {
+    if (!order?.items?.length) {
         return [];
     }
 
-    return order.items.slice(1, -1);
+    return getItemsWithoutSelected(order.items, [
+        getFirstWeighingItem(order),
+        getSecondWeighingItem(order),
+    ]);
 };
 
 export const getNetWeightValue = (order: IOrder | null) => {
@@ -83,14 +113,11 @@ export const canAddSecondWeighing = (order: IOrder | null) => {
         return false;
     }
 
-    const weightCount = order.weight_count || 0;
-    const itemsCount = order.items?.length || 0;
-
     if (getWeighingStatus(order) !== 'active') {
         return false;
     }
 
-    return itemsCount < Math.max(weightCount, 2);
+    return getSecondWeighingItem(order) === null;
 };
 
 export const getWeighingActionTranslationKey = (order: IOrder | null) => {

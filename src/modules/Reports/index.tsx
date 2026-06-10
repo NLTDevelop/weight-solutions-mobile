@@ -5,12 +5,12 @@ import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { NLTCard } from '@/UIKit/NLTCard';
 import { ScreenContainer } from '@/UIKit/ScreenContainer';
-import { TextButton } from '@/UIKit/textButton';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { useReports } from './presenters/useReports';
 import { getStyles } from './styles';
+import { NLTTextInput } from '@/UIKit/NLTTextInput';
 
 const formatRange = (startDate: string, endDate: string, fallback: string) => {
     if (!startDate || !endDate) {
@@ -27,7 +27,9 @@ export const ReportsView = observer(() => {
         range,
         selectedRange,
         selectedUserId,
+        selectedWeighingType,
         userItems,
+        weighingTypeItems,
         onDayPress,
         showCalendar,
         onChangeCalendarVisibility,
@@ -36,6 +38,7 @@ export const ReportsView = observer(() => {
         onGetWeightReport,
         isLoading,
         onSelectUser,
+        onSelectWeighingType,
         onPressBack,
     } = useReports();
 
@@ -60,16 +63,29 @@ export const ReportsView = observer(() => {
                             />
                         </View>
                     </View>
-                    <View style={styles.rangeBlock}>
-                        <Text style={styles.rangeLabel}>{t('reports.selectedRangeLabel')}</Text>
-                        <Text style={styles.rangeValue}>{formatRange(selectedRange.startDate, selectedRange.endDate, t('reports.rangePlaceholder'))}</Text>
+                    <View style={styles.userBlock}>
+                        <Text style={styles.rangeLabel}>{t('reports.weighingTypeLabel')}</Text>
+                        <View style={styles.dropdownContainer}>
+                            <Dropdown
+                                value={selectedWeighingType}
+                                items={weighingTypeItems}
+                                placeholder={t('reports.weighingTypePlaceholder')}
+                                setValue={(item) => onSelectWeighingType(item.value)}
+                            />
+                        </View>
                     </View>
-                    <TextButton
-                        text={t('reports.selectRangeButton')}
-                        onPress={onChangeCalendarVisibility}
-                        containerStyle={styles.textButtonContainer}
-                        textStyles={styles.textButton}
-                    />
+                    <View style={styles.userBlock}>
+                        <TouchableOpacity onPress={onChangeCalendarVisibility}>
+                            <NLTTextInput
+                                label={t('reports.selectedRangeLabel')}
+                                value={formatRange(selectedRange.startDate, selectedRange.endDate, t('reports.rangePlaceholder'))}
+                                shape='pill'
+                                editable={false}
+                                keyboardType='numeric'
+                                pointerEvents='none'
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </NLTCard>
             </View>
             <View style={styles.footer}>

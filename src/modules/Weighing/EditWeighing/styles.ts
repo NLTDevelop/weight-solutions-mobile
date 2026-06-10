@@ -30,6 +30,27 @@ export const getStyles = (colors: IColors) => {
             paddingHorizontal: scaleHorizontal(16),
             paddingTop: scaleVertical(8),
             paddingBottom: scaleVertical(8),
-        }, 
+        },
+        inputContainer: {
+            marginBottom: 0,
+        },
+        labelRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: scaleHorizontal(2),
+            marginBottom: scaleVertical(4),
+        },
+        label: {
+            color: colors.text_secondary,
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
+            fontFamily: 'Roboto-Medium',
+        },
+        mandatoryMark: {
+            color: colors.primary,
+            fontSize: scaleFontSize(12),
+            lineHeight: scaleLineHeight(14),
+            fontFamily: 'Roboto-Bold',
+        },
     });
 };

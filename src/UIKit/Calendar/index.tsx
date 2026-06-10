@@ -19,13 +19,20 @@ export const CalendarModal: FC<IProps> = memo(({ visible, onDayPress, onBackdrop
 
     return (
         <Modal
+            animationIn='slideInUp'
+            animationOut='slideOutDown'
             isVisible={visible}
-            hasBackdrop={true}
-            backdropOpacity={0.4}
-            animationIn='fadeIn'
-            animationOut={'fadeOut'}
             onBackdropPress={onBackdropPress}
+            onBackButtonPress={onBackdropPress}
+            backdropTransitionOutTiming={400}
+            animationInTiming={400}
+            animationOutTiming={400}
+            backdropOpacity={0.6}
             style={styles.modal}
+            statusBarTranslucent
+            useNativeDriver={true}
+            useNativeDriverForBackdrop={true}
+            hideModalContentWhileAnimating={true}
         >
             <View style={styles.container}>
                 <Calendar

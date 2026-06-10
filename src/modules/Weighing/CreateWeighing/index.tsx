@@ -19,6 +19,7 @@ export const CreateWeighingView = observer(() => {
         carNumber,
         selectedProductId,
         movementType,
+        weightType,
         weightCount,
         firstWeight,
         comment,
@@ -27,7 +28,6 @@ export const CreateWeighingView = observer(() => {
         movementTypeItems,
         weightCountItems,
         productErrorText,
-        phoneErrorText,
         carNumberErrorText,
         movementTypeErrorText,
         weightCountErrorText,
@@ -67,8 +67,6 @@ export const CreateWeighingView = observer(() => {
                     placeholder={t('weighings.phonePlaceholder')}
                     value={carPhone}
                     onChangeText={onChangeCarPhone}
-                    error={phoneErrorText ? t(phoneErrorText) : ''}
-                    isMandatory
                     shape='pill'
                     containerStyle={styles.inputContainer}
                     keyboardType='phone-pad'
@@ -93,6 +91,7 @@ export const CreateWeighingView = observer(() => {
                         items={productItems}
                         placeholder={t('weighings.productPlaceholder')}
                         setValue={(item) => onSelectProduct(item.value as unknown as number)}
+                        zIndex={9999}
                     />
                     {productErrorText ? <Text style={styles.errorText}>{t(productErrorText)}</Text> : null}
                 </View>
@@ -106,6 +105,7 @@ export const CreateWeighingView = observer(() => {
                         items={movementTypeItems}
                         placeholder={t('weighings.movementTypePlaceholder')}
                         setValue={(item) => onSelectMovementType(item.value as string)}
+                        zIndex={299}
                     />
                     {movementTypeErrorText ? <Text style={styles.errorText}>{t(movementTypeErrorText)}</Text> : null}
                 </View>
@@ -119,12 +119,23 @@ export const CreateWeighingView = observer(() => {
                         items={weightCountItems}
                         placeholder={t('weighings.weightCountPlaceholder')}
                         setValue={(item) => onSelectWeightCount(item.value as unknown as number)}
+                        zIndex={298}
                     />
                     {weightCountErrorText ? <Text style={styles.errorText}>{t(weightCountErrorText)}</Text> : null}
                 </View>
                 <NLTTextInput
-                    label={t('weighings.tareWeightLabel')}
-                    placeholder={t('weighings.tareWeightPlaceholder')}
+                    label={t('weighings.weightTypeLabel')}
+                    placeholder={t('weighings.weightTypePlaceholder')}
+                    value={weightType ? t(`weighings.weightTypesLabels.${weightType}`) : ''}
+                    onChangeText={onChangeFirstWeight}
+                    editable={false}
+                    isMandatory
+                    shape='pill'
+                    containerStyle={styles.inputContainer}
+                />
+                <NLTTextInput
+                    label={weightType ? t(`weighings.weightTypesLabels.${weightType}`) : t('weighings.weightLabel')}
+                    placeholder={weightType ? t(`weighings.weightTypesPlaceholders.${weightType}`) : t('weighings.weightPlaceholder')}
                     value={firstWeight}
                     onChangeText={onChangeFirstWeight}
                     error={firstWeightErrorText ? t(firstWeightErrorText) : ''}

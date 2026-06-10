@@ -8,17 +8,44 @@ export const getStyles = (colors: IColors) => {
             flex: 1,
             backgroundColor: colors.background,
         },
-        searchContainer: {
-            paddingHorizontal: scaleHorizontal(16),
-            paddingTop: scaleVertical(16),
-        },
         phoneContainerStyle: {
             marginTop: scaleVertical(16),
             gap: scaleHorizontal(8),
             marginHorizontal: scaleHorizontal(16)
         },
+        searchContainer: {
+            paddingHorizontal: scaleHorizontal(16),
+            paddingTop: scaleVertical(16),
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: scaleHorizontal(12),
+        },
+        inputContainerStyle: {
+            flex: 1,
+        },
         searchInputInner: {
+            alignItems: 'center',
             backgroundColor: colors.card,
+        },
+        filterButton: {
+            width: scaleHorizontal(48),
+            height: scaleHorizontal(48),
+            borderRadius: scaleHorizontal(24),
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: colors.card,
+            borderWidth: 1,
+            borderColor: colors.border,
+            position: 'relative',
+        },
+        filterIndicator: {
+            position: 'absolute',
+            top: scaleVertical(10),
+            right: scaleHorizontal(10),
+            width: scaleHorizontal(8),
+            height: scaleHorizontal(8),
+            borderRadius: scaleHorizontal(4),
+            backgroundColor: colors.error,
         },
         tabBar: {
             elevation: 0,

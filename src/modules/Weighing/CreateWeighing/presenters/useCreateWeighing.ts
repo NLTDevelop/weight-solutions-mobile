@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useCreateWeighingUi } from './useCreateWeighingUi';
 import { useUiContext } from '@/UIProvider';
 import { orderModel } from '@/entities/Order/OrderModel';
+import { getPrimaryWeightType, MOVEMENT_TYPE, MovementType, WeightType } from '@/entities/Order/types';
 
 const PRODUCT_LIMIT = 100;
 
@@ -17,7 +18,8 @@ export const useCreateWeighing = () => {
     const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
     const [carPhone, setCarPhone] = useState('');
     const [carNumber, setCarNumber] = useState('');
-    const [movementType, setMovementType] = useState<string | null>(null);
+    const [movementType, setMovementType] = useState<MovementType | null>(null);
+    const [weightType, setWeightType] = useState<WeightType | null>(null);
     const [weightCount, setWeightCount] = useState<number | null>(2);
     const [firstWeight, setFirstWeight] = useState('');
     const [comment, setComment] = useState('');
@@ -60,8 +62,8 @@ export const useCreateWeighing = () => {
     }));
 
     const movementTypeItems = useMemo(() => ([
-        { label: t('weighings.movementTypes.loading'), value: 'loading' },
-        { label: t('weighings.movementTypes.unloading'), value: 'unloading' },
+        { label: t('weighings.movementTypes.loading'), value: MOVEMENT_TYPE.loading },
+        { label: t('weighings.movementTypes.unloading'), value: MOVEMENT_TYPE.unloading },
     ]), [t]);
 
     const weightCountItems = useMemo(() => ([
@@ -69,11 +71,11 @@ export const useCreateWeighing = () => {
         { label: '2', value: 2 },
     ]), []);
 
-    const { productErrorText, phoneErrorText, carNumberErrorText, movementTypeErrorText, weightCountErrorText, firstWeightErrorText, isSubmitDisabled } = useCreateWeighingUi({
+    const { productErrorText,  carNumberErrorText, movementTypeErrorText, weightTypeErrorText, weightCountErrorText, firstWeightErrorText, isSubmitDisabled } = useCreateWeighingUi({
         selectedProductId,
-        carPhone,
         carNumber,
         movementType,
+        weightType,
         weightCount,
         firstWeight,
         isSubmitted,
@@ -83,7 +85,7 @@ export const useCreateWeighing = () => {
     const onSubmit = async () => {
         setIsSubmitted(true);
 
-        if (isSubmitDisabled || !selectedProductId || !movementType || !weightCount) {
+        if (isSubmitDisabled || !selectedProductId || !movementType || !weightType || !weightCount) {
             return;
         }
 
@@ -95,11 +97,12 @@ export const useCreateWeighing = () => {
             product_id: selectedProductId,
             type: movementType,
             weight_count: weightCount,
-            is_guest: isGuest,
+            is_guest: String(isGuest) as 'true' | 'false',
             comment: comment.trim() || undefined,
             item: {
                 weight: firstWeight.trim(),
-                weight_type: 'tare',
+                weight_type: weightType,
+                is_correction: false,
             },
         });
 
@@ -117,12 +120,18 @@ export const useCreateWeighing = () => {
         navigation.replace('WeighingView', { orderId: response.data.data.id });
     };
 
+    const onSelectMovementType = (value: MovementType) => {
+        setWeightType(getPrimaryWeightType(value));
+        setMovementType(value);
+    };
+
     return {
         recordNumber: '',
         carPhone,
         carNumber,
         selectedProductId,
         movementType,
+        weightType,
         weightCount,
         firstWeight,
         comment,
@@ -131,16 +140,16 @@ export const useCreateWeighing = () => {
         movementTypeItems,
         weightCountItems,
         productErrorText,
-        phoneErrorText,
         carNumberErrorText,
         movementTypeErrorText,
+        weightTypeErrorText,
         weightCountErrorText,
         firstWeightErrorText,
         isSubmitDisabled,
         onSelectProduct: (value: number) => setSelectedProductId(value),
         onChangeCarPhone: setCarPhone,
         onChangeCarNumber: setCarNumber,
-        onSelectMovementType: (value: string) => setMovementType(value),
+        onSelectMovementType,
         onSelectWeightCount: (value: number) => setWeightCount(value),
         onChangeFirstWeight: setFirstWeight,
         onChangeComment: setComment,

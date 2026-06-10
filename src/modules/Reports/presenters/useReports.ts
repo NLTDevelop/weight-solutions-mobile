@@ -11,6 +11,11 @@ import { usersService } from "@/entities/Users/UsersService";
 import { IUser } from "@/entities/User/IUser";
 
 const USERS_LIMIT = 100;
+const WEIGHING_TYPE_ALL = 'all';
+const WEIGHING_TYPE_OWN = 'own';
+const WEIGHING_TYPE_GUEST = 'guest';
+
+type WeighingTypeFilter = typeof WEIGHING_TYPE_ALL | typeof WEIGHING_TYPE_OWN | typeof WEIGHING_TYPE_GUEST;
 
 export const useReports = () => {
     const { colors, t } = useUiContext();
@@ -21,6 +26,7 @@ export const useReports = () => {
     const [showCalendar, setShowCalendar] = useState(false);
     const [users, setUsers] = useState<IUser[]>([]);
     const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+    const [selectedWeighingType, setSelectedWeighingType] = useState<WeighingTypeFilter>(WEIGHING_TYPE_ALL);
 
     const getUsers = useCallback(async () => {
         const loadUsersPage = async (offset: number, accumulatedUsers: IUser[] = []): Promise<IUser[]> => {
@@ -59,6 +65,12 @@ export const useReports = () => {
             value: currentUser.id,
         })),
     ]), [t, users]);
+
+    const weighingTypeItems = useMemo(() => ([
+        { label: t('reports.allWeighingsOption'), value: WEIGHING_TYPE_ALL },
+        { label: t('reports.ownWeighingsOption'), value: WEIGHING_TYPE_OWN },
+        { label: t('reports.guestWeighingsOption'), value: WEIGHING_TYPE_GUEST },
+    ]), [t]);
 
     const onDayPress = useCallback((day: DateData) => {
         if (!range.startDate && !range.endDate) {
@@ -133,6 +145,10 @@ export const useReports = () => {
                 queryParams.push(`user_id=${selectedUserId}`);
             }
 
+            if (selectedWeighingType !== WEIGHING_TYPE_ALL) {
+                queryParams.push(`is_guest=${selectedWeighingType === WEIGHING_TYPE_GUEST}`);
+            }
+
             const url = links.reportWeight + `/${userModel.user.token}` + `?${queryParams.join('&')}`;
             console.log('Downloading report from URL:', url);
             const response = await fileSystem.download(url, 'звіт_зважувань.xlsx');
@@ -175,7 +191,9 @@ export const useReports = () => {
         range,
         selectedRange,
         selectedUserId,
+        selectedWeighingType,
         userItems,
+        weighingTypeItems,
         onDayPress,
         showCalendar,
         onChangeCalendarVisibility,
@@ -184,6 +202,7 @@ export const useReports = () => {
         onGetWeightReport,
         isLoading,
         onSelectUser: (userId: number) => setSelectedUserId(userId === 0 ? null : userId),
+        onSelectWeighingType: (weighingType: string | number) => setSelectedWeighingType(weighingType as WeighingTypeFilter),
         onPressBack: () => navigation.goBack(),
     };
 

@@ -58,7 +58,7 @@ export const getStyles = (colors: IColors) => {
         },
         errorText: {
             marginTop: scaleVertical(4),
-            color: colors.text_error,
+            color: colors.error,
             fontSize: scaleFontSize(12),
             lineHeight: scaleLineHeight(14),
             fontFamily: 'Roboto-Regular',
@@ -69,17 +69,8 @@ export const getStyles = (colors: IColors) => {
             paddingTop: scaleVertical(8),
             paddingBottom: scaleVertical(8),
         },
-        button: {
-            minHeight: scaleVertical(48),
-            width: '100%',
-        },
-        buttonDisabled: {
-            backgroundColor: colors.background_light,
-        },
-        buttonText: {
-            fontSize: scaleFontSize(16),
-            lineHeight: scaleLineHeight(20),
-            fontFamily: 'Roboto-Medium',
+        dropdownContainer:{
+            zIndex: 9999,
         },
     });
 };

@@ -89,7 +89,7 @@
         "ownerPlaceholder": "Введіть ПІБ власника",
         "emailLabel": "Email",
         "emailFallback": "Email не вказано",
-        "phoneLabel": "Номер телефону:",
+        "phoneLabel": "Номер телефону або імя водія:",
         "phoneInputLabel": "Номер телефону",
         "phonePlaceholder": "Введіть номер телефону",
         "emailInputLabel": "Email",
@@ -154,7 +154,7 @@
         "selectedProductLabel": "Обрано",
         "noProducts": "Немає активних продуктів для вибору",
         "productFallback": "Продукт не вказано",
-        "phoneLabel": "Номер телефону водія",
+        "phoneLabel": "Номер телефону або імя водія",
         "phonePlaceholder": "Введіть номер телефону",
         "baseInfoTitle": "Основна інформація",
         "recordNumberLabel": "Номер запису",
@@ -182,6 +182,22 @@
             "loading": "Загрузка",
             "unloading": "Вигрузка"
         },
+        "weightTypeLabel": "Тип ваги",
+        "weightTypePlaceholder": "Оберіть тип ваги",
+        "weightLabel": "Вага",
+        "weightPlaceholder": "Введіть вагу",
+        "weightTypes": {
+            "tare": "Тара",
+            "gross": "Брутто"
+        },
+        "weightTypesLabels": {
+            "tare": "Вага тари",
+            "gross": "Вага брутто"
+        },
+        "weightTypesPlaceholders": {
+            "tare": "Введіть вагу тари",
+            "gross": "Введіть вагу брутто"
+        },
         "weightCountLabel": "Кількість зважувань",
         "weightCountPlaceholder": "Оберіть кількість зважувань",
         "grossWeightLabel": "Вага брутто",
@@ -197,9 +213,20 @@
             "active": "Активні",
             "completed": "Завершені"
         },
+        "filter": {
+            "title": "Фільтри",
+            "periodLabel": "Період",
+            "periodPlaceholder": "Період не вибрано",
+            "selectPeriodButton": "Обрати період",
+            "typeLabel": "Тип руху",
+            "typePlaceholder": "Оберіть тип руху",
+            "allTypes": "Усі типи",
+            "clearButton": "Скинути",
+            "applyButton": "Застосувати"
+        },
         "statuses": {
             "new": "Нова",
-            "active": "Завершено",
+            "active": "Активна",
             "completed": "Завершено",
             "suspicious": "Підозріло",
             "not_synchronized": "Не синхронізовано"
@@ -223,6 +250,7 @@
             "tareWeightNumbersOnly": "Вага тари має містити лише цифри",
             "scalePointRequired": "Вкажіть пункт зважування",
             "movementTypeRequired": "Оберіть тип руху вантажу",
+            "weightTypeRequired": "Оберіть тип ваги",
             "weightCountRequired": "Оберіть кількість зважувань"
         },
         "listLoadingFailed": "Не вдалося завантажити зважування",
@@ -245,6 +273,11 @@
         "userLabel": "Користувач",
         "userPlaceholder": "Оберіть користувача",
         "allUsersOption": "Усі користувачі",
+        "weighingTypeLabel": "Тип зважувань",
+        "weighingTypePlaceholder": "Оберіть тип зважувань",
+        "allWeighingsOption": "Усі зважування",
+        "ownWeighingsOption": "Власні зважування",
+        "guestWeighingsOption": "Гостьові зважування",
         "selectedRangeLabel": "Обраний період",
         "rangePlaceholder": "Період не вибрано",
         "selectRangeButton": "Обрати період",

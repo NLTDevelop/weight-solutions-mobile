@@ -8,14 +8,14 @@ export const getStyle = (colors: IColors, isOpen: boolean) => {
             zIndex: isOpen ? 1000 : 1,
         },
         dropdown: {
-            minHeight: scaleVertical(44),
+            height: scaleVertical(44),
             borderRadius: scaleHorizontal(22),
             borderColor: colors.border,
             backgroundColor: colors.card,
             paddingHorizontal: scaleHorizontal(12),
         },
         dropDownContainerStyle: {
-            minHeight: scaleVertical(100),
+            height: scaleVertical(120),
             borderColor: colors.border,
             backgroundColor: colors.card,
             borderRadius: scaleHorizontal(16),
@@ -27,7 +27,7 @@ export const getStyle = (colors: IColors, isOpen: boolean) => {
             elevation: 4,
         },
         listItemContainerStyle: {
-            minHeight: scaleVertical(44),
+            height: scaleVertical(44),
             paddingHorizontal: scaleHorizontal(12),
         },
         dropdownSelectedItemContainer: {

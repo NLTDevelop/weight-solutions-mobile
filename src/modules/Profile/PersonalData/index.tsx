@@ -9,11 +9,13 @@ import { usePersonalData } from './presenters/usePersonalData';
 import { getStyles } from './styles';
 import { NLTCard } from '@/UIKit/NLTCard';
 import { NLTInfoRow } from '@/UIKit/NLTInfoRow';
+import { userModel } from '@/entities/User/UserModel';
 
 export const PersonalDataView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
     const { rows, onPressBack, onPressEdit } = usePersonalData();
+    const isUser = userModel.user?.role === 'user';
 
     const keyExtractor = (item: { id: string }) => item.id;
 
@@ -32,7 +34,7 @@ export const PersonalDataView = observer(() => {
             headerComponent={<HeaderWithBackButton
                 title={t('profile.personalDataTitle')}
                 onPressBack={onPressBack}
-                rightComponent={<TextButton text={t('profile.editTitle')} onPress={onPressEdit} textStyles={styles.editButtonText} />}
+                rightComponent={isUser ? null : <TextButton text={t('profile.editTitle')} onPress={onPressEdit} textStyles={styles.editButtonText} />}
             />}
         >
             <NLTCard containerStyle={styles.card}>

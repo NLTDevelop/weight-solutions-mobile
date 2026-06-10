@@ -26,6 +26,7 @@ export const ProfileView = observer(() => {
         onToggleNotifications, onOpenDeleteModal, onGoToOnePlatform, } = useProfile();
     const isSuperadmin = userModel.user?.role === 'superadmin';
     const isAdmin = userModel.user?.role === 'admin';
+    const isUser = userModel.user?.role === 'user';
 
     return (
         <ScreenContainer edges={['top']} headerComponent={<HeaderWithBackButton backDisabled title={t('profile.title')} />}>
@@ -39,16 +40,16 @@ export const ProfileView = observer(() => {
                     <ProfileMenuItem icon={<UserIcon color={colors.icon_strong} />} title={t('profile.personalDataTitle')} onPress={onGoToPersonalData} />
                     {isAdmin ? <View style={styles.itemSeparator} /> : null}
                     {isAdmin ? <ProfileMenuItem icon={<BellIcon color={colors.icon_strong} />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} trailingType={'toggle'} toggleValue={isNotificationsEnabled} onToggle={onToggleNotifications} /> : null}
-                    <View style={styles.itemSeparator} />
-                    <ProfileMenuItem icon={<EditIcon color={colors.icon_strong} />} title={t('profile.changePasswordTitle')} onPress={onGoToChangePassword} />
+                    {isUser ? null : <View style={styles.itemSeparator} />}
+                    {isUser ? null : <ProfileMenuItem icon={<EditIcon color={colors.icon_strong} />} title={t('profile.changePasswordTitle')} onPress={onGoToChangePassword} />}
                     {isAdmin ? <View style={styles.itemSeparator} /> : null}
                     {isAdmin ? <ProfileMenuItem icon={<UserIcon color={colors.icon_strong} />} title={t('profile.usersManagementTitle')} onPress={onGoToUsersManagement} /> : null}
                     {isSuperadmin ? <View style={styles.itemSeparator} /> : null}
                     {isSuperadmin ? <ProfileMenuItem icon={<EditIcon color={colors.icon_strong} />} title={t('profile.contactSettingsTitle')} onPress={onGoToContactInformation} /> : null}
                     <View style={styles.itemSeparator} />
                     <ProfileMenuItem icon={<LogoutIcon color={colors.icon_strong} />} title={t('profile.logoutTitle')} onPress={onOpenLogoutModal} />
-                    {isSuperadmin ? null : <View style={styles.itemSeparator} />}
-                    {isSuperadmin ? null : <ProfileMenuItem icon={<TrashIcon color={colors.error} />} title={t('profile.deleteAccountTitle')} onPress={onOpenDeleteModal} />}
+                    {isSuperadmin || isUser ? null : <View style={styles.itemSeparator} />}
+                    {isSuperadmin || isUser ? null : <ProfileMenuItem icon={<TrashIcon color={colors.error} />} title={t('profile.deleteAccountTitle')} onPress={onOpenDeleteModal} />}
                 </NLTCard>
 
                 <NLTCard containerStyle={styles.footerCard} onPress={onGoToOnePlatform}>

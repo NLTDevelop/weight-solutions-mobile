@@ -116,12 +116,13 @@ class OrderService {
             product: selectedProduct,
             type: body.type,
             weight_count: body.weight_count,
-            is_guest: body.is_guest,
+            is_guest: body.is_guest === 'true',
             items: [
                 {
                     id: this.getNextLocalId(),
                     weight: body.item.weight,
                     weight_type: body.item.weight_type,
+                    is_correction: body.item.is_correction,
                     created_at: now,
                 },
             ],
@@ -138,6 +139,7 @@ class OrderService {
             id: this.getNextLocalId(),
             weight: body.weight,
             weight_type: body.weight_type,
+            is_correction: body.is_correction,
             created_at: new Date().toISOString(),
         };
 
@@ -192,11 +194,12 @@ class OrderService {
                         product_id: pendingOrder.product.id,
                         type: pendingOrder.type,
                         weight_count: pendingOrder.weight_count,
-                        is_guest: !!pendingOrder.is_guest,
+                        is_guest: String(!!pendingOrder.is_guest) as 'true' | 'false',
                         comment: pendingOrder.comment || undefined,
                         item: {
                             weight: firstItem.weight,
                             weight_type: firstItem.weight_type,
+                            is_correction: firstItem.is_correction,
                         },
                     });
 
@@ -215,6 +218,7 @@ class OrderService {
                         const addItemResponse = await this.addItemRequest(syncedOrder.id, {
                             weight: item.weight,
                             weight_type: item.weight_type,
+                            is_correction: item.is_correction,
                         });
 
                         if (addItemResponse.isError || !addItemResponse.data?.data) {
@@ -248,6 +252,7 @@ class OrderService {
                         const addItemResponse = await this.addItemRequest(pendingOrder.id, {
                             weight: item.weight,
                             weight_type: item.weight_type,
+                            is_correction: item.is_correction,
                         });
 
                         if (addItemResponse.isError || !addItemResponse.data?.data) {

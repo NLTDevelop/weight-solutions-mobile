@@ -1,15 +1,18 @@
+import { MovementType, WeightType } from "../types";
+
 export interface OrderWeightItemDto {
     weight: string;
-    weight_type: string;
+    weight_type: WeightType;
+    is_correction: boolean;
 }
 
 export interface OrderCreateDto {
     car_phone: string;
     car_number: string;
     product_id: number;
-    type: string;
+    type: MovementType;
     weight_count: number;
-    is_guest: boolean;
+    is_guest: 'true' | 'false';
     comment?: string;
     item: OrderWeightItemDto;
 }

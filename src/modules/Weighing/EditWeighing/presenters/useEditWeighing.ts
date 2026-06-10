@@ -3,10 +3,11 @@ import { orderService } from '@/entities/Order/OrderService';
 import { toastService } from '@/libs/toast/toastService';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useEditWeighingUi } from './useEditWeighingUi';
-import { getFirstWeighingItem } from '@/modules/Weighing/utils/weight';
+import { getFirstWeighingItem, getFirstWeighingType, getSecondWeighingItem, getSecondWeighingType } from '@/modules/Weighing/utils/weight';
 import { useUiContext } from '@/UIProvider';
+import { WeightType } from '@/entities/Order/types';
 
 interface IRouteParams {
     orderId: number;
@@ -20,6 +21,7 @@ export const useEditWeighing = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [secondWeight, setSecondWeight] = useState('');
+    const [weightType, setWeightType] = useState<WeightType | null>(null);
 
     const currentOrder = orderModel.getById(orderId);
 
@@ -47,8 +49,36 @@ export const useEditWeighing = () => {
     const order = orderModel.getById(orderId) || currentOrder;
     const resolvedOrderId = order?.id ?? orderId;
     const firstItem = getFirstWeighingItem(order);
-    const { secondWeightErrorText, isSubmitDisabled } = useEditWeighingUi({
+    const firstWeightType = getFirstWeighingType(order);
+    const secondWeightType = getSecondWeighingType(order);
+    const secondItem = getSecondWeighingItem(order);
+
+    console.log('secondItem ', secondItem)
+
+    const weightTypeItems = useMemo(() => {
+        return secondItem
+            ? [
+                { label: t(`weighings.weightTypes.${secondWeightType}`), value: secondWeightType },
+            ]
+            : [
+                { label: t(`weighings.weightTypes.${firstWeightType}`), value: firstWeightType },
+                { label: t(`weighings.weightTypes.${secondWeightType}`), value: secondWeightType },
+            ];
+    }, [firstWeightType, secondItem, secondWeightType, t]);
+
+    useEffect(() => {
+        setWeightType((currentValue) => {
+            if (currentValue && weightTypeItems.some(option => option.value === currentValue)) {
+                return currentValue;
+            }
+
+            return weightTypeItems[0]?.value ?? null;
+        });
+    }, [weightTypeItems]);
+
+    const { weightTypeErrorText, secondWeightErrorText, isSubmitDisabled } = useEditWeighingUi({
         secondWeight,
+        weightType,
         isSubmitted,
         isLoading,
     });
@@ -61,10 +91,12 @@ export const useEditWeighing = () => {
         }
 
         setIsLoading(true);
+        const is_correction = !!order?.items?.some(item => item.weight_type === weightType);
 
         const response = await orderService.addItem(resolvedOrderId, {
             weight: secondWeight.trim(),
-            weight_type: 'gross',
+            weight_type: weightType!,
+            is_correction,
         });
 
         setIsLoading(false);
@@ -91,11 +123,16 @@ export const useEditWeighing = () => {
         weightCount: order?.weight_count || 2,
         firstWeightDateTime: firstItem?.created_at || order?.created_at || '',
         firstWeight: firstItem?.weight || '',
+        firstWeightType,
         secondWeightDateTime: new Date().toISOString(),
         secondWeight,
+        weightType,
+        weightTypeItems,
         isLoading,
+        weightTypeErrorText,
         secondWeightErrorText,
         isSubmitDisabled,
+        onSelectWeightType: setWeightType,
         onChangeSecondWeight: setSecondWeight,
         onPressBack: () => navigation.goBack(),
         onSubmit,

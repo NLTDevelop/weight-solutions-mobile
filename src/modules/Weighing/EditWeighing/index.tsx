@@ -1,4 +1,5 @@
 import { useUiContext } from '@/UIProvider';
+import { Dropdown } from '@/UIKit/Dropdown';
 import { NLTButton } from '@/UIKit/NLTButton';
 import { HeaderWithBackButton } from '@/UIKit/HeaderWithBackButton';
 import { NLTTextInput } from '@/UIKit/NLTTextInput';
@@ -25,11 +26,15 @@ export const EditWeighingView = observer(() => {
         weightCount,
         firstWeightDateTime,
         firstWeight,
+        firstWeightType,
         secondWeightDateTime,
         secondWeight,
+        weightType,
+        weightTypeItems,
         isLoading,
         secondWeightErrorText,
         isSubmitDisabled,
+        onSelectWeightType,
         onChangeSecondWeight,
         onPressBack,
         onSubmit,
@@ -57,24 +62,28 @@ export const EditWeighingView = observer(() => {
                     <NLTInfoRow label={t('weighings.movementTypeLabel')} value={movementType ? t(`weighings.movementTypes.${movementType}`) : ''} />
                     <NLTSeparator />
                     <NLTInfoRow label={t('weighings.weightCountLabel')} value={String(weightCount || '')} />
-                    {/* <NLTTextInput label={t('weighings.recordNumberLabel')} value={recordNumber} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
-                <NLTTextInput label={t('weighings.phoneLabel')} value={carPhone} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
-                <NLTTextInput label={t('weighings.carNumberLabel')} value={carNumber} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
-                <NLTTextInput label={t('weighings.cargoTypeLabel')} value={productName} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
-                <NLTTextInput label={t('weighings.movementTypeLabel')} value={movementType ? t(`weighings.movementTypes.${movementType}`) : ''} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
-                <NLTTextInput label={t('weighings.weightCountLabel')} value={String(weightCount || '')} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} /> */}
 
                     <Text style={styles.sectionTitle}>{t('weighings.firstWeighingSectionTitle')}</Text>
                     <NLTInfoRow label={t('weighings.firstWeightDateTimeLabel')} value={formatWeighingDateTime(firstWeightDateTime)} />
-                    <NLTInfoRow label={t('weighings.tareWeightLabel')} value={firstWeight} />
-                    {/* <NLTTextInput label={t('weighings.firstWeightDateTimeLabel')} value={formatWeighingDateTime(firstWeightDateTime)} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
-                <NLTTextInput label={t('weighings.tareWeightLabel')} value={firstWeight} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} /> */}
+                    <NLTInfoRow label={t(`weighings.weightTypesLabels.${firstWeightType}`)} value={firstWeight} />
                 </NLTCard>
                 <Text style={styles.sectionTitle}>{t('weighings.secondWeighingSectionTitle')}</Text>
                 <NLTTextInput label={t('weighings.secondWeightDateTimeLabel')} value={formatWeighingDateTime(secondWeightDateTime)} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />
+                <View style={styles.inputContainer}>
+                    <View style={styles.labelRow}>
+                        <Text style={styles.label}>{t('weighings.weightTypeLabel')}</Text>
+                        <Text style={styles.mandatoryMark}>*</Text>
+                    </View>
+                    <Dropdown
+                        value={weightType}
+                        items={weightTypeItems}
+                        placeholder={t('weighings.weightTypePlaceholder')}
+                        setValue={(item) => onSelectWeightType(item.value as string)}
+                    />
+                </View>
                 <NLTTextInput
-                    label={t('weighings.grossWeightLabel')}
-                    placeholder={t('weighings.grossWeightPlaceholder')}
+                    label={weightType ? t(`weighings.weightTypesLabels.${weightType}`) : t('weighings.weightLabel')}
+                    placeholder={weightType ? t(`weighings.weightTypesPlaceholders.${weightType}`) : t('weighings.weightPlaceholder')}
                     value={secondWeight}
                     onChangeText={onChangeSecondWeight}
                     error={secondWeightErrorText ? t(secondWeightErrorText) : ''}
