@@ -28,15 +28,21 @@ export const getStyle = (colors: IColors, isOpen: boolean) => {
         },
         listItemContainerStyle: {
             height: scaleVertical(44),
-            paddingHorizontal: scaleHorizontal(12),
+            padding: 0,
         },
         dropdownSelectedItemContainer: {
+            backgroundColor: colors.card,
+        },
+        item: {
+            height: scaleVertical(44),
+            justifyContent: 'center',
+            paddingHorizontal: scaleHorizontal(12),
             backgroundColor: colors.card,
         },
         textStyle: {
             color: colors.text_strong,
             fontSize: scaleFontSize(14),
-            lineHeight: scaleLineHeight(17),
+            lineHeight: scaleLineHeight(18),
             fontFamily: 'Roboto-Regular',
         },
         placeholderStyle: {

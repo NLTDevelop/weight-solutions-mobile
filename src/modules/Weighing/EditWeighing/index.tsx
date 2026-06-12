@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import { Text, View } from 'react-native';
 import { useEditWeighing } from './presenters/useEditWeighing';
 import { getStyles } from './styles';
-import { formatWeighingDateTime } from '../utils/weight';
+import { formatWeighingDateTime, formatWeightValue } from '../utils/weight';
 import { NLTInfoRow } from '@/UIKit/NLTInfoRow';
 import { NLTCard } from '@/UIKit/NLTCard';
 import { NLTSeparator } from '@/UIKit/NLTSeparator';
@@ -65,7 +65,7 @@ export const EditWeighingView = observer(() => {
 
                     <Text style={styles.sectionTitle}>{t('weighings.firstWeighingSectionTitle')}</Text>
                     <NLTInfoRow label={t('weighings.firstWeightDateTimeLabel')} value={formatWeighingDateTime(firstWeightDateTime)} />
-                    <NLTInfoRow label={t(`weighings.weightTypesLabels.${firstWeightType}`)} value={firstWeight} />
+                    <NLTInfoRow label={t(`weighings.weightTypesLabels.${firstWeightType}`)} value={formatWeightValue(firstWeight)} />
                 </NLTCard>
                 <Text style={styles.sectionTitle}>{t('weighings.secondWeighingSectionTitle')}</Text>
                 <NLTTextInput label={t('weighings.secondWeightDateTimeLabel')} value={formatWeighingDateTime(secondWeightDateTime)} editable={false} shape='pill' inputContainerStyle={styles.readonlyInput} />

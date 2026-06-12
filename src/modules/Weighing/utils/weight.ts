@@ -2,6 +2,8 @@ import { IOrder } from '@/entities/Order/IOrder';
 import { IOrderItem } from '@/entities/Order/IOrder';
 import { getPrimaryWeightType, getSecondaryWeightType, WeightType } from '@/entities/Order/types';
 
+const WEIGHT_UNIT = 'кг';
+
 
 export const formatWeighingDateTime = (value?: string | null) => {
     if (!value) {
@@ -17,6 +19,18 @@ export const getWeightNumberValue = (value?: string | null) => {
     }
     const parsedValue = Number(String(value).replace(',', '.'));
     return Number.isFinite(parsedValue) ? parsedValue : null;
+};
+
+export const formatWeightValue = (value?: string | null) => {
+    if (!value) {
+        return '';
+    }
+
+    if (value.startsWith('weighings.') || new RegExp(`\\s${WEIGHT_UNIT}$`).test(value)) {
+        return value;
+    }
+
+    return `${value} ${WEIGHT_UNIT}`;
 };
 
 const getLatestWeighingItemByType = (order: IOrder | null, weightType: WeightType) => {
@@ -79,7 +93,9 @@ export const getNetWeightValue = (order: IOrder | null) => {
         return 'weighings.fallbacks.notPerformed';
     }
 
-    return order!.type === 'loading' ? `${secondValue - firstValue}` : `${firstValue - secondValue}`;
+    const netWeight = order!.type === 'loading' ? `${secondValue - firstValue}` : `${firstValue - secondValue}`;
+
+    return formatWeightValue(netWeight);
 };
 
 export const getWeighingStatus = (order: IOrder | null) => {

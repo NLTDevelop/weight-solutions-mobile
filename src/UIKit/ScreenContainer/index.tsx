@@ -56,6 +56,7 @@ export const ScreenContainer: FC<IProps> = ({ isKeyboardAvoiding, headerComponen
                         style={styles.contentContainerStyle}
                         keyboardDismissMode='interactive'
                         keyboardShouldPersistTaps={'handled'}
+                        nestedScrollEnabled
                     >
                         {children}
                     </ScrollView>

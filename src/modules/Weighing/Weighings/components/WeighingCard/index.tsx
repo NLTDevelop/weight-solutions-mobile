@@ -19,7 +19,7 @@ export const WeighingCard = ({ item }: IProps) => {
     const productName = item.productName.startsWith('weighings.') ? t(item.productName) : item.productName;
     const firstWeighingAt = item.firstWeighingAt.startsWith('weighings.') ? t(item.firstWeighingAt) : item.firstWeighingAt;
     const secondWeighingAt = item.secondWeighingAt;
-    const netWeight = item.netWeight.startsWith('weighings.') ? t(item.netWeight) : `${item.netWeight} ${t('weighings.kg')}`;
+    const netWeight = item.netWeight.startsWith('weighings.') ? t(item.netWeight) : item.netWeight;
     const actionLabel = t(item.actionLabel);
 
     return (

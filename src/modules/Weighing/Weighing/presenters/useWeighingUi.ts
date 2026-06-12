@@ -1,6 +1,6 @@
 import { IOrder } from '@/entities/Order/IOrder';
 import { IUser } from '@/entities/User/IUser';
-import { formatWeighingDateTime, getFirstWeighingItem, getFirstWeighingType, getIntermediateWeighingItems, getNetWeightValue, getSecondWeighingItem, getSecondWeighingType, getWeighingActionTranslationKey, getWeighingDisplayStatus } from '@/modules/Weighing/utils/weight';
+import { formatWeighingDateTime, formatWeightValue, getFirstWeighingItem, getFirstWeighingType, getIntermediateWeighingItems, getNetWeightValue, getSecondWeighingItem, getSecondWeighingType, getWeighingActionTranslationKey, getWeighingDisplayStatus } from '@/modules/Weighing/utils/weight';
 
 interface ISectionRow {
     id: string;
@@ -44,7 +44,7 @@ export const useWeighingUi = ({ order, user }: IProps) => {
             title: 'weighings.firstWeighingSectionTitle',
             rows: [
                 { id: 'firstDate', label: 'weighings.firstWeightDateTimeLabel', value: formatWeighingDateTime(firstItem?.created_at || order?.created_at) },
-                { id: 'firstWeight', label: `weighings.weightTypesLabels.${firstWeightType}`, value: withFallback(firstItem?.weight) },
+                { id: 'firstWeight', label: `weighings.weightTypesLabels.${firstWeightType}`, value: formatWeightValue(firstItem?.weight) },
             ],
         },
     ];
@@ -66,7 +66,7 @@ export const useWeighingUi = ({ order, user }: IProps) => {
                 {
                     id: 'secondWeight',
                     label: `weighings.weightTypesLabels.${secondWeightType}`,
-                    value: secondItem ? withFallback(secondItem.weight) : 'weighings.fallbacks.notPerformed',
+                    value: secondItem ? formatWeightValue(secondItem.weight) : 'weighings.fallbacks.notPerformed',
                 },
             ],
         })
@@ -85,7 +85,7 @@ export const useWeighingUi = ({ order, user }: IProps) => {
                 {
                     id: `otherWeight-${item.id}`,
                     label: `weighings.weightTypesLabels.${item.weight_type}`,
-                    value: `${index + 1}. ${withFallback(item.weight)}`,
+                    value: `${index + 1}. ${formatWeightValue(item.weight)}`,
                 },
             ])),
         });
