@@ -9,6 +9,7 @@ import { useMemo } from 'react';
 import { Text, View } from 'react-native';
 import { useCreateWeighing } from './presenters/useCreateWeighing';
 import { getStyles } from './styles';
+import { useWeightingConnection } from '@/hooks/useWeightingConnection';
 
 export const CreateWeighingView = observer(() => {
     const { colors, t } = useUiContext();
@@ -43,6 +44,7 @@ export const CreateWeighingView = observer(() => {
         onPressBack,
         onSubmit,
     } = useCreateWeighing();
+    useWeightingConnection();
 
     return (
         <ScreenContainer
