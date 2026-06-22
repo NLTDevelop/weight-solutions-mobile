@@ -22,6 +22,47 @@ describe('ScaleWeightService', () => {
         expect(reading?.weightKg).toBe(-60);
     });
 
+    it('rounds scale readings to whole kilograms', () => {
+        const service = new ScaleWeightService();
+
+        const reading = service.processRawData('\u0002+00006061D\u0003');
+
+        expect(reading?.weightKg).toBe(61);
+    });
+
+    it('makes weight ready after it is stable above 50 kg for more than 7 seconds', () => {
+        const service = new ScaleWeightService();
+        const now = jest.spyOn(Date, 'now');
+        service.configure({
+            stableSamplesCount: 1,
+            minimumCaptureWeightKg: 50,
+            requiredStableDurationMs: 7000,
+        });
+
+        now.mockReturnValueOnce(1000);
+        const initialReading = service.processRawData('\u0002+00006001D\u0003');
+        now.mockReturnValueOnce(8001);
+        const readyReading = service.processRawData('\u0002+00006001D\u0003');
+
+        expect(initialReading?.isReadyForCapture).toBe(false);
+        expect(readyReading).toEqual(expect.objectContaining({
+            weightKg: 60,
+            stableDurationMs: 7001,
+            isReadyForCapture: true,
+        }));
+        now.mockRestore();
+    });
+
+    it('does not start capture stability at 50 kg', () => {
+        const service = new ScaleWeightService();
+        service.configure({ stableSamplesCount: 1 });
+
+        const reading = service.processRawData('\u0002+00005001D\u0003');
+
+        expect(reading?.isReadyForCapture).toBe(false);
+        expect(reading?.stableDurationMs).toBe(0);
+    });
+
     it('parses raw payload and marks repeated readings as stable', async () => {
         const transport = new InMemoryScaleWeightTransport();
         const service = new ScaleWeightService();

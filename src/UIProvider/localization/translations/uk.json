@@ -185,7 +185,9 @@
         "weightTypeLabel": "Тип ваги",
         "weightTypePlaceholder": "Оберіть тип ваги",
         "weightLabel": "Вага",
-        "weightPlaceholder": "Введіть вагу",
+        "weightPlaceholder": "Вага обновиться автоматично при зважувані",
+        "scaleConnected": "Підключено",
+        "scaleDisconnected": "Не підключено",
         "weightTypes": {
             "tare": "Тара",
             "gross": "Брутто"
@@ -195,8 +197,8 @@
             "gross": "Вага брутто"
         },
         "weightTypesPlaceholders": {
-            "tare": "Введіть вагу тари",
-            "gross": "Введіть вагу брутто"
+            "tare": "Вага тари оновиться автоматично при зважувані",
+            "gross": "Вага вагу бруоновиться автоматично при зважуванітто"
         },
         "weightCountLabel": "Кількість зважувань",
         "weightCountPlaceholder": "Оберіть кількість зважувань",
@@ -379,6 +381,18 @@
         "title": "Профіль",
         "settingsTitle": "Налаштування:",
         "personalDataTitle": "Особисті дані",
+        "scaleSettings": {
+            "title": "Налаштування вагів",
+            "hostLabel": "IP-адреса або хост",
+            "hostPlaceholder": "Наприклад, 192.168.2.190",
+            "hostRequired": "Вкажіть IP-адресу або хост вагів",
+            "hostInvalid": "Вкажіть коректну IP-адресу або хост",
+            "portLabel": "Порт",
+            "portPlaceholder": "Наприклад, 9761",
+            "portRequired": "Вкажіть порт вагів",
+            "portInvalid": "Порт має бути цілим числом від 1 до 65535",
+            "saved": "Налаштування вагів збережено"
+        },
         "editPersonalDataTitle": "Редагування профілю",
         "editTitle": "Редагувати",
         "notificationsTitle": "Нотифікації",

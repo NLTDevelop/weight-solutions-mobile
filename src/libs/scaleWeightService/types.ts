@@ -8,6 +8,8 @@ export interface ScaleWeightServiceConfig {
     protocol?: ScaleWeightProtocol;
     stableSamplesCount: number;
     stableThresholdKg: number;
+    minimumCaptureWeightKg: number;
+    requiredStableDurationMs: number;
     staleAfterMs: number;
 }
 
@@ -17,6 +19,8 @@ export interface ScaleWeightReading {
     unit: string;
     receivedAt: number;
     isStable: boolean;
+    stableDurationMs: number;
+    isReadyForCapture: boolean;
 }
 
 export interface ScaleWeightServiceState {
@@ -40,4 +44,3 @@ export interface ScaleWeightParseResult {
 export type ScaleWeightUnsubscribe = () => void;
 
 export type ScaleWeightStateListener = (state: ScaleWeightServiceState) => void;
-

@@ -8,6 +8,7 @@ import { useEditWeighingUi } from './useEditWeighingUi';
 import { getFirstWeighingItem, getFirstWeighingType, getSecondWeighingItem, getSecondWeighingType } from '@/modules/Weighing/utils/weight';
 import { useUiContext } from '@/UIProvider';
 import { WeightType } from '@/entities/Order/types';
+import { useWeightingConnection } from '@/hooks/useWeightingConnection';
 
 interface IRouteParams {
     orderId: number;
@@ -22,6 +23,7 @@ export const useEditWeighing = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [secondWeight, setSecondWeight] = useState('');
     const [weightType, setWeightType] = useState<WeightType | null>(null);
+    const { isScaleConnected } = useWeightingConnection({ onStableWeight: setSecondWeight });
 
     const currentOrder = orderModel.getById(orderId);
 
@@ -121,11 +123,11 @@ export const useEditWeighing = () => {
         weightType,
         weightTypeItems,
         isLoading,
+        isScaleConnected,
         weightTypeErrorText,
         secondWeightErrorText,
         isSubmitDisabled,
         onSelectWeightType: setWeightType,
-        onChangeSecondWeight: setSecondWeight,
         onPressBack: () => navigation.goBack(),
         onSubmit,
     };

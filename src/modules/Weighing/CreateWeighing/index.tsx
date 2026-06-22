@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import { Text, View } from 'react-native';
 import { useCreateWeighing } from './presenters/useCreateWeighing';
 import { getStyles } from './styles';
-import { useWeightingConnection } from '@/hooks/useWeightingConnection';
+import { ScaleConnectionIndicator } from '../components/ScaleConnectionIndicator';
 
 export const CreateWeighingView = observer(() => {
     const { colors, t } = useUiContext();
@@ -25,6 +25,7 @@ export const CreateWeighingView = observer(() => {
         firstWeight,
         comment,
         isLoading,
+        isScaleConnected,
         productItems,
         movementTypeItems,
         weightCountItems,
@@ -39,12 +40,10 @@ export const CreateWeighingView = observer(() => {
         onChangeCarNumber,
         onSelectMovementType,
         onSelectWeightCount,
-        onChangeFirstWeight,
         onChangeComment,
         onPressBack,
         onSubmit,
     } = useCreateWeighing();
-    useWeightingConnection();
 
     return (
         <ScreenContainer
@@ -52,7 +51,13 @@ export const CreateWeighingView = observer(() => {
             isKeyboardAvoiding
             scrollEnabled
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('weighings.createTitle')} onPressBack={onPressBack} />}
+            headerComponent={
+                <HeaderWithBackButton
+                    title={t('weighings.createTitle')}
+                    onPressBack={onPressBack}
+                    rightComponent={<ScaleConnectionIndicator isConnected={isScaleConnected} />}
+                />
+            }
         >
             <View style={styles.content}>
                 <NLTTextInput
@@ -129,7 +134,6 @@ export const CreateWeighingView = observer(() => {
                     label={t('weighings.weightTypeLabel')}
                     placeholder={t('weighings.weightTypePlaceholder')}
                     value={weightType ? t(`weighings.weightTypesLabels.${weightType}`) : ''}
-                    onChangeText={onChangeFirstWeight}
                     editable={false}
                     isMandatory
                     shape='pill'
@@ -139,12 +143,12 @@ export const CreateWeighingView = observer(() => {
                     label={weightType ? t(`weighings.weightTypesLabels.${weightType}`) : t('weighings.weightLabel')}
                     placeholder={weightType ? t(`weighings.weightTypesPlaceholders.${weightType}`) : t('weighings.weightPlaceholder')}
                     value={firstWeight}
-                    onChangeText={onChangeFirstWeight}
+                    editable={false}
                     error={firstWeightErrorText ? t(firstWeightErrorText) : ''}
                     isMandatory
                     shape='pill'
                     containerStyle={styles.inputContainer}
-                    keyboardType='numeric'
+                    inputContainerStyle={styles.readonlyInput}
                 />
                 <NLTTextInput
                     label={t('weighings.commentLabel')}

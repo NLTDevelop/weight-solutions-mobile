@@ -17,7 +17,7 @@ class ScaleWeightParser {
         if (scaleFrame) {
             const sign = scaleFrame[1] === '-' ? -1 : 1;
             return {
-                weightKg: sign * Number(scaleFrame[2]) / 10,
+                weightKg: Math.round(sign * Number(scaleFrame[2]) / 10),
                 unit: 'kg',
             };
         }

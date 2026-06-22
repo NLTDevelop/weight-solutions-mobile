@@ -36,6 +36,10 @@ export const useProfile = () => {
         navigation.navigate('ChangePasswordView');
     };
 
+    const onGoToScaleSettings = () => {
+        navigation.navigate('ScaleSettingsView');
+    };
+
     const onGoToUsersManagement = () => {
         navigation.navigate('UsersManagementView');
     };
@@ -104,6 +108,7 @@ export const useProfile = () => {
         onGoToPersonalData,
         onGoToContactInformation,
         onGoToChangePassword,
+        onGoToScaleSettings,
         onGoToUsersManagement,
         onOpenLogoutModal,
         onToggleNotifications,

@@ -9,12 +9,12 @@ interface IProps {
     isLoading: boolean;
 }
 
-const NUMBERS_ONLY_REGEX = /^\d+$/;
+const WEIGHT_REGEX = /^\d+$/;
 
 export const useCreateWeighingUi = ({ selectedProductId, carNumber, movementType, weightType, weightCount, firstWeight, isSubmitted, isLoading }: IProps) => {
     const trimmedCarNumber = carNumber.trim();
     const trimmedFirstWeight = firstWeight.trim();
-    const isFirstWeightNumeric = NUMBERS_ONLY_REGEX.test(trimmedFirstWeight);
+    const isFirstWeightNumeric = WEIGHT_REGEX.test(trimmedFirstWeight);
 
     const productErrorText = isSubmitted && !selectedProductId ? 'weighings.validation.productRequired' : '';
     const carNumberErrorText = isSubmitted && !trimmedCarNumber ? 'weighings.validation.carNumberRequired' : '';

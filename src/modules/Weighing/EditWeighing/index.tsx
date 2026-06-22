@@ -13,6 +13,7 @@ import { formatWeighingDateTime, formatWeightValue } from '../utils/weight';
 import { NLTInfoRow } from '@/UIKit/NLTInfoRow';
 import { NLTCard } from '@/UIKit/NLTCard';
 import { NLTSeparator } from '@/UIKit/NLTSeparator';
+import { ScaleConnectionIndicator } from '../components/ScaleConnectionIndicator';
 
 export const EditWeighingView = observer(() => {
     const { colors, t } = useUiContext();
@@ -32,10 +33,10 @@ export const EditWeighingView = observer(() => {
         weightType,
         weightTypeItems,
         isLoading,
+        isScaleConnected,
         secondWeightErrorText,
         isSubmitDisabled,
         onSelectWeightType,
-        onChangeSecondWeight,
         onPressBack,
         onSubmit,
     } = useEditWeighing();
@@ -46,7 +47,13 @@ export const EditWeighingView = observer(() => {
             isKeyboardAvoiding
             scrollEnabled
             contentContainerStyle={styles.container}
-            headerComponent={<HeaderWithBackButton title={t('weighings.editTitle')} onPressBack={onPressBack} />}
+            headerComponent={
+                <HeaderWithBackButton
+                    title={t('weighings.editTitle')}
+                    onPressBack={onPressBack}
+                    rightComponent={<ScaleConnectionIndicator isConnected={isScaleConnected} />}
+                />
+            }
         >
             <View style={styles.content}>
                 <NLTCard>
@@ -85,11 +92,11 @@ export const EditWeighingView = observer(() => {
                     label={weightType ? t(`weighings.weightTypesLabels.${weightType}`) : t('weighings.weightLabel')}
                     placeholder={weightType ? t(`weighings.weightTypesPlaceholders.${weightType}`) : t('weighings.weightPlaceholder')}
                     value={secondWeight}
-                    onChangeText={onChangeSecondWeight}
+                    editable={false}
                     error={secondWeightErrorText ? t(secondWeightErrorText) : ''}
                     isMandatory
                     shape='pill'
-                    keyboardType='numeric'
+                    inputContainerStyle={styles.readonlyInput}
                 />
             </View>
             <View style={styles.footer}>

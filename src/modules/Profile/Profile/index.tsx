@@ -17,12 +17,13 @@ import { EditIcon } from '@/assets/icons/EditIcon';
 import { NLTModal } from '@/UIKit/NLTModal';
 import { userModel } from '@/entities/User/UserModel';
 import { OnePlatformIcon } from '@/assets/icons/OnePlatformIcon';
+import { ScaleTabIcon } from '@/assets/icons/ScaleTabIcon';
 
 
 export const ProfileView = observer(() => {
     const { colors, t } = useUiContext();
     const styles = useMemo(() => getStyles(colors), [colors]);
-    const { isExitModalVisible, isDeleteModalVisible, isNotificationsEnabled, onLogout, onCloseModal, onDeleteAccount, onGoToPersonalData, onGoToContactInformation, onGoToChangePassword, onGoToUsersManagement, onOpenLogoutModal,
+    const { isExitModalVisible, isDeleteModalVisible, isNotificationsEnabled, onLogout, onCloseModal, onDeleteAccount, onGoToPersonalData, onGoToContactInformation, onGoToChangePassword, onGoToScaleSettings, onGoToUsersManagement, onOpenLogoutModal,
         onToggleNotifications, onOpenDeleteModal, onGoToOnePlatform, } = useProfile();
     const isSuperadmin = userModel.user?.role === 'superadmin';
     const isAdmin = userModel.user?.role === 'admin';
@@ -38,6 +39,8 @@ export const ProfileView = observer(() => {
                 <NLTCard >
                     <Typography variant='h3' text={t('profile.settingsTitle')} style={styles.name} />
                     <ProfileMenuItem icon={<UserIcon color={colors.icon_strong} />} title={t('profile.personalDataTitle')} onPress={onGoToPersonalData} />
+                    {isSuperadmin ? null : <View style={styles.itemSeparator} />}
+                    {isSuperadmin ? null : <ProfileMenuItem icon={<ScaleTabIcon width={32} height={32} color={colors.icon_strong} />} title={t('profile.scaleSettings.title')} onPress={onGoToScaleSettings} />}
                     {isAdmin ? <View style={styles.itemSeparator} /> : null}
                     {isAdmin ? <ProfileMenuItem icon={<BellIcon color={colors.icon_strong} />} title={t('profile.notificationsTitle')} onPress={onToggleNotifications} trailingType={'toggle'} toggleValue={isNotificationsEnabled} onToggle={onToggleNotifications} /> : null}
                     {isUser ? null : <View style={styles.itemSeparator} />}

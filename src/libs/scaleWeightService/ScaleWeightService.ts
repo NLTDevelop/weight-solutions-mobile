@@ -13,6 +13,8 @@ const DEFAULT_CONFIG: ScaleWeightServiceConfig = {
     protocol: 'unknown',
     stableSamplesCount: 3,
     stableThresholdKg: 20,
+    minimumCaptureWeightKg: 50,
+    requiredStableDurationMs: 5000,
     staleAfterMs: 5000,
 };
 
@@ -25,6 +27,7 @@ class ScaleWeightService {
     };
     private listeners = new Set<ScaleWeightStateListener>();
     private samples: ScaleWeightReading[] = [];
+    private stableSince: number | null = null;
     private transportUnsubscribers: ScaleWeightUnsubscribe[] = [];
 
     constructor(
@@ -121,10 +124,13 @@ class ScaleWeightService {
             unit: parsed.unit,
             receivedAt: Date.now(),
             isStable: false,
+            stableDurationMs: 0,
+            isReadyForCapture: false,
         };
 
         this.samples = [...this.samples, reading].slice(-this.config.stableSamplesCount);
-        reading.isStable = this.isStableReading(reading);
+        reading.isStable = this.isStableReading();
+        this.updateCaptureReadiness(reading);
 
         this.setState({
             status: this.isReceivingStatus() ? 'connected' : this.state.status,
@@ -156,6 +162,7 @@ class ScaleWeightService {
 
     public clear = () => {
         this.samples = [];
+        this.stableSince = null;
         this.setState({
             lastReading: null,
             error: null,
@@ -193,14 +200,28 @@ class ScaleWeightService {
             .join('');
     };
 
-    private isStableReading = (reading: ScaleWeightReading) => {
+    private isStableReading = () => {
         if (this.samples.length < this.config.stableSamplesCount) {
             return false;
         }
 
-        return this.samples.every(sample => (
-            Math.abs(sample.weightKg - reading.weightKg) <= this.config.stableThresholdKg
-        ));
+        const weights = this.samples.map(sample => sample.weightKg);
+        return Math.max(...weights) - Math.min(...weights) <= this.config.stableThresholdKg;
+    };
+
+    private updateCaptureReadiness = (reading: ScaleWeightReading) => {
+        const isEligible = reading.isStable && reading.weightKg > this.config.minimumCaptureWeightKg;
+        if (!isEligible) {
+            this.stableSince = null;
+            return;
+        }
+
+        if (this.stableSince === null) {
+            this.stableSince = reading.receivedAt;
+        }
+
+        reading.stableDurationMs = reading.receivedAt - this.stableSince;
+        reading.isReadyForCapture = reading.stableDurationMs > this.config.requiredStableDurationMs;
     };
 
     private isReceivingStatus = () => (

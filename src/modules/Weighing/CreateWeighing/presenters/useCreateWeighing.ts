@@ -9,6 +9,7 @@ import { useCreateWeighingUi } from './useCreateWeighingUi';
 import { useUiContext } from '@/UIProvider';
 import { orderModel } from '@/entities/Order/OrderModel';
 import { getPrimaryWeightType, MOVEMENT_TYPE, MovementType, WeightType } from '@/entities/Order/types';
+import { useWeightingConnection } from '@/hooks/useWeightingConnection';
 
 const PRODUCT_LIMIT = 100;
 
@@ -26,6 +27,7 @@ export const useCreateWeighing = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const isGuest = !!orderModel.isGuest;
+    const { isScaleConnected } = useWeightingConnection({ onStableWeight: setFirstWeight });
 
     const loadProducts = useCallback(async () => {
         const loadProductsPage = async (offset: number): Promise<boolean> => {
@@ -136,6 +138,7 @@ export const useCreateWeighing = () => {
         firstWeight,
         comment,
         isLoading,
+        isScaleConnected,
         productItems,
         movementTypeItems,
         weightCountItems,
@@ -151,7 +154,6 @@ export const useCreateWeighing = () => {
         onChangeCarNumber: setCarNumber,
         onSelectMovementType,
         onSelectWeightCount: (value: number) => setWeightCount(value),
-        onChangeFirstWeight: setFirstWeight,
         onChangeComment: setComment,
         onPressBack: () => navigation.goBack(),
         onSubmit,

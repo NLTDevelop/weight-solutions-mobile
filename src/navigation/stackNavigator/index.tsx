@@ -14,6 +14,7 @@ import { EditContactInformationView } from '@/modules/Profile/EditContactInforma
 import { EditPersonalDataView } from '@/modules/Profile/EditPersonalData';
 import { LinkedObjectsView } from '@/modules/Profile/LinkedObjects';
 import { PersonalDataView } from '@/modules/Profile/PersonalData';
+import { ScaleSettingsView } from '@/modules/Profile/ScaleSettings';
 import { ReportsView } from '@/modules/Reports';
 import { SplashView } from '@/modules/Splash/ui';
 import { CreateUserView } from '@/modules/Users/ui/CreateUser';
@@ -55,6 +56,7 @@ export const MainStackNavigator = observer(() => {
             <Stack.Screen name="EditUserView" component={EditUserView} />
             <Stack.Screen name="UsersManagementView" component={UsersManagementView} />
             <Stack.Screen name="PersonalDataView" component={PersonalDataView} />
+            <Stack.Screen name="ScaleSettingsView" component={ScaleSettingsView} />
             <Stack.Screen name="EditPersonalDataView" component={EditPersonalDataView} />
             <Stack.Screen name="ContactInformationView" component={ContactInformationView} />
             <Stack.Screen name="ChangePasswordView" component={ChangePasswordView} />

@@ -1,13 +1,34 @@
-import { configureTcpScaleWeightChannel } from '@/libs/scaleWeightService';
+import { configureTcpScaleWeightChannel, ScaleWeightConnectionStatus } from '@/libs/scaleWeightService';
+import { scaleSettingsModel } from '@/entities/ScaleSettings/ScaleSettingsModel';
 import { loggerModel } from '@/UIKit/Logger/entity/loggerModel';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export const useWeightingConnection = () => {
+interface IProps {
+    onStableWeight: (weight: string) => void;
+}
+
+export const useWeightingConnection = ({ onStableWeight }: IProps) => {
+    const [connectionStatus, setConnectionStatus] = useState<ScaleWeightConnectionStatus>('idle');
+
     useEffect(() => {
         let isActive = true;
+        let isWeightCaptured = false;
+        const settings = scaleSettingsModel.settings;
+        const hasValidSettings = Boolean(
+            settings.host.trim() &&
+            Number.isInteger(settings.port) &&
+            settings.port >= 1 &&
+            settings.port <= 65535,
+        );
+
+        if (!hasValidSettings) {
+            setConnectionStatus('error');
+            return;
+        }
+
         const config = {
-            host: '192.168.2.190',
-            port: 9761,
+            host: settings.host,
+            port: settings.port,
             delimiter: '',
             reconnectDelayMs: 2000,
         };
@@ -18,8 +39,11 @@ export const useWeightingConnection = () => {
         const scaleService = configureTcpScaleWeightChannel({
             ...config,
         });
+        scaleService.clear();
+        loggerModel.add('library', 'Scale connection -> previous-reading-cleared', '');
 
         const unsubscribe = scaleService.subscribe(state => {
+            setConnectionStatus(state.status);
             const message = JSON.stringify(state, null, 2);
             console.log('[Scale connection] service-state', state);
             loggerModel.add(
@@ -27,6 +51,21 @@ export const useWeightingConnection = () => {
                 `Scale connection -> state-${state.status}`,
                 message,
             );
+
+            const reading = state.lastReading;
+            if (!isWeightCaptured && reading?.isReadyForCapture) {
+                isWeightCaptured = true;
+                const weight = String(reading.weightKg);
+                loggerModel.add('library', 'Scale connection -> weight-captured', JSON.stringify({
+                    weight,
+                    stableDurationMs: reading.stableDurationMs,
+                }, null, 2));
+                console.log('[Scale connection] weight-captured', {
+                    weight,
+                    stableDurationMs: reading.stableDurationMs,
+                });
+                onStableWeight(weight);
+            }
         });
 
         const connect = async () => {
@@ -47,8 +86,14 @@ export const useWeightingConnection = () => {
         connect();
 
         return () => {
+            isActive = false;
             unsubscribe();
             scaleService.disconnect();
         };
-    }, []);
+    }, [onStableWeight]);
+
+    return {
+        connectionStatus,
+        isScaleConnected: connectionStatus === 'connected',
+    };
 };
