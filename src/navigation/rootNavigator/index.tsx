@@ -1,7 +1,7 @@
 import { NavigationContainer, createNavigationContainerRef } from '@react-navigation/native';
 import { MainStackNavigator } from '../stackNavigator';
 import { useUiContext } from '@/UIProvider';
-import { Logger } from '../../UIKit/Logger/ui/Logger';
+// import { Logger } from '../../UIKit/Logger/ui/Logger';
 import { observer } from 'mobx-react';
 import { ConnectionContainer } from '@/UIKit/ConnectionBanner/ui';
 
@@ -17,7 +17,7 @@ export const RootNavigator = observer(() => {
         <NavigationContainer ref={navigationRef} theme={{ colors, dark: theme === 'dark', fonts }}>
             <ConnectionContainer />
             <MainStackNavigator />
-            <Logger />
+            {/* <Logger /> */}
         </NavigationContainer>
     );
 });

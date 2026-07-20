@@ -20,8 +20,9 @@ export interface ILinks {
 }
 
 class Links {
-    private dev = 'https://weight-solutions.on-forge.com/api/v1';
-    private _domain = this.dev;
+    // private dev = 'https://weight-solutions.on-forge.com/api/v1';
+    private prod = 'https://api-vagovi.pp.ua/api/v1';
+    private _domain = this.prod;
     private _links = {
         me: `${this._domain}/me`,
         signIn: `${this._domain}/auth/login`,
