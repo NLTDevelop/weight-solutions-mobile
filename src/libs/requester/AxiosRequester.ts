@@ -1,0 +1,89 @@
+import axios, { AxiosRequestConfig } from 'axios';
+import { IRequester } from './IRequester/IRequester';
+import { IResponse } from './IRequester/IResponse';
+// import { userModel } from '../../modules-one-platform/base/entities/users/UserModel';
+import { loggerModel } from '../../UIKit/Logger/entity/loggerModel';
+
+class AxiosRequester implements IRequester {
+
+    constructor() {
+        delete axios.defaults.headers.common['user-agent'];
+    }
+
+    private getHeaders = (headers?: object) => {
+        const result: any = {
+            Accept: 'application/json',
+            'Cache-Control': 'no-cache',
+            'Content-Type': 'application/json',
+        };
+        // if (userModel.token) {
+        //     result.Authorization = `Bearer ${userModel.token}`;
+        // }
+        if (headers) {
+            Object.assign(result, headers);
+        }
+        return result;
+    };
+
+    request: IRequester['request'] = async (config: AxiosRequestConfig<object>): Promise<IResponse<any>> => {
+        try {
+            config.headers = this.getHeaders(config.headers);
+            console.log('AxiosRequester -> request: ', config);
+            loggerModel.add(
+                'request',
+                `AxiosRequester -> request -> ${config.url}: `,
+                JSON.stringify(config, null, 3),
+            );
+            const response = await axios(config);
+            console.log('AxiosRequester -> request response: ', response);
+            loggerModel.add(
+                'response',
+                `AxiosRequester -> response -> ${config.url}: `,
+                JSON.stringify(response, null, 3),
+            );
+            return this.processingResponse({
+                data: response.data,
+                status: response.status,
+            });
+        } catch (error: any) {
+            const isNetworkError =
+                !error.response &&
+                (error.code === 'ECONNABORTED' ||
+                    error.message?.includes('Network Error') ||
+                    error.message?.includes('timeout') ||
+                    error.message?.includes('Failed to fetch'));
+
+            console.warn('AxiosRequester -> request: ', JSON.stringify(config, null, 2), error);
+            console.warn('AxiosRequester -> request error: ', error?.response?.data?.message || '-----------');
+            loggerModel.add('error', `AxiosRequester -> request -> ${config.url}: `, JSON.stringify(error, null, 3));
+
+            return {
+                isError: true,
+                message: isNetworkError ? 'Network unavailable' : error?.response?.data?.message,
+                type: error?.response?.data?.type || (isNetworkError ? 'NETWORK_ERROR' : ''),
+                status: error.response?.status,
+                errors: error?.response?.data,
+                encrypted_error: error?.response?.data,
+            };
+        }
+    };
+
+    private processingResponse = (response: any): IResponse<any> => {
+        if (response?.status < 400) {
+            return {
+                isError: false,
+                data: response.data,
+                message: '',
+                type: '',
+            };
+        } else {
+            return {
+                isError: true,
+                message: response?.data?.message || '',
+                type: response?.data?.type || '',
+            };
+        }
+    };
+}
+
+export const requester = new AxiosRequester();

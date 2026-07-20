@@ -1,0 +1,39 @@
+import { ReactElement, useMemo } from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import { getStyles } from './styles';
+import { useUiContext } from '../../UIProvider';
+import { Typography } from '../Typography';
+import { observer } from 'mobx-react';
+
+interface IProps {
+    text?: string;
+    description?: string;
+    image?: ReactElement;
+    BottomElement?: ReactElement;
+    isLoading?: boolean;
+    isNothingFound?: boolean;
+}
+
+export const EmptyListView = observer(({ text, description, image, BottomElement, isLoading, isNothingFound }: IProps) => {
+    const { colors, t } = useUiContext();
+    const styles = useMemo(() => getStyles(colors), [colors]);
+
+    return (
+        isLoading
+            ? <View style={styles.container}>
+                <ActivityIndicator size={'large'} color={colors.primary} />
+            </View>
+            : isNothingFound
+                ? <View style={styles.container}>
+                    {/* <Image source={require("../../assets/images/nothing_found.png")} style={styles.image} /> */}
+                    <Typography variant='h5' style={styles.title} >{t('nothingFoundTitle')}</Typography>
+                    <Typography variant='body_xl' style={styles.description} >{t('nothingFoundDescription')}</Typography>
+                </View>
+                : <View style={styles.container}>
+                    {image}
+                    {text && <Typography variant='h3' style={styles.title} text={text} >{text}</Typography>}
+                    {description && <Typography variant='body_m' style={styles.description} text={description} >{description}</Typography>}
+                    {BottomElement}
+                </View>
+    );
+});
