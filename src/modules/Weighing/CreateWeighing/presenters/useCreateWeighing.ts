@@ -11,7 +11,7 @@ import { orderModel } from '@/entities/Order/OrderModel';
 import { getPrimaryWeightType, MOVEMENT_TYPE, MovementType, WeightType } from '@/entities/Order/types';
 import { useWeightingConnection } from '@/hooks/useWeightingConnection';
 
-const PRODUCT_LIMIT = 100;
+const PRODUCT_LIMIT = 200;
 
 export const useCreateWeighing = () => {
     const { t } = useUiContext();

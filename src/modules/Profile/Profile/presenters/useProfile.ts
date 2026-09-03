@@ -1,12 +1,13 @@
 import { companyModel } from '@/entities/Company/CompanyModel';
 import { contactInformationModel } from '@/entities/ContactInformation/ContactInformationModel';
 import { notificationModel } from '@/entities/Notification/NotificationModel';
-// import { notificationEntityService } from '@/entities/Notification/NotificationService';
+import { notificationEntityService } from '@/entities/Notification/NotificationService';
 import { orderModel } from '@/entities/Order/OrderModel';
 import { productModel } from '@/entities/Product/ProductModel';
 import { userModel } from '@/entities/User/UserModel';
 import { usersModel } from '@/entities/Users/UsersModel';
 import { usersService } from '@/entities/Users/UsersService';
+import { notificationService } from '@/libs/notificationService/NotificationService';
 import { toastService } from '@/libs/toast/toastService';
 import { useUiContext } from '@/UIProvider';
 import { useNavigation } from '@react-navigation/native';
@@ -63,8 +64,8 @@ export const useProfile = () => {
     const onLogout = () => {
         onCloseModal();
         if (user?.role === 'admin') {
-            //  notificationService.getFCMToken()
-            //         .then(notificationEntityService.deleteToken)
+             notificationService.getFCMToken()
+                    .then(notificationEntityService.deleteToken)
         }
         userModel.clear();
         usersModel.clear();

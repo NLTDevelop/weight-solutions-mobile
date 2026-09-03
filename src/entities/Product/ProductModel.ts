@@ -9,8 +9,8 @@ export interface IProductModel {
 }
 
 class ProductModel implements IProductModel {
-    private activeProductsRepository = new MobXRepository<{ data: IProduct[], meta: IProductMeta | null } | null>(null);
-    private inactiveProductsRepository = new MobXRepository<{ data: IProduct[], meta: IProductMeta | null } | null>(null);
+    private activeProductsRepository = new MobXRepository<{ data: IProduct[], meta: IProductMeta | null } | null>(null, 'ACTIVE_PRODUCTS');
+    private inactiveProductsRepository = new MobXRepository<{ data: IProduct[], meta: IProductMeta | null } | null>(null, 'INACTIVE_PRODUCTS');
     private currentRepository = new MobXRepository<IProduct | null>(null);
 
     public get activeProducts() {

@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { IRequester } from './IRequester/IRequester';
 import { IResponse } from './IRequester/IResponse';
-// import { userModel } from '../../modules-one-platform/base/entities/users/UserModel';
+import { userModel } from "@/entities/User/UserModel";
 import { loggerModel } from '../../UIKit/Logger/entity/loggerModel';
 
 class AxiosRequester implements IRequester {
@@ -16,9 +16,9 @@ class AxiosRequester implements IRequester {
             'Cache-Control': 'no-cache',
             'Content-Type': 'application/json',
         };
-        // if (userModel.token) {
-        //     result.Authorization = `Bearer ${userModel.token}`;
-        // }
+        if (userModel?.user?.token) {
+            result.Authorization = `Bearer ${userModel?.user?.token}`;
+        }
         if (headers) {
             Object.assign(result, headers);
         }

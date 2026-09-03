@@ -21,8 +21,6 @@ export const declOfWordWithoutNum = (num: number, word: Array<string>): string =
     return `${word[num % 100 > 4 && num % 100 < 20 ? 2 : cases[num % 10 < 5 ? num % 10 : 5]]}`;
 };
 
-// scale
-
 const idealWidth: number = 375;
 const idealHeight: number = 812;
 export const size: { width: number; height: number } = Dimensions.get('window');

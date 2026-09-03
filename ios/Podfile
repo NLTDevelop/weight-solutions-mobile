@@ -15,12 +15,17 @@ prepare_react_native_project!
 
 use_modular_headers!
 
+# Several React Native modules (including RNNotifee and RNFS) do not link the
+# prebuilt React.framework when CocoaPods builds them as dynamic frameworks.
+# Resolve Firebase through CocoaPods so the app can keep the standard static
+# React Native linkage.
+$RNFirebaseDisableSPM = true
+
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
   use_frameworks! :linkage => linkage.to_sym
 end
-
 target 'weightSolutions' do
   config = use_native_modules!
 
