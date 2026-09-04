@@ -16,8 +16,8 @@
 		6F91C4CFB5BF4787A45D7E3A /* Inter-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAECEA3BEDE439DACB4B72B /* Inter-Thin.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		D50DFFC025F2782B93E92C3E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		D1AA0099304944A700438F6E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1AA0098304944A700438F6E /* GoogleService-Info.plist */; };
+		D50DFFC025F2782B93E92C3E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		FB86F2F301904C48A1CACDD7 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72180B6FF1544C3BA25E435C /* Inter-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
@@ -375,7 +375,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -384,11 +384,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.weightsolutions;
 				PRODUCT_NAME = weightSolutions;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ENABLE_EXPLICIT_MODULES = NO;
 				SWIFT_INCLUDE_PATHS = "$(inherited) ${SYMROOT}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -410,7 +413,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -419,10 +422,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.weightsolutions;
 				PRODUCT_NAME = weightSolutions;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ENABLE_EXPLICIT_MODULES = NO;
 				SWIFT_INCLUDE_PATHS = "$(inherited) ${SYMROOT}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
